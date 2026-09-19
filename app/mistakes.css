@@ -1,0 +1,25 @@
+.mistakes-guide{color:#475569;font-size:16px;line-height:1.7}
+.mistakes-intro{margin:0 0 20px}
+.mistakes-list{display:grid;gap:12px}
+.mistakes-list .mistake-item{border:1px solid #e7ecf3;border-radius:16px;overflow:hidden;background:#fff}
+.mistake-item[data-state=open]{border-color:#d9d2ff;box-shadow:0 4px 16px #081a3605}
+.mistakes-list .mistake-trigger{padding:18px 20px;align-items:center;font-size:16px;font-weight:600;color:#0f172a;text-decoration:none}
+.mistake-trigger:hover{background:#faf9ff}
+.mistake-trigger:focus-visible{outline:2px solid #6d5df6;outline-offset:-3px}
+.mistake-heading{display:flex;align-items:center;gap:12px}
+.mistake-number{display:grid;place-items:center;flex-shrink:0;width:28px;height:28px;background:#fef3c7;color:#92400e;border-radius:50%;font-size:14px}
+.mistake-body{display:grid;gap:18px;padding:4px 20px 22px;font-size:16px;line-height:1.75}
+.mistake-body h4{font-size:14px;font-weight:700;color:#0f172a;margin-bottom:6px}
+.mistake-warning,.mistake-better{border-radius:12px;padding:16px}
+.mistake-warning{background:#fffbeb}.mistake-better{background:#f0fdf4}
+.mistake-terms{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:14px}
+.mistake-terms>span{color:#64748b}
+.mistake-terms button{text-decoration:underline dotted;text-underline-offset:4px}
+.mistake-code-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;min-width:0}
+.mistake-code-pair section{min-width:0}
+.mistake-code-pair pre{margin:0;background:#0f1b2d;color:#e2e8f0;padding:16px;border-radius:12px;overflow:auto;font-size:13px;line-height:1.85;tab-size:4}
+.mistake-code-pair pre:focus-visible{outline:2px solid #6d5df6;outline-offset:3px}
+.mistake-caption{font-size:13px;color:#64748b}
+.mistake-takeaway{border-top:1px solid #e7ecf3;padding-top:16px;font-size:14px}
+@media(max-width:1400px){.mistake-code-pair{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.mistakes-guide [data-slot=accordion-content]{animation:none}.mistake-trigger,.mistake-trigger svg{transition:none}}
