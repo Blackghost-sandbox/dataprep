@@ -1,3 +1,5 @@
+import { sqlSetup, sqlQuery, dataframeQuery } from "@/lib/spark-sql-example";
+
 export interface SparkLesson {
   id: string; title: string; minutes: number; description: string;
   concepts: string[][]; flow: string[];
@@ -153,6 +155,14 @@ export const sparkLessons: SparkLesson[] = [
       [
         "Handle missing values intentionally",
         "NULL means missing or unknown. Compare with IS NULL, not = NULL. Aggregates such as SUM ignore null inputs; decide whether that matches your business rules."
+      ],
+      [
+        "Filter rows versus filter groups",
+        "WHERE amount > 0 excludes refunds before summing. HAVING SUM(amount) > 100 then keeps only grouped totals above 100. Positive sales and net sales answer different business questions."
+      ],
+      [
+        "Request and inspect execution",
+        "A query describes the result. show() requests rows; explain() displays a plan. ORDER BY gives the displayed rows a defined order."
       ]
     ],
     "flow": [
@@ -162,19 +172,20 @@ export const sparkLessons: SparkLesson[] = [
       "Physical Plan"
     ],
     "example": {
-      "code": "sales = spark.createDataFrame(\n    [(\"IN\", 100), (\"US\", 50), (\"IN\", 20)],\n    \"country STRING, amount INT\"\n)\nsales.createOrReplaceTempView(\"sales\")\nspark.sql(\"\"\"\n    SELECT country, SUM(amount) AS total\n    FROM sales WHERE amount > 0\n    GROUP BY country ORDER BY country\n\"\"\").show()",
+      "code": `${sqlSetup}\nspark.sql("""\n${sqlQuery}\n""").show()`,
       "output": "country | total\nIN      | 120\nUS      | 50",
       "walkthrough": [
-        "Create a three-row table with explicit column types.",
-        "Register a session-scoped view named sales.",
-        "Filter positive amounts, group by country, sum each group, and sort for display."
+        "Create five sales including a −10 refund and a zero amount. Register sales as a temporary view.",
+        "WHERE amount > 0 removes the refund and zero, leaving three positive sales.",
+        "Group by country: IN has 100 and 20; US has 50.",
+        "SUM produces IN = 120 and US = 50. ORDER BY country sorts the output; show() requests execution."
       ]
     },
     "practice": {
-      "task": "Using the example sales view, return only countries whose total sales exceed 100.",
-      "hint": "Filter grouped results with HAVING SUM(amount) > 100.",
-      "solution": "sales = spark.createDataFrame([(\"IN\", 100), (\"US\", 50), (\"IN\", 20)], \"country STRING, amount INT\")\nsales.createOrReplaceTempView(\"sales\")\nspark.sql(\"\"\"SELECT country, SUM(amount) AS total\nFROM sales GROUP BY country\nHAVING SUM(amount) > 100 ORDER BY country\"\"\").show()",
-      "output": "country | total\nIN      | 120"
+      "task": "Using the same five-row sales view: (1) return countries with positive-sales totals above 100; (2) remove WHERE to calculate net totals including refunds; (3) write the positive-sales query with the DataFrame API. Predict the differences before running.",
+      "hint": "Use WHERE amount > 0 before GROUP BY, then HAVING SUM(amount) > 100. Removing WHERE changes US from 50 to 40. Use filter, groupBy, and F.sum for the equivalent DataFrame query.",
+      "solution": `${sqlSetup}\n# 1. Positive sales above 100\nspark.sql("""${sqlQuery.replace("ORDER BY country", "HAVING SUM(amount) > 100 ORDER BY country")}""").show()\n# 2. Net totals, including refunds\nspark.sql("""${sqlQuery.replace("WHERE amount > 0\n", "")}""").show()\n# 3. Equivalent DataFrame query\n${dataframeQuery}`,
+      "output": "Positive totals above 100: IN | 120\nNet totals: IN | 120; US | 40\nDataFrame positive totals: IN | 120; US | 50"
     },
     "interview": [
       {
@@ -191,6 +202,16 @@ export const sparkLessons: SparkLesson[] = [
         "question": "Does a temporary view save data?",
         "answer": "No. It names a queryable DataFrame within a session. Use a deliberate write to persist data; a temporary view is not a durable table.",
         "followup": "What happens when that Spark session ends?"
+      },
+      {
+        "question": "Why does removing WHERE amount > 0 change the answer?",
+        "answer": "The original query totals positive sales only. Including the −10 refund changes the US total from 50 to 40. Neither answer is universally correct: clarify whether the business wants positive sales or net revenue.",
+        "followup": "Should a zero amount or missing amount count as a sale?"
+      },
+      {
+        "question": "What do show() and explain() tell you?",
+        "answer": "show() requests execution and displays result rows. explain() describes a plan; it does not prove a runtime speedup. Compare equivalent expressions and measured workloads.",
+        "followup": "Why might two equivalent queries have similar execution plans?"
       }
     ],
     "mistakes": [
@@ -207,6 +228,20 @@ export const sparkLessons: SparkLesson[] = [
         "better": "Use HAVING to filter grouped totals.",
         "before": "SELECT country, SUM(amount) FROM sales\nWHERE SUM(amount) > 100 GROUP BY country",
         "after": "SELECT country, SUM(amount) FROM sales\nGROUP BY country HAVING SUM(amount) > 100"
+      },
+      {
+        "title": "Treating positive sales as net revenue",
+        "why": "Filtering out negative refunds changes the business meaning of the total.",
+        "better": "Include refunds when calculating net revenue; filter positive values only when that is the intended metric.",
+        "before": "SELECT country, SUM(amount) FROM sales WHERE amount > 0 GROUP BY country",
+        "after": "-- Net revenue includes refunds\nSELECT country, SUM(amount) FROM sales GROUP BY country"
+      },
+      {
+        "title": "Assuming SUM treats missing values as zero",
+        "why": "SUM ignores null inputs and returns NULL if every input is null. COUNT(*) and COUNT(amount) also differ for null amounts.",
+        "better": "Choose missing-value rules explicitly instead of silently interpreting unknown amounts as zero.",
+        "before": "-- All-null groups can have a NULL total\nSELECT country, SUM(amount) FROM sales GROUP BY country",
+        "after": "-- Only if the business defines missing totals as zero:\nSELECT country, COALESCE(SUM(amount), 0) AS total\nFROM sales GROUP BY country"
       }
     ],
     "quiz": [
@@ -239,6 +274,56 @@ export const sparkLessons: SparkLesson[] = [
         ],
         "correct": 1,
         "explanation": "It names a DataFrame in a session without making a durable copy."
+      },
+      {
+        "question": "After WHERE amount > 0, how many of the five example rows remain?",
+        "options": [
+          "Five",
+          "Two",
+          "Three"
+        ],
+        "correct": 2,
+        "explanation": "100, 50 and 20 remain. −10 and 0 fail the condition."
+      },
+      {
+        "question": "What is the US total if the refund is included?",
+        "options": [
+          "40",
+          "50",
+          "60"
+        ],
+        "correct": 0,
+        "explanation": "Net total is 50 + (−10) = 40."
+      },
+      {
+        "question": "Which DataFrame operation matches SUM(amount) by country?",
+        "options": [
+          "groupBy(\"country\").count()",
+          "groupBy(\"country\").agg(F.sum(\"amount\"))",
+          "select(\"country\").distinct()"
+        ],
+        "correct": 1,
+        "explanation": "sum adds amounts. count counts rows and does not total sales."
+      },
+      {
+        "question": "If every amount in a group is NULL, what does SUM(amount) return?",
+        "options": [
+          "0",
+          "The number of rows",
+          "NULL"
+        ],
+        "correct": 2,
+        "explanation": "An all-null group has no non-null values to sum; SUM returns NULL."
+      },
+      {
+        "question": "Which command requests result rows rather than just showing a plan?",
+        "options": [
+          "show()",
+          "explain()",
+          "createOrReplaceTempView()"
+        ],
+        "correct": 0,
+        "explanation": "show() is an action requesting output rows."
       }
     ]
   },
@@ -1192,4 +1277,3 @@ export const sparkLessons: SparkLesson[] = [
     ]
   }
 ];
-

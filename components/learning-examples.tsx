@@ -35,7 +35,7 @@ const examples: Record<string,Example[]> = {
   SQL: [{name:"Spark SQL • the same column calculation",lines:["SELECT number * number AS square","FROM VALUES (1), (2), (3), (4), (5) AS numbers(number)","ORDER BY square;"],explanations:["Multiply the number column by itself and call the output square.","Provide the same five input rows as an inline table named numbers.","Sort the resulting squares. Run this query in a Spark SQL environment."],output:"square\n------\n1\n4\n9\n16\n25"}]
 };
 
-function CodeLine({line}:{line:string}) {
+export function CodeLine({line}:{line:string}) {
   return <>{(line.match(/"[^"\n]*"|'[^'\n]*'|\b[A-Za-z_][A-Za-z_0-9]*\b|\b\d+\b|[^A-Za-z_0-9"']+/g) ?? [line]).map((token,i)=> {
     if(help[token]) return <Tooltip key={i}><TooltipTrigger asChild><button type="button" className="code-help">{token}</button></TooltipTrigger><TooltipContent sideOffset={8} className="simple-explanation-card">{help[token]}</TooltipContent></Tooltip>;
     const color=/^["']/.test(token)?"#a7e3a1":/^\d+$/.test(token)?"#f5c887":/^(val|import|from|AS|ORDER|BY)$/.test(token)?"#c4a7ff":undefined;

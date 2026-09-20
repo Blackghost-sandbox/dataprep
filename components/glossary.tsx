@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowRight, Check, Network, X } from "lucide-react";
+import { ArrowDown, ArrowRight, Network, X } from "lucide-react";
 import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { getGlossaryItem, tokenizeGlossary, type GlossaryItem } from "@/lib/glossary";
@@ -11,9 +11,8 @@ import { getGlossaryItem, tokenizeGlossary, type GlossaryItem } from "@/lib/glos
 type GlossaryContextValue = { open: (item: GlossaryItem, trigger?: HTMLElement) => void; drawerOpen: boolean };
 const GlossaryContext = createContext<GlossaryContextValue | null>(null);
 
-function Frequency({ item }: { item: GlossaryItem }) {
-  const level = item.interviewFrequency > 70 ? "High" : item.interviewFrequency >= 40 ? "Medium" : "Low";
-  return <span className={`glossary-frequency glossary-frequency-${level.toLowerCase()}`}>{level} Frequency</span>;
+function Difficulty({ item }: { item: GlossaryItem }) {
+  return <span className="glossary-frequency glossary-frequency-medium">{item.difficulty}</span>;
 }
 
 export function GlossaryDiagram({ item }: { item: GlossaryItem }) {
@@ -52,7 +51,7 @@ export function GlossaryProvider({ children }: { children: ReactNode }) {
         {selected && <motion.div className="glossary-sheet-inner" initial={{ x: reduced ? 0 : 420 }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 320, damping: 34 }}>
           <header className="glossary-sheet-header"><div className="glossary-eyebrow">DATAPREP / GLOSSARY</div><button className="glossary-close" aria-label="Close glossary" onClick={() => setDrawerOpen(false)}><X size={19}/></button>
             <SheetTitle className="glossary-title">{selected.term}</SheetTitle>{selected.expanded && <p className="glossary-expanded">{selected.expanded}</p>}
-            <SheetDescription className="glossary-definition">{selected.definition}</SheetDescription><div className="glossary-meta"><span>{selected.category}</span><Frequency item={selected}/></div>
+            <SheetDescription className="glossary-definition">{selected.definition}</SheetDescription><div className="glossary-meta"><span>{selected.category}</span><Difficulty item={selected}/></div>
           </header>
           <div className="glossary-sheet-scroll" key={selected.id}><GlossaryDetails item={selected}/></div>
           <footer className="glossary-sheet-footer"><Link className="glossary-cta" href={`/lessons/glossary/${selected.id}`} onClick={() => setDrawerOpen(false)}>Open Full Lesson<ArrowRight size={17}/></Link></footer>
@@ -84,10 +83,9 @@ export function GlossaryTerm({ term, children }: { term: string; children?: Reac
     <PopoverContent side="top" sideOffset={10} collisionPadding={16} className="glossary-popover" aria-label={`${item.term} glossary preview`} onOpenAutoFocus={event => event.preventDefault()} onCloseAutoFocus={event => event.preventDefault()}
       onPointerEnter={cancelClose} onPointerLeave={closeSoon} onFocusCapture={cancelClose} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node)) closeSoon(); }}>
       <motion.div initial={{ opacity: 0, y: reduced ? 0 : 6, scale: reduced ? 1 : .96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: reduced ? 0 : .22 }}>
-        <div className="glossary-preview-heading"><h3>{item.term}</h3><Frequency item={item}/></div>{item.expanded && <p className="glossary-expanded">{item.expanded}</p>}
+        <div className="glossary-preview-heading"><h3>{item.term}</h3><Difficulty item={item}/></div>{item.expanded && <p className="glossary-expanded">{item.expanded}</p>}
         <p className="glossary-definition">{item.definition}</p>
-        <div className="glossary-preview-stats"><span className="glossary-category">● {item.category === "Spark" ? "Apache Spark" : item.category}</span><span title="Editorial demo estimate; not measured statistics">Interview frequency: {item.interviewFrequency}% <small>(estimate)</small></span><span>{item.difficulty === "Medium" ? "Intermediate" : item.difficulty === "Easy" ? "Beginner" : "Advanced"}</span></div>
-        {item.interviewFrequency > 70 && <p className="glossary-frequent"><Check size={14}/>Frequently Asked</p>}
+        <div className="glossary-preview-stats"><span className="glossary-category">● {item.category === "Spark" ? "Apache Spark" : item.category}</span><span>{item.difficulty === "Medium" ? "Intermediate" : item.difficulty === "Easy" ? "Beginner" : "Advanced"}</span></div>
         <div className="glossary-related"><span>Related</span>{item.related.map(related => <button key={related} onClick={() => { const next = getGlossaryItem(related); if (next) { setPreview(false); context.open(next, trigger.current ?? undefined); } }}>{related}</button>)}</div>
         <button className="glossary-cta" onClick={deepDive}>Open Deep Dive<ArrowRight size={16}/></button>
       </motion.div>

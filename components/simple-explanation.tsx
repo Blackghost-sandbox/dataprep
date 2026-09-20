@@ -4,6 +4,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { getGlossaryItem } from "@/lib/glossary";
 
 export const simpleExplanations: Record<string, string> = {
+  "SQL text": "A written query that describes which rows, columns, and summaries you want.",
+  "Named columns": "Labels such as country and amount let Spark identify each field and check its data type.",
+  "Same result": "Equivalent queries over the same input and rules return the same values, whether written in SQL or DataFrame expressions.",
+  "Your Code": "The instructions you write to tell Spark what result you want.",
+  "Logical Plan": "A description of what your query should do, before Spark decides the actual steps for running it.",
+  "DAG / Lineage": "A record of how each dataset was created from earlier datasets. Spark uses these dependencies to arrange work and rebuild lost data.",
+  "Stages & Tasks": "Spark divides a job into stages, then splits each stage into small tasks that process pieces of data in parallel.",
+  "No built-in query optimizer": "Spark cannot automatically rewrite arbitrary RDD functions the way it can improve structured DataFrame queries.",
   "DataFrame": getGlossaryItem("DataFrame")!.definition,
   "DataFrames": getGlossaryItem("DataFrame")!.definition,
   "Driver": "The program that plans your Spark application and coordinates the work sent to executors.",

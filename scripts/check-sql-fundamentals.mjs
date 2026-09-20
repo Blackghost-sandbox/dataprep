@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import ts from 'typescript';
+import {DatabaseSync} from 'node:sqlite';
+const root=path.resolve(import.meta.dirname,'..');
+const source=fs.readFileSync(path.join(root,'lib/sql-lessons.ts'),'utf8');
+const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+const mod={exports:{}};
+vm.runInNewContext(code,{module:mod,exports:mod.exports});
+const {sqlLessons,sqlSchema,sqlVisuals}=mod.exports;
+const db=new DatabaseSync(':memory:');
+db.exec(sqlSchema);
+const format=rows=>rows.map(row=>Object.values(row).map(v=>v===null?'NULL':String(v)).join(' | ')).join('\n');
+assert.equal(sqlLessons.length,14);
+assert.equal(new Set(sqlLessons.map(l=>l.id)).size,14);
+for(const lesson of sqlLessons){
+  const result=db.prepare(lesson.example.code).all();
+  const expected=sqlVisuals[lesson.id].result.rows.map(row=>row.map(v=>v===null?'NULL':String(v)).join(' | ')).join('\n');
+  assert.equal(format(result),expected,lesson.id+' example');
+  const exercise=db.prepare(lesson.practice.solution).all();
+  assert.equal(format(exercise),lesson.practice.output,lesson.id+' exercise');
+  for(const mistake of lesson.mistakes)db.prepare(mistake.after).all();
+  for(const quiz of lesson.quiz)assert.ok(quiz.correct>=0&&quiz.correct<quiz.options.length);
+  assert.ok(lesson.interview.length && lesson.concepts.length && lesson.mistakes.length);
+}
+assert.equal(sqlLessons.at(-1).quiz.length,14);
+db.close();
+console.log('PASS: 14 SQL examples, 14 exercise solutions, corrected mistake queries, quiz indices and curriculum coverage.');
+console.log('Queries executed in SQLite for portable SQL result checks; this does not verify PostgreSQL-specific planning or error behavior.');

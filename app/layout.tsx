@@ -7,6 +7,8 @@ import "./interview.css";
 import "./mistakes.css";
 import "./spark-lessons.css";
 import "./spark-topic-visuals.css";
+import "./rdd-experience.css";
+import "./sql-fundamentals.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
