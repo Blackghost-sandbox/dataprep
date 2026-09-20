@@ -143,7 +143,7 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
       <textarea id={lesson.id+"-notes"} className="spark-notes" value={state.notes} onChange={e=>update({notes:e.target.value})} placeholder="What does this mean in my own words? When would I use it?"/>
       <p role="status" className="spark-caption">{storageError ? "Not saved: device storage unavailable." : "Automatically saved on this device for this lesson."}</p>
     </>}
-    {!isSql && <footer className="spark-source"><a href={isDbt ? "https://docs.getdbt.com/docs/introduction" : isCloud ? "https://aws.amazon.com/what-is/cloud-computing/" : lesson.id==="introduction" || lesson.id==="transformations" || lesson.id==="partitioning" ? "https://spark.apache.org/docs/3.5.6/rdd-programming-guide.html" : lesson.id==="performance" ? "https://spark.apache.org/docs/3.5.6/sql-performance-tuning.html" : "https://spark.apache.org/docs/3.5.6/sql-programming-guide.html"} target="_blank" rel="noreferrer">{isDbt ? "Read the dbt documentation ↗" : isCloud ? "Review official cloud provider documentation ↗" : "Read the Apache Spark guide ↗"}</a></footer>}
+    {!isSql && !isCloud && <footer className="spark-source"><a href={isDbt ? "https://docs.getdbt.com/docs/introduction" : lesson.id==="introduction" || lesson.id==="transformations" || lesson.id==="partitioning" ? "https://spark.apache.org/docs/3.5.6/rdd-programming-guide.html" : lesson.id==="performance" ? "https://spark.apache.org/docs/3.5.6/sql-performance-tuning.html" : "https://spark.apache.org/docs/3.5.6/sql-programming-guide.html"} target="_blank" rel="noreferrer">{isDbt ? "Read the dbt documentation ↗" : "Read the Apache Spark guide ↗"}</a></footer>}
     </>}
   </section>;
 }
