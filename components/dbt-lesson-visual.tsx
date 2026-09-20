@@ -1,9 +1,10 @@
 "use client";
 
+import type { ComponentType } from "react";
 import { ArrowRight, CheckCircle2, Database, GitBranch, Layers3, ShieldCheck } from "lucide-react";
 import type { SparkLesson } from "@/lib/spark-lessons";
 
-const iconById: Record<string, React.ComponentType<{size?: number; className?: string}>> = {
+const iconById: Record<string, ComponentType<{size?: number; className?: string}>> = {
   "dbt-introduction": Database,
   "models-ref": GitBranch,
   "sources": Database,
