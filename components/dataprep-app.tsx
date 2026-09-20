@@ -183,7 +183,7 @@ export function DataPrepApp() {
     try { localStorage.setItem("dataprep."+module+".completed.v1",JSON.stringify(updated)); }
     catch { toast.error("Progress updated for this visit but could not be saved."); }
   };
-  return <div className={cn((module==="sql" || currentLesson === 1) && "rdd-page", module==="sql" && "sql-module-page", "min-h-screen text-[#0f172a] transition-colors",dark ? "bg-[#e8ebf4]" : "bg-[#f5f7fb]")}>
+  return <div className={cn((module==="sql" || (module==="spark" && currentLesson === 1)) && "rdd-page", module==="sql" && "sql-module-page", "min-h-screen text-[#0f172a] transition-colors",dark ? "bg-[#e8ebf4]" : "bg-[#f5f7fb]")}>
     <Toaster position="bottom-right" richColors/>
     <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} onLesson={selectLesson} currentLesson={currentLesson} completed={completed} module={module} onModule={switchModule}/>
     <motion.div animate={{marginLeft:collapsed ? 88 : 280}} transition={{duration:.25}} className="dataprep-main min-h-screen">
