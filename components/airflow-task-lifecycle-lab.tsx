@@ -13,6 +13,7 @@ import {
   Copy,
   Eye,
   HelpCircle,
+  Lightbulb,
   Pause,
   Play,
   RefreshCcw,
