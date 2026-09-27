@@ -1,0 +1,71 @@
+/* Airflow Concept only. Approved Spark/Kafka visuals and all other tabs are unchanged. */
+.airflow-concept-page .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.airflow-concept-page .perf-hero-row h1{font-size:24px}
+.airflow-concept-page .perf-hero>p{color:#304a70}
+.airflow-concept-page .perf-hero-nav button:disabled{opacity:.4;cursor:not-allowed}
+.airflow-concept-page .lesson-state-row{height:auto;min-height:28px;font-size:11px;padding:5px 6px}
+.airflow-concept-page .lesson-state-row>span{white-space:normal}
+.airflow-concept-page .spark-source{padding:8px 12px;margin-top:10px;font-size:11px}
+.af-learning{color:#0b1a39;font-size:12px;line-height:1.5;min-width:0}
+.af-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.65fr);align-items:center;gap:16px;padding:14px;background:linear-gradient(110deg,#fff,#f8faff);border:1px solid #e7ecf6;border-radius:14px;margin-bottom:12px}
+.spark-lesson .af-intro h2{font-size:21px;margin:0 0 5px;gap:9px;line-height:1.2}
+.af-intro>div>p{color:#405777;font-size:12px}
+.af-intro aside{padding:9px 11px;display:flex;gap:9px;background:linear-gradient(120deg,#f3f0ff,#edf5ff);border:1px solid #e4e9f9;border-radius:10px;font-size:11px}
+.af-intro aside>svg{color:#edac0b;flex-shrink:0}.af-intro aside strong{color:#4d30d7}.af-intro aside p{margin-top:3px}
+.af-workspace{padding:14px;border:1px solid #e4eaf6;border-radius:14px;background:linear-gradient(#fff,#fafbff);min-width:0}
+.af-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.spark-lesson .af-toolbar h3{display:flex;align-items:center;gap:8px;font-size:16px;margin:0}.af-toolbar h3 svg{color:#6545ff}
+.af-controls,.af-scenarios{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.af-learning button{cursor:pointer;transition:background .16s,border-color .16s,box-shadow .16s}
+.af-controls button,.af-scenarios button,.af-prediction button{display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1px solid #dfe5f4;border-radius:7px;padding:7px 10px;background:#fff;font-size:11px}
+.af-controls>span{font-size:10px;color:#566c90}
+.af-learning .af-primary{color:white;background:linear-gradient(130deg,#8061ff,#512cff);border-color:#7656ff;box-shadow:0 3px 8px #6746ed20}
+.af-learning button:disabled{cursor:not-allowed;opacity:.5}
+.af-learning button:focus-visible,.af-learning input:focus-visible{outline:2px solid #7154ff;outline-offset:3px}
+.af-scenarios{margin:0 0 10px}.af-scenarios button[aria-pressed=true],.af-prediction button[aria-pressed=true]{background:#eee9ff;border-color:#b4a3ff;color:#5230d7}
+.af-run-strip{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#f4f7fd;border:1px solid #e8edf6;border-radius:7px;padding:7px 9px;color:#405779;font-size:10px}
+.af-run-strip span,.af-run-strip label{display:flex;align-items:center;gap:6px}.af-run-strip input{accent-color:#6d5df6}
+.af-run-strip i{width:7px;height:7px;background:#7861ee;border-radius:50%}.af-run-strip i.af-dot-success{background:#10a779}
+.af-graph-scroll{overflow-x:auto;margin:12px 0;scrollbar-width:thin;border:1px solid #e4e9f7;border-radius:10px;background:radial-gradient(#cfd9ec 1px,transparent 1px),linear-gradient(100deg,#f9f7ff,#f4fbff);background-size:16px 16px,100% 100%}
+.af-graph{position:relative;display:grid;align-items:center;justify-items:center;height:150px;min-width:560px}
+.af-graph.af-fork{height:264px}.af-graph>svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.af-task{z-index:1;width:74%;min-height:72px;border:1px solid #d1dcef;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:7px 4px;box-shadow:0 3px 8px #122b5008;background:#fff;color:#405575;overflow-wrap:anywhere}
+.af-task strong{font-size:12px}.af-task small{font-size:10px}.af-task>span{display:flex;align-items:center}
+.af-task.af-task-active{box-shadow:0 0 0 3px #aa96ff30,0 4px 12px #7552ed12;border-color:#9b80f8}
+.af-task[aria-pressed=true]{outline:2px solid #7560e8;outline-offset:2px}
+.af-learning .af-state-scheduled{background:#edf4ff;color:#2056b7;border-color:#9cbff8}
+.af-learning .af-state-queued{background:#e6f7ff;color:#006a95;border-color:#8ccee7}
+.af-learning .af-state-running{background:#eee7ff;color:#6133de;border-color:#b49af9}
+.af-learning .af-state-success{background:#e4f9ee;color:#087347;border-color:#8ed8b5}
+.af-learning .af-state-failed,.af-learning .af-state-upstream_failed{background:#fff0f1;color:#bc2544;border-color:#ef9fac}
+.af-learning .af-state-up_for_retry,.af-learning .af-state-up_for_reschedule{background:#fff5da;color:#946000;border-color:#edca73}
+.af-learning .af-state-skipped{background:#eaeef5;color:#566783;border-color:#c4cedf}
+.af-event{display:flex;align-items:center;gap:10px;min-height:78px;padding:10px 12px;border:1px solid #deddf9;background:linear-gradient(100deg,#f2edff,#f2f7ff);border-radius:9px;margin:10px 0}
+.af-event>b{background:#6b4cff;color:white;width:26px;height:26px;flex-shrink:0;border-radius:50%;display:grid;place-items:center}
+.af-event>div{flex:1;min-width:0}.af-event strong{font-size:13px}.af-event p{font-size:12px;margin-top:3px;color:#344c70}.af-event>span{font-size:10px;color:#6853a8;max-width:110px}
+.af-wait{display:flex;gap:7px;align-items:center;border:1px solid #edd393;border-radius:7px;background:#fff7df;color:#865800;padding:8px;margin-bottom:10px}
+.af-support{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+.af-code{border:1px solid #27364b;background:#101d31;border-radius:9px;overflow:hidden;color:#e3eaff;min-width:0}
+.af-code header{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11px;padding:8px 10px;border-bottom:1px solid #29354a}
+.af-code header button{display:flex;align-items:center;gap:4px;font-size:10px;color:#d6e0fa}
+.af-code pre{padding:9px 0;overflow:auto;font-size:11px;line-height:1.8;min-height:104px;max-height:210px}.af-code code{display:block;min-width:max-content}
+.af-code code>span{display:block;padding:0 9px;border-left:2px solid transparent}.af-code code>span.af-code-current{background:#7060db4d;border-left-color:#b79aff}
+.af-code code small{display:inline-block;width:22px;color:#94a4bf;user-select:none}.af-code-keyword{color:#d698ff}.af-code-string{color:#ffa84b}
+.af-inspector{padding:12px;border:1px solid #e2e8f5;border-radius:9px;background:linear-gradient(#fff,#f7f9ff);min-width:0}
+.af-inspector header{display:flex;justify-content:space-between;gap:6px;font-size:12px}.af-inspector header button{font-size:10px;color:#6643e5}.af-inspector>p{font-size:12px;color:#354d71;margin:9px 0}
+.af-state-timeline{display:flex;gap:5px;flex-wrap:wrap}.af-state-timeline>span{border:1px solid #dae1f0;padding:3px 5px;border-radius:5px;font-size:9px}
+.af-prediction{padding:10px 12px;background:#f7f8fe;border:1px solid #e3e7f5;border-radius:9px;margin-top:12px;font-size:12px}.af-prediction>div{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.af-prediction p{margin-top:8px;color:#463685}
+.af-caveat{font-size:10px;color:#506584;margin-top:10px}.af-footer{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 3px;font-size:10px;color:#54698b}.af-footer button{color:#5c39e5;font-size:12px}
+.af-flow{display:grid;gap:22px;margin:24px 0 16px;align-items:stretch;min-width:0}
+.af-flow-item{position:relative;min-width:0}.af-flow-item>svg{position:absolute;right:-21px;top:45%;color:#becbe0}.af-flow-item>svg.af-edge-done{color:#09a36d}
+.af-flow-node{height:100%;width:100%;min-height:136px;border:1px solid #d8e2f4;border-radius:10px;background:linear-gradient(#f6f9ff,#edf3ff);padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.af-flow-node>span{color:#7351ef;background:#eae3ff;border-radius:10px;padding:8px;display:flex}.af-flow-node strong{font-size:12px}.af-flow-node small{font-size:10px;color:#526b91}
+.af-flow-node.af-flow-active{border-color:#9f83ff;box-shadow:0 0 0 3px #ae9bff24;background:#f2ecff}.af-flow-node.af-flow-done{background:#edfcf5;border-color:#ade1c7}.af-flow-done>span{color:#079461;background:#daf7e9}
+.af-flow-node[aria-pressed=true]{outline:2px solid #8466ed;outline-offset:2px}
+.af-payload{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border:1px solid #bddfcf;background:#edfff5;border-radius:8px;color:#087443;min-height:45px}.af-payload>span{font-size:10px;flex-shrink:0}.af-payload code{font-size:12px;overflow-wrap:anywhere}.af-payload-warning{background:#fff3e8;color:#a14e00;border-color:#f2d1af}
+.af-flow-history{display:flex;flex-direction:column;gap:4px;font-size:10px;color:#356154}.af-flow-history span{display:flex;align-items:center;gap:5px}
+.af-services{padding:9px 11px;border:1px solid #e2e7f5;border-radius:8px;background:#f7faff;margin-top:10px}.af-services>div{display:flex;gap:8px;flex-wrap:wrap}.af-services button{display:flex;gap:5px;align-items:center;border:1px solid #d9e2f4;border-radius:6px;padding:6px;font-size:10px}.af-services button[aria-pressed=true]{color:#5c35da;border-color:#bba7ff;background:#f0ebff}.af-services p{font-size:11px;color:#405776;margin-top:7px}
+.af-interval{display:flex;gap:8px;align-items:center;padding:12px 6px;margin-top:10px;font-size:10px}.af-interval>span{display:grid;gap:3px}.af-interval small{color:#557096}.af-interval>div{flex:1;text-align:center;border:1px dashed #bbc9e6;background:#f1f5fc;border-radius:5px;padding:8px;color:#59739a}.af-interval>.af-interval-filled{background:#eee7ff;color:#5933d6;border-style:solid;border-color:#bca7ff}
+@media(max-width:1350px){.airflow-concept-page .perf-hero-row h1{font-size:21px}.af-intro{grid-template-columns:1fr}.af-intro aside{padding:7px 10px}.af-flow{gap:16px}.af-flow-item>svg{right:-17px;width:15px}.af-flow-node strong{font-size:11px}.af-event>span{display:none}}
+@media(max-width:900px){.af-support{grid-template-columns:1fr}.af-flow{grid-template-columns:repeat(2,minmax(0,1fr))!important}.af-flow-item>svg{display:none}.af-flow-node{min-height:110px}.af-intro{padding:12px}.af-payload{align-items:start;flex-direction:column}.af-workspace{padding:12px}.airflow-concept-page main{display:block}.airflow-concept-page .lesson-tabs{margin:8px 0!important}.airflow-concept-page .perf-right-rail{margin-top:12px}.airflow-concept-page .af-learning{min-width:0}}
+@media(prefers-reduced-motion:reduce){.af-learning *{transition:none!important}}

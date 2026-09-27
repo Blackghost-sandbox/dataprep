@@ -1,0 +1,55 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import ts from 'typescript';
+const root=path.resolve(import.meta.dirname,'..');
+const cache=new Map();
+let networkCalls=0;
+function load(relative){
+  if(cache.has(relative))return cache.get(relative);
+  const mod={exports:{}};
+  const code=ts.transpileModule(fs.readFileSync(path.join(root,relative),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+  vm.runInNewContext(code,{module:mod,exports:mod.exports,require:name=>load(name.replace('@/','')+'.ts'),fetch:()=>{networkCalls++;throw Error('Unexpected network request');}});
+  cache.set(relative,mod.exports);return mod.exports;
+}
+const {AICompanionService,ReactionEngine,selectCompanionContext,recentTurns,CompanionCache,BackendCompanionTransport}=load('lib/companion.ts');
+const {sqlLessons}=load('lib/sql-lessons.ts');
+const {sparkLessons}=load('lib/spark-lessons.ts');
+const service=new AICompanionService();
+for(const [course,lessons] of [['SQL Fundamentals',sqlLessons],['Apache Spark',sparkLessons]]){
+  for(const lesson of lessons){
+    const context={course,lesson,tab:'Concept'};
+    for(const action of ['explain','simply','example']){
+      const response=await service.respond(action,context);
+      assert.ok(response.text.length>50,lesson.id+' '+action);
+      assert.ok(!response.text.includes('undefined'));
+      assert.equal(response.source,'lesson');
+      assert.equal(await service.respond(action,context),response,'Static response cache');
+    }
+  }
+}
+const context={course:'SQL Fundamentals',lesson:sqlLessons[1],tab:'Hands-on',exercise:{task:'Choose columns',userCode:'PRIVATE DRAFT',executionError:'TEST ERROR',executionResult:'TEST RESULT'}};
+assert.equal(selectCompanionContext(context,'ask','What is SELECT?').userCode,undefined);
+assert.equal(selectCompanionContext(context,'ask','Why did my query fail?').userCode,'PRIVATE DRAFT');
+assert.equal(selectCompanionContext({...context,tab:'Concept'},'error','').executionError,undefined);
+assert.ok(!(await service.respond('hint',context,'',[],1)).text.includes(context.lesson.practice.solution));
+assert.ok((await service.respond('ask',context,'show the solution')).text.includes(context.lesson.practice.solution));
+assert.equal((await service.respond('ask',context,'Why this code?')).source,'unavailable');
+assert.equal(networkCalls,0);
+const history=recentTurns(Array.from({length:30},()=>({role:'user',text:'a'.repeat(2000)})));
+assert.equal(history.length,4);assert.equal(history[0].text.length,1200);
+const reactions=new ReactionEngine();
+assert.ok(reactions.react({type:'lesson_opened',lesson:'SELECT'},0));
+assert.equal(reactions.react({type:'lesson_opened',lesson:'WHERE'},1000),null);
+assert.match(reactions.react({type:'lesson_completed',lesson:'SELECT'},46000).text,/marked/);
+const bounded=new CompanionCache();for(let i=0;i<40;i++)bounded.set(String(i),{text:String(i)});
+assert.equal(bounded.get('0'),undefined);assert.equal(bounded.get('39').text,'39');
+assert.throws(()=>new BackendCompanionTransport('https://outside.example/api'));
+let payload;
+const connected=new AICompanionService({request:async input=>{payload=input;return {text:'Test provider',source:'provider',expression:'explaining'};}});
+await connected.respond('ask',context,'What is SELECT?',history);
+assert.equal(payload.context.userCode,undefined);assert.equal(payload.revealSolution,false);
+await connected.respond('ask',context,'Why did my query fail?',history);
+assert.equal(payload.context.userCode,'PRIVATE DRAFT');
+console.log('PASS: all 24 lessons, local-only actions, context minimization, hints, cache, history and reaction throttling.');

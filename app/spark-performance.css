@@ -1,0 +1,115 @@
+/* Performance / Concept only. All other lesson layouts remain unchanged. */
+.spark-performance-page main{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:8px 12px;padding:10px 12px!important;align-items:start}
+.spark-performance-page main>*{margin:0!important}
+.spark-performance-page .lesson-layout{display:contents}
+.spark-performance-page .lesson-content{grid-column:1;min-width:0}
+.spark-performance-page .perf-right-rail{grid-column:2;grid-row:1/5;display:flex;flex-direction:column;gap:12px;min-width:0}
+.spark-performance-page .lesson-tabs{grid-column:1;padding:0 8px}
+.spark-performance-page .lesson-tabs [role=tablist]{height:42px}
+.spark-performance-page .lesson-tabs [role=tab]{padding-inline:7px;font-size:12px}
+.perf-hero{grid-column:1;padding:10px 16px;border:1px solid #e7ecf3;border-radius:18px;background:linear-gradient(110deg,#fff,#eef2ff)}
+.perf-breadcrumb{display:flex;align-items:center;gap:10px;font-size:12px;color:#64748b;margin-bottom:6px}
+.perf-hero-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.perf-hero-row h1{font-size:28px;font-weight:750;letter-spacing:-.03em}
+.perf-hero-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#eeeaff;color:#6d5df6}
+.perf-hero-row>span:not(.perf-hero-icon){display:flex;align-items:center;gap:5px;font-size:12px}
+.perf-difficulty{background:#fef3c7;color:#92400e;padding:5px 10px;border-radius:18px}
+.perf-hero-nav{display:flex;gap:8px;margin-left:auto}
+.perf-hero-nav button{display:flex;gap:6px;align-items:center;border:1px solid #e0e5f0;padding:8px 12px;border-radius:20px;font-size:12px;background:white}
+.perf-hero-nav button:last-child{background:#6d5df6;color:white}
+.perf-hero>p{font-size:12px;line-height:1.6;color:#64748b;margin:4px 0 0 54px}
+.spark-performance-page .spark-lesson{padding:16px 18px;border-radius:16px;box-shadow:0 5px 22px #25385806}
+.spark-performance-page .spark-source{margin-top:12px;padding-top:8px}
+.perf-learning{font-size:13px;line-height:1.5;color:#263650}
+.perf-heading{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:12px;align-items:center}
+.perf-learning .perf-heading h2{font-size:22px;margin:0 0 7px;gap:9px}
+.perf-learning h3{font-size:16px;margin:3px 0;font-weight:700}
+.perf-heading p{font-size:12px;color:#64748b}
+.perf-eyebrow{font-size:10px;color:#6d5df6;font-weight:750;letter-spacing:.08em}
+.perf-takeaway{display:flex;gap:8px;padding:10px;border:1px solid #e2e7f2;border-radius:10px;background:#f5f6fc}
+.perf-takeaway>svg{flex-shrink:0;color:#e7a112}
+.perf-takeaway strong{color:#5945de}.perf-takeaway p{margin-top:3px}
+.perf-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0}
+.perf-controls button{display:flex;align-items:center;gap:5px;border:1px solid #e4e7f2;background:white;padding:6px 10px;border-radius:8px;font-size:12px}
+.perf-controls .perf-primary{background:#6d5df6;color:white;border-color:#6d5df6}
+.perf-controls>span{font-size:10px;color:#64748b;flex-basis:100%;line-height:1;margin-top:3px}
+.perf-status{min-height:42px;display:flex;align-items:center;padding:5px 10px;border-left:1px solid #e2def9;color:#625590;font-size:11px;line-height:1.45}
+.perf-lanes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.perf-lane{min-width:0;border:1px solid #f4dce1;border-radius:10px;background:linear-gradient(180deg,#fff1f3 0 32px,#fff 100px);padding:9px;box-shadow:0 3px 10px #22365b04}
+.perf-cached{border-color:#ccebdc;background:linear-gradient(180deg,#e8faf2 0 32px,#fff 100px)}
+.perf-learning .perf-lane h3{display:flex;align-items:center;gap:5px;font-size:13px;margin:0 0 8px;color:#9f243b}
+.perf-learning .perf-cached h3{color:#08744f}
+.perf-lane h3 span{font-weight:400;font-size:11px}
+.perf-pipeline{display:flex;align-items:center;gap:4px;min-height:126px;position:relative;padding-bottom:20px}
+.perf-flowing-rows{position:absolute;bottom:0;display:flex;gap:2px;transform:translateX(-50%);pointer-events:none}
+.perf-flowing-rows>span{background:#6d5df6;color:white;font-size:9px;padding:1px 3px;border-radius:3px}
+.perf-link{display:flex;align-items:center;gap:3px;flex:1;min-width:0}
+.perf-link>svg{flex-shrink:0;color:#7990b2;width:14px}
+.perf-node{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;flex:1;min-width:0;min-height:88px;padding:7px 3px;background:linear-gradient(145deg,#fff,#edf3ff);border:1px solid #d9e3f8;border-radius:8px;text-align:center;font-size:11px;transition:background .2s,border-color .2s,box-shadow .2s}
+.perf-node>svg{color:#488bfd}.perf-node small{font-size:10px;color:#64748b;line-height:1.3}
+.perf-node.is-active{border-color:#7862f6;background:#ede9ff;box-shadow:0 0 0 2px #6d5df628}
+.perf-node.is-stored{background:#e4f8ed;border-color:#7ccca5}.perf-node.is-stored.is-active{box-shadow:0 0 0 2px #22c55e40;border-color:#0aa36d}
+.perf-branch{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:center;flex:1;position:relative;padding-left:22px}.perf-fork{position:absolute;left:0;top:12px;width:22px;height:80px;fill:none;stroke:#607ba5;stroke-width:1.5}
+.perf-branch .perf-node{min-height:47px}.perf-branch>span{color:#7990b2}
+.perf-stored{display:flex;gap:2px}.perf-stored>span{font-size:9px;background:#c5efda;padding:1px 3px;border-radius:3px}
+.perf-data{border:1px solid #e5eaf4;border-radius:7px;background:#ffffffbb;padding:4px 6px;margin:4px 0 7px;min-height:48px}
+.perf-data>span,.perf-data>small{font-size:9px;color:#64748b;display:inline}.perf-data>small{float:right}.perf-data>span{float:left}.perf-tokens{clear:both}
+.perf-tokens{display:flex;gap:4px;min-height:23px;align-items:center;flex-wrap:wrap}
+.perf-tokens>span{border:1px solid #d8dff6;background:#f4f5ff;padding:2px 4px;border-radius:4px;font:10px var(--font-mono)}
+.perf-rejected{text-decoration:line-through;background:#fee2e2!important}
+.perf-code{position:relative;background:#101b2d;border-radius:8px;padding:7px 5px;color:#d7e5f7}
+.perf-code>button{position:absolute;right:5px;top:5px;color:#d7e5f7;background:#101b2d;padding:3px;border-radius:4px}
+.perf-code pre{overflow:auto;font-size:10px;line-height:1.65;padding-top:3px}
+.perf-code code{display:block;padding:1px 3px;border-left:2px solid transparent;min-width:max-content}
+.perf-code .perf-line-number{color:#8293a8;margin-right:7px}.perf-code-string{color:#ffcd83}.perf-code-number{color:#cae990}.perf-code-method{color:#8bd8cc}.perf-code .is-current{background:#7162ce35;border-left-color:#a99aff}
+.perf-outcome{display:grid;gap:1px;font-size:11px;background:#fff0f2;padding:6px 8px;margin-top:6px;border-radius:6px;color:#9f243b}
+.perf-cached .perf-outcome{background:#e7f8ef;color:#09744d}
+.perf-help{display:flex;gap:8px;align-items:start;padding:10px;border:1px solid #dcd6ff;border-radius:8px;background:#f7f4ff;margin-top:9px;font-size:12px}
+.perf-help svg{flex-shrink:0}.perf-help button{margin-left:auto}
+.perf-comparison{padding:10px;border:1px solid #e3e8f3;border-radius:10px;background:#f8faff;margin-top:10px}
+.perf-learning .perf-comparison h3{font-size:13px;margin:0 0 7px}
+.perf-comparison>div{display:grid;grid-template-columns:90px 1.2fr .8fr 1.2fr .8fr 104px;gap:3px;margin:5px 0;align-items:stretch;font-size:10px}
+.perf-comparison strong,.perf-comparison b{align-self:center;font-size:10px}
+.perf-comparison span{text-align:center;background:#dbe7ff;border-radius:3px;padding:5px 2px}
+.perf-comparison span:nth-child(3),.perf-comparison span:nth-child(5){background:#ffe6b5}
+.perf-comparison .perf-cache-segment{background:#bfead1!important}
+.perf-comparison p{font-size:10px;color:#64748b;margin-top:6px}
+.perf-analogy{display:flex;gap:10px;align-items:center;padding:8px 10px;background:linear-gradient(110deg,#f7faff,#f2f5ff);border-radius:9px;margin-top:10px}
+.perf-analogy>span{font-size:30px}.perf-analogy p{font-size:11px;color:#64748b}
+.perf-caveat{font-size:12px}.perf-caveat p{margin:6px 0}.perf-footnote{font-size:11px;color:#64748b}
+.spark-performance-page .nila-root{position:static;right:auto;bottom:auto;z-index:auto;width:100%}
+.spark-performance-page .nila-bubble{position:relative;bottom:auto;right:auto;width:100%;margin-bottom:8px}
+.spark-performance-page .nila-panel{width:100%!important;max-width:100%;max-height:650px;margin-top:10px}
+.spark-performance-page .nila-idle-avatar{height:110px;width:90px}
+.spark-performance-page .nila-welcome{width:145px;font-size:11px}
+.spark-performance-page .nila-hero>img{right:-35px}
+.perf-learning button:focus-visible,.perf-hero button:focus-visible{outline:2px solid #6d5df6;outline-offset:3px}
+
+.spark-performance-page .dataprep-navbar{height:54px}
+.perf-toolbar{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;padding:8px 0;margin:5px 0 7px}
+.perf-primary{background:linear-gradient(125deg,#7d68ff,#5940f4)!important;box-shadow:0 3px 8px #6d5df626}
+.perf-learning .perf-controls button:hover{border-color:#b7aaff;box-shadow:0 2px 7px #6d5df61a}
+.perf-node:hover{border-color:#9baee6;box-shadow:0 3px 9px #31558b10}
+.perf-cached .perf-node:has(.lucide-table-2){background:linear-gradient(#f1fff8,#dff7eb);border-color:#b4e9cf}
+.perf-plain .perf-node>svg:first-child{filter:drop-shadow(0 2px 2px #428dff20)}
+.spark-performance-page .lesson-aside{display:contents}
+.spark-performance-page .lesson-aside>*{margin:0;order:3}
+.spark-performance-page .lesson-aside>section:first-child{order:0;padding:14px 12px;border-radius:14px}
+.spark-performance-page .lesson-aside>button:nth-child(2){order:1;transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9e8,#fff5df)}
+.spark-performance-page .lesson-playlist summary{font-size:13px;margin-bottom:10px}
+.spark-performance-page .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.spark-performance-page .lesson-state-row{height:31px;padding:5px 6px;gap:8px;border-radius:7px;font-size:12px;line-height:1.2}
+.spark-performance-page .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.spark-performance-page .lesson-state-row>span{white-space:nowrap}
+.spark-performance-page .lesson-state-row small{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+.spark-performance-page .lesson-playlist .space-y-1>*{margin-block:0}
+.spark-performance-page .nila-root{order:2;background:linear-gradient(135deg,#f5f2ff,#e9ecff);border:1px solid #e4defa;border-radius:16px;padding:10px}
+.spark-performance-page .nila-idle-avatar{height:168px;width:135px;margin-bottom:-4px}
+.spark-performance-page .nila-launcher{width:100%;justify-content:space-between;font-size:11px;border-radius:12px;padding:10px;background:white}
+.spark-performance-page .nila-bubble{font-size:12px;box-shadow:none}
+.spark-performance-page .perf-rail-notes{font-size:12px;line-height:1.6;display:block;white-space:pre-line}
+
+@media(max-width:1350px){.spark-performance-page main{grid-template-columns:minmax(0,1fr) 250px;padding:8px!important;gap:8px 10px}.spark-performance-page .spark-lesson{padding:12px}.perf-heading{grid-template-columns:minmax(0,1fr) 185px}.perf-takeaway{padding:8px}.perf-takeaway p{font-size:11px}.perf-hero-row{gap:8px}.perf-hero-row h1{font-size:26px}.perf-lanes{gap:8px}.perf-lane{padding:7px}.perf-lane h3 span{font-size:10px}.perf-comparison>div{grid-template-columns:75px 1fr .7fr 1fr .7fr}.perf-comparison b{grid-column:2/-1}.perf-hero-nav{margin-left:0}.perf-toolbar{grid-template-columns:1fr!important;gap:5px!important}.perf-controls>span{flex-basis:auto;margin-left:auto}.perf-status{min-height:30px;border-left:0;border-top:1px solid #e7e4f5;padding-top:5px}}
+@media(max-width:1050px){.perf-lanes{grid-template-columns:1fr}.perf-pipeline{min-height:100px}}
+@media(max-width:900px){.spark-performance-page main{display:flex;flex-direction:column}.spark-performance-page main>*{width:100%}.spark-performance-page .lesson-layout{display:flex;flex-direction:column;width:100%}.spark-performance-page .lesson-content,.spark-performance-page .perf-right-rail{width:100%}.perf-hero>p{margin-left:0}.spark-performance-page .lesson-tabs{overflow-x:auto}.spark-performance-page .lesson-tabs [role=tablist]{min-width:650px}.perf-lanes{grid-template-columns:1fr}.spark-performance-page .nila-panel{max-height:650px}}
+@media(prefers-reduced-motion:reduce){.perf-node{transition:none}}

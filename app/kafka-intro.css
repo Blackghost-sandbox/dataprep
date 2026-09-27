@@ -1,0 +1,135 @@
+/* Kafka / Introduction / Concept only; current shared shell and controls are reused. */
+.kafka-intro-page{--ki-ink:#081735;--ki-body:#243e68;--ki-muted:#50668d;--ki-accent:#5535ff}
+.kafka-intro-page .perf-hero-row h1,.kafka-intro-page .perf-hero-row>span:not(.perf-difficulty):not(.perf-hero-icon),.kafka-intro-page .perf-breadcrumb strong{color:var(--ki-ink)}
+.kafka-intro-page .perf-breadcrumb{color:var(--ki-accent)}
+.kafka-intro-page .perf-hero>p{color:var(--ki-body)}
+.kafka-intro-page .ki-learning{color:var(--ki-ink)}
+.kafka-intro-page .ki-learning h2,.kafka-intro-page .ki-learning h3,.kafka-intro-page .ki-topic-card>header,.kafka-intro-page .ki-consumer strong,.kafka-intro-page .ki-intro aside strong{color:var(--ki-ink)}
+.kafka-intro-page .ki-intro>div>p,.kafka-intro-page .ki-grid h3 small,.kafka-intro-page .ki-how p,.kafka-intro-page .ki-analogy>p,.kafka-intro-page .ki-status,.kafka-intro-page .ki-reader-metrics,.kafka-intro-page .ki-offsets,.kafka-intro-page .ki-source-tabs button{color:var(--ki-body)}
+.kafka-intro-page .ki-producer-card>small,.kafka-intro-page .ki-custom small,.kafka-intro-page .ki-topic-card>p,.kafka-intro-page .ki-records .ki-empty,.kafka-intro-page .ki-consumer>small,.kafka-intro-page .ki-reader-note,.kafka-intro-page .ki-log li>small,.kafka-intro-page .ki-log-empty,.kafka-intro-page .ki-controls label>span,.kafka-intro-page .ki-analogy>small,.kafka-intro-page .ki-scenarios label span,.kafka-intro-page .ki-scenarios>small,.kafka-intro-page .ki-disclaimer{color:var(--ki-muted)}
+.kafka-intro-page .ki-source-tabs button[aria-pressed=true]{color:var(--ki-accent);border-bottom-color:var(--ki-accent)}
+.kafka-intro-page .ki-records>span,.kafka-intro-page .ki-records b,.kafka-intro-page .ki-reader-metrics b{color:var(--ki-body)}
+.kafka-intro-page .ki-partition header,.kafka-intro-page .ki-partition header small,.kafka-intro-page .ki-log header button{color:#174fbe}
+.kafka-intro-page .ki-partition-1 header,.kafka-intro-page .ki-partition-1 header small,.kafka-intro-page .ki-consumer header>span{color:#087747}
+.kafka-intro-page .ki-partition-2 header,.kafka-intro-page .ki-partition-2 header small,.kafka-intro-page .ki-consumer-b header>span{color:#995000}
+.kafka-intro-page .ki-partition-3 header,.kafka-intro-page .ki-partition-3 header small{color:#86297a}
+.kafka-intro-page .ki-producer-card pre{color:var(--ki-muted)}
+.kafka-intro-page .ki-json-key{color:#d51cc5;font-weight:600}
+.kafka-intro-page .ki-json-string{color:#e95100;font-weight:600}
+.kafka-intro-page .ki-json-number{color:#db7900;font-weight:600}
+.kafka-intro-page .lesson-state-row{color:var(--ki-body)}
+.kafka-intro-page .lesson-state-row[aria-current=step]{color:var(--ki-accent)}
+.kafka-intro-page .perf-rail-notes{color:var(--ki-body)}
+.kafka-intro-page [role=tab]{color:var(--ki-ink)}
+.kafka-intro-page [role=tab][data-state=active]{color:var(--ki-accent)}
+.kafka-intro-page .spark-lesson{padding:0;border:0;box-shadow:none;background:transparent}
+.kafka-intro-page .perf-hero-row h1{font-size:24px}
+.kafka-intro-page .perf-hero-nav button:disabled{opacity:.45;cursor:not-allowed}
+.kafka-intro-page .spark-source{margin:8px 0;padding:8px 12px;font-size:11px}
+.kafka-intro-page .lesson-state-row{height:29px;font-size:11px}
+.kafka-intro-page .lesson-state-row>span{white-space:normal}
+.kafka-intro-page .perf-hero-row{gap:9px}
+.ki-learning{font-size:12px;line-height:1.5;color:#1a2d51}
+.ki-intro{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px;align-items:center;background:linear-gradient(110deg,#fff,#f9fbff);border:1px solid #e8edf7;border-radius:12px;padding:14px;margin-bottom:12px}
+.spark-lesson .ki-intro h2{font-size:20px;gap:8px;margin:0 0 5px}
+.ki-intro>div>p{font-size:11px;color:#5b7095}
+.ki-intro aside{display:flex;gap:8px;padding:9px;border-radius:9px;background:linear-gradient(120deg,#f5f8ff,#edf2fb);font-size:10px}
+.ki-intro aside svg{flex-shrink:0;color:#eeb42d}.ki-intro aside strong{font-size:11px;display:block;margin-bottom:3px}
+.ki-workspace{border:1px solid #e7edf7;background:linear-gradient(#fff,#f9fbff);border-radius:12px;padding:14px}
+.ki-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.05fr) minmax(0,1fr);gap:14px}
+.ki-grid>section{min-width:0;position:relative}
+.spark-lesson .ki-grid h3{font-size:12px;display:flex;gap:7px;align-items:start;margin:0 0 12px;min-height:37px;line-height:1.4}
+.ki-grid h3>b{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;color:white;background:linear-gradient(140deg,#7aabff,#2f65ff);box-shadow:0 2px 5px #3468ff22;font-size:13px;flex-shrink:0}
+.ki-topic h3>b{background:linear-gradient(140deg,#c697ff,#8950f5)}
+.ki-readers h3>b{background:linear-gradient(140deg,#35d688,#079752)}
+.ki-grid h3 small{display:block;font-size:9px;font-weight:400;color:#657ca2;margin-top:3px}
+.ki-producer-card,.ki-topic-card,.ki-consumer,.ki-log{border:1px solid #e3e9f7;border-radius:10px;background:#fff;box-shadow:0 3px 10px #26427006}
+.ki-producer-card{padding:10px;min-height:248px}
+.ki-source-tabs{display:flex;border-bottom:1px solid #e8edf6;margin:-3px -3px 8px}
+.ki-source-tabs button{width:50%;font-size:10px;padding:5px 2px;color:#7084a8;border-bottom:2px solid transparent}
+.ki-source-tabs button[aria-pressed=true]{color:#6543f5;border-bottom-color:#7455ff}
+.ki-producer-card pre{min-height:146px;background:linear-gradient(130deg,#f8faff,#edf1fc);border:1px solid #e8ecf8;border-radius:7px;font-size:10px;line-height:1.75;padding:8px 5px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#6751ba}
+.ki-primary{background:linear-gradient(135deg,#8364ff,#5131ff)!important;color:white!important;border:1px solid #7561ff!important;box-shadow:0 3px 8px #6d5df622}
+.ki-send{display:flex;gap:6px;align-items:center;justify-content:center;width:100%;padding:8px;border-radius:7px;margin-top:8px;font-size:11px}
+.ki-producer-card>small{display:block;font-size:8px;color:#8190ab;margin-top:5px;text-align:center}
+.ki-custom{min-height:146px}
+.ki-custom label{font-size:10px;display:block;margin:5px 0}
+.ki-custom input{display:block;min-width:0;width:100%;padding:6px;border:1px solid #dfe5f4;border-radius:5px;font-size:11px}
+.ki-custom small,.ki-custom p{font-size:9px;color:#7183a3}
+.ki-custom p[role=alert]{color:#b02e4a}
+.ki-topic-card{background:linear-gradient(120deg,#f8f5ff,#f7f9ff);min-height:248px;padding:9px}
+.ki-topic-card>header{display:flex;gap:6px;align-items:center;font-size:12px;margin-bottom:10px;color:#443677}
+.ki-topic-card>header svg{color:#6d4edb}.ki-topic-card>header small{margin-left:auto;font-size:8px;font-weight:400}
+.ki-partition{padding:7px 6px;background:linear-gradient(120deg,#edf6ff,#dfedff);border:1px solid #c6dcff;border-radius:7px;margin:7px 0}
+.ki-partition-1{background:linear-gradient(120deg,#edfff5,#dff5e8);border-color:#bee7ce}
+.ki-partition-2{background:linear-gradient(120deg,#fff9ed,#ffefda);border-color:#f2d7a9}
+.ki-partition-3{background:linear-gradient(120deg,#fff2fc,#f8e2f5);border-color:#ebc8e3}
+.ki-partition header{display:flex;align-items:center;justify-content:space-between;font-size:10px;margin-bottom:4px}
+.ki-partition header small{font-size:8px;color:#6681a9}
+.ki-records{display:flex;gap:3px;overflow:auto;min-height:24px;padding-bottom:2px;scrollbar-width:thin}
+.ki-records>span{white-space:nowrap;padding:3px 4px;font-size:8px;background:#ffffffa6;border:1px solid #c8d7ed;border-radius:4px;color:#50749e}
+.ki-records b{font-weight:600;color:#273c66}
+.ki-records .ki-empty{border-style:dashed;flex:1;text-align:center;color:#8194b1}
+.ki-topic-card>p{font-size:8px;color:#7183a6;text-align:center;margin-top:7px}
+.ki-topic:before,.ki-readers:before{content:"→";position:absolute;left:-14px;top:150px;color:#7b9dd5;font-size:19px;z-index:1}
+.ki-flight{position:absolute;top:86px;left:-14px;z-index:3;display:flex;gap:3px;align-items:center;background:#6d5df6;color:white;padding:4px;border-radius:5px;font-size:9px;box-shadow:0 3px 8px #5740cb33;pointer-events:none}
+.ki-consumer{padding:9px;background:linear-gradient(120deg,#f6fffc,#fff);margin-bottom:9px}
+.ki-consumer-b{background:linear-gradient(120deg,#fff9f1,#fff)}
+.ki-consumer header{display:flex;justify-content:space-between;align-items:center;gap:4px;font-size:10px;margin-bottom:8px}
+.ki-consumer header strong small{display:block;font-size:9px;font-weight:500}
+.ki-consumer header>span{display:flex;gap:2px;align-items:center;color:#09a772;font-size:8px}
+.ki-consumer-b header>span{color:#e39b31}
+.ki-reader-metrics{display:flex;align-items:center;justify-content:space-between;font-size:9px;color:#7181a0;background:#f1f6fb;border-radius:5px;padding:5px}
+.ki-reader-metrics b{color:#38526f;font-size:10px}
+.ki-consumer progress{display:block;width:100%;height:5px;appearance:none;margin:5px 0 7px;border:0;border-radius:5px;overflow:hidden}
+.ki-consumer progress::-webkit-progress-bar{background:#e0e9f3}
+.ki-consumer progress::-webkit-progress-value{background:#08b77d}
+.ki-consumer-b progress::-webkit-progress-value{background:#f3a12d}
+.ki-consumer progress::-moz-progress-bar{background:#08b77d}
+.ki-consumer-b progress::-moz-progress-bar{background:#f3a12d}
+.ki-offsets{display:flex;gap:3px;flex-wrap:wrap;font-size:8px;color:#607391}
+.ki-offsets span{padding:1px 3px;border-radius:3px;background:#edf3fa}
+.ki-consumer>small,.ki-reader-note{font-size:8px;color:#8392ac;display:block;margin-top:5px}
+.ki-log{padding:9px;max-height:297px;overflow:hidden;background:#fcfdff}
+.ki-log>header{display:flex;justify-content:space-between;gap:4px;align-items:center;border-bottom:1px solid #e8edf5;margin-bottom:6px}
+.spark-lesson .ki-log h3{min-height:0;margin:0 0 7px}
+.ki-log header button{font-size:8px;display:flex;gap:3px;align-items:center;background:#edf4ff;color:#4778ca;border-radius:5px;padding:3px}
+.ki-log ol{list-style:none;overflow:auto;max-height:247px;scrollbar-width:thin;padding:0}
+.ki-log li{display:grid;grid-template-columns:6px 23px minmax(0,1fr);gap:4px;font-size:9px;border-bottom:1px solid #eef2f8;padding:7px 0;line-height:1.4}
+.ki-log li>span{width:6px;height:6px;border-radius:50%;background:#5292ff;margin-top:3px}
+.ki-log .ki-log-topic>span{background:#9b66fb}.ki-log .ki-log-a>span{background:#16b883}.ki-log .ki-log-b>span{background:#eca12b}
+.ki-log li>small{font-size:8px;color:#8a9bbc}.ki-log-empty{display:block!important;color:#7c8ca9}
+.ki-active{border-color:#b4a5ff!important;box-shadow:0 0 0 2px #c8bdff24}
+.ki-controls{display:flex;gap:8px;align-items:center;margin-top:12px}
+.ki-controls>button{display:flex;gap:5px;align-items:center;border:1px solid #e1e7f4;border-radius:8px;background:#fff;padding:7px 12px;font-size:11px}
+.ki-controls>label{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:10px}
+.ki-controls input{width:85px;accent-color:#7455ff}.ki-controls label>span{font-size:9px;width:35px;color:#7e90b0}
+.ki-status{padding:6px 9px;min-height:37px;background:#f6f7fe;border:1px solid #eaeaf9;border-radius:7px;font-size:10px;color:#647492;margin-top:8px;display:flex;align-items:center}
+.ki-bottom{display:grid;grid-template-columns:1.1fr 1.2fr 1fr;gap:12px;margin-top:12px}
+.ki-bottom>section{min-width:0;border:1px solid #e5ebf7;border-radius:10px;background:linear-gradient(#fff,#f8faff);padding:12px}
+.spark-lesson .ki-bottom h3{font-size:12px;margin:0 0 10px;display:flex;gap:6px;align-items:center}
+.ki-how>div{display:flex;align-items:center;gap:7px;padding:9px 6px;border-radius:7px;background:#edf4ff;margin-bottom:7px}
+.ki-how>.ki-how-1{background:#f3edff}.ki-how>.ki-how-2{background:#e9faf1}
+.ki-how>div>b{display:grid;place-items:center;background:#5d90ff;color:white;width:23px;height:23px;border-radius:50%;flex-shrink:0;font-size:12px}
+.ki-how>.ki-how-1>b{background:#a76dfb}.ki-how>.ki-how-2>b{background:#0dbf82}
+.ki-how strong{font-size:10px}.ki-how p{font-size:9px;color:#667f9f;margin-top:3px}
+.ki-analogy>strong{font-size:12px}.ki-analogy>p{font-size:10px;color:#6d80a2;margin:5px 0}
+.ki-analogy-flow{display:flex;align-items:center;justify-content:space-between;gap:4px;margin:15px 0}
+.ki-analogy-flow>span,.ki-analogy-flow>div>span{display:flex;align-items:center;flex-direction:column;gap:3px}
+.ki-analogy-flow>div{display:grid;gap:9px}
+.ki-analogy-flow b,.ki-analogy-flow small{font-size:8px}
+.ki-analogy-flow svg{color:#7653f6;filter:drop-shadow(0 3px 2px #8063ed18)}
+.ki-analogy-flow>span:first-child svg{color:#3b86fa}.ki-analogy-flow>div>span:last-child svg{color:#e4a13a}
+.ki-analogy>small{font-size:9px;color:#7c8fac}
+.ki-scenarios label{display:block;margin:9px 0;font-size:10px}
+.ki-scenarios label>div{display:flex;gap:8px;align-items:center;margin-top:3px}
+.ki-scenarios input{min-width:0;width:100%;accent-color:#7455ff}
+.ki-scenarios label:last-of-type input{accent-color:#f0a12b}
+.ki-scenarios label span{font-size:9px;min-width:36px;text-align:center;border-radius:4px;background:#edf3fc;padding:2px;color:#6880a2}
+.ki-scenarios>small,.ki-disclaimer{font-size:9px;color:#7e8fab;line-height:1.5}
+.ki-disclaimer{margin:9px 3px}
+.ki-learning button:focus-visible,.ki-learning input:focus-visible{outline:2px solid #6d5df6;outline-offset:3px}
+@media(min-width:1536px){.ki-grid{gap:16px}.ki-producer-card pre{font-size:11px}.ki-log li{font-size:10px}.ki-consumer header{font-size:11px}}
+@media(max-width:1350px){.ki-grid{grid-template-columns:1fr 1.2fr 1.1fr}.ki-log{grid-column:1/-1;max-height:108px}.ki-log ol{max-height:65px;display:flex;gap:12px}.ki-log li{min-width:165px;flex:1;border-bottom:0}.ki-log header{margin-bottom:0}.ki-intro{grid-template-columns:minmax(0,1fr) 185px}.ki-intro aside{font-size:9px}.ki-bottom{gap:8px}.ki-workspace{padding:12px}.ki-controls>label{font-size:9px}.kafka-intro-page .perf-hero-row h1{font-size:21px}}
+@media(max-width:1050px){.ki-grid{grid-template-columns:1fr 1fr}.ki-readers{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}.ki-readers>h3,.ki-reader-note{grid-column:1/-1}.ki-bottom{grid-template-columns:1fr}.ki-controls{flex-wrap:wrap}.ki-controls>label{margin-left:0}.ki-intro{grid-template-columns:1fr}.ki-readers:before{display:none}}
+@media(prefers-reduced-motion:reduce){.ki-learning *{transition:none!important}}

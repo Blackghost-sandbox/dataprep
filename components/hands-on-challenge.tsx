@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SimpleExplanation } from "@/components/simple-explanation";
+import { useCompanion, useCompanionExercise } from "@/components/companion-context";
 
 const steps = [
   {
@@ -36,6 +37,8 @@ const steps = [
 ];
 
 export function HandsOnChallenge() {
+  const companion=useCompanion();
+  useCompanionExercise(companion?.context.lesson.id??"rdd-dataframe",true,steps.map(step=>step.instruction).join(" "),steps.map(step=>step.hint).join("\n"),steps.map(step=>step.solution).join("\n\n"));
   const [completed, setCompleted] = useState<boolean[]>([false, false, false]);
   const count = completed.filter(Boolean).length;
   return <div className="guided-challenge">

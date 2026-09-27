@@ -1,0 +1,49 @@
+"use client";
+import { useEffect, useState } from "react";
+import { Clock3, MessageSquare, Trophy } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { emptyMock, mockSummary, readMock, tickMock, type MockRound, type MockState } from "@/lib/mock-interviews";
+const clock=(seconds:number)=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
+export function MockInterview({round}:{round:MockRound}){
+  const [state,setState]=useState<MockState>(()=>emptyMock(round));
+  const [ready,setReady]=useState(false);
+  const [storageError,setStorageError]=useState(false);
+  const key="dataprep.mock.session.v1."+round.id;
+  useEffect(()=>{let cancelled=false;queueMicrotask(()=>{if(cancelled)return;try{const raw=localStorage.getItem(key);if(raw)setState(readMock(JSON.parse(raw),round));}catch{setStorageError(true);}setReady(true);});return()=>{cancelled=true;};},[key,round]);
+  useEffect(()=>{if(!ready)return;try{localStorage.setItem(key,JSON.stringify(state));}catch{queueMicrotask(()=>setStorageError(true));}},[state,key,ready]);
+  useEffect(()=>{if(state.phase!=="active")return;let last=Date.now();const timer=window.setInterval(()=>{const now=Date.now(),delta=Math.floor((now-last)/1000);if(delta>0){last+=delta*1000;setState(s=>tickMock(s,delta,round.minutes*60));}},1000);return()=>window.clearInterval(timer);},[state.phase,round.minutes]);
+  const update=(patch:Partial<MockState>)=>setState(s=>({...s,...patch}));
+  const summary=mockSummary(state),question=round.questions[state.index],expired=state.mode==="timed"&&state.seconds>=round.minutes*60;
+  function restart(){if(state.phase!=="setup"&&state.phase!=="complete"&&!window.confirm("Discard the current attempt? Saved history will remain."))return;setState({...emptyMock(round),history:state.history,mode:state.mode});}
+  function saveReview(){if(summary.rated!==summary.total)return;const result={date:new Date().toISOString(),score:summary.score,max:summary.max,answered:summary.answered,assisted:summary.assisted,seconds:state.seconds};update({phase:"complete",history:[...state.history,result].slice(-10)});}
+  function exportReview(){const text=[round.title,"Self-assessment only; not automatically graded.",`Score: ${summary.score}/${summary.max}`, ...round.questions.flatMap((q,i)=>[`\n${i+1}. ${q.question}`,state.answers[i]||"No written answer",`Follow-up: ${state.followups[i]||"No written answer"}`,`Ratings: ${state.ratings[i].map(n=>n??"unrated").join(", ")}`]),"\nReflection",state.notes].join("\n");const url=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));const link=document.createElement("a");link.href=url;link.download=round.id+"-review.txt";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+  if(!ready)return <section className="spark-lesson" role="status">Loading your interview session…</section>;
+  return <section className="spark-lesson mock-interview">
+    <header className="mock-header"><h2><MessageSquare size={22}/>Mock interview studio</h2><span><Clock3 size={16}/>{state.mode==="timed"?clock(Math.max(0,round.minutes*60-state.seconds))+" left":clock(state.seconds)+" elapsed"}</span></header>
+    <p className="spark-caption">Curated questions from your lessons. Practice locally; no microphone, AI evaluator or external interviewer is connected. Your answers stay on this browser.</p>
+    {storageError&&<p className="spark-warning" role="alert">Browser storage is unavailable or damaged. Changes may not survive refresh; export your review before leaving.</p>}
+    {state.phase==="setup"?<>
+      <div className="mock-stats"><span><strong>{round.questions.length}</strong>questions</span><span><strong>{round.minutes} min</strong>suggested round</span><span><strong>{state.history.length}</strong>saved reviews</span></div>
+      <fieldset className="spark-question"><legend>Choose your mode</legend><label><input type="radio" name="mock-mode" checked={state.mode==="practice"} onChange={()=>update({mode:"practice"})}/> Practice · reveal answers while learning</label><label><input type="radio" name="mock-mode" checked={state.mode==="timed"} onChange={()=>update({mode:"timed"})}/> Timed · model answers hidden until review</label></fieldset>
+      <div className="spark-answer"><strong>How to use this round</strong><p>Answer aloud or write a draft. Explain your reasoning, then respond to the follow-up. After the round, compare against model answers and rate yourself: 0 = missed, 1 = partial, 2 = clearly covered.</p><p>The timer pauses when this session is closed and reloads paused. It is a practice aid, not a proctored exam.</p></div>
+      <button className="spark-primary" onClick={()=>update({phase:"active"})}>Start interview →</button>
+    </>:state.phase==="active"||state.phase==="paused"?<>
+      <div className="mock-toolbar"><span>Question {state.index+1} / {round.questions.length} · {summary.answered} written answers</span><button onClick={()=>update({phase:state.phase==="active"?"paused":"active"})} disabled={expired}>{state.phase==="active"?"Pause":"Resume"}</button></div>
+      <Progress value={(state.index+1)/round.questions.length*100}/>
+      {state.phase==="paused"?<div className="spark-answer" role="status"><h3>{expired?"Time is up":"Session paused"}</h3><p>Your answers are retained. {expired?"Finish for review, or continue in untimed practice mode.":"Resume when you are ready. The timer is stopped."}</p>{expired&&<button onClick={()=>update({mode:"practice",phase:"active"})}>Continue untimed</button>}</div>:<>
+      <p className="spark-caption">{question.topic}</p><h3>{question.question}</h3><label htmlFor="mock-answer">Your answer / code draft</label><textarea id="mock-answer" value={state.answers[state.index]} onChange={e=>update({answers:state.answers.map((a,i)=>i===state.index?e.target.value:a)})} placeholder="Direct answer → reasoning → example → trade-off"/>
+      <details><summary>Interviewer follow-up</summary><p>{question.followup}</p><label htmlFor="mock-followup">Your follow-up answer</label><textarea id="mock-followup" value={state.followups[state.index]} onChange={e=>update({followups:state.followups.map((a,i)=>i===state.index?e.target.value:a)})}/></details>
+      {state.mode==="practice"&&<><button className="mock-reveal" onClick={()=>update({revealed:state.revealed.map((v,i)=>i===state.index?true:v)})}>Reveal model answer · marks assisted</button>{state.revealed[state.index]&&<div className="spark-answer"><p>{question.answer}</p><a href={question.source}>Review source lesson ↗</a></div>}</>}
+      </>}
+      <div className="mock-navigation"><button disabled={state.index===0||state.phase==="paused"} onClick={()=>update({index:state.index-1})}>← Previous</button><button disabled={state.index===round.questions.length-1||state.phase==="paused"} onClick={()=>update({index:state.index+1})}>Next question →</button><button className="spark-primary" onClick={()=>{if(summary.answered<round.questions.length&&!window.confirm("Some answers are blank. Finish and review anyway?"))return;update({phase:"review"});}}>Finish & review</button></div>
+    </>:<>
+      <h3><Trophy size={20}/> {state.phase==="complete"?"Review saved":"Review your interview"}</h3><p className="spark-caption">Blank answers may reflect spoken practice; assess honestly. This score is a self-rating, not a prediction of interview success.</p>
+      <div className="mock-stats"><span><strong>{summary.score}/{summary.max}</strong>self-rated points</span><span><strong>{summary.answered}/{round.questions.length}</strong>written answers</span><span><strong>{summary.assisted}</strong>assisted questions</span></div>
+      {round.questions.map((q,i)=><details key={q.id} open={i===0}><summary>{i+1}. {q.question}</summary><h4>Your answer</h4><pre className="mock-draft">{state.answers[i]||"No written answer recorded."}</pre>{state.followups[i]&&<><h4>Follow-up answer</h4><pre className="mock-draft">{state.followups[i]}</pre></>}<div className="spark-answer"><h4>Model answer</h4><p>{q.answer}</p><p><strong>Follow-up: </strong>{q.followup}</p><a href={q.source}>Revisit the lesson ↗</a></div><fieldset disabled={state.phase==="complete"}><legend>Rate your coverage · 0 missed / 1 partial / 2 clearly covered</legend>{q.criteria.map((criterion,j)=><label className="mock-rating" key={criterion}><span>{criterion}</span><select aria-label={`Question ${i+1}: ${criterion}`} value={state.ratings[i][j]??""} onChange={e=>update({ratings:state.ratings.map((r,n)=>n===i?r.map((v,k)=>k===j?(e.target.value===""?null:Number(e.target.value)):v):r)})}><option value="">Not rated</option><option value="0">0 · Missed</option><option value="1">1 · Partial</option><option value="2">2 · Covered</option></select></label>)}</fieldset>{state.ratings[i].some(n=>n!==null&&n<2)&&<p className="spark-warning">Next practice: revisit the lesson and re-answer the criteria you marked missed or partial.</p>}</details>)}
+      <label htmlFor="mock-reflection">Reflection and next practice goals</label><textarea id="mock-reflection" value={state.notes} onChange={e=>update({notes:e.target.value})}/>
+      <div className="spark-actions">{state.phase==="review"&&<button className="spark-primary" disabled={summary.rated!==summary.total} onClick={saveReview}>Save review ({summary.rated}/{summary.total} rated)</button>}<button onClick={exportReview}>Download review</button></div>
+    </>}
+    {state.phase!=="setup"&&<button className="mock-reset" onClick={restart}>Start a new attempt</button>}
+    <details><summary>Saved results · last 10 on this device</summary>{state.history.length?<ul className="mock-history">{state.history.map((h,i)=><li key={h.date+i}><time>{new Date(h.date).toLocaleString()}</time><span>{h.score}/{h.max} self-rated · {h.answered} written · {h.assisted} assisted · {clock(h.seconds)}</span></li>)}</ul>:<p>No reviewed attempts saved yet.</p>}</details>
+  </section>;
+}

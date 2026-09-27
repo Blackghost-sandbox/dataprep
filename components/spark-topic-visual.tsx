@@ -56,5 +56,24 @@ export function SparkTopicVisual({id}: {id: string}) {
       <Box title="4 · Inspect and improve" tone="topic-green"><p>Measure tasks and plans. Justify partitioning, reuse, and join choices.</p></Box>
     </div>
   </Frame>;
+  if(id === "py-introduction") return <Frame title="Python glues the pipeline together" subtitle="One script reads, checks, and hands off data between systems." note="Simplified pipeline view. A real job usually adds retries, logging, and scheduling around these same steps.">
+    <Row><Box title="Extract"><p>API, file, or database</p></Box><Arrow/><Box title="Transform"><p>Clean, validate, reshape</p></Box><Arrow/><Box title="Load" tone="topic-green"><p>Warehouse, queue, or file</p></Box></Row>
+    <div className="topic-help"><SimpleExplanation label="Transformations"/><span>Where plain Python usually earns its place.</span></div>
+  </Frame>;
+  if(id === "py-hands-on-task") return <Frame title="From messy orders to checked totals" subtitle="Follow the exercise's explicit quality rules." note="Expected results for this toy exercise, not a live run. Excluding refunds measures positive sales, not net revenue.">
+    <Row><Box title="6 input records"><Chips values={["IN 100","IN 100","US 50","IN 20","Missing country","US −5"]}/></Box><Arrow/><Box title="Clean before summing"><p>Exclude missing country and non-positive amounts.</p><p>Remove one identical duplicate.</p><strong>3 valid, unique records</strong></Box><Arrow/><Box title="2 output groups" tone="topic-green"><p><strong>IN → 120</strong></p><p><strong>US → 50</strong></p></Box></Row>
+    <div className="topic-help"><SimpleExplanation label="Validate"/><SimpleExplanation label="Deduplicate"/><SimpleExplanation label="Aggregate"/></div>
+  </Frame>;
+  if(id === "py-quiz") return <Frame title="Trace the work before you answer" subtitle="Use this small pipeline to reason about the concepts in the quiz." note="This diagram is a thinking prompt, not an answer key. Submit your choices below to see explanations.">
+    <Row><Box title="Input"><Chips values={["10","30","20"]}/></Box><Arrow/><Box title="Keep values > 10"><code>[p for p in prices ...]</code></Box><Arrow/><Box title="Add 5 to each"><code>p + 5</code></Box></Row>
+  </Frame>;
+  if(id === "py-summary") return <Frame title="Your Python decision map" subtitle="Correctness first. Reach for SQL or Spark when the data outgrows this approach." note="Use this map to explain the complete order-validation script out loud, including why each step is needed.">
+    <div className="topic-recap">
+      <Box title="1 · Define the answer"><p>Valid rows, duplicate rules, expected totals.</p></Box>
+      <Box title="2 · Write the pipeline"><p>Small functions, context managers, specific exceptions.</p></Box>
+      <Box title="3 · Request and check"><p>Run it. Compare the output with the expected result.</p></Box>
+      <Box title="4 · Handle failure" tone="topic-green"><p>Log what went wrong; decide what should stop the job.</p></Box>
+    </div>
+  </Frame>;
   return null;
 }

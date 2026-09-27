@@ -1,0 +1,7 @@
+"use client";
+import { useState } from "react";
+import type { SparkLesson } from "@/lib/spark-lessons";
+export function LessonDecisionPractice({lesson,choice,onChoice,draft,onDraft}:{lesson:{id:string;decision:SparkLesson["quiz"][number]};choice:string;onChoice:(value:string)=>void;draft:string;onDraft:(value:string)=>void}){
+  const [checked,setChecked]=useState(false);
+  return <><fieldset className="spark-question"><legend>{lesson.decision.question}</legend>{lesson.decision.options.map((option,i)=><label key={option}><input type="radio" name={lesson.id+"-decision"} checked={choice===String(i)} onChange={()=>{onChoice(String(i));setChecked(false);}}/> {option}</label>)}<button className="spark-primary" disabled={!choice} onClick={()=>setChecked(true)}>Check decision</button>{checked&&<p role="status" className={choice===String(lesson.decision.correct)?"spark-correct":"spark-incorrect"}>{choice===String(lesson.decision.correct)?"Correct. ":"Review your decision. "}{lesson.decision.explanation}</p>}</fieldset><label htmlFor={lesson.id+"-practice"}>Your reasoning / Python draft · saved on this device</label><textarea id={lesson.id+"-practice"} value={draft} onChange={e=>onDraft(e.target.value)} placeholder="Describe dependencies, expected states and one failure case…"/><p className="spark-caption">The decision above is checked against the lesson answer. Your free-text draft is not executed or automatically graded.</p></>;
+}

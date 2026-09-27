@@ -103,3 +103,24 @@ body {
 * { box-sizing: border-box; }
 button, input { font: inherit; }
 button { cursor: pointer; }
+/* Single-page density trial: Spark / Introduction / Concept only. */
+.spark-intro-density .lesson-hero { padding-top: 8px; padding-bottom: 8px; }
+.spark-intro-density .lesson-hero .mb-4 { margin-bottom: 4px; }
+.spark-intro-density .lesson-hero > div:last-child { margin-top: 4px; }
+.spark-intro-density .lesson-hero > div:last-child > button { padding-top: 4px; padding-bottom: 4px; }
+.spark-intro-density .lesson-hero > div:first-of-type > div:last-child { gap: 8px; }
+.spark-intro-density .lesson-tabs { margin-top: 8px; margin-bottom: 8px; }
+.spark-intro-density .lesson-layout { margin-top: 8px; }
+
+/* Page-local density: Spark / Partitioning / Concept. No sidebar overrides. */
+.spark-partitioning-density .lesson-hero { padding-top: 8px; padding-bottom: 8px; margin-block: 0 8px; }
+.spark-partitioning-density .lesson-hero .mb-4 { margin-bottom: 4px; }
+.spark-partitioning-density .lesson-hero > div:last-child { margin-top: 4px; }
+.spark-partitioning-density .lesson-hero > div:last-child > button { padding-top: 4px; padding-bottom: 4px; }
+.spark-partitioning-density .lesson-tabs { margin-block: 0 8px; }
+.spark-partitioning-density .lesson-layout { margin-top: 0; }
+.spark-partitioning-density .lesson-content .spark-lesson { padding-top: 16px; padding-bottom: 16px; }
+.spark-partitioning-density .lesson-content .spark-lesson > h2 { margin-bottom: 12px; }
+.spark-partitioning-density .topic-visual { padding-top: 12px; padding-bottom: 12px; }
+.spark-partitioning-density .topic-visual > h3 { margin-top: 4px; margin-bottom: 4px; }
+.spark-partitioning-density .topic-subtitle { margin-bottom: 10px; }

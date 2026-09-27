@@ -9,6 +9,17 @@ import "./spark-lessons.css";
 import "./spark-topic-visuals.css";
 import "./rdd-experience.css";
 import "./sql-fundamentals.css";
+import "./companion.css";
+import "./data-modeling.css";
+import "./airflow.css";
+import "./kafka.css";
+import "./mock-interview.css";
+import "./where-lab.css";
+import "./spark-performance.css";
+import "./spark-transformations.css";
+import "./spark-partitioning.css";
+import "./kafka-intro.css";
+import "./airflow-lab.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {

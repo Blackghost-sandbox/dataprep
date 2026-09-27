@@ -1,11 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CompanionProvider } from "@/components/companion-context";
+import { NilaCompanion } from "@/components/nila-companion";
+import type { LearningEvent } from "@/lib/companion";
+import { MockInterview } from "@/components/mock-interview";
+import { pythonLessons } from "@/lib/python-lessons";
+import { mockRounds } from "@/lib/mock-interviews";
 import { InterviewPractice } from "@/components/interview-practice";
 import { SparkLessonPanel } from "@/components/spark-lesson";
 import { sqlConceptGuides } from "@/lib/sql-concepts";
 import { sqlLessons } from "@/lib/sql-lessons";
 import { sparkLessons } from "@/lib/spark-lessons";
+import { dbtLessons } from "@/lib/dbt-lessons";
+import { cloudLessons } from "@/lib/cloud-lessons";
+import { systemDesignLessons } from "@/lib/system-design-lessons";
+import { kafkaLessons } from "@/lib/kafka-lessons";
+import { lessonLocation, parseLessonLocation } from "@/lib/lesson-location";
+import { airflowLessons } from "@/lib/airflow-lessons";
+import { modelingLessons } from "@/lib/data-modeling";
 import { CommonMistakes } from "@/components/common-mistakes";
 import { HandsOnChallenge } from "@/components/hands-on-challenge";
 import { LearningExamples } from "@/components/learning-examples";
@@ -19,7 +32,7 @@ import type { LucideIcon } from "lucide-react";
 import {
   ArrowDown, Bell, BookOpen, Brain, Check, CheckCircle2, ChevronDown,
   ChevronLeft, ChevronRight, Circle, Clock3, Cloud, Code2, Copy, Database,
-  FileText, GraduationCap, HelpCircle, Layers3, Lightbulb, Menu, Moon,
+  FileText, GraduationCap, HelpCircle, Layers3, Lightbulb, Menu, MessageSquare, Moon,
   Mountain, Network, NotebookPen, Play, Search, Sparkles, Sun, Trophy,
   Video, Zap,
 } from "lucide-react";
@@ -27,8 +40,12 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const modules = ["SQL Fundamentals", "Python for Data Engineering", "Data Modeling", "Apache Spark", "Apache Airflow", "Kafka", "dbt", "Cloud Platforms", "System Design", "Mock Interviews"];
-type ModuleId = "spark" | "sql";
-const moduleContent = {spark:sparkLessons,sql:sqlLessons};
+type ModuleId = "spark" | "sql" | "modeling" | "airflow" | "kafka" | "dbt" | "cloud" | "system" | "mock" | "python";
+const moduleNames={spark:"Apache Spark",sql:"SQL Fundamentals",modeling:"Data Modeling",airflow:"Apache Airflow",kafka:"Apache Kafka",dbt:"dbt",cloud:"Cloud Platforms",system:"System Design",mock:"Mock Interviews",python:"Python for Data Engineering"};
+const progressNames={spark:"Spark",sql:"SQL",modeling:"Modeling",airflow:"Airflow",kafka:"Kafka",dbt:"dbt",cloud:"Cloud",system:"System Design",mock:"Mock Interviews",python:"Python for Data Engineering"};
+const moduleContent = {spark:sparkLessons,sql:sqlLessons,modeling:modelingLessons,airflow:airflowLessons,kafka:kafkaLessons,dbt:dbtLessons,cloud:cloudLessons,system:systemDesignLessons,mock:mockRounds,python:pythonLessons};
+const moduleRoadmapIndex:Record<ModuleId,number>={sql:0,python:1,modeling:2,spark:3,airflow:4,kafka:5,dbt:6,cloud:7,system:8,mock:9};
+const enabledModules=new Map<number,ModuleId>(Object.entries(moduleRoadmapIndex).map(([id,index])=>[index,id as ModuleId]));
 const tabs = [["Concept", BookOpen], ["Examples", Code2], ["Hands-on", NotebookPen], ["Interview Qs", HelpCircle], ["Common Mistakes", Lightbulb], ["Quiz", Brain], ["Notes", FileText]] as const;
 const cn = (...classes: Array<string | false | undefined>) => classes.filter(Boolean).join(" ");
 const announce = (message: string) => toast(message, { duration: 1800 });
@@ -50,15 +67,15 @@ export function ProgressCard({ count, total = 10, name = "Spark" }: { count: num
 
 export function Sidebar({ collapsed, setCollapsed, onLesson, currentLesson, completed, module, onModule }: { collapsed: boolean; setCollapsed: (value: boolean) => void; onLesson: (lesson: string) => void; currentLesson: number; completed: number[]; module:ModuleId; onModule:(module:ModuleId)=>void }) {
   const lessons=moduleContent[module].map(lesson=>lesson.title);
-  const moduleIndex=module==="sql"?0:3;
+  const moduleIndex=moduleRoadmapIndex[module];
   const [sparkOpen, setSparkOpen] = useState(true);
   return <motion.aside animate={{ width: collapsed ? 88 : 280 }} transition={{ duration: .25 }} className="dataprep-sidebar fixed inset-y-0 left-0 z-30 flex flex-col overflow-hidden bg-[#081a36] text-white shadow-2xl">
     <div className="flex items-center justify-between pr-3"><div className={cn(collapsed && "hidden")}><Brand/></div><button aria-label="Toggle sidebar" onClick={() => setCollapsed(!collapsed)} className="grid size-9 shrink-0 place-items-center rounded-xl text-slate-300 hover:bg-white/10"><Menu size={20}/></button></div>
-    {!collapsed && <ProgressCard count={completed.length} total={lessons.length} name={module==="sql"?"SQL":"Spark"}/>}
+    {!collapsed && <ProgressCard count={completed.length} total={lessons.length} name={progressNames[module]}/>}
     <nav className="mt-4 min-h-0 flex-1 overflow-y-auto px-3 scrollbar-none">
       {!collapsed && <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-[.12em] text-slate-500">Roadmap</div>}
       <div className="space-y-1.5">{modules.map((item, i) => <div key={item}>
-        <button onClick={() => i === 0 || i === 3 ? (i === moduleIndex ? setSparkOpen(!sparkOpen) : (onModule(i===0?"sql":"spark"),setSparkOpen(true))) : announce(`${item} is not available yet`)} aria-expanded={i === moduleIndex ? sparkOpen : undefined} className={cn("flex w-full items-center rounded-xl text-left transition-colors", collapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5", i === moduleIndex ? "bg-[#2450a2] shadow-lg shadow-blue-950/30" : "hover:bg-white/[.06]")}>
+        <button onClick={() => enabledModules.has(i) ? (i === moduleIndex ? setSparkOpen(!sparkOpen) : (onModule(enabledModules.get(i)!),setSparkOpen(true))) : announce(`${item} is not available yet`)} aria-expanded={i === moduleIndex ? sparkOpen : undefined} className={cn("flex w-full items-center rounded-xl text-left transition-colors", collapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5", i === moduleIndex ? "bg-[#2450a2] shadow-lg shadow-blue-950/30" : "hover:bg-white/[.06]")}>
           <span className={cn("grid size-8 shrink-0 place-items-center rounded-full border text-sm font-semibold", i === moduleIndex ? "border-blue-300 bg-blue-500 text-white ring-4 ring-blue-400/15" : "border-white/10 bg-[#294363] text-slate-200")}>{i + 1}</span>
           {!collapsed && <span className="flex-1 text-sm leading-tight">{item}</span>}{!collapsed && i === moduleIndex && <ChevronDown size={16}/>}
         </button>
@@ -117,18 +134,18 @@ export function ResourceList() {
 }
 export function QuoteCard() { return <button onClick={() => announce("Keep going — consistency compounds")} className="relative w-full overflow-hidden rounded-[20px] bg-gradient-to-br from-[#203a72] to-[#081a36] p-5 text-left text-white shadow-xl"><Mountain className="absolute -bottom-6 -right-5 size-32 text-blue-300/20"/><Sparkles className="mb-8 text-amber-300"/><blockquote className="relative text-lg font-bold leading-snug">“Learn. Build.<br/>Practice. Get Hired.”</blockquote><p className="mt-2 text-xs text-blue-200">— The DataPrep way</p></button>; }
 
-function RightPanel({ currentLesson, onLesson, completed, module }: { currentLesson: number; onLesson: (lesson: string) => void; completed: number[]; module:ModuleId }) {
+function RightPanel({ currentLesson, onLesson, completed, module, performanceConcept = false, transformationConcept = false, partitioningConcept = false, kafkaIntroConcept = false, airflowConcept = false, onNotes }: { currentLesson: number; onLesson: (lesson: string) => void; completed: number[]; module:ModuleId; performanceConcept?:boolean; transformationConcept?:boolean; partitioningConcept?:boolean; kafkaIntroConcept?:boolean; airflowConcept?:boolean; onNotes?:()=>void }) {
   const content=moduleContent[module];
   const lessons=content.map(lesson=>lesson.title);
-  return <aside className="lesson-aside space-y-4"><Surface><details open className="lesson-playlist"><summary className="mb-3 flex cursor-pointer items-center justify-between"><span className="font-bold">Lesson Progress <ChevronDown size={16} className="inline-block text-slate-400" aria-hidden="true"/></span><span className="text-xs font-semibold text-[#6d5df6]">{completed.length} / {lessons.length} done</span></summary><Progress value={completed.length / lessons.length * 100} className="mb-5 h-2 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-gradient-to-r [&_[data-slot=progress-indicator]]:from-[#6d5df6] [&_[data-slot=progress-indicator]]:to-[#9b8fff]"/><div className="space-y-1">{lessons.map((lesson, i) => { const state = completed.includes(i) ? "Completed" : i === currentLesson ? "Learning" : "Not started"; return <button onClick={() => onLesson(lesson)} aria-current={i === currentLesson ? "step" : undefined} key={lesson} className={cn("lesson-state-row flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-left text-[13px] hover:bg-slate-50", i === currentLesson ? "bg-[#eeeaff] font-semibold text-[#5b4deb]" : "text-slate-600")}>{completed.includes(i) ? <CheckCircle2 size={18} className="text-emerald-500"/> : i === currentLesson ? <Play size={18} className="fill-[#6d5df6] text-[#6d5df6]"/> : <Circle size={18} className="text-slate-300"/>}<span className="min-w-0 flex-1">{i + 1}. {lesson}</span><small className={`lesson-state lesson-state-${state.toLowerCase().replace(" ", "-")}`}>{state}</small></button>; })}</div></details></Surface><button onClick={() => announce("Quick note pinned")} className="w-full rotate-[-.6deg] rounded-[18px] border border-amber-200 bg-[#fff9d9] p-5 text-left shadow-[0_8px_24px_rgba(120,87,20,.08)]"><div className="mb-2 flex items-center gap-2 font-bold"><NotebookPen size={19} className="text-amber-600"/>Quick Notes</div><p className="text-sm leading-6 text-amber-950/75">{module === "spark" && currentLesson === 1 ? "DataFrames provide a schema and an optimized query engine. Choose RDDs when their extra control fits your task." : content[currentLesson].concepts[0]?.[1]}</p></button>{module === "spark" && currentLesson === 1 && <><RelatedConceptsCard/><CommonInterviewCard/></>}{module==="sql"?<Surface><SectionTitle icon={BookOpen} title="SQL Resources"/><a href="https://www.postgresql.org/docs/current/tutorial-sql.html" target="_blank" rel="noreferrer" className="text-sm text-[#6d5df6]">PostgreSQL SQL tutorial ↗</a></Surface>:<ResourceList/>}<QuoteCard/></aside>;
+  return <aside className="lesson-aside space-y-4"><Surface><details open className="lesson-playlist"><summary className="mb-3 flex cursor-pointer items-center justify-between"><span className="font-bold">Lesson Progress <ChevronDown size={16} className="inline-block text-slate-400" aria-hidden="true"/></span><span className="text-xs font-semibold text-[#6d5df6]">{completed.length} / {lessons.length} done</span></summary><Progress value={completed.length / lessons.length * 100} className="mb-5 h-2 bg-slate-100 [&_[data-slot=progress-indicator]]:bg-gradient-to-r [&_[data-slot=progress-indicator]]:from-[#6d5df6] [&_[data-slot=progress-indicator]]:to-[#9b8fff]"/><div className="space-y-1">{lessons.map((lesson, i) => { const state = completed.includes(i) ? "Completed" : i === currentLesson ? "Learning" : "Not started"; return <button onClick={() => onLesson(lesson)} aria-current={i === currentLesson ? "step" : undefined} key={lesson} className={cn("lesson-state-row flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-left text-[13px] hover:bg-slate-50", i === currentLesson ? "bg-[#eeeaff] font-semibold text-[#5b4deb]" : "text-slate-600")}>{completed.includes(i) ? <CheckCircle2 size={18} className="text-emerald-500"/> : i === currentLesson ? <Play size={18} className="fill-[#6d5df6] text-[#6d5df6]"/> : <Circle size={18} className="text-slate-300"/>}<span className="min-w-0 flex-1">{i + 1}. {lesson}</span><small className={`lesson-state lesson-state-${state.toLowerCase().replace(" ", "-")}`}>{state}</small></button>; })}</div></details></Surface><button onClick={() => (performanceConcept || transformationConcept || partitioningConcept || kafkaIntroConcept || airflowConcept) ? onNotes?.() : announce("Quick note pinned")} className="w-full rotate-[-.6deg] rounded-[18px] border border-amber-200 bg-[#fff9d9] p-5 text-left shadow-[0_8px_24px_rgba(120,87,20,.08)]"><div className="mb-2 flex items-center gap-2 font-bold"><NotebookPen size={19} className="text-amber-600"/>Quick Notes</div>{airflowConcept ? <span className="perf-rail-notes">{airflowLessons[currentLesson].takeaway}<span className="block mt-2 font-semibold text-amber-700">+ Add your note →</span></span> : kafkaIntroConcept ? <span className="perf-rail-notes">• Kafka decouples producers and consumers.<br/>• Topics store events in partitions.<br/>• Offsets belong to each partition.<br/>• Independent apps read at their own pace.<br/>• Retention allows replay while data remains.<span className="block mt-2 font-semibold text-amber-700">+ Add your note →</span></span> : partitioningConcept ? <span className="perf-rail-notes">• Partitions divide distributed data.<br/>• Usually one task per partition per stage.<br/>• Repartition redistributes via shuffle.<br/>• Coalesce commonly reduces movement.<br/>• Records are not duplicated.<span className="block mt-2 font-semibold text-amber-700">+ Add your note →</span></span> : transformationConcept ? <span className="perf-rail-notes">• Transformations are lazy.<br/>• They return a new DataFrame.<br/>• They build a plan, not an executed result.<br/>• Try filter, select and withColumn.<span className="block mt-2 font-semibold text-amber-700">+ Add your note →</span></span> : performanceConcept ? <span className="perf-rail-notes">• Cache when an expensive result will be reused.<br/>• The first action populates the cache.<br/>• Storage costs can outweigh the benefit.<br/>• Unpersist when finished.<span className="block mt-2 font-semibold text-amber-700">+ Add your note →</span></span> : <p className="text-sm leading-6 text-amber-950/75">{module === "spark" && currentLesson === 1 ? "DataFrames provide a schema and an optimized query engine. Choose RDDs when their extra control fits your task." : module==="kafka" ? kafkaLessons[currentLesson].takeaway : module==="modeling" ? modelingLessons[currentLesson].takeaway : content[currentLesson].concepts[0]?.[1]}</p>}</button>{module === "spark" && currentLesson === 1 && <><RelatedConceptsCard/><CommonInterviewCard/></>}{module==="kafka"?<Surface><SectionTitle icon={BookOpen} title="Kafka Resources"/><a className="text-sm text-[#6d5df6]" href={kafkaLessons[currentLesson].resource} target="_blank" rel="noreferrer">Kafka 4.1 · official lesson reference ↗</a></Surface>:module==="airflow"?<Surface><SectionTitle icon={BookOpen} title="Airflow Resources"/><a className="text-sm text-[#6d5df6]" href={airflowLessons[currentLesson].resource} target="_blank" rel="noreferrer">Airflow 3.1 · official lesson reference ↗</a></Surface>:module==="modeling"?<Surface><SectionTitle icon={BookOpen} title="Modeling Resources"/><a className="model-resource" href={modelingLessons[currentLesson].resource.url} target="_blank" rel="noreferrer">{modelingLessons[currentLesson].resource.title} ↗</a></Surface>:module==="sql"?<Surface><SectionTitle icon={BookOpen} title="SQL Resources"/><a href="https://www.postgresql.org/docs/current/tutorial-sql.html" target="_blank" rel="noreferrer" className="text-sm text-[#6d5df6]">PostgreSQL SQL tutorial ↗</a></Surface>:module==="dbt"?<Surface><SectionTitle icon={BookOpen} title="dbt Resources"/><a href="https://docs.getdbt.com/docs/introduction" target="_blank" rel="noreferrer" className="text-sm text-[#6d5df6]">dbt documentation ↗</a></Surface>:module==="cloud"?<Surface><SectionTitle icon={Cloud} title="Cloud Resources"/><div className="space-y-2 text-sm"><a className="block text-[#6d5df6]" href="https://docs.aws.amazon.com/" target="_blank" rel="noreferrer">AWS documentation ↗</a><a className="block text-[#6d5df6]" href="https://cloud.google.com/docs" target="_blank" rel="noreferrer">Google Cloud documentation ↗</a><a className="block text-[#6d5df6]" href="https://learn.microsoft.com/azure/" target="_blank" rel="noreferrer">Microsoft Azure documentation ↗</a></div></Surface>:module==="system"?<Surface><SectionTitle icon={BookOpen} title="System Design Focus"/><p className="text-sm leading-6 text-slate-600">Practice requirements → scale → data flow → reliability → bottlenecks → trade-offs. Keep designs technology-neutral until constraints justify a specific component.</p></Surface>:module==="mock"?<Surface><SectionTitle icon={MessageSquare} title="Interview checklist"/><p className="text-sm leading-6 text-slate-600">Clarify assumptions. Give a direct answer. Explain the mechanism. Use an example. Discuss failure modes and trade-offs.</p><p className="mt-3 text-xs text-slate-500">Round completion is self-reported below; saved reviews are separate from roadmap progress.</p></Surface>:module==="python"?<Surface><SectionTitle icon={BookOpen} title="Python Resources"/><a href="https://docs.python.org/3/" target="_blank" rel="noreferrer" className="text-sm text-[#6d5df6]">Python documentation ↗</a></Surface>:<ResourceList/>}<QuoteCard/></aside>;
 }
 
-function Hero({ onPrevious, onNext, currentLesson, compact = false, module }: { onPrevious: () => void; onNext: () => void; currentLesson: number; compact?: boolean; module:ModuleId }) {
+function Hero({ onPrevious, onNext, currentLesson, compact = false, dense = false, module }: { onPrevious: () => void; onNext: () => void; currentLesson: number; compact?: boolean; dense?: boolean; module:ModuleId }) {
   const content=moduleContent[module];
   const lessons=content.map(lesson=>lesson.title);
   const difficulty = module==="sql" ? sqlConceptGuides[content[currentLesson].id].difficulty : currentLesson===0?"Beginner":"Intermediate";
   const metadata = [[Clock3, `${content[currentLesson].minutes} min`], [GraduationCap, `Lesson ${currentLesson + 1}/${lessons.length}`], ...(module === "spark" && currentLesson === 1 ? [[Sparkles, "High interview relevance"]] : [])] as const;
-  return <div className={`lesson-hero ${compact ? "practice-hero " : ""}relative overflow-hidden rounded-[22px] border border-[#e7ecf3] bg-gradient-to-r from-white via-white to-[#eef2ff] p-6 shadow-[0_8px_28px_rgba(34,48,73,.04)]`}><Mountain className="absolute -bottom-7 right-10 size-44 text-[#6d5df6]/[.07]"/><div className="relative flex items-center justify-between"><div><div className="mb-4 flex items-center gap-2 text-sm text-slate-500"><button onClick={() => announce(`${module==="sql"?"SQL Fundamentals":"Apache Spark"} roadmap opened`)} className="hover:text-[#6d5df6]">{module==="sql"?"SQL Fundamentals":"Apache Spark"}</button><ChevronRight size={14}/><span className="font-medium text-slate-700">{lessons[currentLesson]}</span></div><div className="flex items-center gap-4"><div className="grid size-16 place-items-center rounded-2xl bg-[#eeeaff] text-[#6d5df6]"><Zap size={31}/></div><div><h1 className="text-[40px] font-bold leading-tight tracking-[-.035em]">{lessons[currentLesson]}</h1><p className="mt-1 max-w-2xl text-[15px] leading-6 text-slate-600">{content[currentLesson].description}</p></div></div></div><div className="flex flex-col items-end gap-4"><button onClick={() => announce("Difficulty: "+difficulty)} className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-700">{difficulty}</button><div className="flex gap-2"><button onClick={onPrevious} disabled={currentLesson === 0} aria-label="Previous lesson" className="grid size-10 place-items-center rounded-xl border bg-white text-slate-600 hover:bg-slate-50"><ChevronLeft size={18}/></button><button onClick={onNext} disabled={currentLesson === lessons.length - 1} className="flex items-center gap-2 rounded-xl bg-[#6d5df6] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#6d5df6]/20 hover:bg-[#5b4deb]">Next <ChevronRight size={17}/></button></div></div></div><div className="relative mt-5 flex flex-wrap gap-2">{metadata.map(([Icon, label]) => <button onClick={() => announce(String(label))} key={String(label)} className={cn("flex items-center gap-2 rounded-full border bg-white/80 px-3 py-1.5 text-xs font-medium hover:border-[#6d5df6]/30", label === "High interview relevance" ? "border-emerald-200 text-emerald-700" : "border-slate-200 text-slate-600")}><Icon size={14}/>{String(label)}</button>)}</div></div>;
+  return <div className={`lesson-hero ${compact ? "practice-hero " : ""}relative overflow-hidden rounded-[22px] border border-[#e7ecf3] bg-gradient-to-r from-white via-white to-[#eef2ff] p-6 shadow-[0_8px_28px_rgba(34,48,73,.04)]`}><Mountain className="absolute -bottom-7 right-10 size-44 text-[#6d5df6]/[.07]"/><div className="relative flex items-center justify-between"><div><div className="mb-4 flex items-center gap-2 text-sm text-slate-500"><button onClick={() => announce(`${moduleNames[module]} roadmap opened`)} className="hover:text-[#6d5df6]">{moduleNames[module]}</button><ChevronRight size={14}/><span className="font-medium text-slate-700">{lessons[currentLesson]}</span></div><div className="flex items-center gap-4"><div className="grid size-16 place-items-center rounded-2xl bg-[#eeeaff] text-[#6d5df6]"><Zap size={31}/></div><div><h1 className="text-[40px] font-bold leading-tight tracking-[-.035em]">{lessons[currentLesson]}</h1><p className="mt-1 max-w-2xl text-[15px] leading-6 text-slate-600">{content[currentLesson].description}</p></div></div></div><div className="flex flex-col items-end gap-4">{!dense && <button onClick={() => announce("Difficulty: "+difficulty)} className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-700">{difficulty}</button>}<div className="flex gap-2"><button onClick={onPrevious} disabled={currentLesson === 0} aria-label="Previous lesson" className="grid size-10 place-items-center rounded-xl border bg-white text-slate-600 hover:bg-slate-50"><ChevronLeft size={18}/></button><button onClick={onNext} disabled={currentLesson === lessons.length - 1} className="flex items-center gap-2 rounded-xl bg-[#6d5df6] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#6d5df6]/20 hover:bg-[#5b4deb]">Next <ChevronRight size={17}/></button></div></div></div><div className="relative mt-5 flex flex-wrap gap-2">{dense && <button onClick={() => announce("Difficulty: "+difficulty)} className="rounded-full bg-amber-100 px-3 py-1.5 text-xs font-bold text-amber-700">{difficulty}</button>}{metadata.map(([Icon, label]) => <button onClick={() => announce(String(label))} key={String(label)} className={cn("flex items-center gap-2 rounded-full border bg-white/80 px-3 py-1.5 text-xs font-medium hover:border-[#6d5df6]/30", label === "High interview relevance" ? "border-emerald-200 text-emerald-700" : "border-slate-200 text-slate-600")}><Icon size={14}/>{String(label)}</button>)}</div></div>;
 }
 
 function ConceptPanel() { return <><RddDataFrameConceptExperience/><button onClick={() => announce("Takeaway saved to your notes")} className="flex w-full items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-left text-sm leading-6 text-amber-950 hover:shadow-md"><span className="grid size-9 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-600"><Lightbulb size={20}/></span><span><span className="block font-bold">Key Takeaway</span>Use DataFrames for most structured analytics because Catalyst can optimize the query plan. Reach for RDDs when custom objects or fine-grained transformations justify lower-level control.</span></button></>; }
@@ -144,17 +161,34 @@ function InteractivePanel({ active }: { active: string }) {
 }
 
 export function DataPrepApp() {
+  const [companionEvent,setCompanionEvent]=useState<LearningEvent|null>(null);
   const [module,setModule]=useState<ModuleId>("spark");
   const lessons=moduleContent[module].map(lesson=>lesson.title);
-  const [active, setActive] = useState("Concept");
+  const [active, setActiveState] = useState("Concept");
   const [collapsed, setCollapsed] = useState(false);
   const [dark, setDark] = useState(false);
   const [currentLesson, setCurrentLesson] = useState(1);
-  const [completion,setCompletion]=useState<Record<ModuleId,number[]>>({spark:[],sql:[]});
+  const [completion,setCompletion]=useState<Record<ModuleId,number[]>>({spark:[],sql:[],modeling:[],airflow:[],kafka:[],dbt:[],cloud:[],system:[],mock:[],python:[]});
   const completed=completion[module];
+  const saveLocation=(id:ModuleId,index:number,tab:string)=>{
+    const hash=lessonLocation(id,moduleContent[id][index].id,tab);
+    if(window.location.hash!==hash)window.history.pushState(null,"",hash);
+  };
+  const setActive=(tab:string)=>{setActiveState(tab);saveLocation(module,currentLesson,tab);};
+  useEffect(()=>{
+    let cancelled=false;
+    const restore=()=>{
+      const target=parseLessonLocation(window.location.hash,moduleContent);
+      const next=target??{module:"spark",index:1,tab:"Concept"};
+      setModule(next.module as ModuleId);setCurrentLesson(next.index);setActiveState(next.tab);
+    };
+    queueMicrotask(()=>{if(!cancelled)restore();});
+    window.addEventListener("hashchange",restore);
+    return()=>{cancelled=true;window.removeEventListener("hashchange",restore);};
+  },[]);
   useEffect(() => {
-    const restored:Record<ModuleId,number[]>={spark:[],sql:[]};
-    for(const id of ["spark","sql"] as const) {
+    const restored:Record<ModuleId,number[]>={spark:[],sql:[],modeling:[],airflow:[],kafka:[],dbt:[],cloud:[],system:[],mock:[],python:[]};
+    for(const id of ["spark","sql","modeling","airflow","kafka","dbt","cloud","system","mock","python"] as const) {
       try {
         const value=JSON.parse(localStorage.getItem("dataprep."+id+".completed.v1") || "[]");
         if(Array.isArray(value))restored[id]=[...new Set(value.filter((v:unknown):v is number=>typeof v==="number"&&Number.isInteger(v)&&v>=0&&v<moduleContent[id].length))];
@@ -165,42 +199,52 @@ export function DataPrepApp() {
     queueMicrotask(()=>{if(!cancelled)setCompletion(restored);});
     return ()=>{cancelled=true;};
   }, []);
-  const switchModule=(id:ModuleId)=>{setModule(id);setCurrentLesson(0);setActive("Concept");window.scrollTo({top:0,behavior:"instant"});};
+  const switchModule=(id:ModuleId)=>{setModule(id);setCurrentLesson(0);setActiveState("Concept");saveLocation(id,0,"Concept");window.scrollTo({top:0,behavior:"instant"});};
   const openLesson = (index: number) => {
     setCurrentLesson(index);
-    setActive(module === "sql" ? "Concept" : index === 6 ? "Hands-on" : index === 7 ? "Interview Qs" : index === 8 ? "Quiz" : "Concept");
+    const tab=module !== "spark" ? "Concept" : index === 6 ? "Hands-on" : index === 7 ? "Interview Qs" : index === 8 ? "Quiz" : "Concept";
+    setActiveState(tab);saveLocation(module,index,tab);
     window.scrollTo({top:0,behavior:"instant"});
   };
   const selectLesson = (lesson: string) => { const index=lessons.indexOf(lesson); if(index>=0) openLesson(index); };
   const moveLesson = (direction: number) => openLesson(Math.max(0,Math.min(lessons.length-1,currentLesson+direction)));
   const toggleComplete = () => {
+    if(!completed.includes(currentLesson))setCompanionEvent({type:"lesson_completed",lesson:moduleContent[module][currentLesson].title,source:"self-check",emittedAt:Date.now()});
     const updated = completed.includes(currentLesson) ? completed.filter(n=>n!==currentLesson) : [...completed,currentLesson];
     setCompletion(values=>({...values,[module]:updated}));
     try { localStorage.setItem("dataprep."+module+".completed.v1",JSON.stringify(updated)); }
     catch { toast.error("Progress updated for this visit but could not be saved."); }
   };
-  return <div className={cn((module==="sql" || currentLesson === 1) && "rdd-page", module==="sql" && "sql-module-page", "min-h-screen text-[#0f172a] transition-colors",dark ? "bg-[#e8ebf4]" : "bg-[#f5f7fb]")}>
+  const performanceConcept=module==="spark" && moduleContent[module][currentLesson].id==="performance" && active==="Concept";
+  const transformationConcept=module==="spark" && moduleContent[module][currentLesson].id==="transformations" && active==="Concept";
+  const partitioningConcept=module==="spark" && moduleContent[module][currentLesson].id==="partitioning" && active==="Concept";
+  const compactSparkConcept=performanceConcept||transformationConcept||partitioningConcept;
+  const kafkaIntroConcept=module==="kafka" && moduleContent[module][currentLesson].id==="introduction" && active==="Concept";
+  const airflowConcept=module==="airflow" && active==="Concept";
+  const compactConcept=compactSparkConcept||kafkaIntroConcept||airflowConcept;
+  return <CompanionProvider context={{course:moduleNames[module],lesson:moduleContent[module][currentLesson],tab:active}}><div className={cn(((!kafkaIntroConcept && !airflowConcept && ["sql","modeling","airflow","kafka"].includes(module)) || module==="spark" && currentLesson === 1) && "rdd-page", (module==="sql" || module==="modeling") && "sql-module-page", module==="airflow" && "airflow-module-page", module==="kafka" && "kafka-module-page", module==="spark" && currentLesson===0 && active==="Concept" && "spark-intro-density", module==="spark" && moduleContent[module][currentLesson].id==="partitioning" && active==="Concept" && "spark-partitioning-density", compactConcept && "spark-performance-page", kafkaIntroConcept && "kafka-intro-page", airflowConcept && "airflow-concept-page", transformationConcept && "spark-transformations-page", partitioningConcept && "spark-partitioning-page", "min-h-screen text-[#0f172a] transition-colors",dark ? "bg-[#e8ebf4]" : "bg-[#f5f7fb]")}>
     <Toaster position="bottom-right" richColors/>
     <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} onLesson={selectLesson} currentLesson={currentLesson} completed={completed} module={module} onModule={switchModule}/>
     <motion.div animate={{marginLeft:collapsed ? 88 : 280}} transition={{duration:.25}} className="dataprep-main min-h-screen">
       <TopNavbar dark={dark} setDark={setDark} setTab={setActive}/>
       <main className="mx-auto max-w-[1536px] space-y-4 p-5 xl:p-6">
-        <div className="sql-module-picker"><label>Module <select value={module} onChange={e=>switchModule(e.target.value as ModuleId)}><option value="spark">Apache Spark</option><option value="sql">SQL Fundamentals</option></select></label><label>Lesson <select value={currentLesson} onChange={e=>openLesson(Number(e.target.value))}>{lessons.map((lesson,i)=><option key={lesson} value={i}>{i+1}. {lesson}</option>)}</select></label></div>
-        <Hero module={module} compact={["Interview Qs","Hands-on","Quiz","Common Mistakes"].includes(active)} currentLesson={currentLesson} onPrevious={()=>moveLesson(-1)} onNext={()=>moveLesson(1)}/>
-        <LessonTabs active={active} setActive={setActive}/>
+        <div className="sql-module-picker"><label>Module <select value={module} onChange={e=>switchModule(e.target.value as ModuleId)}><option value="spark">Apache Spark</option><option value="sql">SQL Fundamentals</option><option value="modeling">Data Modeling</option><option value="airflow">Apache Airflow</option><option value="kafka">Apache Kafka</option><option value="dbt">dbt</option><option value="cloud">Cloud Platforms</option><option value="system">System Design</option><option value="mock">Mock Interviews</option><option value="python">Python for Data Engineering</option></select></label><label>Lesson <select value={currentLesson} onChange={e=>openLesson(Number(e.target.value))}>{lessons.map((lesson,i)=><option key={lesson} value={i}>{i+1}. {lesson}</option>)}</select></label></div>
+        {compactConcept ? <section className="perf-hero"><div className="perf-breadcrumb">{moduleNames[module]} <ChevronRight size={14}/> <strong>{lessons[currentLesson]}</strong></div><div className="perf-hero-row"><span className="perf-hero-icon"><Zap size={28}/></span><h1>{lessons[currentLesson]}</h1><span className="perf-difficulty">{kafkaIntroConcept || (airflowConcept && currentLesson<2)?"Beginner":"Intermediate"}</span><span><Clock3 size={14}/>{moduleContent[module][currentLesson].minutes} min</span><span><GraduationCap size={14}/>Lesson {currentLesson+1}/{lessons.length}</span><div className="perf-hero-nav"><button disabled={currentLesson===0} onClick={()=>moveLesson(-1)}><ChevronLeft size={16}/>Previous</button><button disabled={currentLesson===lessons.length-1} onClick={()=>moveLesson(1)}>Next<ChevronRight size={16}/></button></div></div><p>{moduleContent[module][currentLesson].description}</p></section> : <Hero module={module} dense={module==="spark" && (currentLesson===0 || moduleContent[module][currentLesson].id==="partitioning") && active==="Concept"} compact={["Interview Qs","Hands-on","Quiz","Common Mistakes"].includes(active)} currentLesson={currentLesson} onPrevious={()=>moveLesson(-1)} onNext={()=>moveLesson(1)}/>}
+        {module!=="mock"&&<LessonTabs active={active} setActive={setActive}/>}
         <div className="lesson-layout grid grid-cols-[minmax(0,1fr)_320px] gap-4">
           <div className="lesson-content min-w-0 space-y-4">
             <motion.div key={module+"-"+currentLesson+"-"+active} initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} className="space-y-4">
-              {module==="sql" ? <SparkLessonPanel key={"sql-"+sqlLessons[currentLesson].id} module="sql" lesson={sqlLessons[currentLesson]} active={active} onTab={setActive} onLesson={id=>{const index=sqlLessons.findIndex(lesson=>lesson.id===id);if(index>=0)openLesson(index);}}/> : currentLesson === 1 && active !== "Notes" ? active === "Concept" ? <ConceptPanel/> : <InteractivePanel active={active}/> : <SparkLessonPanel key={sparkLessons[currentLesson].id} lesson={sparkLessons[currentLesson]} active={active}/>}
+              {module==="python" ? <SparkLessonPanel key={"python-"+pythonLessons[currentLesson].id} module="python" lesson={pythonLessons[currentLesson]} active={active} onTab={setActive}/> : module==="mock" ? <MockInterview key={mockRounds[currentLesson].id} round={mockRounds[currentLesson]}/> : (module==="dbt" || module==="cloud" || module==="system") ? <SparkLessonPanel key={module+"-"+moduleContent[module][currentLesson].id} module={module} lesson={moduleContent[module][currentLesson]} active={active} onTab={setActive}/> : module==="kafka" ? <SparkLessonPanel key={"kafka-"+kafkaLessons[currentLesson].id} module="kafka" lesson={kafkaLessons[currentLesson]} active={active} onTab={setActive}/> : module==="airflow" ? <SparkLessonPanel key={"airflow-"+airflowLessons[currentLesson].id} module="airflow" lesson={airflowLessons[currentLesson]} active={active} onTab={setActive}/> : module==="modeling" ? <SparkLessonPanel key={"modeling-"+modelingLessons[currentLesson].id} module="modeling" lesson={modelingLessons[currentLesson]} active={active} onTab={setActive}/> : module==="sql" ? <SparkLessonPanel key={"sql-"+sqlLessons[currentLesson].id} module="sql" lesson={sqlLessons[currentLesson]} active={active} onTab={setActive} onLesson={id=>{const index=sqlLessons.findIndex(lesson=>lesson.id===id);if(index>=0)openLesson(index);}}/> : currentLesson === 1 && active !== "Notes" ? active === "Concept" ? <ConceptPanel/> : <InteractivePanel active={active}/> : <SparkLessonPanel key={sparkLessons[currentLesson].id} lesson={sparkLessons[currentLesson]} active={active}/>}
             </motion.div>
             <section className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5">
               <div><button type="button" aria-pressed={completed.includes(currentLesson)} onClick={toggleComplete} className="rounded-xl bg-[#6d5df6] px-4 py-2 text-sm font-semibold text-white">{completed.includes(currentLesson) ? "✓ Completed · mark incomplete" : "Mark lesson complete"}</button><p className="mt-2 text-xs text-slate-500">Self-reported progress · saved on this device</p></div>
               <button disabled={currentLesson===lessons.length-1} onClick={()=>moveLesson(1)} className="text-sm font-semibold text-[#6d5df6] disabled:opacity-40">{currentLesson===lessons.length-1 ? "End of module" : "Next: "+lessons[currentLesson+1]+" →"}</button>
             </section>
           </div>
-          <RightPanel module={module} currentLesson={currentLesson} onLesson={selectLesson} completed={completed}/>
+          <div className={compactConcept?"perf-right-rail":"contents"}><RightPanel airflowConcept={airflowConcept} kafkaIntroConcept={kafkaIntroConcept} partitioningConcept={partitioningConcept} transformationConcept={transformationConcept} performanceConcept={performanceConcept} onNotes={()=>setActive("Notes")} module={module} currentLesson={currentLesson} onLesson={selectLesson} completed={completed}/>{compactConcept&&<NilaCompanion embedded completionEvent={companionEvent}/>}</div>
         </div>
       </main>
     </motion.div>
-  </div>;
+    {!compactConcept&&<NilaCompanion completionEvent={companionEvent}/>}
+  </div></CompanionProvider>;
 }
