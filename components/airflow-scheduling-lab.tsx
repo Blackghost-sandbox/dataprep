@@ -81,7 +81,7 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
           : "Jan 2 · "+clockLabel(actualStart.hour,actualStart.minute)+" UTC",
   }),[startHour,endHour,step,actualStart.hour,actualStart.minute]);
 
-  const currentPct=step===0?66:step===1?84:step===2?87:91;
+  const currentPct=step===0?79:step===1?84:step===2?87:91;
   const runCreated=step>=1;
   const eligible=step>=2;
   const started=step>=3;
@@ -182,21 +182,10 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
             })}
 
             <motion.div className="af-sched-current" animate={{left:currentPct+"%"}} transition={{duration:reduce?0:.28}}>
-              <i/><span><strong>Current time</strong><b>{timeline.current}</b></span>
+              <i/><span><strong>Current time</strong><b>{timeline.current}</b><p>Run due (interval end)<br/>When the data interval closes, the scheduled run becomes due.</p></span>
             </motion.div>
 
             <div className="af-sched-callout start"><strong>Logical date (interval start)</strong><b>{timeline.logical}</b><p>Start of the data period<br/>(this is the run&apos;s logical date)</p></div>
-            <div className="af-sched-callout end"><strong>Run due (interval end)</strong><b>{timeline.due}</b><p>When the data interval closes,<br/>the scheduled run becomes due.</p></div>
-          </div>
-
-          <div className="af-sched-concepts">
-            <article className="tone-orange"><span><CalendarClock size={21}/></span><div><strong>Timetable</strong><p>Defines the schedule<br/><code>{"0 "+scheduleHour+" * * *"}</code></p></div></article>
-            <em>determines<br/>interval boundaries</em>
-            <article className="tone-blue"><span><Clock3 size={21}/></span><div><strong>Time interval</strong><p>Represents the period<br/>of data to process</p></div></article>
-            <em>closes at<br/>the end time</em>
-            <article className="tone-coral"><span><Play size={21}/></span><div><strong>Run becomes due</strong><p>A scheduled DAG run<br/>can now be created</p></div></article>
-            <em>scheduler<br/>evaluates</em>
-            <article className="tone-violet"><span><Sparkles size={21}/></span><div><strong>Task eligibility</strong><p>Dependencies + capacity<br/>still matter</p></div></article>
           </div>
         </section>
 
@@ -235,6 +224,13 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
           <Lightbulb size={20}/><div><strong>Key Takeaway</strong><p>A scheduled DAG run becomes due when the data interval closes, not at the beginning. The logical date (interval start), run due time (interval end), and actual task start time are different.</p></div>
         </section>
       </aside>
+    </div>
+
+    <div className="af-sched-concepts">
+      <article className="tone-orange"><span><CalendarClock size={21}/></span><div><strong>Timetable</strong><p>Defines the schedule<br/><code>{"0 "+scheduleHour+" * * *"}</code></p></div></article>
+      <article className="tone-blue"><span><Clock3 size={21}/></span><div><strong>Time interval</strong><p>Represents the period<br/>of data to process</p></div></article>
+      <article className="tone-coral"><span><Play size={21}/></span><div><strong>Run becomes due</strong><p>A scheduled DAG run<br/>is created</p></div></article>
+      <article className="tone-violet"><span><Sparkles size={21}/></span><div><strong>Task eligibility</strong><p>Tasks become eligible based on<br/>dependencies and capacity</p></div></article>
     </div>
 
     <p className="af-sched-caveat">Airflow 3.1 · deterministic educational timeline. The 7-minute capacity delay is illustrative only; it is not a performance claim. This lesson uses an explicit CronDataIntervalTimetable in UTC.</p>
