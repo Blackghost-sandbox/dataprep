@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect,useMemo,useState} from "react";
-import {Activity,CheckCircle2,Circle,Clock3,Cpu,GitBranch,ListChecks,Pause,Play,RotateCcw,SkipForward} from "lucide-react";
+import {Activity,CheckCircle2,Circle,Clock3,Cpu,ListChecks,Pause,Play,RotateCcw,SkipForward} from "lucide-react";
 import {CodeSync} from "@/components/airflow-lab-primitives";
 import {DagGraph} from "@/components/airflow-dag-lab";
 import {stateLabels,taskReason} from "@/lib/airflow-lab-model";
