@@ -4,8 +4,8 @@ import {useEffect,useMemo,useState} from "react";
 import {Activity,CheckCircle2,Circle,Clock3,Cpu,ListChecks,Pause,Play,RotateCcw,SkipForward} from "lucide-react";
 import {CodeSync} from "@/components/airflow-lab-primitives";
 import {DagGraph} from "@/components/airflow-dag-lab";
-import {stateLabels,taskReason,taskVisualState,visualStateLabels,type VisualTaskState} from "@/lib/airflow-lab-model";
-import {taskStateMeaning,type TaskState} from "@/lib/airflow-execution";
+import {taskReason,taskVisualState,visualStateLabels,type VisualTaskState} from "@/lib/airflow-lab-model";
+import {taskStateMeaning} from "@/lib/airflow-execution";
 import {introScenario,introScenarioChoices,type IntroScenarioKey} from "@/lib/airflow-intro-simulation";
 import type {AirflowLesson} from "@/lib/airflow-lessons";
 
@@ -145,7 +145,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
             {introScenarioChoices.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}
           </select>
         </label>
-        <button className="af-primary" onClick={run}>{playing?<Pause size={14}/>:<Play size={14}/>} {playing?"Pause":complete?"Replay":"Run"}</button>
+        <button className="af-primary" onClick={run}>{playing?<Pause size={14}/>:<Play size={14}/>} {playing?"Pause":complete?"Replay DAG":"Run DAG"}</button>
         <button disabled={complete} onClick={()=>{setPlaying(false);setStep(value=>Math.min(value+1,trace.frames.length-1));}}><SkipForward size={14}/>Step</button>
         <button onClick={reset}><RotateCcw size={14}/>Reset</button>
       </div>
@@ -250,7 +250,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
       <CodeSync lines={codeLines} active={activeCode} label="DAG Code · Airflow 3.1 teaching example"/>
       <section className="af-cr-events">
         <header><strong>Execution Events</strong><div>{(["all","scheduler","tasks"] as EventFilter[]).map(filter=><button key={filter} aria-pressed={eventFilter===filter} onClick={()=>setEventFilter(filter)}>{filter[0].toUpperCase()+filter.slice(1)}</button>)}</div></header>
-        <div className="af-cr-event-list">{filteredEvents.map((event,index)=><div className={event===frame?"is-current":""} key={index}><span>Step {String(trace.frames.indexOf(event)+1).padStart(2,"0")}</span><i/><div><strong>{event.title}</strong><small>{event.actor}</small></div></div>)}</div>
+        <div className="af-cr-event-list">{filteredEvents.map(event=>{const eventStep=trace.frames.indexOf(event);return <button type="button" className={event===frame?"is-current":""} key={eventStep} onClick={()=>{setPlaying(false);setStep(eventStep);setSelectedTask(event.focus);setInspectorTab("overview");}}><span>Step {String(eventStep+1).padStart(2,"0")}</span><i/><div><strong>{event.title}</strong><small>{event.actor}</small></div></button>})}</div>
       </section>
       <aside className="af-cr-takeaways">
         <strong>Key Takeaways</strong>
