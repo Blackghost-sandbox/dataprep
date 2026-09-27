@@ -557,3 +557,79 @@
   .airflow-scheduling-concept-page main{padding-left:20px!important;padding-right:20px!important}
   .airflow-scheduling-page .af-sched-main{grid-template-columns:minmax(0,1fr) 360px}
 }
+
+
+/* Scheduling alignment fix: preserve existing DataPrep shell/right rail and fit lesson inside it */
+.airflow-scheduling-concept-page .lesson-layout{
+  grid-template-columns:minmax(0,1fr) 260px;
+  align-items:start;
+}
+.airflow-scheduling-concept-page .perf-right-rail{
+  min-width:0;
+  width:260px;
+}
+.airflow-scheduling-concept-page .lesson-content{
+  min-width:0;
+}
+.airflow-scheduling-page .af-sched{
+  width:100%;
+  min-width:0;
+}
+.airflow-scheduling-page .af-sched-main{
+  grid-template-columns:minmax(0,1fr) 250px;
+}
+.airflow-scheduling-page .af-sched-top{
+  grid-template-columns:.95fr 1.05fr 1.05fr;
+}
+.airflow-scheduling-page .af-sched-control-card{
+  min-width:0;
+}
+.airflow-scheduling-page .af-sched-zone-row{
+  align-items:flex-end;
+}
+.airflow-scheduling-page .af-sched-zone-row p{
+  max-width:150px;
+}
+.airflow-scheduling-page .af-sched-timeline{
+  min-width:0;
+}
+.airflow-scheduling-page .af-sched-current>span{
+  max-width:205px;
+}
+.airflow-scheduling-page .af-sched-bottom{
+  grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+}
+.airflow-scheduling-page .af-sched-concepts{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.airflow-scheduling-page .af-sched-concepts article{
+  min-width:0;
+}
+@media(min-width:821px) and (max-width:1040px){
+  .airflow-scheduling-page .af-sched-main{
+    grid-template-columns:minmax(0,1fr) 235px;
+  }
+  .airflow-scheduling-page .af-sched-side{
+    grid-template-columns:1fr;
+  }
+  .airflow-scheduling-page .af-sched-takeaway{
+    grid-column:auto;
+  }
+  .airflow-scheduling-page .af-sched-top{
+    grid-template-columns:1fr 1fr;
+  }
+  .airflow-scheduling-page .af-sched-control-card:last-child{
+    grid-column:1/-1;
+  }
+}
+@media(max-width:820px){
+  .airflow-scheduling-concept-page .lesson-layout{
+    grid-template-columns:1fr;
+  }
+  .airflow-scheduling-concept-page .perf-right-rail{
+    width:auto;
+  }
+  .airflow-scheduling-page .af-sched-main{
+    grid-template-columns:1fr;
+  }
+}
