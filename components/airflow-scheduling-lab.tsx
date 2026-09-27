@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Circle,
   Clock3,
-  Code2,
   Globe2,
   Lightbulb,
   Pause,
@@ -128,11 +127,6 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
     : "01:00 in New York";
 
   return <section className="af-sched" aria-label={lesson.title+" interactive scheduling lesson"}>
-    <header className="af-sched-intro">
-      <div><span><Sparkles size={20}/></span><div><h2>Scheduling & Data Intervals</h2><p>Move time forward and watch Airflow decide when a run exists and what data period it represents.</p></div></div>
-      <aside><Lightbulb size={18}/><div><strong>Key takeaway</strong><p>A scheduled run becomes due when its data interval closes, not when the interval begins.</p></div></aside>
-    </header>
-
     <div className="af-sched-top">
       <section className="af-sched-control-card">
         <header><CalendarClock size={18}/><div><strong>Schedule (timetable)</strong><small>Runs daily at:</small></div></header>
@@ -219,7 +213,7 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
               <span><b>State</b><code className={"state-"+(started?"running":eligible?"eligible":runCreated?"created":"none")}>{started?"Running":eligible?"Eligible":runCreated?"Created":"Not created"}</code></span>
             </div>
           </section>
-          <CodeSync lines={codeLines} active={scheduleHour===2?3:3} label="Timetable Code"/>
+          <CodeSync lines={codeLines} active={3} label="Timetable Code"/>
         </div>
       </div>
 
