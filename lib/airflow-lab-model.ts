@@ -2,6 +2,15 @@ import {dependenciesSatisfied,executionScenario,taskStateMeaning,type ExecutionS
 import type {AirflowLesson} from "@/lib/airflow-lessons";
 
 export const stateLabels:Record<TaskState,string>={none:"Not ready",scheduled:"Scheduled",queued:"Queued",running:"Running",success:"Success",failed:"Failed",up_for_retry:"Retrying",upstream_failed:"Upstream failed",skipped:"Skipped",up_for_reschedule:"Waiting · reschedule"};
+export type VisualTaskState=TaskState|"eligible";
+export const visualStateLabels:Record<VisualTaskState,string>={...stateLabels,eligible:"Eligible"};
+export function taskVisualState(trace:ExecutionScenario,step:number,id:string):VisualTaskState{
+ const frame=trace.frames[step],state=frame.states[id];
+ if(state!=="none")return state;
+ const parents=trace.edges.filter(([,to])=>to===id).map(([from])=>from);
+ const rule=id==="join"?"none_failed_min_one_success":"all_success";
+ return dependenciesSatisfied(parents.map(parent=>frame.states[parent]),rule)?"eligible":"none";
+}
 export function taskReason(trace:ExecutionScenario,step:number,id:string){
  const frame=trace.frames[step],state=frame.states[id];
  if(state!=="none")return taskStateMeaning[state];
