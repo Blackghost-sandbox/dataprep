@@ -7,8 +7,19 @@ import {AirflowDagLab} from "./airflow-dag-lab";
 import {AirflowFlowLab} from "./airflow-flow-lab";
 import {AirflowIntroControlRoom} from "./airflow-intro-control-room";
 import {AirflowDependenciesLab} from "./airflow-dependencies-lab";
+import {AirflowArchitectureLab} from "./airflow-architecture-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="architecture"){
+    return <div className="af-learning af-architecture-page">
+      <AirflowArchitectureLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational architecture trace · no real services or credentials</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="dags-dependencies"){
     return <div className="af-learning af-dependencies-page">
       <AirflowDependenciesLab lesson={lesson}/>
