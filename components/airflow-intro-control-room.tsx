@@ -215,21 +215,26 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
 
       <aside className="af-cr-inspector">
         <header>
-          <div><span className={`af-cr-state-icon af-state-${selectedState}`}>{selectedState==="success"?<CheckCircle2 size={18}/>:selectedState==="none"?<Clock3 size={18}/>:<Circle size={18}/>}</span><div><strong>{selected}</strong><small>Task instance</small></div></div>
-          <span className={`af-cr-state-pill af-state-${selectedState}`}>{stateLabels[selectedState]}</span>
+          <div><span className={"af-cr-state-icon af-state-"+selectedVisualState}>{selectedState==="success"?<CheckCircle2 size={18}/>:selectedVisualState==="none"?<Clock3 size={18}/>:<Circle size={18}/>}</span><div><strong>{selected}</strong><small>Task instance</small></div></div>
+          <span className={"af-cr-state-pill af-state-"+selectedVisualState}>{visualStateLabels[selectedVisualState]}</span>
         </header>
         <nav aria-label="Task inspector views">
           {(["overview","dependencies","logs","code"] as InspectorTab[]).map(tab=><button key={tab} aria-pressed={inspectorTab===tab} onClick={()=>setInspectorTab(tab)}>{tab[0].toUpperCase()+tab.slice(1)}</button>)}
         </nav>
         <div className="af-cr-inspector-body">
           {inspectorTab==="overview"&&<>
-            <div className="af-cr-facts"><span><small>State</small><strong>{stateLabels[selectedState]}</strong></span><span><small>Attempt</small><strong>{frame.attempt??1}</strong></span><span><small>Scenario</small><strong>{scenarioLabel}</strong></span></div>
-            <div className="af-cr-why"><strong>Why this state?</strong><p>{reason}</p></div>
-            <p className="af-cr-state-help">{taskStateMeaning[selectedState]}</p>
+            <div className="af-cr-facts"><span><small>State</small><strong>{visualStateLabels[selectedVisualState]}</strong></span><span><small>Attempt</small><strong>{frame.attempt??1}</strong></span><span><small>Trigger rule</small><strong>{triggerRule}</strong></span></div>
+            <div className="af-cr-why"><strong>{selectedVisualState==="none"?"Why can't it run?":selectedVisualState==="eligible"?"Why can it run?":"Why this state?"}</strong><p>{reason}</p></div>
+            <div className="af-cr-gates">
+              <span className={dependenciesReady?"is-ok":"is-blocked"}><i>{dependenciesReady?"✓":"×"}</i><b>Dependencies</b><small>{dependenciesReady?"Requirements satisfied":blockingParents.length?"Waiting for "+blockingParents.map(item=>item.id).join(", "):"Not satisfied"}</small></span>
+              <span className={schedulerEligible?"is-ok":"is-pending"}><i>{schedulerEligible?"✓":"•"}</i><b>Scheduler eligibility</b><small>{schedulerEligible?"Can be considered for scheduling":"Waiting on dependency state"}</small></span>
+              <span className={capacityReady?"is-ok":selectedState==="queued"?"is-blocked":"is-pending"}><i>{capacityReady?"✓":selectedState==="queued"?"×":"•"}</i><b>Execution capacity</b><small>{capacityReady?"Task execution started":selectedState==="queued"?"Queued; no worker slot yet":"Relevant after queueing"}</small></span>
+            </div>
+            <p className="af-cr-state-help">{visualMeaning(selectedVisualState)}</p>
           </>}
           {inspectorTab==="dependencies"&&<div className="af-cr-deps">
-            <div><strong>Upstream</strong>{parents.length?parents.map(id=><span key={id}><i className={`af-state-${frame.states[id]}`}/>{id} · {stateLabels[frame.states[id]]}</span>):<span>Root task · no upstream task dependency</span>}</div>
-            <div><strong>Downstream</strong>{children.length?children.map(id=><span key={id}><i className={`af-state-${frame.states[id]}`}/>{id} · {stateLabels[frame.states[id]]}</span>):<span>No downstream task</span>}</div>
+            <div><strong>Upstream · {triggerRule}</strong>{parents.length?parents.map(id=>{const visual=taskVisualState(trace,safeStep,id);return <span key={id}><i className={"af-state-"+visual}/>{id} · {visualStateLabels[visual]}</span>}):<span>Root task · no upstream task dependency</span>}</div>
+            <div><strong>Downstream</strong>{children.length?children.map(id=>{const visual=taskVisualState(trace,safeStep,id);return <span key={id}><i className={"af-state-"+visual}/>{id} · {visualStateLabels[visual]}</span>}):<span>No downstream task</span>}</div>
           </div>}
           {inspectorTab==="logs"&&<div className="af-cr-mini-log">{logs.map((line,index)=><code key={index}>{line}</code>)}</div>}
           {inspectorTab==="code"&&<pre className="af-cr-mini-code"><code>{selectedCode(codeLines,selected).join("\n")}</code></pre>}
