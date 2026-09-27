@@ -391,3 +391,111 @@
 @media(max-width:1280px){.af-sched-main{grid-template-columns:minmax(0,1fr) 238px}.af-sched-top{grid-template-columns:.9fr 1fr 1.1fr}.af-sched-concepts{grid-template-columns:1fr 44px 1fr 44px 1fr 44px 1fr}.af-sched-concepts>em{font-size:6px}.af-sched-callout{width:164px}}
 @media(max-width:1040px){.af-sched-main{grid-template-columns:1fr}.af-sched-side{grid-template-columns:1fr 1fr}.af-sched-takeaway{grid-column:1/-1}.af-sched-top{grid-template-columns:1fr 1fr}.af-sched-control-card:last-child{grid-column:1/-1}.af-sched-interval-card{min-width:820px}.af-sched-left{overflow-x:auto}.af-sched-bottom{min-width:820px}}
 @media(max-width:720px){.af-sched-top{grid-template-columns:1fr}.af-sched-control-card:last-child{grid-column:auto}.af-sched-side{grid-template-columns:1fr}.af-sched-concepts{grid-template-columns:1fr 1fr}.af-sched-concepts>em{display:none}.af-sched-bottom{grid-template-columns:1fr}.af-sched-interval-card{min-width:760px}}
+
+
+/* Scheduling reference correction pass — proportions, typography, flow */
+.af-scheduling-page .af-sched{gap:12px}
+.af-scheduling-page .af-sched-top{grid-template-columns:1fr 1.08fr 1.08fr;gap:10px}
+.af-scheduling-page .af-sched-control-card{min-height:96px;padding:13px 14px;border-radius:13px}
+.af-scheduling-page .af-sched-control-card>header{gap:9px;margin-bottom:10px}
+.af-scheduling-page .af-sched-control-card>header>svg{width:22px;height:22px}
+.af-scheduling-page .af-sched-control-card>header strong{font-size:13px}
+.af-scheduling-page .af-sched-control-card>header small{font-size:10px;margin-top:2px}
+.af-scheduling-page .af-sched-segment{gap:7px}
+.af-scheduling-page .af-sched-segment button{min-height:36px;padding:7px 15px;border-radius:8px;font-size:11px}
+.af-scheduling-page .af-sched-zone-row{gap:12px}
+.af-scheduling-page .af-sched-zone-row p{font-size:9.5px;line-height:1.4}
+.af-scheduling-page .af-sched-time-buttons{gap:7px}
+.af-scheduling-page .af-sched-time-buttons button{min-height:36px;padding:7px 11px;border-radius:8px;font-size:10.5px}
+
+.af-scheduling-page .af-sched-main{grid-template-columns:minmax(0,1fr) 320px;gap:10px}
+.af-scheduling-page .af-sched-left{gap:10px}
+.af-scheduling-page .af-sched-interval-card{border-radius:13px}
+.af-scheduling-page .af-sched-interval-card>header{gap:10px;padding:11px 13px}
+.af-scheduling-page .af-sched-interval-card>header>span{width:38px;height:38px;border-radius:10px}
+.af-scheduling-page .af-sched-interval-card>header strong{font-size:14px}
+.af-scheduling-page .af-sched-interval-card>header p{font-size:10.5px;margin-top:2px}
+
+.af-scheduling-page .af-sched-timeline{height:330px;margin:0 16px 9px}
+.af-scheduling-page .af-sched-day{top:13px;font-size:11px}
+.af-scheduling-page .af-sched-day-left{left:6%}.af-scheduling-page .af-sched-day-right{right:6%}
+.af-scheduling-page .af-sched-scale{left:2%;right:2%;top:66px}
+.af-scheduling-page .af-sched-midnight{top:-20px;font-size:10px}
+.af-scheduling-page .af-sched-tick{height:12px;top:-5px}
+.af-scheduling-page .af-sched-boundary{top:38px;bottom:96px;border-left-width:2px}
+.af-scheduling-page .af-sched-boundary.start{left:16%}.af-scheduling-page .af-sched-boundary.end{left:84%}
+.af-scheduling-page .af-sched-boundary>b{font-size:11px}
+.af-scheduling-page .af-sched-boundary>i{top:25px;left:-5px;width:10px;height:10px}
+.af-scheduling-page .af-sched-interval-bar{left:16%;right:16%;top:72px;height:86px;padding-top:10px}
+.af-scheduling-page .af-sched-interval-bar strong{font-size:11.5px}
+.af-scheduling-page .af-sched-interval-bar span{font-size:11px;margin-top:2px}
+.af-scheduling-page .af-sched-order{top:118px;grid-template-columns:12px auto;column-gap:6px}
+.af-scheduling-page .af-sched-order>i{width:11px;height:11px}
+.af-scheduling-page .af-sched-order strong{font-size:10px}
+.af-scheduling-page .af-sched-order small{font-size:8.5px}
+.af-scheduling-page .order-1{left:25%}.af-scheduling-page .order-2{left:39%}.af-scheduling-page .order-3{left:56%}.af-scheduling-page .order-4{left:71%}
+.af-scheduling-page .af-sched-current{top:64px;bottom:78px;width:2px}
+.af-scheduling-page .af-sched-current>i{top:145px;left:-5px;width:11px;height:11px}
+.af-scheduling-page .af-sched-current>span{top:157px;min-width:210px;padding:8px 10px;border-radius:9px}
+.af-scheduling-page .af-sched-current strong{font-size:10px}
+.af-scheduling-page .af-sched-current b{font-size:11px}
+.af-scheduling-page .af-sched-current p{font-size:8.8px;line-height:1.35;color:#85505b;margin-top:4px;font-weight:500}
+.af-scheduling-page .af-sched-callout{top:202px;width:238px;padding:10px 12px;border-radius:9px}
+.af-scheduling-page .af-sched-callout.start{left:4%}
+.af-scheduling-page .af-sched-callout strong{font-size:10px}
+.af-scheduling-page .af-sched-callout b{font-size:11px}
+.af-scheduling-page .af-sched-callout p{font-size:9px;line-height:1.4;margin-top:4px}
+
+.af-scheduling-page .af-sched-side{gap:10px}
+.af-scheduling-page .af-sched-predict,.af-scheduling-page .af-sched-now,.af-scheduling-page .af-sched-takeaway{border-radius:12px}
+.af-scheduling-page .af-sched-predict{padding:13px}
+.af-scheduling-page .af-sched-predict>header{gap:8px}
+.af-scheduling-page .af-sched-predict>header>svg{width:22px;height:22px}
+.af-scheduling-page .af-sched-predict>header strong{font-size:12px}
+.af-scheduling-page .af-sched-predict>p{font-size:10px;line-height:1.45;margin:10px 0}
+.af-scheduling-page .af-sched-predict>div{gap:5px}
+.af-scheduling-page .af-sched-predict>div button{grid-template-columns:22px minmax(0,1fr);gap:7px;padding:8px 8px;border-radius:7px;font-size:9.5px}
+.af-scheduling-page .af-sched-predict>div button i{width:18px;height:18px}
+.af-scheduling-page .af-sched-predict>.af-primary{margin-top:10px;padding:8px 14px;font-size:10px}
+.af-scheduling-page .af-sched-predict>small{font-size:9px}
+.af-scheduling-page .af-sched-now>header{gap:7px;padding:10px 11px}
+.af-scheduling-page .af-sched-now>header strong{font-size:11.5px}
+.af-scheduling-page .af-sched-now>div{padding:8px 10px}
+.af-scheduling-page .af-sched-now>div>span{grid-template-columns:24px minmax(0,1fr);gap:8px;min-height:52px}
+.af-scheduling-page .af-sched-now>div>span>i{width:22px;height:22px}
+.af-scheduling-page .af-sched-now>div>span>em{left:10px;top:22px;height:32px}
+.af-scheduling-page .af-sched-now strong{font-size:9.5px}
+.af-scheduling-page .af-sched-now small{font-size:8.5px;line-height:1.4;margin-top:2px}
+.af-scheduling-page .af-sched-takeaway{gap:9px;padding:12px}
+.af-scheduling-page .af-sched-takeaway strong{font-size:11px}
+.af-scheduling-page .af-sched-takeaway p{font-size:9.5px;line-height:1.5}
+
+.af-scheduling-page .af-sched-bottom{grid-template-columns:.92fr 1.08fr;gap:10px}
+.af-scheduling-page .af-sched-details{border-radius:10px}
+.af-scheduling-page .af-sched-details>header{padding:9px 11px}
+.af-scheduling-page .af-sched-details>header strong{font-size:11px}
+.af-scheduling-page .af-sched-details>div{padding:6px 10px}
+.af-scheduling-page .af-sched-details>div>span{grid-template-columns:42% 58%;padding:4px 3px;font-size:9px}
+.af-scheduling-page .af-sched-bottom>.af-code pre{min-height:184px;max-height:210px}
+
+.af-scheduling-page .af-sched-concepts{position:static;left:auto;right:auto;bottom:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:stretch}
+.af-scheduling-page .af-sched-concepts article{min-height:92px;gap:10px;padding:12px 14px;border-radius:10px}
+.af-scheduling-page .af-sched-concepts article>span{width:40px;height:40px;border-radius:9px}
+.af-scheduling-page .af-sched-concepts article strong{font-size:12px}
+.af-scheduling-page .af-sched-concepts article p{font-size:9.5px;line-height:1.4;margin-top:3px}
+.af-scheduling-page .af-sched-concepts article code{font-size:9px}
+.af-scheduling-page .af-sched-concepts>em{display:none}
+.af-scheduling-page .af-sched-caveat{font-size:8.5px;padding:1px 2px}
+
+@media(max-width:1350px){
+  .af-scheduling-page .af-sched-main{grid-template-columns:minmax(0,1fr) 285px}
+  .af-scheduling-page .af-sched-control-card{padding:11px 12px}
+  .af-scheduling-page .af-sched-control-card>header strong{font-size:12px}
+  .af-scheduling-page .af-sched-concepts article{padding:10px}
+}
+@media(max-width:1040px){
+  .af-scheduling-page .af-sched-main{grid-template-columns:1fr}
+  .af-scheduling-page .af-sched-side{grid-template-columns:1fr 1fr}
+  .af-scheduling-page .af-sched-takeaway{grid-column:1/-1}
+  .af-scheduling-page .af-sched-concepts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
