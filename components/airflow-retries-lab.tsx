@@ -75,6 +75,12 @@ function buildEvents(scenario:Scenario,retries:number,delay:number):AttemptEvent
       ]:[]),
     ];
   }
+  if(retries===0){
+    return [
+      {id:"a1-run",label:"Attempt 1",state:"running",time:"10:00:00",detail:"Processing data...",badge:"1 of 1",duration:"2m 15s"},
+      {id:"a1-fail",label:"Attempt 1",state:"failed",time:"10:02:15",detail:"Task failed; no retries configured",badge:"1 of 1"},
+    ];
+  }
   return [
     {id:"a1-run",label:"Attempt 1",state:"running",time:"10:00:00",detail:"Processing data...",badge:"1 of "+(retries+1),duration:"2m 15s"},
     {id:"a1-fail",label:"Attempt 1",state:"failed",time:"10:02:15",detail:"Task failed with error",badge:"1 of "+(retries+1)},
@@ -120,7 +126,7 @@ export function AirflowRetriesLab({lesson}:{lesson:AirflowLesson}){
   const currentAttempt=Math.min(maxAttempts,Number(current?.badge?.match(/^(\d+)/)?.[1]||1));
 
   useEffect(()=>{
-    const defaultStep=Math.min(2,events.length-1);
+    const defaultStep=scenario==="fail-once"?Math.min(2,events.length-1):0;
     setStep(defaultStep);
     setPlaying(false);
     setAnswer(1);
@@ -137,7 +143,7 @@ export function AirflowRetriesLab({lesson}:{lesson:AirflowLesson}){
   const downstreamState=useMemo(()=>{
     if(!current)return {label:"WAITING",tone:"amber",detail:"Waiting for transform"};
     if(current.state==="success")return {label:"ELIGIBLE",tone:"blue",detail:"load can run now that transform succeeded"};
-    if(current.state==="failed"&&scenario==="exhaust"&&complete)return {label:"UPSTREAM_FAILED",tone:"red",detail:"transform exhausted retries"};
+    if(current.state==="failed"&&complete)return {label:"UPSTREAM_FAILED",tone:"red",detail:"transform has no successful attempt remaining"};
     if(current.state==="up_for_retry")return {label:"WAITING (up_for_retry)",tone:"amber",detail:"load remains blocked during retry delay"};
     if(current.state==="running")return {label:"WAITING",tone:"slate",detail:"transform has not succeeded yet"};
     return {label:"WAITING (upstream failed)",tone:"red",detail:"load is blocked because transform failed"};
@@ -182,12 +188,12 @@ export function AirflowRetriesLab({lesson}:{lesson:AirflowLesson}){
   }
   function reset(){
     setPlaying(false);
-    setStep(Math.min(2,events.length-1));
+    setStep(scenario==="fail-once"?Math.min(2,events.length-1):0);
     setAnswer(1);
     setSubmitted(true);
   }
 
-  const quickOptions=["2",String(maxAttempts),String(maxAttempts+1),"Unlimited"];
+  const quickOptions=[String(Math.max(0,maxAttempts-1)),String(maxAttempts),String(maxAttempts+1),"Unlimited"];
   const correctIndex=1;
 
   return <section className="af-retry" aria-label={lesson.title+" visual retries lesson"}>
