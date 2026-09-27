@@ -66,6 +66,14 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
   const parents=trace.edges.filter(([,to])=>to===selected).map(([from])=>from);
   const children=trace.edges.filter(([from])=>from===selected).map(([,to])=>to);
   const parentStates=parents.map(id=>({id,state:frame.states[id]}));
+  const triggerRule=selected==="join"?"none_failed_min_one_success":"all_success";
+  const dependenciesReady=parents.length===0||(triggerRule==="all_success"
+    ?parentStates.every(item=>item.state==="success")
+    :parentStates.every(item=>item.state==="success"||item.state==="skipped")&&parentStates.some(item=>item.state==="success"));
+  const executionStarted=["running","success","failed","up_for_retry","skipped"].includes(selectedState);
+  const capacityReady=executionStarted;
+  const schedulerEligible=selectedVisualState!=="none"&&selectedState!=="upstream_failed";
+  const blockingParents=parentStates.filter(item=>triggerRule==="all_success"?item.state!=="success":!["success","skipped"].includes(item.state));
 
   useEffect(()=>{
     setStep(0);
