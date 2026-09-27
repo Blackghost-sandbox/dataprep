@@ -9,8 +9,19 @@ import {AirflowIntroControlRoom} from "./airflow-intro-control-room";
 import {AirflowDependenciesLab} from "./airflow-dependencies-lab";
 import {AirflowArchitectureLab} from "./airflow-architecture-lab";
 import {AirflowSchedulingLab} from "./airflow-scheduling-lab";
+import {AirflowTaskLifecycleLab} from "./airflow-task-lifecycle-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="task-lifecycle"){
+    return <div className="af-learning af-task-lifecycle-page">
+      <AirflowTaskLifecycleLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational lifecycle simulation · timestamps are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="scheduling"){
     return <div className="af-learning af-scheduling-page">
       <AirflowSchedulingLab lesson={lesson}/>
