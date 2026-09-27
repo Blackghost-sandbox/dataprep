@@ -1158,3 +1158,98 @@
   .af-retry-downstream{grid-template-columns:1fr}.af-retry-downstream-arrow{transform:rotate(90deg)}
 }
 
+
+
+/* Scheduling & Data Intervals — exact visual-reference polish */
+.airflow-scheduling-concept-page .lesson-layout{grid-template-columns:minmax(0,1fr) 260px!important;gap:14px!important;align-items:start}
+.airflow-scheduling-concept-page .perf-right-rail{width:260px!important;min-width:260px}
+.airflow-scheduling-page .af-sched{gap:10px}
+.airflow-scheduling-page .af-sched-main{grid-template-columns:minmax(0,1fr) 292px!important;gap:10px;align-items:start}
+.airflow-scheduling-page .af-sched-left{gap:10px}
+.airflow-scheduling-page .af-sched-top{grid-template-columns:1.04fr 1.12fr 1.08fr!important;gap:9px}
+.airflow-scheduling-page .af-sched-control-card{min-height:100px;padding:11px 12px;border-radius:10px;box-shadow:0 3px 12px rgba(26,45,78,.025)}
+.airflow-scheduling-page .af-sched-control-card>header{gap:8px;margin-bottom:8px}
+.airflow-scheduling-page .af-sched-control-card>header>span{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#f4f1ff;color:#1d3153;flex-shrink:0}
+.airflow-scheduling-page .af-sched-control-card>header strong{font-size:11px;line-height:1.15}
+.airflow-scheduling-page .af-sched-control-card>header small{font-size:8.4px;line-height:1.25}
+.airflow-scheduling-page .af-sched-segment{gap:5px;flex-wrap:nowrap}
+.airflow-scheduling-page .af-sched-segment button{min-height:32px;padding:6px 12px;font-size:9.5px;white-space:nowrap}
+.airflow-scheduling-page .af-sched-zone-row{align-items:center;gap:9px}
+.airflow-scheduling-page .af-sched-zone-row p{display:grid;grid-template-columns:auto auto;column-gap:4px;align-items:center;justify-content:end;max-width:170px;font-size:8.2px;line-height:1.2;text-align:right}
+.airflow-scheduling-page .af-sched-zone-row p>b{grid-column:1}.airflow-scheduling-page .af-sched-zone-row p>span{grid-column:2;color:#7890ad}.airflow-scheduling-page .af-sched-zone-row p>strong{grid-column:1/-1;font-size:8.2px;margin-top:2px}
+.airflow-scheduling-page .af-sched-time-buttons{gap:5px;flex-wrap:nowrap}
+.airflow-scheduling-page .af-sched-time-buttons button{min-height:32px;padding:6px 8px;font-size:9px;white-space:nowrap}
+
+.airflow-scheduling-page .af-sched-interval-card{border-radius:10px}
+.airflow-scheduling-page .af-sched-interval-card>header{padding:9px 11px}
+.airflow-scheduling-page .af-sched-interval-card>header>span{width:32px;height:32px;border-radius:8px}
+.airflow-scheduling-page .af-sched-interval-card>header strong{font-size:12px}
+.airflow-scheduling-page .af-sched-interval-card>header p{font-size:8.8px}
+.airflow-scheduling-page .af-sched-timeline{height:286px;margin:0 11px 4px}
+.airflow-scheduling-page .af-sched-day{top:8px;font-size:9.4px}
+.airflow-scheduling-page .af-sched-day-left{left:8%}.airflow-scheduling-page .af-sched-day-right{right:8%}
+.airflow-scheduling-page .af-sched-scale{left:3%;right:3%;top:52px}
+.airflow-scheduling-page .af-sched-midnight{top:-17px;font-size:8.2px}
+.airflow-scheduling-page .af-sched-boundary{top:30px;bottom:86px;border-left-width:1.5px}
+.airflow-scheduling-page .af-sched-boundary>b{font-size:9.2px}
+.airflow-scheduling-page .af-sched-boundary>i{top:19px;left:-4px;width:8px;height:8px}
+.airflow-scheduling-page .af-sched-interval-bar{top:58px;height:74px;padding-top:7px}
+.airflow-scheduling-page .af-sched-interval-bar strong{font-size:9.4px}
+.airflow-scheduling-page .af-sched-interval-bar span{font-size:9px}
+.airflow-scheduling-page .af-sched-order{top:94px}
+.airflow-scheduling-page .af-sched-order strong{font-size:7.8px}
+.airflow-scheduling-page .af-sched-order small{font-size:6.8px}
+.airflow-scheduling-page .order-1{left:25%}.airflow-scheduling-page .order-2{left:39%}.airflow-scheduling-page .order-3{left:56%}.airflow-scheduling-page .order-4{left:71%}
+.airflow-scheduling-page .af-sched-current{top:50px;bottom:78px}
+.airflow-scheduling-page .af-sched-current>i{top:116px}
+.airflow-scheduling-page .af-sched-current>span{top:126px;min-width:132px!important;max-width:150px!important;padding:5px 7px}
+.airflow-scheduling-page .af-sched-current strong{font-size:7.7px}.airflow-scheduling-page .af-sched-current b{font-size:8px}
+.airflow-scheduling-page .af-sched-callout{top:177px;width:182px!important;padding:7px 8px;border-radius:8px}
+.airflow-scheduling-page .af-sched-callout.start{left:7%}.airflow-scheduling-page .af-sched-callout.end{right:6%}
+.airflow-scheduling-page .af-sched-callout strong{font-size:7.8px}.airflow-scheduling-page .af-sched-callout b{font-size:8.6px}.airflow-scheduling-page .af-sched-callout p{font-size:7px}
+
+.airflow-scheduling-page .af-sched-concepts{display:grid;grid-template-columns:1fr 64px 1fr 64px 1fr 64px 1fr!important;gap:5px;align-items:stretch}
+.airflow-scheduling-page .af-sched-concepts article{min-height:82px;padding:10px 11px;gap:8px}
+.airflow-scheduling-page .af-sched-concepts article>span{width:34px;height:34px}
+.airflow-scheduling-page .af-sched-concepts article strong{font-size:10px}
+.airflow-scheduling-page .af-sched-concepts article p{font-size:8px;line-height:1.35}
+.airflow-scheduling-page .af-sched-concepts>em{display:grid!important;place-content:center;text-align:center;font-size:6.6px;line-height:1.15;color:#5f7391}
+.airflow-scheduling-page .af-sched-concepts>em>b{font-size:19px;line-height:.9;color:#8292a9}.airflow-scheduling-page .af-sched-concepts>em>strong{font-style:normal;font-size:6.7px}.airflow-scheduling-page .af-sched-concepts>em>small{font-style:normal;font-size:6.2px}
+
+.airflow-scheduling-page .af-sched-bottom{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;gap:8px}
+.airflow-scheduling-page .af-sched-details>header{padding:7px 9px}.airflow-scheduling-page .af-sched-details>header strong{font-size:9.5px}
+.airflow-scheduling-page .af-sched-details>div{padding:4px 7px}.airflow-scheduling-page .af-sched-details>div>span{padding:2.5px 2px;font-size:7.6px}
+.airflow-scheduling-page .af-sched-bottom>.af-code pre{min-height:150px!important;max-height:166px!important}
+
+.airflow-scheduling-page .af-sched-side{gap:9px}
+.airflow-scheduling-page .af-sched-predict{padding:11px}
+.airflow-scheduling-page .af-sched-predict>header strong{font-size:10.2px}
+.airflow-scheduling-page .af-sched-predict>p{font-size:9px;line-height:1.42;margin:8px 0}
+.airflow-scheduling-page .af-sched-predict>div{gap:4px}
+.airflow-scheduling-page .af-sched-predict>div button{min-height:31px;padding:5px 6px;font-size:8.2px}
+.airflow-scheduling-page .af-sched-predict>.af-primary{min-height:31px;margin-top:7px;padding:6px 11px;font-size:8.5px}
+.airflow-scheduling-page .af-sched-now>header{padding:8px 9px}.airflow-scheduling-page .af-sched-now>header strong{font-size:10px}
+.airflow-scheduling-page .af-sched-now>div{padding:7px 9px}
+.airflow-scheduling-page .af-sched-now>div>span{min-height:43px;grid-template-columns:21px minmax(0,1fr);gap:7px}
+.airflow-scheduling-page .af-sched-now strong{font-size:8.2px}.airflow-scheduling-page .af-sched-now small{font-size:7.2px}
+.airflow-scheduling-page .af-sched-takeaway{padding:10px}
+.airflow-scheduling-page .af-sched-takeaway strong{font-size:9.8px}.airflow-scheduling-page .af-sched-takeaway p{font-size:8.3px;line-height:1.48}
+
+@media(max-width:1350px){
+  .airflow-scheduling-page .af-sched-main{grid-template-columns:minmax(0,1fr) 260px!important}
+  .airflow-scheduling-page .af-sched-concepts{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .airflow-scheduling-page .af-sched-concepts>em{display:none!important}
+}
+@media(max-width:1040px){
+  .airflow-scheduling-page .af-sched-main{grid-template-columns:1fr!important}
+  .airflow-scheduling-page .af-sched-side{grid-template-columns:1fr 1fr}
+  .airflow-scheduling-page .af-sched-takeaway{grid-column:1/-1}
+}
+@media(max-width:820px){
+  .airflow-scheduling-concept-page .lesson-layout{grid-template-columns:1fr!important}
+  .airflow-scheduling-concept-page .perf-right-rail{width:auto!important;min-width:0}
+  .airflow-scheduling-page .af-sched-top{grid-template-columns:1fr!important}
+  .airflow-scheduling-page .af-sched-concepts{grid-template-columns:1fr 1fr!important}
+  .airflow-scheduling-page .af-sched-bottom{grid-template-columns:1fr!important}
+  .airflow-scheduling-page .af-sched-side{grid-template-columns:1fr}
+}
