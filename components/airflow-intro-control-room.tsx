@@ -62,8 +62,10 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
   const selected=selectedTask&&trace.nodes.some(node=>node.id===selectedTask)?selectedTask:frame.focus;
   const selectedNode=trace.nodes.find(node=>node.id===selected)!;
   const selectedState=frame.states[selected];
+  const selectedVisualState=taskVisualState(trace,safeStep,selected);
   const parents=trace.edges.filter(([,to])=>to===selected).map(([from])=>from);
   const children=trace.edges.filter(([from])=>from===selected).map(([,to])=>to);
+  const parentStates=parents.map(id=>({id,state:frame.states[id]}));
 
   useEffect(()=>{
     setStep(0);
@@ -81,6 +83,11 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
 
   const scenarioLabel=introScenarioChoices.find(item=>item.id===scenario)?.label??"Normal run (success)";
   const complete=safeStep===trace.frames.length-1;
+  const successCount=trace.nodes.filter(node=>frame.states[node.id]==="success").length;
+  const failureCount=trace.nodes.filter(node=>["failed","upstream_failed"].includes(frame.states[node.id])).length;
+  const waitingCount=trace.nodes.length-successCount-failureCount;
+  const terminalWaiting=complete&&trace.nodes.some(node=>["queued","up_for_reschedule","up_for_retry"].includes(frame.states[node.id]));
+  const runStatus=!complete?"Run in progress":failureCount>0?"Run blocked":terminalWaiting?"Paused to inspect waiting":"DAG run completed";
   const codeLines=(scenario==="normal"||scenario==="worker-busy"?lesson.example.code:trace.code).split("\n");
   const activeCode=Math.max(0,codeLines.findIndex(line=>line.includes(frame.focus.replace(/process_\d+/,"process"))));
   const reason=scenario==="worker-busy"&&selectedState==="queued"
@@ -91,6 +98,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
     :selectedState==="queued"
       ?"Waiting for execution capacity"
       :"Tracking task state";
+  const focusedVisualState=taskVisualState(trace,safeStep,frame.focus);
 
   const filteredEvents=trace.frames.slice(0,safeStep+1).filter(event=>{
     if(eventFilter==="all")return true;
@@ -112,7 +120,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
   }
 
   const logs=[
-    `[state] task=${selected} state=${selectedState}`,
+    `[state] task=${selected} state=${selectedVisualState}`,
     `[actor] ${frame.actor}`,
     selectedState==="failed"?"[error] Educational failure injected for this scenario.":selectedState==="queued"?"[info] Task body has not started; waiting for capacity.":"[info] Deterministic teaching trace; no live Airflow service is connected.",
   ];
