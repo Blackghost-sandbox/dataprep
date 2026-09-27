@@ -173,26 +173,34 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
 
         <section className="af-cr-timeline">
           <header>
-            <div><ListChecks size={17}/><span><strong>Execution Timeline</strong><small>Sequence of educational states — not elapsed runtime.</small></span></div>
+            <div><ListChecks size={17}/><span><strong>Execution Timeline</strong><small>Click an earlier bar to inspect that decision. Sequence only — not elapsed runtime.</small></span></div>
             <div className="af-cr-legend">
               <span><i className="af-cr-leg-wait"/>Waiting</span>
+              <span><i className="af-cr-leg-eligible"/>Eligible</span>
               <span><i className="af-cr-leg-run"/>Running</span>
               <span><i className="af-cr-leg-success"/>Success</span>
               <span><i className="af-cr-leg-fail"/>Failed</span>
             </div>
           </header>
           <div className="af-cr-timeline-body">
-            {trace.nodes.map(node=><div className="af-cr-timeline-row" key={node.id}>
-              <strong>{node.id.replace("process_","process[")}{node.id.startsWith("process_")?"]":""}</strong>
-              <div className="af-cr-timeline-track" style={{gridTemplateColumns:`repeat(${trace.frames.length},minmax(8px,1fr))`}}>
-                {trace.frames.map((timelineFrame,index)=>{
-                  const state=timelineFrame.states[node.id];
-                  return <span key={index} className={`af-cr-slot af-state-${state}${index>safeStep?" af-cr-future":""}`} title={`Step ${index+1}: ${stateLabels[state]}`}/>;
-                })}
-                <i className="af-cr-playhead" style={{left:`${((safeStep+.5)/trace.frames.length)*100}%`}}/>
-              </div>
-              <small>{compactState[frame.states[node.id]]}</small>
-            </div>)}
+            {trace.nodes.map(node=>{
+              const current=taskVisualState(trace,safeStep,node.id);
+              return <div className="af-cr-timeline-row" key={node.id}>
+                <strong>{node.id.replace("process_","process[")}{node.id.startsWith("process_")?"]":""}</strong>
+                <div className="af-cr-timeline-track" style={{gridTemplateColumns:`repeat(${trace.frames.length},minmax(8px,1fr))`}}>
+                  {timelineRuns(trace,node.id,safeStep).map((run,index)=><button
+                    type="button"
+                    key={index}
+                    className={`af-cr-bar af-state-${run.state}`}
+                    style={{gridColumn:`${run.start+1} / ${run.end+2}`}}
+                    title={`Steps ${run.start+1}–${run.end+1}: ${visualStateLabels[run.state]}`}
+                    onClick={()=>{setPlaying(false);setStep(run.end);setSelectedTask(node.id);}}
+                  ><span>{visualStateLabels[run.state]}</span></button>)}
+                  <i className="af-cr-playhead" style={{left:`${((safeStep+.5)/trace.frames.length)*100}%`}}/>
+                </div>
+                <small className={`af-state-${current}`}>{compactState[current]}</small>
+              </div>;
+            })}
           </div>
         </section>
       </div>
