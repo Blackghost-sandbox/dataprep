@@ -236,7 +236,7 @@ export function AirflowArchitectureLab({lesson}:{lesson:AirflowLesson}){
     ["log_ref",scenario==="Healthy dispatch"&&step>=3?"/log/example_task/1":"—"],
   ];
 
-  return <section className="af-arch" aria-label="Airflow architecture visual lab">
+  return <section className="af-arch" aria-label={lesson.title+" visual architecture lab"}>
     <header className="af-arch-toolbar">
       <div className="af-arch-title"><Activity size={21}/><div><h2>Follow a Task Through Airflow</h2><p>Watch one task move through each component. Click any component to inspect its responsibility, what it does, and what it does NOT do.</p></div></div>
       <div className="af-arch-controls">
@@ -344,10 +344,10 @@ export function AirflowArchitectureLab({lesson}:{lesson:AirflowLesson}){
             {tab==="does"&&<div className="af-arch-list is-do"><strong><CheckCircle2 size={15}/>Key responsibilities</strong>{info.does.map(item=><span key={item}><CheckCircle2 size={14}/>{item}</span>)}</div>}
             {tab==="not"&&<div className="af-arch-list is-not"><strong><XCircle size={15}/>Does NOT do</strong>{info.not.map(item=><span key={item}><XCircle size={14}/>{item}</span>)}</div>}
           </div>
-          <div className="af-arch-mini-panels">
+          {tab==="overview"&&<div className="af-arch-mini-panels">
             <div className="af-arch-list is-do"><strong><CheckCircle2 size={15}/>Key responsibilities</strong>{info.does.slice(0,4).map(item=><span key={item}><CheckCircle2 size={13}/>{item}</span>)}</div>
             <div className="af-arch-list is-not"><strong><XCircle size={15}/>Does NOT do</strong>{info.not.slice(0,3).map(item=><span key={item}><XCircle size={13}/>{item}</span>)}</div>
-          </div>
+          </div>}
         </section>
 
         <section className="af-arch-takeaway">
