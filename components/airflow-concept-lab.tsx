@@ -9,6 +9,8 @@ import {AirflowIntroControlRoom} from "./airflow-intro-control-room";
 import {AirflowDependenciesLab} from "./airflow-dependencies-lab";
 import {AirflowArchitectureLab} from "./airflow-architecture-lab";
 import {AirflowSchedulingLab} from "./airflow-scheduling-lab";
+import {AirflowCatchupLab} from "./airflow-catchup-lab";
+import {AirflowTaskflowLab} from "./airflow-taskflow-lab";
 import {AirflowTaskLifecycleLab} from "./airflow-task-lifecycle-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
@@ -17,6 +19,26 @@ export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(t
       <AirflowTaskLifecycleLab lesson={lesson}/>
       <footer className="af-footer">
         <span>Airflow 3.1 · educational lifecycle simulation · timestamps are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
+  if(lesson.id==="taskflow"){
+    return <div className="af-learning af-taskflow-page">
+      <AirflowTaskflowLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational definition/runtime simulation · no real workers</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
+  if(lesson.id==="catchup-backfill"){
+    return <div className="af-learning af-catchup-page">
+      <AirflowCatchupLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational historical-run simulation · no real scheduler or worker</span>
         <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
       </footer>
     </div>;
