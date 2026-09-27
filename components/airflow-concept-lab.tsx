@@ -12,8 +12,19 @@ import {AirflowSchedulingLab} from "./airflow-scheduling-lab";
 import {AirflowCatchupLab} from "./airflow-catchup-lab";
 import {AirflowTaskflowLab} from "./airflow-taskflow-lab";
 import {AirflowTaskLifecycleLab} from "./airflow-task-lifecycle-lab";
+import {AirflowRetriesLab} from "./airflow-retries-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="retries"){
+    return <div className="af-learning af-retries-page">
+      <AirflowRetriesLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational retry simulation · timing is illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="task-lifecycle"){
     return <div className="af-learning af-task-lifecycle-page">
       <AirflowTaskLifecycleLab lesson={lesson}/>
