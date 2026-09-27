@@ -65,7 +65,8 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
   const loadComplete=loadParents.filter(id=>frame.states[id]==="success").length;
   const loadState=states.load;
   const loadReady=loadState!=="none"&&loadState!=="upstream_failed";
-  const activeLine=branch?(loadComplete===loadParents.length&&loadParents.length?3:1):Math.min(3,phase+1);
+  const codeLines=branch?["# fan-out: siblings depend on extract","extract >> [validate, enrich]","# join: load waits for both","[validate, enrich] >> load"]:["# linear chain","extract >> transform >> load"];
+  const activeLine=branch?(loadComplete===loadParents.length&&loadParents.length?3:1):1;
 
   const predictionQuestion=branch?"extract just succeeded. What becomes eligible?":"extract just succeeded. What becomes eligible next?";
   const predictionOptions=branch?["validate","enrich","both","load"]:["transform","load","both","none"];
@@ -165,14 +166,17 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
         <div>
           {trace.nodes.map(node=>{
             const state=states[node.id];
-            const start=Math.max(0,trace.frames.findIndex(f=>f.states[node.id]!=="none"));
-            const done=trace.frames.findIndex(f=>f.states[node.id]==="success");
-            const width=done>=0?Math.max(14,((Math.min(done,frameIndex)-start+1)/Math.max(1,trace.frames.length))*160):state==="running"?38:state==="none"?0:24;
-            return <div className={"af-dep-timeline-row tone-"+(taskTone[node.id]??"violet")} key={node.id}><strong>{node.id}</strong><span><i style={{width:width+"%"}} className={"state-"+state}/></span><small>{compactState[state]}</small></div>;
+            const startIndex=trace.frames.findIndex(f=>f.states[node.id]!=="none");
+            const doneIndex=trace.frames.findIndex(f=>f.states[node.id]==="success");
+            const started=startIndex>=0&&frameIndex>=startIndex&&state!=="eligible"&&state!=="none";
+            const left=started?(startIndex/Math.max(1,trace.frames.length-1))*62:0;
+            const endIndex=state==="success"&&doneIndex>=0?doneIndex:frameIndex;
+            const width=started?Math.max(12,((endIndex-startIndex+1)/Math.max(1,trace.frames.length))*100):0;
+            return <div className={"af-dep-timeline-row tone-"+(taskTone[node.id]??"violet")} key={node.id}><strong>{node.id}</strong><span><i style={{width:width+"%",marginLeft:left+"%"}} className={"state-"+state}/></span><small>{compactState[state]}</small></div>;
           })}
         </div>
       </section>
-      <CodeSync lines={["# fan-out: siblings depend on extract","extract >> [validate, enrich]","# join: load waits for both","[validate, enrich] >> load"]} active={activeLine} label="DAG Dependency Code"/>
+      <CodeSync lines={codeLines} active={activeLine} label="DAG Dependency Code"/>
     </div>
 
     <aside className="af-dep-takeaway"><Lightbulb size={18}/><div><strong>Key takeaway</strong><p>Dependencies unlock downstream work. Siblings can become eligible independently, while join tasks wait for every parent required by their trigger rule.</p></div></aside>
