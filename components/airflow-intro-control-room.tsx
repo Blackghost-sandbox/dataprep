@@ -60,7 +60,6 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
   const safeStep=Math.min(step,trace.frames.length-1);
   const frame=trace.frames[safeStep];
   const selected=selectedTask&&trace.nodes.some(node=>node.id===selectedTask)?selectedTask:frame.focus;
-  const selectedNode=trace.nodes.find(node=>node.id===selected)!;
   const selectedState=frame.states[selected];
   const selectedVisualState=taskVisualState(trace,safeStep,selected);
   const parents=trace.edges.filter(([,to])=>to===selected).map(([from])=>from);
@@ -173,6 +172,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
           </div>
           <div className={`af-cr-run-summary${failureCount?" is-failed":terminalWaiting?" is-waiting":complete?" is-complete":""}`}>
             <strong>{runStatus}</strong>
+            <span>{scenarioLabel}</span>
             <span>{successCount}/{trace.nodes.length} success</span>
             {failureCount>0&&<span>{failureCount} blocked/failed</span>}
             {!complete&&waitingCount>0&&<span>{waitingCount} not settled</span>}
