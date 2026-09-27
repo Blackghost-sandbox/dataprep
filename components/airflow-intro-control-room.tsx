@@ -151,11 +151,23 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
             <div><strong>Scheduler</strong><small>{schedulerText}</small></div>
             <div className="af-cr-scheduler-state"><i className={playing?"is-live":""}/>{playing?"Evaluating…":complete?"Run settled":"Ready"}</div>
           </div>
-          <DagGraph trace={trace} step={safeStep} selected={selected} onSelect={id=>{setSelectedTask(id);setInspectorTab("overview");}}/>
+          <div className="af-cr-dispatch" aria-live="polite">
+            <span>Scheduler decision</span>
+            <i className={playing?"is-live":""}/>
+            <strong>{frame.focus}</strong>
+            <em className={`af-state-${focusedVisualState}`}>{visualStateLabels[focusedVisualState]}</em>
+          </div>
+          <DagGraph trace={trace} step={safeStep} selected={selected} onSelect={id=>{setSelectedTask(id);setInspectorTab("overview");}} showEligibility/>
           <div className="af-cr-now">
             <span>Current decision</span>
             <strong>{frame.title}</strong>
             <p>{frame.explanation}</p>
+          </div>
+          <div className={`af-cr-run-summary${failureCount?" is-failed":terminalWaiting?" is-waiting":complete?" is-complete":""}`}>
+            <strong>{runStatus}</strong>
+            <span>{successCount}/{trace.nodes.length} success</span>
+            {failureCount>0&&<span>{failureCount} blocked/failed</span>}
+            {!complete&&waitingCount>0&&<span>{waitingCount} not settled</span>}
           </div>
         </div>
 
