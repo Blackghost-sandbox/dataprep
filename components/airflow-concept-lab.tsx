@@ -14,8 +14,19 @@ import {AirflowTaskflowLab} from "./airflow-taskflow-lab";
 import {AirflowTaskLifecycleLab} from "./airflow-task-lifecycle-lab";
 import {AirflowRetriesLab} from "./airflow-retries-lab";
 import {AirflowTriggerRulesLab} from "./airflow-trigger-rules-lab";
+import {AirflowProductionLab} from "./airflow-production-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="production"){
+    return <div className="af-learning af-production-page">
+      <AirflowProductionLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational production-safety simulation · timings and SQL execution are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="trigger-rules"){
     return <div className="af-learning af-trigger-rules-page">
       <AirflowTriggerRulesLab lesson={lesson}/>
