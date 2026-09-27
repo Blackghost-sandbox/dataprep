@@ -8,8 +8,19 @@ import {AirflowFlowLab} from "./airflow-flow-lab";
 import {AirflowIntroControlRoom} from "./airflow-intro-control-room";
 import {AirflowDependenciesLab} from "./airflow-dependencies-lab";
 import {AirflowArchitectureLab} from "./airflow-architecture-lab";
+import {AirflowSchedulingLab} from "./airflow-scheduling-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="scheduling"){
+    return <div className="af-learning af-scheduling-page">
+      <AirflowSchedulingLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational timeline · no real scheduler or worker</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="architecture"){
     return <div className="af-learning af-architecture-page">
       <AirflowArchitectureLab lesson={lesson}/>
