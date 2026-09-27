@@ -221,7 +221,7 @@ export function DataPrepApp() {
   const compactSparkConcept=performanceConcept||transformationConcept||partitioningConcept;
   const kafkaIntroConcept=module==="kafka" && moduleContent[module][currentLesson].id==="introduction" && active==="Concept";
   const airflowConcept=module==="airflow" && active==="Concept";
-  const airflowWideConcept=airflowConcept && ["introduction","dags-dependencies","architecture"].includes(moduleContent[module][currentLesson].id);
+  const airflowWideConcept=airflowConcept && ["introduction","dags-dependencies","architecture","scheduling"].includes(moduleContent[module][currentLesson].id);
   const compactConcept=compactSparkConcept||kafkaIntroConcept||airflowConcept;
   return <CompanionProvider context={{course:moduleNames[module],lesson:moduleContent[module][currentLesson],tab:active}}><div className={cn(((!kafkaIntroConcept && !airflowConcept && ["sql","modeling","airflow","kafka"].includes(module)) || module==="spark" && currentLesson === 1) && "rdd-page", (module==="sql" || module==="modeling") && "sql-module-page", module==="airflow" && "airflow-module-page", module==="kafka" && "kafka-module-page", module==="spark" && currentLesson===0 && active==="Concept" && "spark-intro-density", module==="spark" && moduleContent[module][currentLesson].id==="partitioning" && active==="Concept" && "spark-partitioning-density", compactConcept && "spark-performance-page", kafkaIntroConcept && "kafka-intro-page", airflowConcept && "airflow-concept-page", transformationConcept && "spark-transformations-page", partitioningConcept && "spark-partitioning-page", "min-h-screen text-[#0f172a] transition-colors",dark ? "bg-[#e8ebf4]" : "bg-[#f5f7fb]")}>
     <Toaster position="bottom-right" richColors/>
