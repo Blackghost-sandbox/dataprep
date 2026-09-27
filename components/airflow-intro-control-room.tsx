@@ -4,7 +4,7 @@ import {useEffect,useMemo,useState} from "react";
 import {Activity,CheckCircle2,Circle,Clock3,Cpu,ListChecks,Pause,Play,RotateCcw,SkipForward} from "lucide-react";
 import {CodeSync} from "@/components/airflow-lab-primitives";
 import {DagGraph} from "@/components/airflow-dag-lab";
-import {stateLabels,taskReason} from "@/lib/airflow-lab-model";
+import {stateLabels,taskReason,taskVisualState,visualStateLabels,type VisualTaskState} from "@/lib/airflow-lab-model";
 import {taskStateMeaning,type TaskState} from "@/lib/airflow-execution";
 import {introScenario,introScenarioChoices,type IntroScenarioKey} from "@/lib/airflow-intro-simulation";
 import type {AirflowLesson} from "@/lib/airflow-lessons";
@@ -12,8 +12,9 @@ import type {AirflowLesson} from "@/lib/airflow-lessons";
 type InspectorTab="overview"|"dependencies"|"logs"|"code";
 type EventFilter="all"|"scheduler"|"tasks";
 
-const compactState:Record<TaskState,string>={
+const compactState:Record<VisualTaskState,string>={
   none:"Waiting",
+  eligible:"Eligible",
   scheduled:"Scheduled",
   queued:"Queued",
   running:"Running",
@@ -29,6 +30,22 @@ function selectedCode(lines:string[],task:string){
   const hit=lines.findIndex(line=>line.includes(task));
   if(hit<0)return lines.slice(0,5);
   return lines.slice(Math.max(0,hit-2),Math.min(lines.length,hit+3));
+}
+
+function visualMeaning(state:VisualTaskState){
+  if(state==="eligible")return "All dependency requirements shown in this teaching trace are satisfied. The scheduler can consider the task, but eligible does not mean running.";
+  return taskStateMeaning[state];
+}
+
+function timelineRuns(trace:ReturnType<typeof introScenario>,nodeId:string,through:number){
+  const states=trace.frames.map((_,index)=>taskVisualState(trace,index,nodeId));
+  const runs:{state:VisualTaskState;start:number;end:number}[]=[];
+  states.forEach((state,index)=>{
+    const last=runs[runs.length-1];
+    if(last&&last.state===state)last.end=index;
+    else runs.push({state,start:index,end:index});
+  });
+  return runs.filter(run=>run.start<=through).map(run=>({...run,end:Math.min(run.end,through)}));
 }
 
 export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
