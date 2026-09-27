@@ -204,6 +204,13 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
           </section>
           <CodeSync lines={codeLines} active={3} label="Timetable Code"/>
         </div>
+
+        <div className="af-sched-concepts">
+          <article className="tone-orange"><span><CalendarClock size={21}/></span><div><strong>Timetable</strong><p>Defines the schedule<br/><code>{"0 "+scheduleHour+" * * *"}</code></p></div></article>
+          <article className="tone-blue"><span><Clock3 size={21}/></span><div><strong>Time interval</strong><p>Represents the period<br/>of data to process</p></div></article>
+          <article className="tone-coral"><span><Play size={21}/></span><div><strong>Run becomes due</strong><p>A scheduled DAG run<br/>is created</p></div></article>
+          <article className="tone-violet"><span><Sparkles size={21}/></span><div><strong>Task eligibility</strong><p>Tasks become eligible based on<br/>dependencies and capacity</p></div></article>
+        </div>
       </div>
 
       <aside className="af-sched-side">
@@ -224,13 +231,6 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
           <Lightbulb size={20}/><div><strong>Key Takeaway</strong><p>A scheduled DAG run becomes due when the data interval closes, not at the beginning. The logical date (interval start), run due time (interval end), and actual task start time are different.</p></div>
         </section>
       </aside>
-    </div>
-
-    <div className="af-sched-concepts">
-      <article className="tone-orange"><span><CalendarClock size={21}/></span><div><strong>Timetable</strong><p>Defines the schedule<br/><code>{"0 "+scheduleHour+" * * *"}</code></p></div></article>
-      <article className="tone-blue"><span><Clock3 size={21}/></span><div><strong>Time interval</strong><p>Represents the period<br/>of data to process</p></div></article>
-      <article className="tone-coral"><span><Play size={21}/></span><div><strong>Run becomes due</strong><p>A scheduled DAG run<br/>is created</p></div></article>
-      <article className="tone-violet"><span><Sparkles size={21}/></span><div><strong>Task eligibility</strong><p>Tasks become eligible based on<br/>dependencies and capacity</p></div></article>
     </div>
 
     <p className="af-sched-caveat">Airflow 3.1 · deterministic educational timeline. The 7-minute capacity delay is illustrative only; it is not a performance claim. This lesson uses an explicit CronDataIntervalTimetable in UTC.</p>
