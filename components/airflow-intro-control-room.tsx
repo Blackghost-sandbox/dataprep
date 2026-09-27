@@ -213,7 +213,7 @@ export function AirflowIntroControlRoom({lesson}:{lesson:AirflowLesson}){
         </section>
       </div>
 
-      <aside className="af-cr-inspector">
+      <aside className={"af-cr-inspector af-inspector-state-"+selectedVisualState}>
         <header>
           <div><span className={"af-cr-state-icon af-state-"+selectedVisualState}>{selectedState==="success"?<CheckCircle2 size={18}/>:selectedVisualState==="none"?<Clock3 size={18}/>:<Circle size={18}/>}</span><div><strong>{selected}</strong><small>Task instance</small></div></div>
           <span className={"af-cr-state-pill af-state-"+selectedVisualState}>{visualStateLabels[selectedVisualState]}</span>
