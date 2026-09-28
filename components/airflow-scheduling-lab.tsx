@@ -54,18 +54,14 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
   const complete=step===3;
 
   useEffect(()=>{
-    setStep(0);
-    setPlaying(false);
-    setAnswer(null);
-    setSubmitted(false);
-  },[scheduleHour]);
-
-  useEffect(()=>{
-    if(!playing)return;
-    if(complete){setPlaying(false);return;}
-    const timer=window.setTimeout(()=>setStep(value=>Math.min(value+1,3)),reduce?0:1300);
+    if(!playing||complete)return;
+    const timer=window.setTimeout(()=>{
+      const next=Math.min(step+1,3);
+      setStep(next);
+      if(next>=3)setPlaying(false);
+    },reduce?0:1300);
     return ()=>window.clearTimeout(timer);
-  },[playing,complete,reduce]);
+  },[playing,complete,reduce,step]);
 
   const timeline=useMemo(()=>({
     start:"Jan 1, "+fmtHour(startHour)+" UTC",
@@ -111,6 +107,14 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
     "Whenever a worker is free",
   ];
 
+  function selectScheduleHour(next:ScheduleHour){
+    setScheduleHour(next);
+    setStep(0);
+    setPlaying(false);
+    setAnswer(null);
+    setSubmitted(false);
+  }
+
   function run(){
     if(complete)setStep(0);
     setPlaying(value=>!value||complete);
@@ -131,8 +135,8 @@ export function AirflowSchedulingLab({lesson}:{lesson:AirflowLesson}){
       <section className="af-sched-control-card">
         <header><CalendarClock size={18}/><div><strong>Schedule (timetable)</strong><small>Runs daily at:</small></div></header>
         <div className="af-sched-segment">
-          <button aria-pressed={scheduleHour===2} onClick={()=>setScheduleHour(2)}>02:00 UTC</button>
-          <button aria-pressed={scheduleHour===6} onClick={()=>setScheduleHour(6)}>06:00 UTC</button>
+          <button aria-pressed={scheduleHour===2} onClick={()=>selectScheduleHour(2)}>02:00 UTC</button>
+          <button aria-pressed={scheduleHour===6} onClick={()=>selectScheduleHour(6)}>06:00 UTC</button>
         </div>
       </section>
 
