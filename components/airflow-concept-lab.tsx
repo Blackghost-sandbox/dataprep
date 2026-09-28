@@ -18,8 +18,19 @@ import {AirflowXcomLab} from "./airflow-xcom-lab";
 import {AirflowSensorsLab} from "./airflow-sensors-lab";
 import {AirflowConfigurationLab} from "./airflow-configuration-lab";
 import {AirflowDynamicMappingLab} from "./airflow-dynamic-mapping-lab";
+import {AirflowMonitoringLab} from "./airflow-monitoring-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="monitoring"){
+    return <div className="af-learning af-monitoring-page">
+      <AirflowMonitoringLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational debugging simulation · logs and timestamps are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="dynamic-mapping"){
     return <div className="af-learning af-dynamic-mapping-page">
       <AirflowDynamicMappingLab lesson={lesson}/>
