@@ -48,17 +48,14 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
   const branch=variant==="Branch and join";
 
   useEffect(()=>{
-    setPhase(0);
-    setPlaying(false);
-    setPrediction(null);
-  },[variant]);
-
-  useEffect(()=>{
-    if(!playing)return;
-    if(complete){setPlaying(false);return;}
-    const timer=window.setTimeout(()=>setPhase(value=>Math.min(value+1,phases.length-1)),reduce?0:1350);
+    if(!playing||complete)return;
+    const completesOnThisStep=phase>=phases.length-2;
+    const timer=window.setTimeout(()=>{
+      setPhase(value=>Math.min(value+1,phases.length-1));
+      if(completesOnThisStep)setPlaying(false);
+    },reduce?0:1350);
     return ()=>window.clearTimeout(timer);
-  },[playing,complete,phases.length,reduce]);
+  },[playing,complete,phase,phases.length,reduce]);
 
   const states=Object.fromEntries(trace.nodes.map(node=>[node.id,taskVisualState(trace,frameIndex,node.id)])) as Record<string,VisualTaskState>;
   const loadParents=trace.edges.filter(([,to])=>to==="load").map(([from])=>from);
@@ -75,26 +72,40 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
   const predictionIsCorrect=prediction===predictionCorrect;
 
   function run(){
-    if(complete)setPhase(0);
-    setPlaying(value=>!value||complete);
+    if(complete){
+      setPhase(0);
+      setPlaying(true);
+      return;
+    }
+    setPlaying(value=>!value);
+  }
+  function nextStep(){
+    setPlaying(false);
+    setPhase(value=>Math.min(value+1,phases.length-1));
   }
   function reset(){setPlaying(false);setPhase(0);setPrediction(null);}
+  function selectVariant(next:Variant){
+    setVariant(next);
+    setPhase(0);
+    setPlaying(false);
+    setPrediction(null);
+  }
 
   const positions:Record<string,[number,number]>=branch
-    ?{extract:[15,50],validate:[50,27],enrich:[50,73],load:[85,50]}
-    :{extract:[15,50],transform:[50,50],load:[85,50]};
+    ?{extract:[13,50],validate:[44,27],enrich:[44,73],load:[79,50]}
+    :{extract:[13,50],transform:[46,50],load:[79,50]};
 
   return <section className="af-dep" aria-label="Interactive Airflow dependency lesson">
     <header className="af-dep-head">
       <div><span className="af-dep-head-icon"><Network size={21}/></span><div><h2>DAGs, Tasks & Dependencies</h2><p>Watch dependencies unlock downstream work. Siblings can become eligible independently; joins wait for every required parent.</p></div></div>
       <div className="af-dep-actions">
         <span>Visualize:</span>
-        <button aria-pressed={variant==="Branch and join"} onClick={()=>setVariant("Branch and join")}>Branch + Join</button>
-        <button aria-pressed={variant==="Linear chain"} onClick={()=>setVariant("Linear chain")}>Linear Chain</button>
+        <button type="button" aria-pressed={variant==="Branch and join"} onClick={()=>selectVariant("Branch and join")}>Branch + Join</button>
+        <button type="button" aria-pressed={variant==="Linear chain"} onClick={()=>selectVariant("Linear chain")}>Linear Chain</button>
         <i/>
-        <button className="af-primary" onClick={run}>{playing?<Pause size={14}/>:<Play size={14}/>} {playing?"Pause":complete?"Replay":"Run"}</button>
-        <button disabled={complete} onClick={()=>{setPlaying(false);setPhase(value=>Math.min(value+1,phases.length-1));}}><SkipForward size={14}/>Next step</button>
-        <button onClick={reset}><RotateCcw size={14}/>Reset</button>
+        <button type="button" className="af-primary" onClick={run}>{playing?<Pause size={14}/>:<Play size={14}/>} {playing?"Pause":complete?"Replay":"Run"}</button>
+        <button type="button" disabled={complete} onClick={nextStep}><SkipForward size={14}/>Next step</button>
+        <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
         <b>Step {phase+1} / {phases.length}</b>
       </div>
     </header>
@@ -102,7 +113,7 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
     <section className="af-dep-predict">
       <div className="af-dep-question"><HelpCircle size={18}/><strong>{predictionQuestion}</strong></div>
       <div className="af-dep-options">
-        {predictionOptions.map(option=><button key={option} aria-pressed={prediction===option} onClick={()=>setPrediction(option)}>{prediction===option&&<CheckCircle2 size={14}/>} {option}</button>)}
+        {predictionOptions.map(option=><button type="button" key={option} aria-pressed={prediction===option} onClick={()=>setPrediction(option)}>{prediction===option&&<CheckCircle2 size={14}/>} {option}</button>)}
       </div>
       <div className={"af-dep-feedback"+(predictionResolved?(predictionIsCorrect?" is-correct":" is-wrong"):"")}>
         {predictionResolved?<><CheckCircle2 size={20}/><div><strong>{predictionIsCorrect?"Correct!":"Try the dependency graph."}</strong><p>{branch?"Both validate and enrich depend only on extract, so they can become eligible together.":"Only transform is directly downstream of extract in the linear chain."}</p></div></>:<><Lightbulb size={20}/><div><strong>Predict before you run</strong><p>Choose what becomes eligible, then watch the graph prove or correct your answer.</p></div></>}
@@ -119,7 +130,7 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
             const fromSuccess=frame.states[from]==="success";
             const targetOpen=states[to]!=="none"&&states[to]!=="upstream_failed";
             const active=fromSuccess&&targetOpen&&frame.states[to]!=="success";
-            const x1=fx+10,x2=tx-10,y1=fy,y2=ty,mid=(x1+x2)/2;
+            const x1=fx+8.75,x2=tx-8.75,y1=fy,y2=ty,mid=(x1+x2)/2;
             return <motion.path key={from+to} d={"M"+x1+","+y1+" C"+mid+","+y1+" "+mid+","+y2+" "+x2+","+y2} className={"af-dep-edge"+(active?" is-active":fromSuccess?" is-complete":"")} markerEnd="url(#af-dep-arrow)" initial={false} animate={{pathLength:1}} transition={{duration:reduce?0:.3}}/>;
           })}
         </svg>
