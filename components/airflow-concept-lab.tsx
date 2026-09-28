@@ -16,8 +16,19 @@ import {AirflowRetriesLab} from "./airflow-retries-lab";
 import {AirflowTriggerRulesLab} from "./airflow-trigger-rules-lab";
 import {AirflowXcomLab} from "./airflow-xcom-lab";
 import {AirflowSensorsLab} from "./airflow-sensors-lab";
+import {AirflowConfigurationLab} from "./airflow-configuration-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="configuration"){
+    return <div className="af-learning af-configuration-page">
+      <AirflowConfigurationLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational configuration lab · no real credentials or external services</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="sensors"){
     return <div className="af-learning af-sensors-page">
       <AirflowSensorsLab lesson={lesson}/>
