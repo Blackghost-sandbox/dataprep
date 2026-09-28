@@ -19,8 +19,19 @@ import {AirflowSensorsLab} from "./airflow-sensors-lab";
 import {AirflowConfigurationLab} from "./airflow-configuration-lab";
 import {AirflowDynamicMappingLab} from "./airflow-dynamic-mapping-lab";
 import {AirflowMonitoringLab} from "./airflow-monitoring-lab";
+import {AirflowProductionLab} from "./airflow-production-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="production"){
+    return <div className="af-learning af-production-page">
+      <AirflowProductionLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational idempotency simulation · timestamps and warehouse rows are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="monitoring"){
     return <div className="af-learning af-monitoring-page">
       <AirflowMonitoringLab lesson={lesson}/>
