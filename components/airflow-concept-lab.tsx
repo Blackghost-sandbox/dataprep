@@ -15,8 +15,19 @@ import {AirflowTaskLifecycleLab} from "./airflow-task-lifecycle-lab";
 import {AirflowRetriesLab} from "./airflow-retries-lab";
 import {AirflowTriggerRulesLab} from "./airflow-trigger-rules-lab";
 import {AirflowXcomLab} from "./airflow-xcom-lab";
+import {AirflowSensorsLab} from "./airflow-sensors-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="sensors"){
+    return <div className="af-learning af-sensors-page">
+      <AirflowSensorsLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational sensor simulation · timeline times are illustrative</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="xcom"){
     return <div className="af-learning af-xcom-page">
       <AirflowXcomLab lesson={lesson}/>
