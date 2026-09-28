@@ -46,18 +46,14 @@ export function AirflowSensorsLab({lesson}:{lesson:AirflowLesson}){
   const complete=found&&step>=4;
 
   useEffect(()=>{
-    setPlaying(false);
-    setStep(fileExists?3:2);
-  },[mode]);
-
-  useEffect(()=>{
-    if(!playing)return;
-    if(complete){setPlaying(false);return;}
+    if(!playing||complete)return;
     const timer=window.setTimeout(()=>{
-      setStep(value=>Math.min(4,value+1));
+      const next=Math.min(4,step+1);
+      setStep(next);
+      if(next>=4)setPlaying(false);
     },reduce?0:950);
     return ()=>window.clearTimeout(timer);
-  },[playing,complete,reduce]);
+  },[playing,complete,reduce,step]);
 
   const codeLines=useMemo(()=>[
     "from airflow.providers.standard.sensors.filesystem import FileSensor",
@@ -79,6 +75,12 @@ export function AirflowSensorsLab({lesson}:{lesson:AirflowLesson}){
     "",
     "wait_file >> load",
   ],[mode]);
+
+  function selectMode(next:SensorMode){
+    setMode(next);
+    setPlaying(false);
+    setStep(fileExists?3:2);
+  }
 
   async function copyCode(){
     try{
@@ -123,7 +125,7 @@ export function AirflowSensorsLab({lesson}:{lesson:AirflowLesson}){
       </div>
 
       <div className="af-sensor-toolbar-controls">
-        <label><span>Sensor mode</span><div className="af-sensor-segment"><button aria-pressed={mode==="poke"} onClick={()=>setMode("poke")}>Poke</button><button aria-pressed={mode==="reschedule"} onClick={()=>setMode("reschedule")}>Reschedule</button></div></label>
+        <label><span>Sensor mode</span><div className="af-sensor-segment"><button aria-pressed={mode==="poke"} onClick={()=>selectMode("poke")}>Poke</button><button aria-pressed={mode==="reschedule"} onClick={()=>selectMode("reschedule")}>Reschedule</button></div></label>
         <i/>
         <label className="af-sensor-switch"><span>File exists</span><button aria-pressed={fileExists} onClick={()=>{setFileExists(v=>!v);setPlaying(false);}}><b/></button></label>
         <i/>
