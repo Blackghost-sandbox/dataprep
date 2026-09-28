@@ -17,8 +17,19 @@ import {AirflowTriggerRulesLab} from "./airflow-trigger-rules-lab";
 import {AirflowXcomLab} from "./airflow-xcom-lab";
 import {AirflowSensorsLab} from "./airflow-sensors-lab";
 import {AirflowConfigurationLab} from "./airflow-configuration-lab";
+import {AirflowDynamicMappingLab} from "./airflow-dynamic-mapping-lab";
 
 export function AirflowConceptLab({lesson,onTab}:{lesson:AirflowLesson;onTab?:(tab:string)=>void}){
+  if(lesson.id==="dynamic-mapping"){
+    return <div className="af-learning af-dynamic-mapping-page">
+      <AirflowDynamicMappingLab lesson={lesson}/>
+      <footer className="af-footer">
+        <span>Airflow 3.1 · educational dynamic-mapping simulation · no real workers or scheduler</span>
+        <button onClick={()=>onTab?.("Examples")}>Explore matching code →</button>
+      </footer>
+    </div>;
+  }
+
   if(lesson.id==="configuration"){
     return <div className="af-learning af-configuration-page">
       <AirflowConfigurationLab lesson={lesson}/>
