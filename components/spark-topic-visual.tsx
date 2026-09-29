@@ -60,6 +60,46 @@ export function SparkTopicVisual({id}: {id: string}) {
     <Row><Box title="Extract"><p>API, file, or database</p></Box><Arrow/><Box title="Transform"><p>Clean, validate, reshape</p></Box><Arrow/><Box title="Load" tone="topic-green"><p>Warehouse, queue, or file</p></Box></Row>
     <div className="topic-help"><SimpleExplanation label="Transformations"/><span>Where plain Python usually earns its place.</span></div>
   </Frame>;
+  if(id === "py-data-structures") return <Frame title="Same records, different jobs" subtitle="Choose the structure from the operation you need, not from habit." note="Small examples make the trade-offs visible. In real pipelines, choose with ordering, uniqueness, lookup pattern, memory use, and mutability in mind.">
+    <div className="py-structure-source">
+      <div><span className="py-structure-kicker">INPUT RECORDS</span><strong>Three orders arrive in sequence</strong></div>
+      <Chips values={["#101 · IN · 100","#102 · US · 50","#103 · IN · 20"]}/>
+    </div>
+    <div className="py-structure-grid">
+      <article className="py-structure-card">
+        <div className="py-structure-card-head"><code>list</code><span>ORDER + DUPLICATES</span></div>
+        <strong>Process every record</strong>
+        <p>Best when the sequence itself matters and repeated values are valid.</p>
+        <div className="py-structure-example"><span>[</span><b>101</b><b>102</b><b>103</b><span>]</span></div>
+        <small>Loop in arrival order → use a list</small>
+      </article>
+      <article className="py-structure-card">
+        <div className="py-structure-card-head"><code>dict</code><span>KEY → VALUE</span></div>
+        <strong>Jump straight to one record</strong>
+        <p>Index by a unique key when repeated scans would be wasteful.</p>
+        <div className="py-structure-example py-structure-map"><span>{"{"}</span><b>102:</b><em>order</em><span>{"}"}</span></div>
+        <small>Find order 102 → use a dict</small>
+      </article>
+      <article className="py-structure-card">
+        <div className="py-structure-card-head"><code>set</code><span>UNIQUE MEMBERSHIP</span></div>
+        <strong>Ask “have I seen this?”</strong>
+        <p>Duplicates disappear, making membership checks the natural operation.</p>
+        <div className="py-structure-example py-structure-set"><span>{"{"}</span><b>IN</b><b>US</b><span>{"}"}</span></div>
+        <small>Distinct countries → use a set</small>
+      </article>
+      <article className="py-structure-card">
+        <div className="py-structure-card-head"><code>tuple</code><span>FIXED + IMMUTABLE</span></div>
+        <strong>Share a stable grouping</strong>
+        <p>Use a fixed grouping when callers should not change the values in place.</p>
+        <div className="py-structure-example"><span>(</span><b>101</b><b>IN</b><b>100</b><span>)</span></div>
+        <small>Stable composite key → use a tuple</small>
+      </article>
+    </div>
+    <div className="py-structure-rule">
+      <span>Choose by the operation</span>
+      <strong>sequence → list</strong><Arrow/><strong>lookup → dict</strong><Arrow/><strong>unique → set</strong><Arrow/><strong>fixed → tuple</strong>
+    </div>
+  </Frame>;
   if(id === "py-hands-on-task") return <Frame title="From messy orders to checked totals" subtitle="Follow the exercise's explicit quality rules." note="Expected results for this toy exercise, not a live run. Excluding refunds measures positive sales, not net revenue.">
     <Row><Box title="6 input records"><Chips values={["IN 100","IN 100","US 50","IN 20","Missing country","US −5"]}/></Box><Arrow/><Box title="Clean before summing"><p>Exclude missing country and non-positive amounts.</p><p>Remove one identical duplicate.</p><strong>3 valid, unique records</strong></Box><Arrow/><Box title="2 output groups" tone="topic-green"><p><strong>IN → 120</strong></p><p><strong>US → 50</strong></p></Box></Row>
     <div className="topic-help"><SimpleExplanation label="Validate"/><SimpleExplanation label="Deduplicate"/><SimpleExplanation label="Aggregate"/></div>
