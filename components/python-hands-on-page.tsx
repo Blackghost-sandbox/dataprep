@@ -145,15 +145,15 @@ function Expected({ step, totals }: { step: Step; totals: Record<string,number> 
   const ready = step>=4;
   return (
     <section className="pyhot-card pyhot-result">
-      <header><span><BarChart3 size={18}/></span><strong>Expected Result</strong><b>{ready?"3 valid unique records":"pending"}</b></header>
+      <header><span><BarChart3 size={18}/></span><strong>Expected Result</strong><b>3 valid unique records</b></header>
       <table>
         <thead><tr><th>country</th><th>total_amount</th></tr></thead>
         <tbody>
-          <tr><td><span className="pyhot-country IN">IN</span></td><td><strong>{ready?totals.IN:"—"}</strong></td></tr>
-          <tr><td><span className="pyhot-country US">US</span></td><td><strong>{ready?totals.US:"—"}</strong></td></tr>
+          <tr><td><span className="pyhot-country IN">IN</span></td><td><strong>{totals.IN}</strong></td></tr>
+          <tr><td><span className="pyhot-country US">US</span></td><td><strong>{totals.US}</strong></td></tr>
         </tbody>
       </table>
-      <div className={"pyhot-success "+(ready?"is-ready":"")}><CheckCircle2 size={22}/><p>{ready?"These are the totals after applying all validation rules to the input data.":"Complete the pipeline to reveal the validated totals."}</p></div>
+      <div className={"pyhot-success "+(ready?"is-ready":"")}><CheckCircle2 size={22}/><p>These are the totals after applying all validation rules to the input data.</p></div>
     </section>
   );
 }
