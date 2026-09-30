@@ -205,6 +205,7 @@ export function ModelingEntitiesBuilder() {
   const wrongCount = results.filter((item) => item.actual && !item.correct).length;
   const correctCount = results.filter((item) => item.correct).length;
   const allCorrect = correctCount === ITEMS.length;
+  const passed = checked && allCorrect;
 
   const assign = (item: ItemId, classification: Classification) => {
     setAssignments((previous) => ({ ...previous, [item]: classification }));
@@ -235,11 +236,13 @@ export function ModelingEntitiesBuilder() {
     setView("diagram");
   };
 
-  const hintText = allCorrect
+  const hintText = passed
     ? "Great work. Entities are things, attributes describe those things, and relationships connect them."
-    : wrongCount > 0 && checked
-      ? "One or more classifications do not match the business meaning. Ask: is it a thing, a property, or a connection?"
-      : "“belongs_to” describes how one thing is associated with another thing (e.g., a product belongs to a category).";
+    : allCorrect
+      ? "All 9 concepts are classified. Run & Check to validate the model."
+      : wrongCount > 0 && checked
+        ? "One or more classifications do not match the business meaning. Ask: is it a thing, a property, or a connection?"
+        : "“belongs_to” describes how one thing is associated with another thing (e.g., a product belongs to a category).";
 
   return (
     <section className="mer-builder" aria-labelledby="mer-title">
@@ -364,8 +367,8 @@ export function ModelingEntitiesBuilder() {
             })}
           </div>
         </div>
-        <aside className={`mer-hint ${allCorrect ? "is-complete" : ""}`}>
-          <h3><span>💡</span>{allCorrect ? "Nice work" : "Hint"}</h3>
+        <aside className={`mer-hint ${passed ? "is-complete" : ""}`}>
+          <h3><span>💡</span>{passed ? "Nice work" : "Hint"}</h3>
           <p>{hintText}</p>
           {!allCorrect && !assignments.belongs_to && <button type="button" onClick={() => assign("belongs_to", "Relationship")}>Classify now <span>→</span></button>}
           {!allCorrect && assignments.belongs_to && <button type="button" onClick={runCheck}>Check again <span>→</span></button>}
