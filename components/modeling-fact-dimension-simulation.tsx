@@ -118,7 +118,7 @@ function buildModel(rows: OperationalRow[]) {
     }
 
     if (!dateKeys.has(row.date)) {
-      const key = Number(row.date.replaceAll("-", ""));
+      const key = Number(row.date.replace(/-/g, ""));
       dateKeys.set(row.date, key);
       const [, month] = row.date.split("-").map(Number);
       dates.push({ date_key: key, date: row.date, month: MONTHS[month - 1], year: Number(row.date.slice(0, 4)) });
@@ -263,6 +263,7 @@ export function ModelingFactDimensionSimulation() {
   const companion = useCompanion();
   const [scenarioId, setScenarioId] = useState<ScenarioId>("ecommerce");
   const [phase, setPhase] = useState<Phase>("complete");
+  const [running, setRunning] = useState(false);
   const [previewTab, setPreviewTab] = useState<PreviewTab>("fact");
   const [copied, setCopied] = useState<string | null>(null);
   const timers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
@@ -289,6 +290,7 @@ export function ModelingFactDimensionSimulation() {
     clearTimers();
     setScenarioId(id);
     setPhase("source");
+    setRunning(false);
     setPreviewTab("fact");
     setCopied(null);
   };
@@ -296,10 +298,12 @@ export function ModelingFactDimensionSimulation() {
   const run = () => {
     clearTimers();
     setPhase("source");
+    setRunning(true);
     const dimensions = setTimeout(() => setPhase("dimensions"), 380);
     const fact = setTimeout(() => setPhase("fact"), 820);
     const complete = setTimeout(() => {
       setPhase("complete");
+      setRunning(false);
       companion?.emit({ type: "exercise_correct", lesson: "Fact & Dimension Tables", source: "runner" });
     }, 1260);
     timers.current.push(dimensions, fact, complete);
@@ -309,6 +313,7 @@ export function ModelingFactDimensionSimulation() {
     clearTimers();
     setScenarioId("ecommerce");
     setPhase("complete");
+    setRunning(false);
     setPreviewTab("fact");
     setCopied(null);
   };
@@ -358,7 +363,7 @@ export function ModelingFactDimensionSimulation() {
       <header className="mfd-simulation-head">
         <div><h2 id="mfd-simulation-title"><Network size={23}/>Interactive Simulation</h2><p>Transform operational order data into a Fact table and Dimension tables. See how measures and dimensions work together.</p></div>
         <div className="mfd-controls">
-          <button type="button" className="mfd-run" onClick={run}><Play size={14}/>{phase !== "complete" ? "Running…" : "Run Transformation"}</button>
+          <button type="button" className="mfd-run" onClick={run}><Play size={14}/>{running ? "Running…" : "Run Transformation"}</button>
           <button type="button" className="mfd-reset" onClick={reset}><RefreshCcw size={14}/>Reset</button>
           <select aria-label="Transformation scenario" value={scenarioId} onChange={(event) => chooseScenario(event.target.value as ScenarioId)}>
             {SCENARIOS.map((item, index) => <option key={item.id} value={item.id}>{`Scenario ${index + 1}: ${item.name}`}</option>)}
