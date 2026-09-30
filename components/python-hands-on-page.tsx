@@ -5,7 +5,6 @@ import {
   BarChart3,
   Check,
   CheckCircle2,
-  ClipboardCheck,
   Copy,
   Database,
   FileCode2,
@@ -13,7 +12,6 @@ import {
   Play,
   RotateCcw,
   ShieldCheck,
-  Sparkles,
   Target,
   Zap,
 } from "lucide-react";
