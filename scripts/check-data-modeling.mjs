@@ -42,7 +42,17 @@ for(const lesson of modelingLessons){
     const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson,module:'modeling',active,onTab:()=>{}})));
     assert.ok(!html.includes('Loading your lesson'),lesson.id+' '+active);
     assert.ok(!html.includes('Read the Apache Spark guide'),lesson.id+' wrong resource');
-    if(active==='Concept'){assert.ok(html.includes('Key Takeaway'));assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));}
+    if(active==='Concept'){
+      if(lesson.id==='denormalization'){
+        for(const label of ['Read Model Builder &amp; Trade-off Simulator','Run Merge &amp; Build Read Model','Source Tables','Join at Line Grain','Publish Read Model','Normalized Source Tables','Denormalized Read Model','Before vs After: Query Comparison','Performance Comparison','Trade-offs of Denormalization'])assert.ok(html.includes(label),lesson.id+' '+label);
+        assert.ok(html.includes('Alice'));
+        assert.ok(html.includes('Chennai'));
+        assert.ok(html.includes('240.00'));
+      }else{
+        assert.ok(html.includes('Key Takeaway'));
+        assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));
+      }
+    }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
     if(active==='Quiz')assert.ok(html.includes('Submit answers'));
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
@@ -66,5 +76,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; denormalization read-model surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
