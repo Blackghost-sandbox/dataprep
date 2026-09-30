@@ -63,6 +63,8 @@ export class AICompanionService {
       else text=`Trace one input row through the steps. Check the column names and the expected result shape before changing your code.\n\n${lesson.mistakes[0]?.better??"Compare the result to the requirement."}\n\nThe worked solution stays hidden until you ask for it.`;
     }
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
+    if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
+    if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
     if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="cardinality"){
       const q=question.toLowerCase();
       if(/zero|no orders?|0 orders?/.test(q))text="A customer with zero orders is still valid in a 1:N model when minimum participation on the Order side is 0. The customer row exists without any child Order rows referencing it.";
@@ -71,8 +73,6 @@ export class AICompanionService {
       else if(/foreign key|fk/.test(q))text="For Customer 1:N Order, the foreign key belongs on Order.customer_id. Many order rows may repeat the same customer_id; that repetition is what enables one customer to have many orders.";
       else text="Cardinality states how many rows may participate on each side of a relationship. Compare 1:1, 1:N, and N:M by changing row counts in the simulation and watching the links and inspector update.";
     }
-    if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
-    if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
