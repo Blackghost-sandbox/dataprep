@@ -9,7 +9,6 @@ import {
   Check,
   ChevronRight,
   Clock3,
-  Code2,
   Copy,
   FileCode2,
   Folder,
@@ -340,17 +339,43 @@ export function PythonFunctionsModulesConcept() {
 }
 
 export function PythonFunctionsModulesCompanion() {
+  const [mode, setMode] = useState<"idle" | "ask" | "example">("idle");
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const ask = () => {
+    const text = question.trim();
+    if (!text) return;
+    const lower = text.toLowerCase();
+    const reply = lower.includes("default")
+      ? "A mutable default such as [] is created once when Python defines the function. Use None, then create a fresh list inside the function."
+      : lower.includes("module") || lower.includes("import")
+        ? "A module is a Python file you can import. Splitting extract, transform, load, and shared utilities into modules keeps pipeline logic easier to test and reuse."
+        : "A function packages one reusable operation behind a clear name and parameters. Keep it small, explicit, and easy to test.";
+    setAnswer(reply);
+  };
+
   return (
-    <section className="pyfm-companion">
+    <section className={"pyfm-companion " + (mode !== "idle" ? "is-expanded" : "")}>
       <header><span><Sparkles size={16}/></span><strong>Learning with Mithoo</strong></header>
       <div className="pyfm-companion-body">
         <p>I’m Mithoo! Functions help you write reusable code, avoid tricky defaults, and keep your pipelines organized. Let’s learn step by step!</p>
         <Image src="/nila-avatar.png" alt="Mithoo learning companion" width={104} height={130}/>
       </div>
       <div className="pyfm-companion-actions">
-        <button type="button" onClick={() => toast("Ask Mithoo about functions, defaults, or modules.")}><span>◉</span>Ask a Question</button>
-        <button type="button" onClick={() => toast("Example: use None as the default, then create a new list inside the function.")}><Sparkles size={14}/>Explain with Example</button>
+        <button type="button" onClick={() => { setMode(mode === "ask" ? "idle" : "ask"); setAnswer(""); }}><span>◉</span>Ask a Question</button>
+        <button type="button" onClick={() => setMode(mode === "example" ? "idle" : "example")}><Sparkles size={14}/>Explain with Example</button>
       </div>
+      {mode === "ask" && <div className="pyfm-companion-expand">
+        <label htmlFor="pyfm-mithoo-question">Ask about this lesson</label>
+        <div><input id="pyfm-mithoo-question" value={question} onChange={event => setQuestion(event.target.value)} placeholder="Why is [] a risky default?" onKeyDown={event => { if (event.key === "Enter") ask(); }}/><button type="button" onClick={ask}>Ask</button></div>
+        {answer && <p>{answer}</p>}
+      </div>}
+      {mode === "example" && <div className="pyfm-companion-expand">
+        <strong>Safe default example</strong>
+        <code>def add_item(item, items=None):{"\n"}    if items is None:{"\n"}        items = []</code>
+        <p>Each call gets a fresh list unless the caller explicitly supplies one.</p>
+      </div>}
     </section>
   );
 }
