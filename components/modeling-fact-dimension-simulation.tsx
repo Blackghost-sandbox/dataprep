@@ -17,10 +17,8 @@ import {
   Network,
   Play,
   RefreshCcw,
-  ShoppingBag,
   Sparkles,
   Table2,
-  UserRound,
   Zap,
 } from "lucide-react";
 import { useCompanion } from "@/components/companion-context";
