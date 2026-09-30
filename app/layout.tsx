@@ -20,6 +20,7 @@ import "./spark-transformations.css";
 import "./spark-partitioning.css";
 import "./kafka-intro.css";
 import "./airflow-lab.css";
+import "./python-functions-modules.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
