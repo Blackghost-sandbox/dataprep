@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import {
   BarChart3,
   CheckCircle2,
@@ -102,7 +103,7 @@ function EntityCard({
   className = "",
 }: {
   entity: TableKey;
-  icon: React.ReactNode;
+  icon: ReactNode;
   tone: "violet" | "green" | "orange" | "pink";
   selected: boolean;
   onSelect: () => void;
@@ -232,7 +233,10 @@ export function ModelingIntroLab({ focused = false }: { focused?: boolean }) {
     timers.current = [];
   };
 
-  useEffect(() => clearTimers, []);
+  useEffect(() => () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  }, []);
 
   const resetSimulation = () => {
     clearTimers();
@@ -294,7 +298,7 @@ export function ModelingIntroLab({ focused = false }: { focused?: boolean }) {
         const n = next.Order.length;
         const customers = next.Customer.map((row) => Number(row.customer_id));
         next.Order.push({
-          order_id: 504 + n,
+          order_id: 501 + n,
           customer_id: customers[n % customers.length],
           order_date: `2026-02-${String(2 + n).padStart(2, "0")}`,
           total_amount: 35 + n * 15,
@@ -304,7 +308,7 @@ export function ModelingIntroLab({ focused = false }: { focused?: boolean }) {
         const names = ["Bottle", "Folder", "Marker", "Cable"];
         const categories = ["Accessories", "Stationery", "Stationery", "Electronics"];
         next.Product.push({
-          product_id: 40 + n * 10,
+          product_id: 10 + n * 10,
           name: names[n % names.length],
           category: categories[n % categories.length],
           price: 15 + n * 10,
