@@ -390,7 +390,11 @@ export function ModelingERBuilder() {
   };
 
   const addEntity = (id: EntityId) => {
-    setEntities((previous) => previous[id] ? previous : { ...previous, [id]: cloneEntity(id) });
+    if (entities[id]) {
+      setSelectedEntity(id);
+      return;
+    }
+    setEntities((previous) => ({ ...previous, [id]: cloneEntity(id) }));
     setSelectedEntity(id);
     markChanged();
   };
@@ -427,7 +431,34 @@ export function ModelingERBuilder() {
 
   const toggleRelationship = (candidate: RelationshipModel) => {
     if (!entities[candidate.from] || !entities[candidate.to]) return;
-    setRelationships((previous) => previous.some((item) => item.id === candidate.id) ? previous.filter((item) => item.id !== candidate.id) : [...previous, { ...candidate }]);
+    const connected = relationships.some((item) => item.id === candidate.id);
+    setRelationships((previous) => connected ? previous.filter((item) => item.id !== candidate.id) : [...previous, { ...candidate }]);
+    if (candidate.id === "supplier-product" && entities.Product) {
+      const fieldId = "supplier_id";
+      setEntities((previous) => {
+        const product = previous.Product;
+        if (!product) return previous;
+        const fields = connected
+          ? product.fields.filter((field) => field.id !== fieldId)
+          : product.fields.some((field) => field.id === fieldId)
+            ? product.fields
+            : [...product.fields, { id: fieldId, name: fieldId, type: "INT", key: "FK" as const, ref: "Supplier" as const }];
+        return { ...previous, Product: { ...product, fields } };
+      });
+    }
+    if (candidate.id === "category-product" && entities.Product) {
+      const fieldId = "category_id";
+      setEntities((previous) => {
+        const product = previous.Product;
+        if (!product) return previous;
+        const fields = connected
+          ? product.fields.filter((field) => field.id !== fieldId)
+          : product.fields.some((field) => field.id === fieldId)
+            ? product.fields
+            : [...product.fields, { id: fieldId, name: fieldId, type: "INT", key: "FK" as const, ref: "Category" as const }];
+        return { ...previous, Product: { ...product, fields } };
+      });
+    }
     markChanged();
   };
 
