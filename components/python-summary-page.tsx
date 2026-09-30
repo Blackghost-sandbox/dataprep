@@ -165,7 +165,7 @@ function PipelinePlayback() {
           {index<stages.length-1&&<i>→</i>}
         </button>)}
       </div>
-      <div className="pysum-active-caption" role="status"><span>Stage {active+1}</span><strong>{stages[active].title}</strong><p>{stages[active].takeaway}</p></div>
+      <p className="sr-only" role="status">Stage {active+1}: {stages[active].title}. {stages[active].takeaway}</p>
       <FitCards/>
       <div className="pysum-bottom-grid"><PipelineSketch activeStage={active}/><FinalTakeaways activeStage={active} onSelect={setActive}/></div>
     </section>
@@ -200,7 +200,8 @@ function PipelineSketch({activeStage}:{activeStage:number}) {
     try{await navigator.clipboard.writeText(code);setCopied(true);window.setTimeout(()=>setCopied(false),1200);}
     catch{toast.error("Could not copy the pipeline sketch.");}
   };
-  const mappedSection=activeStage<=1?0:activeStage<=3?1:activeStage<=5?2:3;
+  const sectionMap=[3,1,2,0,3,2,3,3] as const;
+  const mappedSection=sectionMap[activeStage]??3;
   let lineNumber=0;
   return (
     <section className="pysum-code">
