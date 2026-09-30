@@ -59,7 +59,6 @@
 .pyhot-rules>div{display:grid;gap:7px;margin-top:7px}.pyhot-rules article{position:relative;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:9px;min-height:46px;padding:7px 9px;border-radius:8px;background:#f3efff;border:1px solid #e7dffd}.pyhot-rules article:nth-child(2){background:#fff5e2;border-color:#f6e3bd}.pyhot-rules article:nth-child(3){background:#fff0f0;border-color:#f3d1d3}.pyhot-rules article:nth-child(4){background:#eaf4ff;border-color:#d7e6f6}
 .pyhot-rules article>span{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#7b61ef;color:#fff;font-size:10px;font-weight:800}.pyhot-rules article:nth-child(2)>span{background:#f6ae32}.pyhot-rules article:nth-child(3)>span{background:#ee5b62}.pyhot-rules article:nth-child(4)>span{background:#2d8edb}
 .pyhot-rules article strong{display:block;color:#24344f;font-size:8.5px}.pyhot-rules article p{margin:2px 0 0;color:#687895;font-size:7.3px;line-height:1.25}.pyhot-rules article>svg{position:absolute;right:7px;top:7px;color:#16a568}
-.pyhot-rules article:not(.is-active){filter:saturate(.82);opacity:.8}
 
 .pyhot-result{background:linear-gradient(180deg,#f0fff7,#eafbf2);border-color:#c3ead4}.pyhot-result>header>span{background:#dcf7e9;color:#0aa564}.pyhot-result>header b{background:#cdf4db;color:#128144}
 .pyhot-result table{margin:12px auto 0;width:75%;font-size:9px}.pyhot-result td strong{font-size:13px;color:#11213f}
