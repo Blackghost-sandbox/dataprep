@@ -337,7 +337,7 @@ export function ModelingOltpOlapSimulation() {
   const reset = () => {
     clearTimers();
     setScenarioId("orders");
-    setPhase("ready");
+    setPhase("done");
     setCopied(null);
   };
 
