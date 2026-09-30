@@ -25,6 +25,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const Panel=embedded?EmbeddedPanel:PopoverContent;
   const companion=useCompanion()!;
   const {context,emit,event}=companion;
+  const factDimensionCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="facts-dimensions"&&context.tab==="Simulation";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
   const [expression,setExpression]=useState<Expression>("greeting");
@@ -104,11 +105,17 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className="nila-dock">
-{embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
-        {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
-        {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
-        <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
+      <div className={factDimensionCompact?"nila-dock nila-fact-dimension-compact":"nila-dock"}>
+        {factDimensionCompact&&!open ? <>
+          <header className="nila-fact-dimension-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-fact-dimension-body"><div className="nila-fact-dimension-prompt">Want to try a different scenario? We can use retail, banking, or subscription data for this example.</div><Image className="nila-fact-dimension-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-fact-dimension-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about fact and dimension tables" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </> : !factDimensionCompact ? <>
+          {embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
+          {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
+          {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
+          <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
+        </> : null}
       </div>
       {(!embedded||open)&&<Panel className="nila-panel" align="end" side="top" sideOffset={12} collisionPadding={12} aria-label="Mithoo learning companion" onOpenAutoFocus={e=>{e.preventDefault();closeRef.current?.focus();}} onInteractOutside={e=>e.preventDefault()}>
         <header className="nila-header"><span className="nila-mark"><Sparkles size={17}/></span><div><strong>Mithoo</strong><small>Your learning companion</small></div><span className="nila-local">Local mode</span><button onClick={()=>changeOpen(false)} aria-label="Minimize Mithoo"><Minus size={17}/></button><button ref={closeRef} onClick={()=>changeOpen(false)} aria-label="Close Mithoo"><X size={17}/></button></header>
