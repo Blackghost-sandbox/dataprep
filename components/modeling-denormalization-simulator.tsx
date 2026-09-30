@@ -126,7 +126,7 @@ function SourceTable({
   tone: "blue" | "green" | "orange";
   icon: ReactNode;
   title: string;
-  rows: Array<Record<string, string | number>>;
+  rows: object[];
   columns: string[];
 }) {
   return (
@@ -141,7 +141,7 @@ function SourceTable({
         <table>
           <thead><tr>{columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
           <tbody>
-            {rows.map((row, index) => <tr key={index}>{columns.map((column) => <td key={column}>{String(row[column])}</td>)}</tr>)}
+            {rows.map((row, index) => <tr key={index}>{columns.map((column) => <td key={column}>{String((row as Record<string, string | number>)[column])}</td>)}</tr>)}
           </tbody>
         </table>
       </div>
