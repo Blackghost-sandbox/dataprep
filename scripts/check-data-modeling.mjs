@@ -48,6 +48,11 @@ for(const lesson of modelingLessons){
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
+const cardinality=modelingLessons.find(l=>l.id==='cardinality');
+const cardinalitySimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:cardinality,module:'modeling',active:'Simulation',onTab:()=>{}})));
+for(const label of ['Cardinality Playground','Run Simulation','Step by step','Relationship Inspector','1 : N','One to Many','Data View','Relationship in Rows','SQL Preview'])assert.ok(cardinalitySimulation.includes(label),label);
+assert.ok(cardinalitySimulation.includes('customers (3 rows)'));
+assert.ok(cardinalitySimulation.includes('orders (6 rows)'));
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));
@@ -66,5 +71,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; cardinality simulation surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
