@@ -51,7 +51,7 @@ for(const lesson of modelingLessons){
 }
 const oltpOlap=modelingLessons.find(l=>l.id==='oltp-olap');
 const oltpOlapSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:oltpOlap,module:'modeling',active:'Simulation',onTab:()=>{}})));
-for(const label of ['Interactive Simulation','Run Simulation','Workload','OLTP','OLAP','Order Analysis','Customer Insights','Monthly Reporting','Inventory Analysis','Visual Comparison','Data Access Pattern','Typical Use Cases'])assert.ok(oltpOlapSimulation.includes(label),label);
+for(const label of ['Interactive Simulation','Run Simulation','Workload','OLTP','OLAP','Order Analysis','Customer Insights','Monthly Reporting','Inventory Analysis','Visual Comparison','Data Access Pattern','Typical Use Cases','Copy OLTP SQL','Copy OLAP SQL'])assert.ok(oltpOlapSimulation.includes(label),label);
 assert.ok(oltpOlapSimulation.includes('120.00'));
 assert.ok(oltpOlapSimulation.includes('248,000'));
 assert.deepEqual(parseLessonLocation(lessonLocation('modeling','oltp-olap','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='oltp-olap'),tab:'Simulation'});
