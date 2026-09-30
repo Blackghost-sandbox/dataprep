@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowRight,
   BarChart3,
   Check,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Clock3,
@@ -283,8 +281,15 @@ export function ModelingStarSchemaSimulation(){
         const key=Math.max(0,...next.product.map(row=>row.product_key))+1;
         next.product.push({product_key:key,product_name:"Mouse",category:"Accessories",subcategory:"Computer Accessories",brand:"Orbit"});
       }else if(dimension==="date"){
-        const key=Math.max(0,...next.date.map(row=>row.date_key))+1;
-        next.date.push({date_key:key,date:"2024-01-04",month:"Jan",quarter:"Q1",year:2024});
+        const latest=next.date.reduce((max,row)=>row.date>max?row.date:max,"2024-01-01");
+        const parsed=new Date(latest+"T00:00:00Z");
+        parsed.setUTCDate(parsed.getUTCDate()+1);
+        const date=parsed.toISOString().slice(0,10);
+        const monthIndex=Number(date.slice(5,7))-1;
+        const month=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][monthIndex];
+        const quarter="Q"+(Math.floor(monthIndex/3)+1);
+        const key=Number(date.replace(/-/g,""));
+        next.date.push({date_key:key,date,month,quarter,year:Number(date.slice(0,4))});
       }else{
         const key=Math.max(0,...next.store.map(row=>row.store_key))+1;
         next.store.push({store_key:key,store_name:"South Point",city:"Denver",region:"West"});
