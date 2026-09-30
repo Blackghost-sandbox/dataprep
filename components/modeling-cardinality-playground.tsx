@@ -133,7 +133,7 @@ function buildRightRows(kind: RelationKind, leftCount: number, rightCount: numbe
   if (kind === "one-one") {
     return Array.from({ length: rightCount }, (_, index) => ({
       profile_id: 201 + index,
-      customer_id: leftCount ? (index % leftCount) + 1 : "",
+      customer_id: leftCount ? Math.min(leftCount, Math.floor(index * leftCount / Math.max(1, rightCount)) + 1) : "",
       tier: ["Gold", "Silver", "Bronze"][index % 3],
     }));
   }
@@ -160,7 +160,7 @@ function buildLinks(kind: RelationKind, leftCount: number, rightCount: number): 
     return Array.from({ length: Math.min(leftCount, rightCount) }, (_, index) => ({ left: index + 1, right: index + 1 }));
   }
   if (kind === "one-many") {
-    return Array.from({ length: rightCount }, (_, index) => ({ left: (index % leftCount) + 1, right: index + 1 }));
+    return Array.from({ length: rightCount }, (_, index) => ({ left: Math.min(leftCount, Math.floor(index * leftCount / Math.max(1, rightCount)) + 1), right: index + 1 }));
   }
   const target = Math.min(leftCount * rightCount, Math.max(leftCount, rightCount) + Math.min(leftCount, rightCount));
   return Array.from({ length: target }, (_, index) => ({
