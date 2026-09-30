@@ -265,7 +265,7 @@
 
 .pyff-file-list{display:grid;margin-top:1px;border:1px solid #dde8e3;border-radius:7px;overflow:hidden;background:#fff}
 .pyff-file-list>div{display:grid;grid-template-columns:36px 1fr 49px;align-items:center;gap:7px;min-height:53px;padding:6px 7px;border-bottom:1px solid #e9efec}.pyff-file-list>div:last-child{border-bottom:0}
-.pyff-file-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:9px}.tone-blue{background:#e2f0ff;color:#1886da}.tone-violet{background:#eee5ff;color:#7647e9}.tone-green{background:#dcf7e9;color:#0aa868}
+.pyff-file-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:9px}.pyff-file-icon.tone-blue{background:#e2f0ff;color:#1886da}.pyff-file-icon.tone-violet{background:#eee5ff;color:#7647e9}.pyff-file-icon.tone-green{background:#dcf7e9;color:#0aa868}
 .pyff-file-list strong{display:block;color:#1e334f;font-size:8.8px}.pyff-file-list small{display:block;margin-top:2px;color:#657792;font-size:7.5px}
 .pyff-file-list button{height:28px;border-radius:7px;background:#eee7ff;color:#633fe1;font-size:8px;font-weight:700}
 .pyff-schema{display:grid;border:1px solid #dce8e2;border-radius:7px;overflow:hidden;background:#fff;font-size:8px}
