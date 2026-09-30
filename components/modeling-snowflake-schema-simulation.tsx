@@ -170,9 +170,9 @@ export function ModelingSnowflakeSchemaSimulation(){
   const phaseIndex=phase==="ready"?0:phase==="fact"?1:phase==="dimensions"?2:phase==="subdimensions"?3:phase==="query"?4:5;
 
   const resultRows=useMemo(()=>{
-    const productByKey=new Map(tables.product.rows.map(row=>[Number(row.product_key),row]));
-    const subByKey=new Map(tables.subcategory.rows.map(row=>[Number(row.subcategory_key),row]));
-    const categoryByKey=new Map(tables.category.rows.map(row=>[Number(row.category_key),row]));
+    const productByKey=new Map<number,Row>(tables.product.rows.map(row=>[Number(row.product_key),row] as const));
+    const subByKey=new Map<number,Row>(tables.subcategory.rows.map(row=>[Number(row.subcategory_key),row] as const));
+    const categoryByKey=new Map<number,Row>(tables.category.rows.map(row=>[Number(row.category_key),row] as const));
     const grouped=new Map<string,number>();
     for(const fact of tables.fact.rows){
       const product=productByKey.get(Number(fact.product_key));
