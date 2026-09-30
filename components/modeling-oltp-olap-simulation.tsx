@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowRight,
   BarChart3,
   Box,
-  Check,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
@@ -21,7 +19,6 @@ import {
   ShoppingCart,
   Table2,
   Timer,
-  UserRound,
   UsersRound,
   Zap,
 } from "lucide-react";
