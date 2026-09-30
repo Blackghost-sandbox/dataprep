@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   AlertTriangle,
   ArrowRight,
@@ -11,7 +11,6 @@ import {
   ChevronRight,
   Clock3,
   Database,
-  Gauge,
   GraduationCap,
   Lightbulb,
   Link2,
@@ -125,7 +124,7 @@ function SourceTable({
   columns,
 }: {
   tone: "blue" | "green" | "orange";
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   rows: Array<Record<string, string | number>>;
   columns: string[];
