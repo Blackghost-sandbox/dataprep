@@ -347,15 +347,15 @@ export function ModelingDenormalizationSimulator() {
             <header><Database size={19}/><div><h3>Before vs After: Query Comparison</h3><p>Same business question: Total sales by customer and city</p></div></header>
             <div className="mden-query-grid">
               <button type="button" className={querySide === "before" ? "is-selected" : ""} onClick={() => setQuerySide("before")} aria-pressed={querySide === "before"}>
-                <header><strong>Before (Normalized) — 3 Joins</strong><small>SQL</small></header>
-                <pre><code>{BEFORE_SQL}</code></pre>
-                <footer><span><CheckCircle2 size={12}/>3 joins</span><span>Higher read cost</span><span>Slower on large data</span></footer>
+                <span className="mden-query-head"><strong>Before (Normalized) — 3 Joins</strong><small>SQL</small></span>
+                <code className="mden-query-code">{BEFORE_SQL}</code>
+                <span className="mden-query-foot"><span><CheckCircle2 size={12}/>3 joins</span><span>Higher read cost</span><span>Slower on large data</span></span>
               </button>
               <span className="mden-vs">VS</span>
               <button type="button" className={querySide === "after" ? "is-selected" : ""} onClick={() => setQuerySide("after")} aria-pressed={querySide === "after"}>
-                <header><strong>After (Read Model) — 0 Joins</strong><small>SQL</small></header>
-                <pre><code>{AFTER_SQL}</code></pre>
-                <footer><span><CheckCircle2 size={12}/>0 joins</span><span>Fast reads</span><span>Simple query</span></footer>
+                <span className="mden-query-head"><strong>After (Read Model) — 0 Joins</strong><small>SQL</small></span>
+                <code className="mden-query-code">{AFTER_SQL}</code>
+                <span className="mden-query-foot"><span><CheckCircle2 size={12}/>0 joins</span><span>Fast reads</span><span>Simple query</span></span>
               </button>
             </div>
           </section>
