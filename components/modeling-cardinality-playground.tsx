@@ -390,6 +390,7 @@ export function ModelingCardinalityPlayground() {
         </div>
       </header>
 
+      <div className="mcard-core-grid">
       <div className="mcard-relation-types" role="group" aria-label="Cardinality type">
         {RELATIONS.map((relation) => <button type="button" key={relation.id} aria-pressed={kind === relation.id} onClick={() => selectKind(relation.id)}>
           <span>{relation.id === "one-one" ? <UserRound size={23}/> : relation.id === "one-many" ? <UsersRound size={23}/> : <Network size={23}/>}</span>
@@ -397,7 +398,6 @@ export function ModelingCardinalityPlayground() {
         </button>)}
       </div>
 
-      <div className="mcard-main-grid">
         <section className="mcard-side-table mcard-left-card">
           <header><UserRound size={19}/><div><h3>{config.leftLabel} ({kind === "many-many" ? "N" : "1"})</h3><p>{kind === "many-many" ? "A student can take many courses" : kind === "one-one" ? "A customer may have one profile" : "Each customer can have many orders"}</p></div></header>
           <CountControl value={draftLeft} onChange={(value) => { setDraftLeft(value); markPending(); }} onGenerate={applyLeft}/>
