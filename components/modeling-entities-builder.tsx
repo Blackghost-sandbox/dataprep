@@ -255,7 +255,7 @@ export function ModelingEntitiesBuilder() {
         </div>
       </header>
 
-      <div className="mer-classifier">
+      <div className="mer-main-grid">
         <section className="mer-tray" aria-label="Business objects tray">
           <header><BriefcaseBusiness size={20}/><div><h3>Business objects tray</h3><p>Drag each item to the correct category</p></div></header>
           <div className="mer-tray-items">
@@ -284,6 +284,7 @@ export function ModelingEntitiesBuilder() {
           </div>
         </section>
 
+        <div className="mer-buckets">
         {CLASSIFICATIONS.map(({ name, subtitle, icon: Icon, tone }) => {
           const bucketItems = ITEMS.filter((item) => assignments[item.id] === name);
           const showPendingRelationship = name === "Relationship" && !assignments.belongs_to;
@@ -333,7 +334,7 @@ export function ModelingEntitiesBuilder() {
             </section>
           );
         })}
-      </div>
+        </div>
 
       <section className="mer-preview">
         <header>
@@ -345,6 +346,7 @@ export function ModelingEntitiesBuilder() {
         </header>
         {view === "diagram" ? <ErPreview assignments={assignments}/> : <TablesPreview/>}
       </section>
+      </div>
 
       <section className="mer-feedback">
         <div className="mer-feedback-results">
