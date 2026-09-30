@@ -65,6 +65,16 @@ export class AICompanionService {
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
     if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
     if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="star-schema"){
+      const q=question.toLowerCase();
+      if(/fact|grain|measure/.test(q)&&!/dimension/.test(q))text="In a star schema, the fact table records measurable events at one declared grain. In this lesson FACT_SALES keeps one sales row with quantity and amount, plus foreign keys to customer, product, date and store.";
+      else if(/dimension|customer|product|date|store/.test(q))text="Dimensions describe the fact. Customer answers who, Product answers what, Date answers when, and Store answers where. Each dimension key should be unique so joining it to the fact does not multiply events.";
+      else if(/add row|new sales|new sale/.test(q))text="Add a fact row only with dimension keys that resolve to exactly one customer, product, date and store row. Then rerun the analytical query and confirm the new sale changes the expected category totals without changing unrelated categories.";
+      else if(/query|category|aggregate|sales/.test(q))text="The sample query groups FACT_SALES by Product.category. It joins the fact to DIM_PRODUCT on product_key, then sums amount and quantity. Direct fact-to-dimension joins are what give the model its star shape.";
+      else if(/why star|benefit|simple|fast/.test(q))text="A star schema gives analysts a simple path from one central fact table to descriptive dimensions. That can make common reporting queries easier to express and audit, but performance still depends on the engine, data volume, indexes, clustering and workload.";
+      else if(/duplicate|multiply|unique/.test(q))text="If a dimension key is duplicated, one fact row can match multiple dimension rows and inflate measures. Validate dimension-key uniqueness and fact-grain uniqueness before trusting totals.";
+      else text="Trace one sales fact outward: customer_key identifies who bought, product_key identifies what, date_key identifies when, and store_key identifies where. The measures stay in FACT_SALES while descriptive attributes stay in dimensions.";
+    }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
