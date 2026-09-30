@@ -355,16 +355,24 @@ export function ModelingEntitiesBuilder() {
         <div className="mer-feedback-results">
           <h3>&gt;_ Check results &amp; feedback</h3>
           <div className="mer-feedback-grid">
-            {results.map((item) => {
-              const state = !item.actual ? "missing" : item.correct ? "correct" : "wrong";
-              return (
-                <p key={item.id} className={`is-${state}`}>
-                  {state === "correct" ? <CheckCircle2 size={14}/> : state === "wrong" ? <CircleHelp size={14}/> : <BadgeHelp size={14}/>}
-                  <span><b>{item.id}</b> → {item.actual || "Needs your classification"}</span>
-                  {checked && <strong>{state === "correct" ? "✓ Correct" : state === "wrong" ? `✕ Expected ${item.expected}` : "Needs your classification"}</strong>}
-                </p>
-              );
-            })}
+            {([
+              ["Customer", "email", "places", "Order", "order_date"],
+              ["Product", "price", "contains", "belongs_to"],
+            ] as ItemId[][]).map((column, columnIndex) => (
+              <div className="mer-feedback-column" key={columnIndex}>
+                {column.map((id) => {
+                  const item = results.find((candidate) => candidate.id === id)!;
+                  const state = !item.actual ? "missing" : item.correct ? "correct" : "wrong";
+                  return (
+                    <p key={item.id} className={`is-${state}`}>
+                      {state === "correct" ? <CheckCircle2 size={14}/> : state === "wrong" ? <CircleHelp size={14}/> : <BadgeHelp size={14}/>}
+                      <span><b>{item.id}</b> → {item.actual || "Needs your classification"}</span>
+                      {checked && <strong>{state === "correct" ? "✓ Correct" : state === "wrong" ? `✕ Expected ${item.expected}` : "Needs your classification"}</strong>}
+                    </p>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
         <aside className={`mer-hint ${passed ? "is-complete" : ""}`}>
