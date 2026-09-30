@@ -331,7 +331,7 @@ function FileViewer({ file, onClose }: { file: string; onClose: ()=>void }) {
   const content = useMemo(() => {
     if (file === "csv") return ["date,hub,price,volume", ...rows.map(r=>`${r.date},${r.hub},${r.price.toFixed(2)},${r.volume}`)].join("\n");
     if (file === "json") return JSON.stringify(rows, null, 2);
-    if (file === "txt") return rows.map(r=>`${r.date} | ${r.hub} | ${r.price.toFixed(2)} | ${r.volume}`).join("\\n");
+    if (file === "txt") return rows.map(r=>`${r.date} | ${r.hub} | ${r.price.toFixed(2)} | ${r.volume}`).join("\n");
     return [
       "Parquet preview (deterministic lesson simulation)",
       "row groups: 1",
