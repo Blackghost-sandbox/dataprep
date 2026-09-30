@@ -226,7 +226,15 @@ function validateModel(entities: Partial<Record<EntityId, EntityModel>>, relatio
   const list = Object.values(entities).filter(Boolean) as EntityModel[];
   const allHavePk = list.length > 0 && list.every((entity) => entity.fields.some((field) => field.key === "PK"));
   const foreignKeysValid = list.every((entity) =>
-    entity.fields.filter((field) => field.key === "FK").every((field) => Boolean(field.ref && entities[field.ref] && entities[field.ref]!.fields.some((target) => target.key === "PK"))),
+    entity.fields.filter((field) => field.key === "FK").every((field) => Boolean(
+      field.ref &&
+      entities[field.ref] &&
+      entities[field.ref]!.fields.some((target) => target.key === "PK") &&
+      relationships.some((relationship) =>
+        (relationship.from === field.ref && relationship.to === entity.id) ||
+        (relationship.to === field.ref && relationship.from === entity.id),
+      )
+    )),
   );
   const relationshipsValid = relationships.length > 0 && relationships.every((relationship) =>
     Boolean(entities[relationship.from] && entities[relationship.to] && relationship.cardinality),
