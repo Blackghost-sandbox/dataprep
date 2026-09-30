@@ -148,7 +148,7 @@ function buildRightRows(kind: RelationKind, leftCount: number, rightCount: numbe
   const dates = ["2024-01-10", "2024-01-12", "2024-01-15", "2024-01-18", "2024-01-20", "2024-01-22", "2024-01-25", "2024-01-28"];
   return Array.from({ length: rightCount }, (_, index) => ({
     order_id: 101 + index,
-    customer_id: leftCount ? (index % leftCount) + 1 : "",
+    customer_id: leftCount ? Math.min(leftCount, Math.floor(index * leftCount / Math.max(1, rightCount)) + 1) : "",
     order_date: dates[index % dates.length],
     amount: amounts[index % amounts.length],
   }));
