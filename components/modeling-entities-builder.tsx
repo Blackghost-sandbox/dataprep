@@ -320,20 +320,20 @@ export function ModelingEntitiesBuilder() {
                     type="button"
                     className="mer-bucket-item mer-bucket-unknown"
                     aria-pressed={selected === "belongs_to"}
-                    onClick={() => setSelected("belongs_to")}
+                    onClick={() => assign("belongs_to", "Relationship")}
                   >
                     <Link2 size={14}/><b>belongs_to</b><CircleHelp size={18}/>
                   </button>
                 )}
               </div>
-              <button
+              {!showPendingRelationship && <button
                 type="button"
                 className="mer-drop-zone"
                 disabled={!selected}
                 onClick={() => selected && assign(selected, name)}
               >
                 {selected ? `Classify ${selected} as ${name}` : "Drag items here"}
-              </button>
+              </button>}
             </section>
           );
         })}
