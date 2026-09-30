@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   AlertCircle,
   ArrowRight,
-  Check,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
