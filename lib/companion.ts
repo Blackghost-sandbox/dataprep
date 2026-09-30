@@ -65,6 +65,14 @@ export class AICompanionService {
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
     if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
     if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="er-modeling"){
+      const q=question.toLowerCase();
+      if(/supplier|vendor/.test(q))text="Add Supplier as its own entity with supplier_id as the primary key. For a simple one-supplier-per-product rule, add supplier_id as a foreign key on Product and model Supplier 1 → many Product. If products can have multiple suppliers, use a ProductSupplier bridge instead.";
+      else if(/order ?line|quantity|unit[_ ]?price/.test(q))text="OrderLine is the association between an Order and a Product. Quantity and purchase unit_price belong on OrderLine because they describe one purchased line, not the reusable Product catalog row.";
+      else if(/cardinality|1:n|one to many/.test(q))text="State the rule in both directions. Example: one Customer can place many Orders; each Order belongs to exactly one Customer. Put customer_id on Order as the foreign key.";
+      else if(/validate|check|error/.test(q))text="Validate four things: every entity has row identity, foreign keys point to valid parent entities, every relationship has explicit cardinality, and the diagram has no ambiguous duplicate relationships.";
+      else text="A readable ER model should make entity identity, attributes, relationship verbs, cardinality and optionality visible. Use the builder stages to add entities, then attributes, relationships, cardinality and validation.";
+    }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
