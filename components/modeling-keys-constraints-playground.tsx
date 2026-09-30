@@ -18,7 +18,9 @@ import {
   Plus,
   RefreshCcw,
   ShieldCheck,
+  ShoppingCart,
   UserRound,
+  Zap,
 } from "lucide-react";
 import { useCompanion } from "@/components/companion-context";
 
@@ -239,7 +241,7 @@ export function ModelingKeysHero({
       <div className="mkc-hero-copy">
         <div className="mkc-breadcrumb"><span>Data Modeling</span><ChevronRight size={13}/><strong>Keys &amp; Constraints</strong></div>
         <div className="mkc-title-row">
-          <span className="mkc-hero-icon"><KeyRound size={24}/></span>
+          <span className="mkc-hero-icon"><Zap size={24}/></span>
           <div><h1 id="mkc-hero-title">Keys &amp; Constraints</h1><p>{description}</p></div>
         </div>
         <div className="mkc-meta"><span><Clock3 size={14}/>{minutes} min</span><span><GraduationCap size={14}/>Lesson {currentLesson + 1}/{total}</span></div>
@@ -307,7 +309,7 @@ function EditableOrderTable({
   const invalid = (row: number, field: keyof OrderRow) => errors.some((error) => error.table === "Order" && error.row === row && error.field === field);
   return (
     <section className="mkc-table-card mkc-order-card">
-      <header><div><BookOpen size={18}/><h3>Order</h3></div><button type="button" onClick={onAdd}><Plus size={13}/>Add Row</button></header>
+      <header><div><ShoppingCart size={18}/><h3>Order</h3></div><button type="button" onClick={onAdd}><Plus size={13}/>Add Row</button></header>
       <p className="mkc-constraints"><b>Primary Key: order_id</b><span/>Foreign Key: <u>customer_id</u><span/>CHECK: amount &gt; 0</p>
       <div className="mkc-table-wrap">
         <table>
