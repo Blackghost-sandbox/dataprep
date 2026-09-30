@@ -259,6 +259,6 @@ export function DataPrepApp() {
         </div>
       </main>
     </motion.div>
-    {!compactConcept&&<NilaCompanion completionEvent={companionEvent}/>}
+    {!compactConcept&&!pythonFunctionsModulesConcept&&<NilaCompanion completionEvent={companionEvent}/>}
   </div></CompanionProvider>;
 }
