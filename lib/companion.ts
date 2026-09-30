@@ -65,6 +65,15 @@ export class AICompanionService {
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
     if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
     if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="denormalization"){
+      const q=question.toLowerCase();
+      if(/when|why|use denormal|should i denormal/.test(q))text="Denormalize for a known read workload when repeated joins or repeated calculations are expensive enough to justify duplicated data. Keep the normalized sources authoritative, declare the read-model grain, and define freshness and reconciliation checks.";
+      else if(/stale|refresh|update|change/.test(q))text="A denormalized copy can become stale because source attributes are duplicated. Give the read model a refresh contract, owner, and reconciliation checks so consumers know how current the repeated fields are.";
+      else if(/join|three joins|3 joins|zero joins|0 joins/.test(q))text="The normalized query joins Customer → Order → OrderLine at line grain. The read model precomputes that path, so the reporting query can aggregate directly from one wide table with zero joins at read time.";
+      else if(/grain|duplicate|double count|total/.test(q))text="Keep one row per order line in this read model. Do not copy an order-level total onto every line and then sum it, because that would double-count orders with multiple lines.";
+      else if(/example|different|more columns|change the data/.test(q))text="Another example is a product-sales dashboard that repeatedly joins OrderLine, Product, Category and Store. A governed line-grain read model can repeat product/category/store descriptions for easier reads, provided refresh ownership and history semantics are explicit.";
+      else text="Denormalization intentionally repeats selected data for a read workload. In this lesson, normalized Customer, Order and OrderLine rows are joined once at line grain and published as a read model, trading simpler reads for storage and refresh responsibility.";
+    }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
