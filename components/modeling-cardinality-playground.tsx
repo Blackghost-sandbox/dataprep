@@ -180,10 +180,10 @@ function TableView({ rows, title }: { rows: Row[]; title: string }) {
   return (
     <div className="mcard-table-block">
       <strong>{title} ({rows.length} rows)</strong>
-      <div><table>
+      {rows.length === 0 ? <div className="mcard-empty-table">0 rows generated · optional participation can be valid.</div> : <div><table>
         <thead><tr>{columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
         <tbody>{rows.map((row, index) => <tr key={index}>{columns.map((column) => <td key={column}>{String(row[column])}</td>)}</tr>)}</tbody>
-      </table></div>
+      </table></div>}
     </div>
   );
 }
