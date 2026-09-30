@@ -245,6 +245,7 @@ export function ModelingDenormalizationSimulator() {
   const setStage = (next: StageIndex) => {
     clearTimers();
     setActiveStage(next);
+    setQuerySide(next === 2 ? "after" : "before");
     setStatus(next === 2 ? "done" : "ready");
     if (next === 2) emitComplete();
   };
