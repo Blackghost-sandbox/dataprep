@@ -301,11 +301,12 @@ function RelationshipLines({
         <rect className="merd-rect-pink" x="289" y="281" width="82" height="26" rx="12"/><text className="merd-label merd-label-pink" x="330" y="298">references</text>
       </>}
       {entities.Supplier && entities.Product && exists("supplier-product") && <>
-        <path className="merd-line merd-line-cyan" d="M96 223 V260 Q96 273 112 273 H151"/>
-        <text x="78" y="243">1</text><text x="137" y="263">M</text>
+        <path className="merd-line merd-line-cyan" d="M310 236 Q294 260 254 286"/>
+        <text x="308" y="250">1</text><text x="264" y="279">M</text>
       </>}
       {entities.Category && entities.Product && exists("category-product") && <>
-        <path className="merd-line merd-line-violet" d="M183 356 V335"/>
+        <path className="merd-line merd-line-violet" d="M312 333 Q286 321 254 310"/>
+        <text x="302" y="326">1</text><text x="264" y="309">M</text>
       </>}
     </svg>
   );
