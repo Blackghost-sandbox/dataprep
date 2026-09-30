@@ -145,14 +145,14 @@ function SmallTable({
   dense = false,
 }: {
   columns: string[];
-  rows: Array<Record<string, string | number>>;
+  rows: object[];
   dense?: boolean;
 }) {
   return (
     <div className={dense ? "mfd-table mfd-table-dense" : "mfd-table"}>
       <table>
         <thead><tr>{columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
-        <tbody>{rows.map((row, index) => <tr key={index}>{columns.map((column) => <td key={column}>{String(row[column])}</td>)}</tr>)}</tbody>
+        <tbody>{rows.map((row, index) => <tr key={index}>{columns.map((column) => <td key={column}>{String((row as Record<string, string | number>)[column])}</td>)}</tr>)}</tbody>
       </table>
     </div>
   );
@@ -353,6 +353,7 @@ export function ModelingFactDimensionSimulation() {
   const selectPreview = (tab: PreviewTab) => {
     setPreviewTab(tab);
   };
+  const currentTransformIndex = phaseIndex === 1 ? 1 : phaseIndex === 2 ? 3 : phaseIndex >= 3 ? 4 : -1;
 
   return (
     <section className="mfd-simulation" aria-labelledby="mfd-simulation-title">
@@ -381,7 +382,7 @@ export function ModelingFactDimensionSimulation() {
           <div className="mfd-checklist">
             {checklist.map(([label, required], index) => {
               const active = phaseIndex >= required;
-              const current = phase !== "complete" && active && (index === checklist.findLastIndex(([,need]) => phaseIndex >= need));
+              const current = phase !== "complete" && active && index === currentTransformIndex;
               return <div key={label} className={active ? "is-done" : ""}><span>{active ? <CheckCircle2 size={14}/> : <AlertCircle size={14}/>}</span><strong>{label}</strong>{current && <i>active</i>}</div>;
             })}
           </div>
