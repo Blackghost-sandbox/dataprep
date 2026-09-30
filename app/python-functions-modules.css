@@ -378,3 +378,8 @@
   .pyfm-bottom-grid>*{height:auto;min-height:160px}
 }
 @media(prefers-reduced-motion:reduce){.pyfm-stage{transition:none}}
+
+.pyfm-companion-expand{margin:0 10px 10px;padding:8px 9px;border:1px solid #e3defb;border-radius:8px;background:#faf8ff;color:#425776;font-size:8.6px;line-height:1.4}
+.pyfm-companion-expand>label,.pyfm-companion-expand>strong{display:block;margin-bottom:5px;color:#5f43d9;font-size:8.8px;font-weight:700}
+.pyfm-companion-expand>div{display:flex;gap:5px}.pyfm-companion-expand input{min-width:0;flex:1;height:28px;padding:0 8px;border:1px solid #d8d0f7;border-radius:7px;background:#fff;outline:none;font-size:8.5px}.pyfm-companion-expand div>button{width:42px;border-radius:7px;background:#6948ea;color:#fff;font-size:8px;font-weight:700}
+.pyfm-companion-expand p{margin:6px 0 0}.pyfm-companion-expand code{display:block;padding:6px;border-radius:6px;background:#12233a;color:#e5edf8;white-space:pre-wrap;font:7.8px/1.35 var(--font-mono)}
