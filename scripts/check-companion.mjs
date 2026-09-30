@@ -16,6 +16,7 @@ function load(relative){
 const {AICompanionService,ReactionEngine,selectCompanionContext,recentTurns,CompanionCache,BackendCompanionTransport}=load('lib/companion.ts');
 const {sqlLessons}=load('lib/sql-lessons.ts');
 const {sparkLessons}=load('lib/spark-lessons.ts');
+const {modelingLessons}=load('lib/data-modeling.ts');
 const service=new AICompanionService();
 for(const [course,lessons] of [['SQL Fundamentals',sqlLessons],['Apache Spark',sparkLessons]]){
   for(const lesson of lessons){
@@ -36,6 +37,10 @@ assert.equal(selectCompanionContext({...context,tab:'Concept'},'error','').execu
 assert.ok(!(await service.respond('hint',context,'',[],1)).text.includes(context.lesson.practice.solution));
 assert.ok((await service.respond('ask',context,'show the solution')).text.includes(context.lesson.practice.solution));
 assert.equal((await service.respond('ask',context,'Why this code?')).source,'unavailable');
+const keys=modelingLessons.find(lesson=>lesson.id==='keys');
+const keyHint=await service.respond('hint',{course:'Data Modeling',lesson:keys,tab:'Concept'},'',[],1);
+assert.match(keyHint.text,/PRIMARY KEY|FOREIGN KEY|duplicate|customer_id/i);
+assert.equal(keyHint.source,'lesson');
 assert.equal(networkCalls,0);
 const history=recentTurns(Array.from({length:30},()=>({role:'user',text:'a'.repeat(2000)})));
 assert.equal(history.length,4);assert.equal(history[0].text.length,1200);
@@ -52,4 +57,4 @@ await connected.respond('ask',context,'What is SELECT?',history);
 assert.equal(payload.context.userCode,undefined);assert.equal(payload.revealSolution,false);
 await connected.respond('ask',context,'Why did my query fail?',history);
 assert.equal(payload.context.userCode,'PRIVATE DRAFT');
-console.log('PASS: all 24 lessons, local-only actions, context minimization, hints, cache, history and reaction throttling.');
+console.log('PASS: lesson companion actions, keys constraint hint, context minimization, hints, cache, history and reaction throttling.');
