@@ -28,7 +28,6 @@ import {
   Trash2,
   Truck,
   UserRound,
-  UsersRound,
   Zap,
 } from "lucide-react";
 import { useCompanion } from "@/components/companion-context";
