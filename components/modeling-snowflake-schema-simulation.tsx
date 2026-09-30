@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BarChart3,
   Check,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   Clock3,
