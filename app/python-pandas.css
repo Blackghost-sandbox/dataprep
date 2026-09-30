@@ -90,7 +90,7 @@
 .pypd-chip.chip-group{left:323px;top:68px;background:#d8f5df;color:#137a45;transform:rotate(-9deg)}
 .pypd-chip.chip-sum{left:466px;top:62px;background:#ffe0bf;color:#df5912;transform:rotate(7deg)}
 .pypd-dot{position:absolute;width:9px;height:9px;border-radius:50%;z-index:2}
-.pypd-dot.dot-a{left:0;top:59px;background:#4cd7c7}.pypd-dot.dot-b{left:148px;top:1px;background:#dfb1f0}.pypd-dot.dot-c{left:303px;top:4px;background:#329ee5}.pypd-dot.dot-d{right:10px;top:75px;background:#38cfb8}
+.pypd-dot.pypd-dot-a{left:0;top:59px;background:#4cd7c7}.pypd-dot.pypd-dot-b{left:148px;top:1px;background:#dfb1f0}.pypd-dot.pypd-dot-c{left:303px;top:4px;background:#329ee5}.pypd-dot.pypd-dot-d{right:10px;top:75px;background:#38cfb8}
 .pypd-dash{position:absolute;z-index:1;border:1.5px dashed #6c50ed;border-radius:50%;opacity:.75}
 .pypd-dash.dash-one{left:116px;top:91px;width:62px;height:50px;border-top:none;border-left:none}
 .pypd-dash.dash-two{left:306px;top:16px;width:82px;height:47px;border-bottom:none}
@@ -159,9 +159,9 @@
 }
 .pypd-time.is-active{box-shadow:0 4px 12px #34486412;border-color:#b7a8fb}
 .pypd-time-number{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#1684d8;color:#fff;font-size:11px;font-weight:800}
-.pypd-time.tone-violet .pypd-time-number{background:#7146eb}.pypd-time.tone-green .pypd-time-number{background:#0ca965}.pypd-time.tone-orange .pypd-time-number{background:#ef790b}
+.pypd-time.pypd-tone-violet .pypd-time-number{background:#7146eb}.pypd-time.pypd-tone-green .pypd-time-number{background:#0ca965}.pypd-time.pypd-tone-orange .pypd-time-number{background:#ef790b}
 .pypd-time-icon{display:grid;place-items:center;width:43px;height:43px;border-radius:9px;background:#e5f2ff;color:#1684d8}
-.pypd-time.tone-violet .pypd-time-icon{background:#eee7ff;color:#7247e9}.pypd-time.tone-green .pypd-time-icon{background:#def7e8;color:#0aa666}.pypd-time.tone-orange .pypd-time-icon{background:#fff0dc;color:#ed780b}
+.pypd-time.pypd-tone-violet .pypd-time-icon{background:#eee7ff;color:#7247e9}.pypd-time.pypd-tone-green .pypd-time-icon{background:#def7e8;color:#0aa666}.pypd-time.pypd-tone-orange .pypd-time-icon{background:#fff0dc;color:#ed780b}
 .pypd-time>span:nth-child(3) strong{display:block;color:#172642;font-size:8.3px;line-height:1.1}
 .pypd-time>span:nth-child(3) small{display:block;margin-top:3px;color:#657794;font-size:7.4px;line-height:1.2}
 .pypd-time-check{position:absolute;right:5px;top:5px;color:#0db253;fill:#0db253;stroke:#fff}
@@ -180,16 +180,16 @@
 .pypd-concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:5px}
 .pypd-concept{display:grid;grid-template-columns:38px 1fr;align-items:start;gap:8px;min-height:74px;padding:8px;border:1px solid;border-radius:8px;background:#fff}
 .pypd-concept>span{display:grid;place-items:center;width:36px;height:36px;border-radius:9px}.pypd-concept strong{display:block;font-size:8.4px;line-height:1.1}.pypd-concept p{margin:3px 0 0;color:#5d708f;font-size:7.3px;line-height:1.26}
-.pypd-concept.tone-violet{border-color:#dfd6fb;background:#faf8ff}.pypd-concept.tone-violet>span{background:#eae4ff;color:#6945ed}.pypd-concept.tone-violet strong{color:#6542e8}
-.pypd-concept.tone-blue{border-color:#d7e7f6;background:#f7fbff}.pypd-concept.tone-blue>span{background:#e0f0ff;color:#1683d5}.pypd-concept.tone-blue strong{color:#1479c2}
-.pypd-concept.tone-green{border-color:#d1eadc;background:#f4fcf8}.pypd-concept.tone-green>span{background:#dcf7e9;color:#0ba667}.pypd-concept.tone-green strong{color:#0b9b60}
-.pypd-concept.tone-orange{border-color:#f1dec2;background:#fff9ef}.pypd-concept.tone-orange>span{background:#ffead0;color:#df6d14}.pypd-concept.tone-orange strong{color:#d75c12}
+.pypd-concept.pypd-tone-violet{border-color:#dfd6fb;background:#faf8ff}.pypd-concept.pypd-tone-violet>span{background:#eae4ff;color:#6945ed}.pypd-concept.pypd-tone-violet strong{color:#6542e8}
+.pypd-concept.pypd-tone-blue{border-color:#d7e7f6;background:#f7fbff}.pypd-concept.pypd-tone-blue>span{background:#e0f0ff;color:#1683d5}.pypd-concept.pypd-tone-blue strong{color:#1479c2}
+.pypd-concept.pypd-tone-green{border-color:#d1eadc;background:#f4fcf8}.pypd-concept.pypd-tone-green>span{background:#dcf7e9;color:#0ba667}.pypd-concept.pypd-tone-green strong{color:#0b9b60}
+.pypd-concept.pypd-tone-orange{border-color:#f1dec2;background:#fff9ef}.pypd-concept.pypd-tone-orange>span{background:#ffead0;color:#df6d14}.pypd-concept.pypd-tone-orange strong{color:#d75c12}
 .pypd-concepts h4{margin-top:7px}
 .pypd-decision-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:5px}
 .pypd-decision{display:grid;grid-template-columns:25px 1fr;align-items:start;gap:5px;min-height:66px;padding:6px;border:1px solid #e1e7ef;border-radius:7px;background:#fff}
 .pypd-decision>span{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#ffe4ed;color:#d92767}
-.pypd-decision.tone-blue>span{background:#e3f0ff;color:#1783d4}.pypd-decision.tone-violet>span{background:#eae4ff;color:#6c46ed}.pypd-decision.tone-orange>span{background:#ffead1;color:#e06d15}
-.pypd-decision small{display:block;color:#263953;font-size:6.3px;line-height:1.15}.pypd-decision strong{display:block;margin-top:3px;color:#d31f61;font-size:6.7px;line-height:1.1}.pypd-decision.tone-blue strong{color:#1479c3}.pypd-decision.tone-violet strong{color:#6640e4}.pypd-decision.tone-orange strong{color:#d86114}
+.pypd-decision.pypd-tone-blue>span{background:#e3f0ff;color:#1783d4}.pypd-decision.pypd-tone-violet>span{background:#eae4ff;color:#6c46ed}.pypd-decision.pypd-tone-orange>span{background:#ffead1;color:#e06d15}
+.pypd-decision small{display:block;color:#263953;font-size:6.3px;line-height:1.15}.pypd-decision strong{display:block;margin-top:3px;color:#d31f61;font-size:6.7px;line-height:1.1}.pypd-decision.pypd-tone-blue strong{color:#1479c3}.pypd-decision.pypd-tone-violet strong{color:#6640e4}.pypd-decision.pypd-tone-orange strong{color:#d86114}
 .pypd-decision code{display:block;margin-top:4px;padding:2px 4px;border-radius:4px;background:#f6f3ff;color:#6240e4;font:5.9px/1.2 var(--font-mono)}
 
 /* Right rail */
