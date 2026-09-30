@@ -9,7 +9,7 @@ import { pythonLessons } from "@/lib/python-lessons";
 import { mockRounds } from "@/lib/mock-interviews";
 import { InterviewPractice } from "@/components/interview-practice";
 import { SparkLessonPanel } from "@/components/spark-lesson";
-import { PythonInterviewHero, PythonInterviewQuickTips } from "@/components/python-interview-page";
+import { PythonInterviewCompanion, PythonInterviewHero, PythonInterviewQuickTips } from "@/components/python-interview-page";
 import { sqlConceptGuides } from "@/lib/sql-concepts";
 import { sqlLessons } from "@/lib/sql-lessons";
 import { sparkLessons } from "@/lib/spark-lessons";
@@ -255,7 +255,7 @@ export function DataPrepApp() {
               <button disabled={currentLesson===lessons.length-1} onClick={()=>moveLesson(1)} className="text-sm font-semibold text-[#6d5df6] disabled:opacity-40">{currentLesson===lessons.length-1 ? "End of module" : "Next: "+lessons[currentLesson+1]+" →"}</button>
             </section>
           </div>
-          <div className={compactConcept?"perf-right-rail":pythonInterviewConcept?"pyiq-right-rail":"contents"}><RightPanel airflowConcept={airflowConcept} kafkaIntroConcept={kafkaIntroConcept} partitioningConcept={partitioningConcept} transformationConcept={transformationConcept} performanceConcept={performanceConcept} onNotes={()=>setActive("Notes")} module={module} currentLesson={currentLesson} onLesson={selectLesson} completed={completed}/>{compactConcept&&<NilaCompanion embedded completionEvent={companionEvent}/>} {pythonInterviewConcept&&<><PythonInterviewQuickTips/><NilaCompanion embedded completionEvent={companionEvent}/></>}</div>
+          <div className={compactConcept?"perf-right-rail":pythonInterviewConcept?"pyiq-right-rail":"contents"}><RightPanel airflowConcept={airflowConcept} kafkaIntroConcept={kafkaIntroConcept} partitioningConcept={partitioningConcept} transformationConcept={transformationConcept} performanceConcept={performanceConcept} onNotes={()=>setActive("Notes")} module={module} currentLesson={currentLesson} onLesson={selectLesson} completed={completed}/>{compactConcept&&<NilaCompanion embedded completionEvent={companionEvent}/>} {pythonInterviewConcept&&<><PythonInterviewQuickTips/><PythonInterviewCompanion/></>}</div>
         </div>
       </main>
     </motion.div>
