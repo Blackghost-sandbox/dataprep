@@ -73,7 +73,7 @@ const SCENARIOS: Scenario[] = [
     name: "Retail Store Sales",
     rows: [
       { order_id: 2001, customer: "Asha", city: "Chennai", product: "Jacket", category: "Apparel", date: "2024-02-01", quantity: 1, amount: 90 },
-      { order_id: 2002, customer: "Ravi", city: "Mumbai", product: "Sneakers", category: "Footwear", date: "2024-02-01", quantity: 2, amount: 140 },
+      { order_id: 2002, customer: "Ravi", city: "Mumbai", product: "Sneakers", category: "Footwear", date: "2024-02-01", quantity: 1, amount: 140 },
       { order_id: 2003, customer: "Asha", city: "Chennai", product: "Cap", category: "Accessories", date: "2024-02-02", quantity: 1, amount: 25 },
       { order_id: 2004, customer: "Mina", city: "Pune", product: "Jacket", category: "Apparel", date: "2024-02-03", quantity: 1, amount: 90 },
       { order_id: 2005, customer: "Kabir", city: "Delhi", product: "Backpack", category: "Accessories", date: "2024-02-03", quantity: 1, amount: 65 },
@@ -85,9 +85,9 @@ const SCENARIOS: Scenario[] = [
     rows: [
       { order_id: 3001, customer: "Nova Labs", city: "Boston", product: "Starter Plan", category: "Subscription", date: "2024-03-01", quantity: 1, amount: 49 },
       { order_id: 3002, customer: "Acme Co", city: "Denver", product: "Pro Plan", category: "Subscription", date: "2024-03-01", quantity: 1, amount: 149 },
-      { order_id: 3003, customer: "Nova Labs", city: "Boston", product: "Seat Add-on", category: "Add-on", date: "2024-03-02", quantity: 5, amount: 75 },
+      { order_id: 3003, customer: "Nova Labs", city: "Boston", product: "Seat Add-on", category: "Add-on", date: "2024-03-02", quantity: 1, amount: 75 },
       { order_id: 3004, customer: "Orbit Inc", city: "Austin", product: "Pro Plan", category: "Subscription", date: "2024-03-03", quantity: 1, amount: 149 },
-      { order_id: 3005, customer: "Acme Co", city: "Denver", product: "Seat Add-on", category: "Add-on", date: "2024-03-03", quantity: 3, amount: 45 },
+      { order_id: 3005, customer: "Acme Co", city: "Denver", product: "Seat Add-on", category: "Add-on", date: "2024-03-03", quantity: 1, amount: 45 },
     ],
   },
 ];
