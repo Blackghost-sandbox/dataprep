@@ -104,7 +104,7 @@ export function PythonPandasHero() {
         </div>
       </div>
       <div className="pypd-hero-art" aria-hidden="true">
-        <span className="pypd-dot dot-a"/><span className="pypd-dot dot-b"/><span className="pypd-dot dot-c"/><span className="pypd-dot dot-d"/>
+        <span className="pypd-dot pypd-dot-a"/><span className="pypd-dot pypd-dot-b"/><span className="pypd-dot pypd-dot-c"/><span className="pypd-dot pypd-dot-d"/>
         <div className="pypd-logo-card"><PandasMark/><strong>pandas</strong></div>
         <div className="pypd-dataframe-card">
           <header>DataFrame</header>
@@ -151,7 +151,7 @@ function Timeline({ step, running, onStep }: { step: DemoStep; running:boolean; 
   return (
     <section className="pypd-timeline">
       <header><span><Zap size={13}/></span><strong>Execution Timeline</strong><small>(illustrative)</small></header>
-      <div>{timeline.map((item,index)=><button key={item.title} type="button" disabled={running} onClick={()=>onStep(index as DemoStep)} className={"pypd-time tone-"+item.tone+(step===index?" is-active":"")+(step>=index?" is-complete":"")} aria-current={step===index?"step":undefined}>
+      <div>{timeline.map((item,index)=><button key={item.title} type="button" disabled={running} onClick={()=>onStep(index as DemoStep)} className={"pypd-time pypd-tone-"+item.tone+(step===index?" is-active":"")+(step>=index?" is-complete":"")} aria-current={step===index?"step":undefined}>
         <span className="pypd-time-number">{index+1}</span>
         <span className="pypd-time-icon">{index===0?<Database size={20}/>:index===1?<Filter size={20}/>:index===2?<GitBranch size={20}/>:<BarChart3 size={20}/>}</span>
         <span><strong>{item.title}</strong><small>{item.body}<br/>{item.time}</small></span>
@@ -180,9 +180,9 @@ function KeyConcepts() {
   return (
     <section className="pypd-concepts">
       <h3>Key Concepts</h3>
-      <div className="pypd-concept-grid">{concepts.map(({tone,Icon,title,body})=><article key={title} className={"pypd-concept tone-"+tone}><span><Icon size={20}/></span><div><strong>{title}</strong><p>{body}</p></div></article>)}</div>
+      <div className="pypd-concept-grid">{concepts.map(({tone,Icon,title,body})=><article key={title} className={"pypd-concept pypd-tone-"+tone}><span><Icon size={20}/></span><div><strong>{title}</strong><p>{body}</p></div></article>)}</div>
       <h4>When to use what?</h4>
-      <div className="pypd-decision-grid">{decisions.map(({tone,Icon,question,action,code})=><article key={action} className={"pypd-decision tone-"+tone}><span><Icon size={14}/></span><div><small>{question}</small><strong>{action}</strong><code>{code}</code></div></article>)}</div>
+      <div className="pypd-decision-grid">{decisions.map(({tone,Icon,question,action,code})=><article key={action} className={"pypd-decision pypd-tone-"+tone}><span><Icon size={14}/></span><div><small>{question}</small><strong>{action}</strong><code>{code}</code></div></article>)}</div>
     </section>
   );
 }
