@@ -178,12 +178,12 @@
 .pypd-concepts{height:267px}
 .pypd-concepts h3,.pypd-concepts h4{margin:0;color:#152440;font-size:9.5px}
 .pypd-concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:5px}
-.pypd-concept{display:grid;grid-template-columns:38px 1fr;align-items:start;gap:8px;min-height:74px;padding:8px;border:1px solid;border-radius:8px;background:#fff}
-.pypd-concept>span{display:grid;place-items:center;width:36px;height:36px;border-radius:9px}.pypd-concept strong{display:block;font-size:8.4px;line-height:1.1}.pypd-concept p{margin:3px 0 0;color:#5d708f;font-size:7.3px;line-height:1.26}
-.pypd-concept.pypd-tone-violet{border-color:#dfd6fb;background:#faf8ff}.pypd-concept.pypd-tone-violet>span{background:#eae4ff;color:#6945ed}.pypd-concept.pypd-tone-violet strong{color:#6542e8}
-.pypd-concept.pypd-tone-blue{border-color:#d7e7f6;background:#f7fbff}.pypd-concept.pypd-tone-blue>span{background:#e0f0ff;color:#1683d5}.pypd-concept.pypd-tone-blue strong{color:#1479c2}
-.pypd-concept.pypd-tone-green{border-color:#d1eadc;background:#f4fcf8}.pypd-concept.pypd-tone-green>span{background:#dcf7e9;color:#0ba667}.pypd-concept.pypd-tone-green strong{color:#0b9b60}
-.pypd-concept.pypd-tone-orange{border-color:#f1dec2;background:#fff9ef}.pypd-concept.pypd-tone-orange>span{background:#ffead0;color:#df6d14}.pypd-concept.pypd-tone-orange strong{color:#d75c12}
+.pypd-key-concept{display:grid;grid-template-columns:38px 1fr;align-items:start;gap:8px;min-height:74px;padding:8px;border:1px solid;border-radius:8px;background:#fff}
+.pypd-key-concept>span{display:grid;place-items:center;width:36px;height:36px;border-radius:9px}.pypd-key-concept strong{display:block;font-size:8.4px;line-height:1.1}.pypd-key-concept p{margin:3px 0 0;color:#5d708f;font-size:7.3px;line-height:1.26}
+.pypd-key-concept.pypd-tone-violet{border-color:#dfd6fb;background:#faf8ff}.pypd-key-concept.pypd-tone-violet>span{background:#eae4ff;color:#6945ed}.pypd-key-concept.pypd-tone-violet strong{color:#6542e8}
+.pypd-key-concept.pypd-tone-blue{border-color:#d7e7f6;background:#f7fbff}.pypd-key-concept.pypd-tone-blue>span{background:#e0f0ff;color:#1683d5}.pypd-key-concept.pypd-tone-blue strong{color:#1479c2}
+.pypd-key-concept.pypd-tone-green{border-color:#d1eadc;background:#f4fcf8}.pypd-key-concept.pypd-tone-green>span{background:#dcf7e9;color:#0ba667}.pypd-key-concept.pypd-tone-green strong{color:#0b9b60}
+.pypd-key-concept.pypd-tone-orange{border-color:#f1dec2;background:#fff9ef}.pypd-key-concept.pypd-tone-orange>span{background:#ffead0;color:#df6d14}.pypd-key-concept.pypd-tone-orange strong{color:#d75c12}
 .pypd-concepts h4{margin-top:7px}
 .pypd-decision-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:5px}
 .pypd-decision{display:grid;grid-template-columns:25px 1fr;align-items:start;gap:5px;min-height:66px;padding:6px;border:1px solid #e1e7ef;border-radius:7px;background:#fff}
