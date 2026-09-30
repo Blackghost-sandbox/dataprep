@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   AlertTriangle,
   BookOpen,
@@ -23,6 +24,8 @@ import {
   Zap,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useCompanion } from "@/components/companion-context";
+import { AICompanionService } from "@/lib/companion";
 
 type Category = "Conceptual" | "Code Output" | "Debugging" | "Scenario Based";
 
@@ -431,6 +434,62 @@ export function PythonInterviewQuickTips() {
         <li>It’s okay to say “I’m not sure”</li>
         <li>Think out loud — interviewers value your reasoning</li>
       </ul>
+    </section>
+  );
+}
+
+
+export function PythonInterviewCompanion() {
+  const companion=useCompanion();
+  const service=useRef(new AICompanionService());
+  const [mode,setMode]=useState<"idle"|"ask"|"example">("idle");
+  const [question,setQuestion]=useState("");
+  const [answer,setAnswer]=useState("");
+  const [busy,setBusy]=useState(false);
+
+  if(!companion)return null;
+
+  const ask=async()=>{
+    const q=question.trim();
+    if(!q||busy)return;
+    setBusy(true);
+    const lower=q.toLowerCase();
+    let local="";
+    if(lower.includes("list")&&lower.includes("tuple")) local="Lead with mutability: lists are mutable and tuples are immutable. Then add syntax, a concrete use case for each, and one trade-off such as tuples being suitable for stable hashable keys when their elements are hashable.";
+    else if(lower.includes("mutable default")||lower.includes("default argument")) local="Explain that a mutable default is created once at function definition time and reused across calls. Show the safe None pattern so the interviewer hears both the mechanism and the fix.";
+    else if(lower.includes("groupby")||lower.includes("pandas")) local="State the operation first, then the mechanism: groupby splits rows by key, applies an aggregation, and combines results. Mention vectorization and validate correctness on a known sample.";
+    else if(lower.includes("exception")||lower.includes("valueerror")) local="Differentiate expected failures from programming bugs. Catch only specific exceptions you can handle, log useful context, and let unexpected errors surface.";
+    else if(lower.includes("parquet")||lower.includes("csv")||lower.includes("json")) local="Frame the answer around workload. For large analytics data, Parquet is usually strong because it is typed, columnar, and compressed; CSV is simple interchange; JSON fits nested or semi-structured records.";
+    if(local)setAnswer(local);
+    else {
+      const reply=await service.current.respond("simply",companion.context,q);
+      setAnswer(reply.text);
+    }
+    setBusy(false);
+  };
+
+  const explainExample=async()=>{
+    if(busy)return;
+    setBusy(true);
+    const reply=await service.current.respond("example",companion.context);
+    setAnswer(reply.text);
+    setMode("example");
+    setBusy(false);
+  };
+
+  return (
+    <section className="pyiq-companion">
+      <header><MessageSquare size={15}/><strong>Mithoo · Learning companion</strong></header>
+      <div className="pyiq-companion-body">
+        <div><strong>Stuck on a question?</strong><p>I can give hints, explain concepts, or show another example.</p></div>
+        <Image src="/nila-avatar.png" alt="Mithoo learning companion" width={104} height={128}/>
+      </div>
+      <div className="pyiq-companion-actions">
+        <button type="button" onClick={()=>{setMode(mode==="ask"?"idle":"ask");setAnswer("");}}><span>◉</span>Ask a Question</button>
+        <button type="button" onClick={explainExample} disabled={busy}><Lightbulb size={14}/>{busy?"Loading…":"Explain with Example"}</button>
+      </div>
+      {mode==="ask"&&<div className="pyiq-companion-expand"><div><input aria-label="Ask Mithoo about interview questions" value={question} onChange={event=>setQuestion(event.target.value)} onKeyDown={event=>{if(event.key==="Enter")void ask();}} placeholder="How should I answer list vs tuple?"/><button type="button" onClick={ask} disabled={busy||!question.trim()}>Ask</button></div>{answer&&<p>{answer}</p>}</div>}
+      {mode==="example"&&answer&&<div className="pyiq-companion-expand"><button type="button" className="pyiq-expand-close" onClick={()=>setMode("idle")} aria-label="Close explanation">×</button><pre>{answer}</pre></div>}
     </section>
   );
 }
