@@ -65,6 +65,17 @@ export class AICompanionService {
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
     if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
     if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="facts-dimensions"){
+      const q=question.toLowerCase();
+      if(/fact|measure|event|grain/.test(q)&&!/dimension/.test(q))text="A fact table records measurable business events at a declared grain. In this lesson the grain is one source order line, so quantity and amount are measures while customer_key, product_key and date_key are foreign keys.";
+      else if(/dimension|context|descriptive/.test(q))text="Dimensions hold descriptive context used to filter and group facts. Customer answers who, Product answers what, and Date answers when. Their surrogate keys are referenced by the fact table.";
+      else if(/surrogate|key/.test(q))text="Surrogate keys give warehouse dimensions stable identifiers that do not depend on source-system natural keys or descriptive text. The fact table stores those keys to connect each event to its descriptive context.";
+      else if(/retail/.test(q))text="For retail sales, keep one fact row per sale line with measures such as quantity and amount. Product, customer and date descriptions belong in dimensions so reporting can group the same events by category, shopper or time.";
+      else if(/bank|banking/.test(q))text="For banking, the fact grain could be one posted transaction. Measures might include transaction amount, while dimensions could describe account, customer, transaction type and date. The exact design depends on reporting and regulatory requirements.";
+      else if(/subscription/.test(q))text="For subscriptions, a fact can represent one billing event or one usage event. Customer, plan and date dimensions provide context; measures could include billed amount, seats or usage, depending on the declared grain.";
+      else if(/star|schema|join/.test(q))text="The star model places FACT_SALES in the center and joins directly to descriptive dimensions through foreign keys. Before aggregating measures, validate that each dimension key is unique so joins do not multiply fact rows.";
+      else text="Start with the business event and declare its grain. Put numeric measures in the fact table, move descriptive attributes into dimensions, create stable dimension keys, then join the fact to those dimensions without changing the event count.";
+    }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
