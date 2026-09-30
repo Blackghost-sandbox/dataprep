@@ -171,6 +171,7 @@ function buildLinks(kind: RelationKind, leftCount: number, rightCount: number): 
 
 function relationIsValid(kind: RelationKind, leftCount: number, rightCount: number) {
   if (kind === "one-one") return rightCount <= leftCount;
+  if (kind === "one-many") return rightCount === 0 || leftCount > 0;
   return true;
 }
 
