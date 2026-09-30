@@ -13,7 +13,6 @@ import {
   ChevronRight,
   Clock3,
   Copy,
-  FileCode2,
   FileText,
   Lightbulb,
   Play,
@@ -209,9 +208,9 @@ function StageFour({ active, complete }: { active: boolean; complete: boolean })
         <table className="pyerr-values-table pyerr-result-table">
           <thead><tr><th/><th>value</th></tr></thead>
           <tbody>
-            <tr><td>0</td><td>100</td></tr>
+            <tr className={complete ? "is-safe" : ""}><td>0</td><td>{complete ? "100" : "—"}</td></tr>
             <tr className={complete ? "is-safe" : ""}><td>1</td><td>{complete ? "None" : "—"}</td></tr>
-            <tr><td>2</td><td>50</td></tr>
+            <tr className={complete ? "is-safe" : ""}><td>2</td><td>{complete ? "50" : "—"}</td></tr>
           </tbody>
         </table>
       </div>
@@ -231,7 +230,7 @@ function Timeline({ step, running, onStep }: { step: DemoStep; running: boolean;
             type="button"
             onClick={()=>!running&&onStep(index as DemoStep)}
             disabled={running}
-            className={(step===index ? "is-active " : "") + (step>=index ? "is-complete" : "") + " tone-" + item.tone}
+            className={(step===index ? "is-active " : "") + (step>=index ? "is-complete" : "") + " pyerr-tone-" + item.tone}
             aria-current={step===index ? "step" : undefined}
           >
             <span className="pyerr-time-number">{index+1}</span>
@@ -271,13 +270,13 @@ function ConceptsPanel() {
       <h3>Key Concepts</h3>
       <div className="pyerr-concept-grid">
         {keyConcepts.map(({tone,Icon,title,body})=>(
-          <article key={title} className={"pyerr-key tone-"+tone}><span><Icon size={20}/></span><div><strong>{title}</strong><p>{body}</p></div></article>
+          <article key={title} className={"pyerr-key pyerr-tone-"+tone}><span><Icon size={20}/></span><div><strong>{title}</strong><p>{body}</p></div></article>
         ))}
       </div>
       <h4>When to do what?</h4>
       <div className="pyerr-decision-grid">
         {decisionCards.map(({tone,Icon,question,action})=>(
-          <article key={action} className={"pyerr-decision tone-"+tone}><span><Icon size={15}/></span><div><small>{question}</small><strong>{action}</strong></div></article>
+          <article key={action} className={"pyerr-decision pyerr-tone-"+tone}><span><Icon size={15}/></span><div><small>{question}</small><strong>{action}</strong></div></article>
         ))}
       </div>
     </section>
