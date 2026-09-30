@@ -74,7 +74,8 @@ VALUES (106, 3, 25, 2, '2024-03-08', 120.00);`,
     olapLatency: "1.8 sec",
     olapRowsScanned: "2.4M",
     olapCode: `SELECT p.product_name,
-       SUM(f.amount) AS revenue
+       COUNT(DISTINCT f.order_id) AS total_orders,
+       SUM(f.amount) AS total_revenue
 FROM fact_sales f
 JOIN dim_product p ON f.product_id = p.product_id
 GROUP BY p.product_name
@@ -113,6 +114,7 @@ WHERE customer_id = 3;`,
     olapLatency: "1.4 sec",
     olapRowsScanned: "1.9M",
     olapCode: `SELECT c.customer_name,
+       COUNT(DISTINCT f.order_id) AS orders,
        SUM(f.amount) AS revenue
 FROM fact_sales f
 JOIN dim_customer c ON f.customer_id = c.customer_id
@@ -152,6 +154,7 @@ WHERE order_id = 106;`,
     olapLatency: "2.1 sec",
     olapRowsScanned: "3.1M",
     olapCode: `SELECT d.month, p.category,
+       COUNT(DISTINCT f.order_id) AS orders,
        SUM(f.amount) AS revenue
 FROM fact_sales f
 JOIN dim_date d ON f.date_id = d.date_id
@@ -192,11 +195,13 @@ WHERE product_id = 25 AND warehouse_id = 2;`,
     olapLatency: "1.6 sec",
     olapRowsScanned: "2.0M",
     olapCode: `SELECT p.product_name,
-       SUM(f.quantity) AS units_90d
+       SUM(f.quantity) AS units_90d,
+       i.on_hand
 FROM fact_sales f
 JOIN dim_product p ON f.product_id = p.product_id
+JOIN inventory_snapshot i ON f.product_id = i.product_id
 WHERE f.sale_date >= DATE '2023-12-10'
-GROUP BY p.product_name
+GROUP BY p.product_name, i.on_hand
 ORDER BY units_90d ASC
 LIMIT 5;`,
     olapTableTitle: "Query Result (Slow-moving products)",
