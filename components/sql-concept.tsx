@@ -7,10 +7,12 @@ import { DarkCodeCard } from "@/components/rdd-dataframe-experience";
 import { SqlFundamentalsVisual } from "@/components/sql-fundamentals-visual";
 import { WhereLearningLab } from "@/components/where-learning-lab";
 import { SqlIntroductionLab } from "@/components/sql-introduction-lab";
+import { SelectLearningLab } from "@/components/select-learning-lab";
 import { LimitLearningLab } from "@/components/limit-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;
+  if(lesson.id==="select")return <SelectLearningLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
   if(lesson.id==="limit")return <LimitLearningLab/>;
   const guide=sqlConceptGuides[lesson.id];
