@@ -43,12 +43,38 @@ for(const lesson of modelingLessons){
     const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson,module:'modeling',active,onTab:()=>{}})));
     assert.ok(!html.includes('Loading your lesson'),lesson.id+' '+active);
     assert.ok(!html.includes('Read the Apache Spark guide'),lesson.id+' wrong resource');
-    if(active==='Concept'){assert.ok(html.includes('Key Takeaway'));assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));}
+    if(active==='Concept'){
+      if(lesson.id==='denormalization'){
+        for(const label of ['Read Model Builder &amp; Trade-off Simulator','Run Merge &amp; Build Read Model','Source Tables','Join at Line Grain','Publish Read Model','Normalized Source Tables','Denormalized Read Model','Before vs After: Query Comparison','Performance Comparison','Trade-offs of Denormalization'])assert.ok(html.includes(label),lesson.id+' '+label);
+        assert.ok(html.includes('Alice'));
+        assert.ok(html.includes('Chennai'));
+        assert.ok(html.includes('240.00'));
+      }else{
+      if(lesson.id==='entities'){
+        for(const label of ['Model Builder Challenge','Run &amp; Check','Business objects tray','Live model preview','Check results &amp; feedback'])assert.ok(html.includes(label),lesson.id+' '+label);
+        assert.ok(html.includes('8 / 9 classified'));
+      }else{
+        assert.ok(html.includes('Key Takeaway'));
+        assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));
+      }
+    }
+      }
+    }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
     if(active==='Quiz')assert.ok(html.includes('Submit answers'));
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
+const normalization=modelingLessons.find(l=>l.id==='normalization');
+const normalizationLab=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:normalization,module:'modeling',active:'Interactive Lab',onTab:()=>{}})));
+for(const label of ['Normalization Playground','Run Decomposition','Step by step','Dependency View'])assert.ok(normalizationLab.includes(label),label);
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','normalization','Interactive Lab'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='normalization'),tab:'Interactive Lab'});
+const oltpOlap=modelingLessons.find(l=>l.id==='oltp-olap');
+const oltpOlapSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:oltpOlap,module:'modeling',active:'Simulation',onTab:()=>{}})));
+for(const label of ['Interactive Simulation','Run Simulation','Workload','OLTP','OLAP','Order Analysis','Customer Insights','Monthly Reporting','Inventory Analysis','Visual Comparison','Data Access Pattern','Typical Use Cases','Copy OLTP SQL','Copy OLAP SQL'])assert.ok(oltpOlapSimulation.includes(label),label);
+assert.ok(oltpOlapSimulation.includes('120.00'));
+assert.ok(oltpOlapSimulation.includes('248,000'));
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','oltp-olap','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='oltp-olap'),tab:'Simulation'});
 const factsDimensions=modelingLessons.find(l=>l.id==='facts-dimensions');
 const factSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:factsDimensions,module:'modeling',active:'Simulation',onTab:()=>{}})));
 for(const label of ['Interactive Simulation','Run Transformation','Operational Data','Transform','Dimension Tables','Fact Table','Visual Model (Star Schema)','SQL Preview','Sample Analytical Query','Key Takeaways','When to use','Common Mistakes','Copy SQL'])assert.ok(factSimulation.includes(label),label);
@@ -72,5 +98,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; fact-dimension simulation and deep-link; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; entities model-builder surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');

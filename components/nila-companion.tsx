@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import Image from "next/image";
-import { ArrowUp, Brain, FlaskConical, Lightbulb, MessageCircle, Minus, Pause, Play, RotateCcw, Sparkles, Square, Volume2, X } from "lucide-react";
+import { ArrowUp, Brain, FlaskConical, Lightbulb, MessageCircle, Maximize2, Minus, Pause, Play, RotateCcw, Sparkles, Square, Volume2, X } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useCompanion } from "@/components/companion-context";
 import { AICompanionService, ReactionEngine, type ChatTurn, type CompanionAction, type CompanionMode, type Expression, type LearningEvent } from "@/lib/companion";
@@ -25,6 +25,13 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const Panel=embedded?EmbeddedPanel:PopoverContent;
   const companion=useCompanion()!;
   const {context,emit,event}=companion;
+  const entitiesCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="entities";
+  const keysCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="keys";
+  const cardinalityCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="cardinality"&&context.tab==="Simulation";
+  const erCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="er-modeling"&&context.tab==="Interactive Builder";
+  const normalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="normalization"&&(context.tab==="Concept"||context.tab==="Interactive Lab");
+  const denormalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="denormalization"&&context.tab==="Concept";
+  const oltpOlapCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="oltp-olap"&&context.tab==="Simulation";
   const factDimensionCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="facts-dimensions"&&context.tab==="Simulation";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
@@ -105,17 +112,45 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className={factDimensionCompact?"nila-dock nila-fact-dimension-compact":"nila-dock"}>
+      <div className={factDimensionCompact?"nila-dock nila-fact-dimension-compact":oltpOlapCompact?"nila-dock nila-oltp-olap-compact":denormalizationCompact?"nila-dock nila-denormalization-compact":normalizationCompact?"nila-dock nila-normalization-compact":erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
         {factDimensionCompact&&!open ? <>
           <header className="nila-fact-dimension-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
           <div className="nila-fact-dimension-body"><div className="nila-fact-dimension-prompt">Want to try a different scenario? We can use retail, banking, or subscription data for this example.</div><Image className="nila-fact-dimension-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
           <form className="nila-fact-dimension-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about fact and dimension tables" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
-        </> : !factDimensionCompact ? <>
-          {embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="SQL Fundamentals"&&context.lesson.id==="introduction"?"Ask me about tables, SELECT, columns, or what your query returned.":context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
-          {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
-          {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
-          <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
-        </> : null}
+        </>  : oltpOlapCompact&&!open ? <>
+          <header className="nila-oltp-olap-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-oltp-olap-body"><div className="nila-oltp-olap-prompt">Want to try a different scenario? We can analyze monthly sales, customer insights or inventory data.</div><Image className="nila-oltp-olap-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-oltp-olap-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about OLTP and OLAP" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </>  : denormalizationCompact&&!open ? <>
+          <header className="nila-denormalization-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-denormalization-body"><div className="nila-denormalization-prompt">Want to try a different example? I can change the data or add more columns for you!</div><Image className="nila-denormalization-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-denormalization-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about denormalization" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </>  : normalizationCompact&&!open ? <>
+          <header className="nila-normalization-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-normalization-body"><div className="nila-normalization-prompt">Stuck with normalization?<br/>Ask me to generate more examples or explain any step!</div><Image className="nila-normalization-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-normalization-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about normalization" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </>  : erCompact&&!open ? <>
+          <header className="nila-er-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-er-body"><div className="nila-er-prompt">Can you add a Supplier table and show how products relate to suppliers?</div><Image className="nila-er-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-er-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about ER modeling" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </> : cardinalityCompact&&!open ? <>
+          <header className="nila-cardinality-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-cardinality-body"><div className="nila-cardinality-prompt">Try changing the number of orders!<br/>What happens if a customer has zero orders?</div><Image className="nila-cardinality-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={96} height={116}/></div>
+          <form className="nila-cardinality-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about cardinality" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </> : keysCompact&&!open ? <>
+          <header className="nila-keys-head"><span><Sparkles size={14}/>Mithoo · Learning companion</span></header>
+          <div className="nila-keys-body"><div className="nila-keys-prompt">Stuck with constraints?<br/>Try injecting a duplicate key or invalid foreign key to see what happens!</div><Image className="nila-keys-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={94} height={114}/></div>
+          <form className="nila-keys-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about keys and constraints" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </> : entitiesCompact&&!open ? <>
+          <header className="nila-entities-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span><button type="button" onClick={()=>changeOpen(true)} aria-label="Open Mithoo"><Maximize2 size={14}/></button></header>
+          <div className="nila-entities-body"><Image className="nila-entities-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={112} height={136}/><div className="nila-entities-prompt">Want a hint for the last classification?<br/>I can help! 💡</div></div>
+          <button type="button" className="nila-entities-hint" disabled={busy} onClick={()=>{changeOpen(true);void request("hint");}}>Give me a hint <ArrowUp size={15}/></button>
+        </> : !(erCompact||cardinalityCompact||keysCompact||entitiesCompact) ? <>
+{embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="SQL Fundamentals"&&context.lesson.id==="introduction"?"Ask me about tables, SELECT, columns, or what your query returned.":context.course==="Data Modeling"&&context.lesson.id==="introduction"?"Select an entity, inspect its rows, then run the model to watch relationships become explicit. Ask me why each key or relationship exists.":context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":context.lesson.id==="py-hands-on-task"?"Clean the six orders step by step: validate, deduplicate, aggregate, then compare the final totals. Ask me about any rule.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
+        {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
+        {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
+        <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
+      </> : null}
       </div>
       {(!embedded||open)&&<Panel className="nila-panel" align="end" side="top" sideOffset={12} collisionPadding={12} aria-label="Mithoo learning companion" onOpenAutoFocus={e=>{e.preventDefault();closeRef.current?.focus();}} onInteractOutside={e=>e.preventDefault()}>
         <header className="nila-header"><span className="nila-mark"><Sparkles size={17}/></span><div><strong>Mithoo</strong><small>Your learning companion</small></div><span className="nila-local">Local mode</span><button onClick={()=>changeOpen(false)} aria-label="Minimize Mithoo"><Minus size={17}/></button><button ref={closeRef} onClick={()=>changeOpen(false)} aria-label="Close Mithoo"><X size={17}/></button></header>
