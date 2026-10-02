@@ -47,7 +47,9 @@ function amountClass(value:number){
 export function SubqueriesFlowLearningLab(){
   const companion=useCompanion();
   const [datasetId,setDatasetId]=useState("orders");
+  const [executedDatasetId,setExecutedDatasetId]=useState("orders");
   const dataset=useMemo(()=>subqueryFlowDatasets.find(item=>item.id===datasetId)??subqueryFlowDatasets[0],[datasetId]);
+  const executedDataset=useMemo(()=>subqueryFlowDatasets.find(item=>item.id===executedDatasetId)??subqueryFlowDatasets[0],[executedDatasetId]);
 
   const [threshold,setThreshold]=useState(500);
   const [sortBy,setSortBy]=useState<SubqueryFlowSort>("total_amount");
@@ -59,12 +61,13 @@ export function SubqueriesFlowLearningLab(){
   const [running,setRunning]=useState(false);
   const [dirty,setDirty]=useState(false);
   const [scenarioIndex,setScenarioIndex]=useState(0);
+  const [executionMessage,setExecutionMessage]=useState("Ready to run");
 
   const rows=useMemo(
-    ()=>subqueryFlowResult(dataset,executedThreshold,executedSortBy,executedSortOrder),
-    [dataset,executedThreshold,executedSortBy,executedSortOrder],
+    ()=>subqueryFlowResult(executedDataset,executedThreshold,executedSortBy,executedSortOrder),
+    [executedDataset,executedThreshold,executedSortBy,executedSortOrder],
   );
-  const ids=useMemo(()=>subqueryFlowCustomerIds(dataset,executedThreshold),[dataset,executedThreshold]);
+  const ids=useMemo(()=>subqueryFlowCustomerIds(executedDataset,executedThreshold),[executedDataset,executedThreshold]);
   const generatedSql=subqueryFlowSql(threshold,sortBy,sortOrder);
   const innerSql=subqueryFlowInnerSql(executedThreshold);
 
@@ -73,44 +76,58 @@ export function SubqueriesFlowLearningLab(){
     const normalized=Math.max(0,Math.floor(value||0));
     setThreshold(normalized);
     setDirty(
+      datasetId!==executedDatasetId ||
       normalized!==executedThreshold ||
       sortBy!==executedSortBy ||
       sortOrder!==executedSortOrder
     );
+    setExecutionMessage("Settings changed · run the query");
   }
 
   function updateSortBy(value:SubqueryFlowSort){
     setSortBy(value);
     setDirty(
+      datasetId!==executedDatasetId ||
       threshold!==executedThreshold ||
       value!==executedSortBy ||
       sortOrder!==executedSortOrder
     );
+    setExecutionMessage("Settings changed · run the query");
   }
 
   function updateSortOrder(value:SubqueryFlowOrder){
     setSortOrder(value);
     setDirty(
+      datasetId!==executedDatasetId ||
       threshold!==executedThreshold ||
       sortBy!==executedSortBy ||
       value!==executedSortOrder
     );
+    setExecutionMessage("Settings changed · run the query");
   }
 
   function run(){
+    if(running)return;
     setRunning(true);
+    setExecutionMessage("Executing query…");
     companion?.emit({type:"exercise_started",lesson:"Subqueries & CTEs",source:"runner"});
     window.setTimeout(()=>{
+      const nextDataset=subqueryFlowDatasets.find(item=>item.id===datasetId)??subqueryFlowDatasets[0];
+      const nextRows=subqueryFlowResult(nextDataset,threshold,sortBy,sortOrder);
+      setExecutedDatasetId(datasetId);
       setExecutedThreshold(threshold);
       setExecutedSortBy(sortBy);
       setExecutedSortOrder(sortOrder);
       setDirty(false);
       setRunning(false);
+      setExecutionMessage(`Query executed · ${nextRows.length} ${nextRows.length===1?"row":"rows"} returned`);
       companion?.emit({type:"exercise_correct",lesson:"Subqueries & CTEs",source:"runner"});
-    },180);
+    },500);
   }
 
   function reset(){
+    setDatasetId("orders");
+    setExecutedDatasetId("orders");
     setThreshold(500);
     setSortBy("total_amount");
     setSortOrder("DESC");
@@ -120,6 +137,7 @@ export function SubqueriesFlowLearningLab(){
     setScenarioIndex(0);
     setDirty(false);
     setRunning(false);
+    setExecutionMessage("Ready to run");
   }
 
   function nextScenario(){
@@ -129,23 +147,25 @@ export function SubqueriesFlowLearningLab(){
     setThreshold(next.threshold);
     setSortBy(next.sortBy);
     setSortOrder(next.sortOrder);
-    setExecutedThreshold(next.threshold);
-    setExecutedSortBy(next.sortBy);
-    setExecutedSortOrder(next.sortOrder);
-    setDirty(false);
+    setDirty(
+      datasetId!==executedDatasetId ||
+      next.threshold!==executedThreshold ||
+      next.sortBy!==executedSortBy ||
+      next.sortOrder!==executedSortOrder
+    );
+    setExecutionMessage("Scenario loaded · click Run Query");
   }
 
   function changeDataset(nextId:string){
     setDatasetId(nextId);
-    setThreshold(500);
-    setSortBy("total_amount");
-    setSortOrder("DESC");
-    setExecutedThreshold(500);
-    setExecutedSortBy("total_amount");
-    setExecutedSortOrder("DESC");
     setScenarioIndex(0);
-    setDirty(false);
-    setRunning(false);
+    setDirty(
+      nextId!==executedDatasetId ||
+      threshold!==executedThreshold ||
+      sortBy!==executedSortBy ||
+      sortOrder!==executedSortOrder
+    );
+    setExecutionMessage("Dataset changed · click Run Query");
   }
 
   const resultSummary=rows.length===1?"1 row":`${rows.length} rows`;
@@ -162,6 +182,7 @@ export function SubqueriesFlowLearningLab(){
       <div className="subflow-actions">
         <label><span>Dataset</span><select value={datasetId} onChange={event=>changeDataset(event.target.value)}>{subqueryFlowDatasets.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
         <button type="button" className="subflow-run" disabled={running} onClick={run}><Play size={15} fill="currentColor"/>{running?"Running…":"Run Query"}</button>
+        <span className={`subflow-run-status ${running?"is-running":dirty?"is-dirty":"is-done"}`} role="status" aria-live="polite">{executionMessage}</span>
         <button type="button" className="subflow-reset" onClick={reset}><RotateCcw size={15}/>Reset</button>
         <button type="button" className="subflow-next" onClick={nextScenario}>Next Scenario <ArrowRight size={15}/></button>
       </div>
@@ -199,7 +220,7 @@ export function SubqueriesFlowLearningLab(){
         <div className="subflow-result-table" role="region" aria-label="Subquery result" tabIndex={0}>
           <table>
             <thead><tr><th>id</th><th>name</th><th>city</th><th>total_amount</th></tr></thead>
-            <tbody>{rows.map(row=><tr key={row.id}><td>{row.id}</td><td>{row.name}</td><td>{row.city}</td><td>{formatSubqueryFlowNumber(row.total_amount)}</td></tr>)}</tbody>
+            <tbody>{running?<tr><td colSpan={4} className="subflow-executing">Executing query…</td></tr>:rows.length?rows.map(row=><tr key={row.id}><td>{row.id}</td><td>{row.name}</td><td>{row.city}</td><td>{formatSubqueryFlowNumber(row.total_amount)}</td></tr>):<tr><td colSpan={4} className="subflow-empty">No rows matched this query.</td></tr>}</tbody>
           </table>
         </div>
         <div className="subflow-what">
