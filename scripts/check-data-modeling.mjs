@@ -32,6 +32,7 @@ const {SparkLessonPanel}=load(path.join(root,'components/spark-lesson.tsx'));
 const {Sidebar}=load(path.join(root,'components/dataprep-app.tsx'));
 const {GlossaryProvider}=load(path.join(root,'components/glossary.tsx'));
 const {getGlossaryItem}=load(path.join(root,'lib/glossary.ts'));
+const {parseLessonLocation,lessonLocation}=load(path.join(root,'lib/lesson-location.ts'));
 assert.equal(modelingLessons.length,14);assert.equal(new Set(modelingLessons.map(l=>l.id)).size,14);
 const tabs=['Concept','Examples','Hands-on','Interview Qs','Common Mistakes','Quiz','Notes'];
 for(const lesson of modelingLessons){
@@ -56,6 +57,10 @@ for(const lesson of modelingLessons){
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
+const normalization=modelingLessons.find(l=>l.id==='normalization');
+const normalizationLab=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:normalization,module:'modeling',active:'Interactive Lab',onTab:()=>{}})));
+for(const label of ['Normalization Playground','Run Decomposition','Step by step','Dependency View'])assert.ok(normalizationLab.includes(label),label);
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','normalization','Interactive Lab'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='normalization'),tab:'Interactive Lab'});
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));

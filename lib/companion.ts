@@ -89,6 +89,15 @@ export class AICompanionService {
       else if(/validate|check|error/.test(q))text="Validate four things: every entity has row identity, foreign keys point to valid parent entities, every relationship has explicit cardinality, and the diagram has no ambiguous duplicate relationships.";
       else text="A readable ER model should make entity identity, attributes, relationship verbs, cardinality and optionality visible. Use the builder stages to add entities, then attributes, relationships, cardinality and validation.";
     }
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="normalization"){
+      const q=question.toLowerCase();
+      if(/1nf|first normal|repeating|atomic/.test(q))text="1NF removes repeating groups so each cell contains one value. In the playground, 'Notebook, Pen' becomes two order-item rows: Notebook quantity 2 and Pen quantity 3.";
+      else if(/2nf|second normal|partial depend/.test(q))text="2NF matters when a key has multiple columns. A non-key attribute should depend on the whole candidate key, not only part of it. The playground moves order-level facts to Orders and keeps line quantity at the order-item grain.";
+      else if(/3nf|third normal|transitive/.test(q))text="3NF removes inappropriate transitive dependencies between non-key attributes. Customer name and city move behind customer_id, while product name/category/price move behind product_id.";
+      else if(/alice|city|update anomal/.test(q))text="Before normalization, Alice and New York repeat on multiple order rows, so a city change can require several updates. In the 3NF model, current customer city is stored once in Customers and orders reference customer_id.";
+      else if(/example|another|generate/.test(q))text="Example: imagine Enrollment(student_id, student_name, course_id, course_name, instructor_id, instructor_name). Keep one enrollment row per student-course pair, move student facts behind student_id, course facts behind course_id, and instructor facts behind instructor_id when those dependencies match the business rules.";
+      else text="Normalize by dependencies: 1NF makes values atomic, 2NF removes partial dependencies on part of a composite key, and 3NF removes inappropriate transitive dependencies. Use the stage strip to compare exactly what moves at each step.";
+    }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
     return this.transport.request({action,question:question.slice(0,1200),context:selectCompanionContext(context,action,question),history:recentTurns(history),hintLevel,revealSolution:action==="solution"},signal);
