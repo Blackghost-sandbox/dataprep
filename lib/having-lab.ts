@@ -129,6 +129,7 @@ export function matchesHaving(value:number,operator:HavingOperator,threshold:num
     case "<":return value<threshold;
     case "<=":return value<=threshold;
     case "=":return value===threshold;
+    default:return false;
   }
 }
 
@@ -136,15 +137,15 @@ export function filteredHavingGroups(dataset:HavingDataset,scenario:HavingScenar
   return groupForHaving(dataset,scenario).filter(group=>matchesHaving(group.aggregate,scenario.operator,scenario.threshold));
 }
 
-export function havingResultAlias(scenario:HavingScenario):string{
-  if(scenario.aggregate==="COUNT")return "order_count";
-  if(scenario.aggregate==="AVG")return scenario.aggregateColumn==="amount"?"avg_amount":"avg_value";
+export function havingResultAlias(dataset:HavingDataset,scenario:HavingScenario):string{
+  if(scenario.aggregate==="COUNT")return dataset.id==="orders"?"order_count":"customer_count";
+  if(scenario.aggregate==="AVG")return scenario.aggregateColumn==="amount"?"avg_amount":scenario.aggregateColumn==="age"?"avg_age":"avg_value";
   return scenario.aggregateColumn==="amount"?"total_amount":"total_spend";
 }
 
 export function havingQuery(dataset:HavingDataset,scenario:HavingScenario):string{
   const expression=havingAggregateExpression(scenario);
-  const alias=havingResultAlias(scenario);
+  const alias=havingResultAlias(dataset,scenario);
   return `SELECT ${scenario.groupBy}, ${expression} AS ${alias}\nFROM ${dataset.table}\nGROUP BY ${scenario.groupBy}\nHAVING ${expression} ${scenario.operator} ${scenario.threshold};`;
 }
 
