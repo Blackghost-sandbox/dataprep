@@ -21,6 +21,7 @@ import { useCompanion } from "@/components/companion-context";
 import {
   formatGroupValue,
   groupAggregateAlias,
+  groupCountAlias,
   groupDatasets,
   groupQuery,
   groupRows,
@@ -159,7 +160,7 @@ export function GroupByLearningLab(){
 
       <section className="group-result-card">
         <div className="group-panel-heading"><h3><CheckCircle2 size={18}/><span>3.</span> Grouped Result ({executedScenario.aggregate} {executedScenario.aggregateColumn})</h3></div>
-        <div className="group-result-table"><table><thead><tr><th>{executedScenario.groupBy}</th><th>{alias}</th>{executedScenario.includeCount&&<th>order_count</th>}</tr></thead><tbody>{groups.map((group,index)=><tr key={String(group.key)}><td className={"group-result-key group-band-"+index}>{groupLabel(group)}</td><td className={"group-result-value group-band-"+index}>{formatGroupValue(group.aggregate,executedScenario.aggregate)}</td>{executedScenario.includeCount&&<td>{group.count}</td>}</tr>)}</tbody></table></div>
+        <div className="group-result-table"><table><thead><tr><th>{executedScenario.groupBy}</th><th>{alias}</th>{executedScenario.includeCount&&<th>{groupCountAlias(dataset)}</th>}</tr></thead><tbody>{groups.map((group,index)=><tr key={String(group.key)}><td className={"group-result-key group-band-"+index}>{groupLabel(group)}</td><td className={"group-result-value group-band-"+index}>{formatGroupValue(group.aggregate,executedScenario.aggregate)}</td>{executedScenario.includeCount&&<td>{group.count}</td>}</tr>)}</tbody></table></div>
       </section>
     </div>
 
