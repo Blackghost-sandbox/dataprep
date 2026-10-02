@@ -57,15 +57,7 @@ export class AICompanionService {
     if(action==="simply")text=guide?`Think: “${guide.question}”\n\n${guide.takeaway}\n\n${guide.parts.map(([part,meaning])=>`${part}: ${meaning}`).join("\n")}\n\nRemember: ${guide.remember}`:`One idea to focus on: ${lesson.description}\n\n${lesson.example.walkthrough[0]}\n\n${lesson.concepts[0]?.[1]??""}`;
     if(action==="example")text=`Here’s the lesson’s worked example:\n\n${lesson.example.code}\n\nExpected sample result (not live execution):\n${lesson.example.output}`;
     if(action==="hint"){
-      if(context.course==="Data Modeling"&&lesson.id==="entities"){
-        if(hintLevel===1)text="For the last item, ask one question: does “belongs_to” name a thing, describe a thing, or connect one thing to another?";
-        else if(hintLevel===2)text="“belongs_to” describes an association — for example, a Product belongs to a Category. Which of the three classification buckets represents associations?";
-        else text="Place belongs_to in Relationship, then run the checker. Relationships connect entities; they are not entities or descriptive attributes.";
-      }else if(context.course==="Data Modeling"&&lesson.id==="keys"){
-        if(hintLevel===1)text="Try one violation at a time. A duplicate customer_id tests PRIMARY KEY uniqueness; customer_id = 99 on an order tests whether the parent Customer exists.";
-        else if(hintLevel===2)text="Separate row identity from relationship validity: PRIMARY KEY checks the row itself, FOREIGN KEY checks a referenced row, UNIQUE checks duplicate business values, and CHECK validates a condition.";
-        else text="Fix the highlighted cells, then run validation again. For the reference state, order row 4 needs an existing customer_id and order row 5 needs amount > 0.";
-      }else if(context.tab!=="Hands-on")text="Open Hands-on and I’ll help you work through the current exercise one hint at a time.";
+      if(context.tab!=="Hands-on")text="Open Hands-on and I’ll help you work through the current exercise one hint at a time.";
       else if(hintLevel===1)text=`Start by naming the required output. Which rows or values should remain?\n\nYour task: ${context.exercise?.task??lesson.practice.task}`;
       else if(hintLevel===2)text=context.exercise?.hint??lesson.practice.hint;
       else text=`Trace one input row through the steps. Check the column names and the expected result shape before changing your code.\n\n${lesson.mistakes[0]?.better??"Compare the result to the requirement."}\n\nThe worked solution stays hidden until you ask for it.`;
@@ -73,60 +65,15 @@ export class AICompanionService {
     if(action==="solution")text=`You asked for the worked solution:\n\n${context.exercise?.solution??lesson.practice.solution}\n\nRun it in your learning environment and explain each step. I haven’t executed it.`;
     if(action==="ask"&&/^(show|reveal|give)( me)? (the )?(full |worked )?(answer|solution)[.!]?$/i.test(question.trim()))return this.respond("solution",context,"",[],hintLevel,signal);
     if(action==="ask"&&/^(give me a hint|hint|help me start)[.!]?$/i.test(question.trim()))return this.respond("hint",context,"",[],Math.max(1,hintLevel),signal);
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="cardinality"){
+    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="star-schema"){
       const q=question.toLowerCase();
-      if(/zero|no orders?|0 orders?/.test(q))text="A customer with zero orders is still valid in a 1:N model when minimum participation on the Order side is 0. The customer row exists without any child Order rows referencing it.";
-      else if(/1:?1|one[- ]to[- ]one|one to one/.test(q))text="In a 1:1 relationship, each row can match at most one row on the other side. A foreign key plus UNIQUE on the referencing column is a common relational implementation.";
-      else if(/n:?m|many[- ]to[- ]many|many to many/.test(q))text="A many-to-many relationship is normally implemented with a bridge such as Enrollment(student_id, course_id). Each bridge row connects one Student to one Course.";
-      else if(/foreign key|fk/.test(q))text="For Customer 1:N Order, the foreign key belongs on Order.customer_id. Many order rows may repeat the same customer_id; that repetition is what enables one customer to have many orders.";
-      else text="Cardinality states how many rows may participate on each side of a relationship. Compare 1:1, 1:N, and N:M by changing row counts in the simulation and watching the links and inspector update.";
-    }
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="er-modeling"){
-      const q=question.toLowerCase();
-      if(/supplier|vendor/.test(q))text="Add Supplier as its own entity with supplier_id as the primary key. For a simple one-supplier-per-product rule, add supplier_id as a foreign key on Product and model Supplier 1 → many Product. If products can have multiple suppliers, use a ProductSupplier bridge instead.";
-      else if(/order ?line|quantity|unit[_ ]?price/.test(q))text="OrderLine is the association between an Order and a Product. Quantity and purchase unit_price belong on OrderLine because they describe one purchased line, not the reusable Product catalog row.";
-      else if(/cardinality|1:n|one to many/.test(q))text="State the rule in both directions. Example: one Customer can place many Orders; each Order belongs to exactly one Customer. Put customer_id on Order as the foreign key.";
-      else if(/validate|check|error/.test(q))text="Validate four things: every entity has row identity, foreign keys point to valid parent entities, every relationship has explicit cardinality, and the diagram has no ambiguous duplicate relationships.";
-      else text="A readable ER model should make entity identity, attributes, relationship verbs, cardinality and optionality visible. Use the builder stages to add entities, then attributes, relationships, cardinality and validation.";
-    }
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="normalization"){
-      const q=question.toLowerCase();
-      if(/1nf|first normal|repeating|atomic/.test(q))text="1NF removes repeating groups so each cell contains one value. In the playground, 'Notebook, Pen' becomes two order-item rows: Notebook quantity 2 and Pen quantity 3.";
-      else if(/2nf|second normal|partial depend/.test(q))text="2NF matters when a key has multiple columns. A non-key attribute should depend on the whole candidate key, not only part of it. The playground moves order-level facts to Orders and keeps line quantity at the order-item grain.";
-      else if(/3nf|third normal|transitive/.test(q))text="3NF removes inappropriate transitive dependencies between non-key attributes. Customer name and city move behind customer_id, while product name/category/price move behind product_id.";
-      else if(/alice|city|update anomal/.test(q))text="Before normalization, Alice and New York repeat on multiple order rows, so a city change can require several updates. In the 3NF model, current customer city is stored once in Customers and orders reference customer_id.";
-      else if(/example|another|generate/.test(q))text="Example: imagine Enrollment(student_id, student_name, course_id, course_name, instructor_id, instructor_name). Keep one enrollment row per student-course pair, move student facts behind student_id, course facts behind course_id, and instructor facts behind instructor_id when those dependencies match the business rules.";
-      else text="Normalize by dependencies: 1NF makes values atomic, 2NF removes partial dependencies on part of a composite key, and 3NF removes inappropriate transitive dependencies. Use the stage strip to compare exactly what moves at each step.";
-    }
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="denormalization"){
-      const q=question.toLowerCase();
-      if(/when|why|use denormal|should i denormal/.test(q))text="Denormalize for a known read workload when repeated joins or repeated calculations are expensive enough to justify duplicated data. Keep the normalized sources authoritative, declare the read-model grain, and define freshness and reconciliation checks.";
-      else if(/stale|refresh|update|change/.test(q))text="A denormalized copy can become stale because source attributes are duplicated. Give the read model a refresh contract, owner, and reconciliation checks so consumers know how current the repeated fields are.";
-      else if(/join|three joins|3 joins|zero joins|0 joins/.test(q))text="The normalized query joins Customer → Order → OrderLine at line grain. The read model precomputes that path, so the reporting query can aggregate directly from one wide table with zero joins at read time.";
-      else if(/grain|duplicate|double count|total/.test(q))text="Keep one row per order line in this read model. Do not copy an order-level total onto every line and then sum it, because that would double-count orders with multiple lines.";
-      else if(/example|different|more columns|change the data/.test(q))text="Another example is a product-sales dashboard that repeatedly joins OrderLine, Product, Category and Store. A governed line-grain read model can repeat product/category/store descriptions for easier reads, provided refresh ownership and history semantics are explicit.";
-      else text="Denormalization intentionally repeats selected data for a read workload. In this lesson, normalized Customer, Order and OrderLine rows are joined once at line grain and published as a read model, trading simpler reads for storage and refresh responsibility.";
-    }
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="oltp-olap"){
-      const q=question.toLowerCase();
-      if(/monthly|report/.test(q))text="Monthly sales is primarily analytical: it scans many sales events, groups by time and category, and aggregates measures. Keep checkout transactions on the operational path, then feed an analytical read path with a stated freshness contract.";
-      else if(/customer|insight/.test(q))text="A customer profile update is OLTP-style because it changes a small amount of current state. Ranking customers by revenue is OLAP-style because it aggregates many historical sale rows, often with dimensional customer attributes.";
-      else if(/inventory|stock/.test(q))text="Adjusting one product's on-hand quantity is an OLTP-style transaction. Finding slow-moving products over 90 days is analytical because it scans and summarizes many historical movements or sales.";
-      else if(/row|column/.test(q))text="Row-oriented storage often suits transactions that read or write most columns of a few rows. Column-oriented storage often suits analytics that scan a few columns across many rows. Real engines can combine techniques, so treat this as a workload tendency rather than a universal rule.";
-      else if(/star|3nf|normal/.test(q))text="Normalized models can support operational consistency, while dimensional or other denormalized read models can simplify analytics. But schema form alone does not define OLTP or OLAP—the workload, correctness, latency, freshness and query patterns matter.";
-      else if(/difference|oltp.*olap|olap.*oltp/.test(q))text="OLTP is optimized around small, frequent operational transactions such as inserts, updates and point lookups. OLAP is optimized around analytical scans, joins and aggregations across many events. They are workload categories, not a rule that every OLTP database must be normalized or every OLAP system must use a star schema.";
-      else text="Use the simulator to compare one business scenario in two workload modes. Watch the OLTP side perform a small operational change, then the OLAP side scan and aggregate many rows. The displayed timings are deterministic teaching values, not benchmark guarantees.";
-    }
-    if(action==="ask"&&context.course==="Data Modeling"&&lesson.id==="facts-dimensions"){
-      const q=question.toLowerCase();
-      if(/fact|measure|event|grain/.test(q)&&!/dimension/.test(q))text="A fact table records measurable business events at a declared grain. In this lesson the grain is one source order line, so quantity and amount are measures while customer_key, product_key and date_key are foreign keys.";
-      else if(/dimension|context|descriptive/.test(q))text="Dimensions hold descriptive context used to filter and group facts. Customer answers who, Product answers what, and Date answers when. Their surrogate keys are referenced by the fact table.";
-      else if(/surrogate|key/.test(q))text="Surrogate keys give warehouse dimensions stable identifiers that do not depend on source-system natural keys or descriptive text. The fact table stores those keys to connect each event to its descriptive context.";
-      else if(/retail/.test(q))text="For retail sales, keep one fact row per sale line with measures such as quantity and amount. Product, customer and date descriptions belong in dimensions so reporting can group the same events by category, shopper or time.";
-      else if(/bank|banking/.test(q))text="For banking, the fact grain could be one posted transaction. Measures might include transaction amount, while dimensions could describe account, customer, transaction type and date. The exact design depends on reporting and regulatory requirements.";
-      else if(/subscription/.test(q))text="For subscriptions, a fact can represent one billing event or one usage event. Customer, plan and date dimensions provide context; measures could include billed amount, seats or usage, depending on the declared grain.";
-      else if(/star|schema|join/.test(q))text="The star model places FACT_SALES in the center and joins directly to descriptive dimensions through foreign keys. Before aggregating measures, validate that each dimension key is unique so joins do not multiply fact rows.";
-      else text="Start with the business event and declare its grain. Put numeric measures in the fact table, move descriptive attributes into dimensions, create stable dimension keys, then join the fact to those dimensions without changing the event count.";
+      if(/fact|grain|measure/.test(q)&&!/dimension/.test(q))text="In a star schema, the fact table records measurable events at one declared grain. In this lesson FACT_SALES keeps one sales row with quantity and amount, plus foreign keys to customer, product, date and store.";
+      else if(/dimension|customer|product|date|store/.test(q))text="Dimensions describe the fact. Customer answers who, Product answers what, Date answers when, and Store answers where. Each dimension key should be unique so joining it to the fact does not multiply events.";
+      else if(/add row|new sales|new sale/.test(q))text="Add a fact row only with dimension keys that resolve to exactly one customer, product, date and store row. Then rerun the analytical query and confirm the new sale changes the expected category totals without changing unrelated categories.";
+      else if(/query|category|aggregate|sales/.test(q))text="The sample query groups FACT_SALES by Product.category. It joins the fact to DIM_PRODUCT on product_key, then sums amount and quantity. Direct fact-to-dimension joins are what give the model its star shape.";
+      else if(/why star|benefit|simple|fast/.test(q))text="A star schema gives analysts a simple path from one central fact table to descriptive dimensions. That can make common reporting queries easier to express and audit, but performance still depends on the engine, data volume, indexes, clustering and workload.";
+      else if(/duplicate|multiply|unique/.test(q))text="If a dimension key is duplicated, one fact row can match multiple dimension rows and inflate measures. Validate dimension-key uniqueness and fact-grain uniqueness before trusting totals.";
+      else text="Trace one sales fact outward: customer_key identifies who bought, product_key identifies what, date_key identifies when, and store_key identifies where. The measures stay in FACT_SALES while descriptive attributes stay in dimensions.";
     }
     if(text){const reply:CompanionReply={text,source:"lesson",expression:action==="hint"?"hint":"explaining"};if(cacheable)this.cache.set(cacheKey,reply);return reply;}
     if(!this.transport)return {source:"unavailable",expression:"encouragement",text:"Custom AI answers aren’t connected yet. I can still explain this lesson, show its example, quiz you, or offer progressive hints locally. Your question and code have not been sent to an AI provider."};
