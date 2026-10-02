@@ -49,11 +49,11 @@ for(const lesson of modelingLessons){
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
-const starSchema=modelingLessons.find(l=>l.id==='star-schema');
-const starSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:starSchema,module:'modeling',active:'Simulation',onTab:()=>{}})));
-for(const label of ['Interactive Simulation','Run Simulation','Dimension Tables','Fact Table','Dim Customer','Dim Date','Dim Product','Dim Store','Fact Sales','Sample Analytical Query','Run Query','Query Result','Key Takeaways','Add Row','Copy analytical query'])assert.ok(starSimulation.includes(label),label);
-for(const value of ['Alice','Electronics','20240101','1001','total_sales','total_quantity'])assert.ok(starSimulation.includes(value),value);
-assert.deepEqual(parseLessonLocation(lessonLocation('modeling','star-schema','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='star-schema'),tab:'Simulation'});
+const snowflakeSchema=modelingLessons.find(l=>l.id==='snowflake-schema');
+const snowflakeSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:snowflakeSchema,module:'modeling',active:'Simulation',onTab:()=>{}})));
+for(const label of ['Interactive Simulation','Run Simulation','Schema View','Data View','Fact Sales','Customer Segment','Product Category','Product Subcategory','Selected Table Data','Sample Analytical Query','Run Query','Query Result','Key Takeaways','Copy snowflake analytical query'])assert.ok(snowflakeSimulation.includes(label),label);
+for(const value of ['Alice','Laptop','subcategory_key','category_key','total_sales'])assert.ok(snowflakeSimulation.includes(value),value);
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','snowflake-schema','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='snowflake-schema'),tab:'Simulation'});
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));
@@ -72,5 +72,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; Star Schema simulation and deep-link; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; Snowflake Schema simulation and deep-link; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
