@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Box,
@@ -94,13 +94,13 @@ export function WhereLearningLab() {
   const [dirty, setDirty] = useState(false);
   const timers = useRef<number[]>([]);
 
-  const clearTimers = () => {
+  const clearTimers = useCallback(() => {
     if (typeof window === "undefined") return;
     timers.current.forEach(timer => window.clearTimeout(timer));
     timers.current = [];
-  };
+  }, []);
 
-  useEffect(() => () => clearTimers(), []);
+  useEffect(() => () => clearTimers(), [clearTimers]);
 
   const resultRows = useMemo(
     () => dataset.rows.slice(0, evaluatedCount).filter(row => evaluateWherePlan(row, dataset, executedPlan) === "TRUE"),
@@ -108,7 +108,6 @@ export function WhereLearningLab() {
   );
 
   const query = buildWhereSimulationQuery(dataset, draftPlan);
-  const firstCondition = executedPlan.conditions[0];
   const evaluationColumns = executedPlan.conditions.map(condition => condition.column);
   const evaluationHeader = evaluationColumns.join(" / ") || "value";
   const evaluationPredicate = planLabel(dataset, executedPlan);
