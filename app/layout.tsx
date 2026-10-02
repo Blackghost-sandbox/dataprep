@@ -22,6 +22,7 @@ import "./kafka-intro.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
+import "./python-introduction.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
