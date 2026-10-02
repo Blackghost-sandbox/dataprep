@@ -93,7 +93,7 @@ export function HavingLearningLab(){
   const passed=useMemo(()=>filteredHavingGroups(dataset,executed),[dataset,executed]);
   const failed=useMemo(()=>groups.filter(group=>!matchesHaving(group.aggregate,executed.operator,executed.threshold)),[groups,executed]);
   const query=havingQuery(dataset,draft);
-  const alias=havingResultAlias(executed);
+  const alias=havingResultAlias(dataset,executed);
   const aggregateExpression=havingAggregateExpression(executed);
   const aggChoices=aggregateChoices(dataset);
 
@@ -151,7 +151,7 @@ export function HavingLearningLab(){
     applyScenario(nextIndex,true);
   }
 
-  const groupColumns=dataset.columns.filter(column=>column.key!=="id"&&column.key!==draft.aggregateColumn&&column.type!=="date");
+  const groupColumns=dataset.columns.filter(column=>column.key!=="id"&&column.type!=="date");
 
   return <section className="having-simulator" aria-label="Interactive HAVING simulation">
     <header className="having-header">
@@ -189,7 +189,7 @@ export function HavingLearningLab(){
 
       <section className="having-summary-card">
         <div className="having-panel-heading"><h3><Table2 size={17}/><span>2.</span> After GROUP BY (summary)</h3></div>
-        <div className="having-summary-table"><table><thead><tr><th>{executed.groupBy}</th><th>{alias}</th><th>order_count</th></tr></thead><tbody>{groups.map(group=><tr key={String(group.key)}><td>{String(group.key)}</td><td className={matchesHaving(group.aggregate,executed.operator,executed.threshold)?"having-pass-value":"having-fail-value"}>{formatHavingValue(group.aggregate,executed.aggregate)}</td><td>{group.count}</td></tr>)}</tbody></table></div>
+        <div className="having-summary-table"><table><thead><tr><th>{executed.groupBy}</th><th>{alias}</th><th>{dataset.id==="orders"?"order_count":"row_count"}</th></tr></thead><tbody>{groups.map(group=><tr key={String(group.key)}><td>{String(group.key)}</td><td className={matchesHaving(group.aggregate,executed.operator,executed.threshold)?"having-pass-value":"having-fail-value"}>{formatHavingValue(group.aggregate,executed.aggregate)}</td><td>{group.count}</td></tr>)}</tbody></table></div>
         <div className="having-filtered-out"><strong><Filter size={14}/>Groups filtered out by HAVING</strong>{failed.map(group=><div key={String(group.key)}><span>{String(group.key)}</span><b>{formatHavingValue(group.aggregate,executed.aggregate)} ({failText(executed.operator,executed.threshold)})</b></div>)}</div>
         <span className="having-transfer-arrow second" aria-hidden="true"><ArrowRight size={18}/></span>
       </section>
