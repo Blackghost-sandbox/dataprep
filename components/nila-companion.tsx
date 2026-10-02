@@ -30,6 +30,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const cardinalityCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="cardinality"&&context.tab==="Simulation";
   const erCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="er-modeling"&&context.tab==="Interactive Builder";
   const normalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="normalization"&&(context.tab==="Concept"||context.tab==="Interactive Lab");
+  const denormalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="denormalization"&&context.tab==="Concept";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
   const [expression,setExpression]=useState<Expression>("greeting");
@@ -109,8 +110,12 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className={normalizationCompact?"nila-dock nila-normalization-compact":erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
-        {normalizationCompact&&!open ? <>
+      <div className={denormalizationCompact?"nila-dock nila-denormalization-compact":normalizationCompact?"nila-dock nila-normalization-compact":erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
+        {denormalizationCompact&&!open ? <>
+          <header className="nila-denormalization-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-denormalization-body"><div className="nila-denormalization-prompt">Want to try a different example? I can change the data or add more columns for you!</div><Image className="nila-denormalization-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-denormalization-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about denormalization" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </>  : normalizationCompact&&!open ? <>
           <header className="nila-normalization-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
           <div className="nila-normalization-body"><div className="nila-normalization-prompt">Stuck with normalization?<br/>Ask me to generate more examples or explain any step!</div><Image className="nila-normalization-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
           <form className="nila-normalization-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about normalization" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>

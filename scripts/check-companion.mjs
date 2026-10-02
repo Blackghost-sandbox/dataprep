@@ -49,6 +49,14 @@ const nf3=await service.respond('ask',{course:'Data Modeling',lesson:normalizati
 assert.match(nf3.text,/Alice|city|Customers|customer_id/i);
 const another=await service.respond('ask',{course:'Data Modeling',lesson:normalization,tab:'Concept'},'Generate another normalization example');
 assert.match(another.text,/Enrollment|student_id|course_id|instructor_id/i);
+const denormalization=modelingLessons.find(lesson=>lesson.id==='denormalization');
+const whyDenorm=await service.respond('ask',{course:'Data Modeling',lesson:denormalization,tab:'Concept'},'When should I use denormalization?');
+assert.match(whyDenorm.text,/read workload|duplicated|refresh|reconciliation/i);
+assert.equal(whyDenorm.source,'lesson');
+const staleAnswer=await service.respond('ask',{course:'Data Modeling',lesson:denormalization,tab:'Concept'},'Can the read model become stale?');
+assert.match(staleAnswer.text,/stale|refresh|owner|reconciliation/i);
+const joinAnswer=await service.respond('ask',{course:'Data Modeling',lesson:denormalization,tab:'Concept'},'Why does the after query have zero joins?');
+assert.match(joinAnswer.text,/precomput|zero joins|read model/i);
 assert.equal(networkCalls,0);
 const history=recentTurns(Array.from({length:30},()=>({role:'user',text:'a'.repeat(2000)})));
 assert.equal(history.length,4);assert.equal(history[0].text.length,1200);

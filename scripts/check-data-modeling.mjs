@@ -44,12 +44,20 @@ for(const lesson of modelingLessons){
     assert.ok(!html.includes('Loading your lesson'),lesson.id+' '+active);
     assert.ok(!html.includes('Read the Apache Spark guide'),lesson.id+' wrong resource');
     if(active==='Concept'){
+      if(lesson.id==='denormalization'){
+        for(const label of ['Read Model Builder &amp; Trade-off Simulator','Run Merge &amp; Build Read Model','Source Tables','Join at Line Grain','Publish Read Model','Normalized Source Tables','Denormalized Read Model','Before vs After: Query Comparison','Performance Comparison','Trade-offs of Denormalization'])assert.ok(html.includes(label),lesson.id+' '+label);
+        assert.ok(html.includes('Alice'));
+        assert.ok(html.includes('Chennai'));
+        assert.ok(html.includes('240.00'));
+      }else{
       if(lesson.id==='entities'){
         for(const label of ['Model Builder Challenge','Run &amp; Check','Business objects tray','Live model preview','Check results &amp; feedback'])assert.ok(html.includes(label),lesson.id+' '+label);
         assert.ok(html.includes('8 / 9 classified'));
       }else{
         assert.ok(html.includes('Key Takeaway'));
         assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));
+      }
+    }
       }
     }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
