@@ -26,7 +26,6 @@ import {
   runJoin,
   type JoinDataset,
   type JoinedRow,
-  type JoinScenario,
 } from "@/lib/joins-lab";
 
 function text(value:string|number|null){
