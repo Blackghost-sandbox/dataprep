@@ -37,6 +37,7 @@ import { ModelingCardinalityPlayground } from "@/components/modeling-cardinality
 import { ModelingERBuilder } from "@/components/modeling-er-builder";
 import { ModelingNormalizationPlayground } from "@/components/modeling-normalization-playground";
 import { ModelingDenormalizationSimulator } from "@/components/modeling-denormalization-simulator";
+import { ModelingOltpOlapSimulation } from "@/components/modeling-oltp-olap-simulation";
 import { PythonSummaryConcept } from "@/components/python-summary-page";
 import { PythonQuizConcept } from "@/components/python-quiz-page";
 import { PythonIntroductionLab } from "@/components/python-introduction-lab";
@@ -119,7 +120,8 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
   const erBuilder=isModeling&&lesson.id==="er-modeling"&&active==="Interactive Builder";
   const normalizationExperience=isModeling&&lesson.id==="normalization"&&(active==="Concept"||active==="Interactive Lab");
   const denormalizationConcept=isModeling&&lesson.id==="denormalization"&&active==="Concept";
-  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || introSimulation || cardinalitySimulation || erBuilder || normalizationExperience || denormalizationConcept ? " sql-concept-shell" : "")}>
+  const oltpOlapSimulation=isModeling&&lesson.id==="oltp-olap"&&active==="Simulation";
+  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || introSimulation || cardinalitySimulation || erBuilder || normalizationExperience || denormalizationConcept || oltpOlapSimulation ? " sql-concept-shell" : "")}>
     {storageError && <p role="status" className="spark-notice">Device storage is unavailable. Keep a copy of your notes; progress may be lost when you leave.</p>}
     {!ready ? <p role="status">Loading your lesson…</p> : <>
     {active === "Simulation" && isModeling && lesson.id === "introduction" && <ModelingIntroLab focused/>}
@@ -127,6 +129,7 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
     {erBuilder && <ModelingERBuilder/>}
     {normalizationExperience && <ModelingNormalizationPlayground labMode={active==="Interactive Lab"}/>}
     {denormalizationConcept && <ModelingDenormalizationSimulator/>}
+    {oltpOlapSimulation && <ModelingOltpOlapSimulation/>}
     {active === "Concept" && lesson.id !== "normalization" && lesson.id !== "denormalization" && (isModeling && lesson.id === "introduction" ? <ModelingIntroLab/> : isModeling && lesson.id === "entities" ? <ModelingEntitiesBuilder/> : isModeling && lesson.id === "keys" ? <ModelingKeysConstraintsPlayground/> : module === "python" && lesson.id === "py-introduction" ? <PythonIntroductionLab/> : module === "python" && lesson.id === "py-functions-modules" ? <PythonFunctionsModulesConcept/> : module === "python" && lesson.id === "py-files-formats" ? <PythonFilesFormatsConcept/> : module === "python" && lesson.id === "py-error-handling" ? <PythonErrorHandlingConcept/> : module === "python" && lesson.id === "py-pandas-basics" ? <PythonPandasConcept/> : module === "python" && lesson.id === "py-hands-on-task" ? <PythonHandsOnConcept/> : module === "python" && lesson.id === "py-interview-questions" ? <PythonInterviewConcept/> : module === "python" && lesson.id === "py-data-structures" ? <PythonDataStructuresConcept/> : module === "python" && lesson.id === "py-quiz" ? <PythonQuizConcept/> : module === "python" && lesson.id === "py-summary" ? <PythonSummaryConcept/> : module === "kafka" && lesson.id === "introduction" ? <KafkaIntroLab/> : module === "spark" && lesson.id === "partitioning" ? <SparkPartitioningConcept/> : module === "spark" && lesson.id === "transformations" ? <SparkTransformationsConcept/> : module === "spark" && lesson.id === "performance" ? <SparkPerformanceConcept/> : kafka ? <KafkaConcept lesson={kafka} onTab={onTab}/> : air ? <AirflowConcept lesson={air} onTab={onTab}/> : model ? <ModelingConcept lesson={model} onTab={onTab}/> : <>
       {!isSql && <h2><BookOpen size={22}/> {lesson.title === "Summary" ? (isPython ? "Your Python recap" : "Your Spark recap") : "Understand " + lesson.title}</h2>}
       {isSql && onTab && onLesson ? <SqlConcept lesson={lesson} onTab={onTab} onLesson={onLesson}/> : isDbt ? <DbtLessonVisual lesson={lesson}/> : isCloud ? <CloudLessonVisual lesson={lesson}/> : isSystem ? <SystemDesignVisual lesson={lesson}/> : lesson.id === "spark-sql" ? <SparkSqlVisual/> : <SparkTopicVisual id={lesson.id}/>}

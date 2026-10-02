@@ -57,6 +57,14 @@ const staleAnswer=await service.respond('ask',{course:'Data Modeling',lesson:den
 assert.match(staleAnswer.text,/stale|refresh|owner|reconciliation/i);
 const joinAnswer=await service.respond('ask',{course:'Data Modeling',lesson:denormalization,tab:'Concept'},'Why does the after query have zero joins?');
 assert.match(joinAnswer.text,/precomput|zero joins|read model/i);
+const oltpOlap=modelingLessons.find(lesson=>lesson.id==='oltp-olap');
+const diff=await service.respond('ask',{course:'Data Modeling',lesson:oltpOlap,tab:'Simulation'},'What is the difference between OLTP and OLAP?');
+assert.match(diff.text,/small|transaction|analytical|workload/i);
+assert.equal(diff.source,'lesson');
+const monthly=await service.respond('ask',{course:'Data Modeling',lesson:oltpOlap,tab:'Simulation'},'Why is monthly reporting OLAP?');
+assert.match(monthly.text,/analytical|scans|aggregates|historical/i);
+const inventory=await service.respond('ask',{course:'Data Modeling',lesson:oltpOlap,tab:'Simulation'},'How would inventory look in OLTP and OLAP?');
+assert.match(inventory.text,/on-hand|transaction|slow-moving|historical/i);
 assert.equal(networkCalls,0);
 const history=recentTurns(Array.from({length:30},()=>({role:'user',text:'a'.repeat(2000)})));
 assert.equal(history.length,4);assert.equal(history[0].text.length,1200);
