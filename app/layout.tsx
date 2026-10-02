@@ -37,6 +37,7 @@ import "./aggregate-lab.css";
 import "./group-by-lab.css";
 import "./having-lab.css";
 import "./joins-lab.css";
+import "./subqueries-ctes-lab.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
