@@ -20,6 +20,8 @@ import "./spark-transformations.css";
 import "./spark-partitioning.css";
 import "./kafka-intro.css";
 import "./airflow-lab.css";
+import "./python-summary.css";
+import "./python-quiz.css";
 import "./python-hands-on.css";
 import { GlossaryProvider } from "@/components/glossary";
 
