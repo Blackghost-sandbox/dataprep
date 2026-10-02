@@ -14,10 +14,12 @@ import { LimitLearningLab } from "@/components/limit-learning-lab";
 import { AggregateLearningLab } from "@/components/aggregate-learning-lab";
 import { GroupByLearningLab } from "@/components/group-by-learning-lab";
 import { HavingLearningLab } from "@/components/having-learning-lab";
+import { JoinsLearningLab } from "@/components/joins-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
+  if(lesson.id==="joins")return <JoinsLearningLab/>;
   if(lesson.id==="having")return <HavingLearningLab/>;
   if(lesson.id==="group-by")return <GroupByLearningLab/>;
   if(lesson.id==="aggregate-functions")return <AggregateLearningLab/>;

@@ -36,6 +36,7 @@ import "./limit-lab.css";
 import "./aggregate-lab.css";
 import "./group-by-lab.css";
 import "./having-lab.css";
+import "./joins-lab.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
