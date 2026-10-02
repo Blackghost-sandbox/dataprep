@@ -106,7 +106,7 @@ export function QueryExecutionLearningLab(){
       <header className="qe-header">
         <div className="qe-title"><span><Database size={21}/></span><div><h2>Interactive Query Simulation</h2><p>Run a query and see how each clause is executed step by step. Observe how the result changes after each stage.</p></div></div>
         <div className="qe-actions">
-          <label>Dataset<select aria-label="Dataset"><option>Orders ({executionOrders.length} rows)</option></select></label>
+          <label>Dataset<select aria-label="Dataset" value={sourceTab} onChange={event=>setSourceTab(event.target.value as SourceTab)}><option value="orders">Orders ({executionOrders.length} rows)</option><option value="customers">Customers ({executionCustomers.length} rows)</option></select></label>
           <button type="button" onClick={reset}><RotateCcw size={15}/> Reset</button>
           <button className="qe-run" type="button" onClick={run} disabled={runState==="running"}><Play size={15} fill="currentColor"/> {runState==="running"?"Running…":"Run Query"}</button>
         </div>
