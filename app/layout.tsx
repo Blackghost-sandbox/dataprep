@@ -22,6 +22,8 @@ import "./kafka-intro.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
+import "./python-introduction.css";
+import "./python-data-structures.css";
 import "./python-interview.css";
 import { GlossaryProvider } from "@/components/glossary";
 
