@@ -65,6 +65,14 @@ const monthly=await service.respond('ask',{course:'Data Modeling',lesson:oltpOla
 assert.match(monthly.text,/analytical|scans|aggregates|historical/i);
 const inventory=await service.respond('ask',{course:'Data Modeling',lesson:oltpOlap,tab:'Simulation'},'How would inventory look in OLTP and OLAP?');
 assert.match(inventory.text,/on-hand|transaction|slow-moving|historical/i);
+const factsDimensions=modelingLessons.find(lesson=>lesson.id==='facts-dimensions');
+const factAnswer=await service.respond('ask',{course:'Data Modeling',lesson:factsDimensions,tab:'Simulation'},'What belongs in the fact table?');
+assert.match(factAnswer.text,/measurable|grain|quantity|amount|foreign keys/i);
+assert.equal(factAnswer.source,'lesson');
+const dimensionAnswer=await service.respond('ask',{course:'Data Modeling',lesson:factsDimensions,tab:'Simulation'},'What belongs in a dimension table?');
+assert.match(dimensionAnswer.text,/descriptive|context|Customer|Product|Date/i);
+const subscriptionAnswer=await service.respond('ask',{course:'Data Modeling',lesson:factsDimensions,tab:'Simulation'},'Show me a subscription example');
+assert.match(subscriptionAnswer.text,/billing event|usage event|plan|seats/i);
 assert.equal(networkCalls,0);
 const history=recentTurns(Array.from({length:30},()=>({role:'user',text:'a'.repeat(2000)})));
 assert.equal(history.length,4);assert.equal(history[0].text.length,1200);

@@ -32,6 +32,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const normalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="normalization"&&(context.tab==="Concept"||context.tab==="Interactive Lab");
   const denormalizationCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="denormalization"&&context.tab==="Concept";
   const oltpOlapCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="oltp-olap"&&context.tab==="Simulation";
+  const factDimensionCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="facts-dimensions"&&context.tab==="Simulation";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
   const [expression,setExpression]=useState<Expression>("greeting");
@@ -111,8 +112,12 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className={oltpOlapCompact?"nila-dock nila-oltp-olap-compact":denormalizationCompact?"nila-dock nila-denormalization-compact":normalizationCompact?"nila-dock nila-normalization-compact":erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
-        {oltpOlapCompact&&!open ? <>
+      <div className={factDimensionCompact?"nila-dock nila-fact-dimension-compact":oltpOlapCompact?"nila-dock nila-oltp-olap-compact":denormalizationCompact?"nila-dock nila-denormalization-compact":normalizationCompact?"nila-dock nila-normalization-compact":erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
+        {factDimensionCompact&&!open ? <>
+          <header className="nila-fact-dimension-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-fact-dimension-body"><div className="nila-fact-dimension-prompt">Want to try a different scenario? We can use retail, banking, or subscription data for this example.</div><Image className="nila-fact-dimension-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-fact-dimension-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about fact and dimension tables" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </>  : oltpOlapCompact&&!open ? <>
           <header className="nila-oltp-olap-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
           <div className="nila-oltp-olap-body"><div className="nila-oltp-olap-prompt">Want to try a different scenario? We can analyze monthly sales, customer insights or inventory data.</div><Image className="nila-oltp-olap-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
           <form className="nila-oltp-olap-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about OLTP and OLAP" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>

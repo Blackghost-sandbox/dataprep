@@ -75,6 +75,11 @@ for(const label of ['Interactive Simulation','Run Simulation','Workload','OLTP',
 assert.ok(oltpOlapSimulation.includes('120.00'));
 assert.ok(oltpOlapSimulation.includes('248,000'));
 assert.deepEqual(parseLessonLocation(lessonLocation('modeling','oltp-olap','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='oltp-olap'),tab:'Simulation'});
+const factsDimensions=modelingLessons.find(l=>l.id==='facts-dimensions');
+const factSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:factsDimensions,module:'modeling',active:'Simulation',onTab:()=>{}})));
+for(const label of ['Interactive Simulation','Run Transformation','Operational Data','Transform','Dimension Tables','Fact Table','Visual Model (Star Schema)','SQL Preview','Sample Analytical Query','Key Takeaways','When to use','Common Mistakes','Copy SQL'])assert.ok(factSimulation.includes(label),label);
+for(const value of ['Alice','Laptop','1200.00','DIM_CUSTOMER','FACT_SALES','DIM_DATE'])assert.ok(factSimulation.includes(value),value);
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','facts-dimensions','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='facts-dimensions'),tab:'Simulation'});
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));
