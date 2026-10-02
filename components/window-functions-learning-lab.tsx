@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
-  Check,
   CheckCircle2,
   Copy,
   Database,
@@ -18,10 +17,18 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import type { SparkLesson } from "@/lib/spark-lessons";
-import { orderTable } from "@/lib/sql-lessons";
 import { sqlConceptGuides } from "@/lib/sql-concepts";
+import {
+  evaluateWindowQuery,
+  sourceWindowRows,
+  windowScenarios,
+  type WindowResultRow,
+  type WindowScenarioId,
+} from "@/lib/window-functions-lab";
 import { GlossaryText } from "@/components/glossary";
 import { DarkCodeCard } from "@/components/rdd-dataframe-experience";
+
+type Status = "ready" | "executing" | "result" | "error";
 
 function MiniTable({
   rows,
@@ -70,32 +77,23 @@ export function WindowFunctionsLearningLab({
   onLesson: (id: string) => void;
 }) {
   const guide = sqlConceptGuides["window-functions"];
-  const defaultScenario = scenarios[0];
+  const defaultScenario = windowScenarios[0];
   const [scenarioId, setWindowScenarioId] = useState<WindowScenarioId>(defaultScenario.id);
   const [query, setQuery] = useState(defaultScenario.query);
   const [status, setStatus] = useState<Status>("ready");
   const [error, setError] = useState("");
-  const [executed, setExecuted] = useState(() => evaluateWindow(defaultScenario.query));
+  const [executed, setExecuted] = useState(() => evaluateWindowQuery(defaultScenario.query));
   const [step, setStep] = useState(0);
   const [copied, setCopied] = useState(false);
 
-  const sourceRows = useMemo<WindowResultRow[]>(
-    () =>
-      orderTable.rows.map((row) => ({
-        id: Number(row[0]),
-        customer_id: Number(row[1]),
-        amount: Number(row[2]),
-        value: 0,
-      })),
-    [],
-  );
-  const scenario = scenarios.find((item) => item.id === scenarioId) || defaultScenario;
+  const sourceRows = useMemo<WindowResultRow[]>(() => sourceWindowRows(), []);
+  const scenario = windowScenarios.find((item) => item.id === scenarioId) || defaultScenario;
 
   function chooseScenario(id: WindowScenarioId) {
-    const next = scenarios.find((item) => item.id === id) || defaultScenario;
+    const next = windowScenarios.find((item) => item.id === id) || defaultScenario;
     setWindowScenarioId(next.id);
     setQuery(next.query);
-    setExecuted(evaluateWindow(next.query));
+    setExecuted(evaluateWindowQuery(next.query));
     setStatus("ready");
     setError("");
     setStep(0);
@@ -104,7 +102,7 @@ export function WindowFunctionsLearningLab({
   function run() {
     setStatus("executing");
     setError("");
-    const next = evaluateWindow(query);
+    const next = evaluateWindowQuery(query);
     if (next.error) {
       setExecuted(next);
       setStatus("error");
@@ -202,7 +200,7 @@ export function WindowFunctionsLearningLab({
         </div>
 
         <div className="wf-scenarios" aria-label="Window function scenarios">
-          {scenarios.map((item) => (
+          {windowScenarios.map((item) => (
             <button
               type="button"
               key={item.id}
