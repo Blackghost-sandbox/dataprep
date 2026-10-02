@@ -24,6 +24,8 @@ import "./python-summary.css";
 import "./python-quiz.css";
 import "./python-introduction.css";
 import "./python-data-structures.css";
+import "./python-functions-modules.css";
+import "./python-files-formats.css";
 import "./python-error-handling.css";
 import { GlossaryProvider } from "@/components/glossary";
 
