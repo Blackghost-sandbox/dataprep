@@ -37,6 +37,10 @@ assert.equal(selectCompanionContext({...context,tab:'Concept'},'error','').execu
 assert.ok(!(await service.respond('hint',context,'',[],1)).text.includes(context.lesson.practice.solution));
 assert.ok((await service.respond('ask',context,'show the solution')).text.includes(context.lesson.practice.solution));
 assert.equal((await service.respond('ask',context,'Why this code?')).source,'unavailable');
+const entities=modelingLessons.find(lesson=>lesson.id==='entities');
+const entityHint=await service.respond('hint',{course:'Data Modeling',lesson:entities,tab:'Concept'},'',[],1);
+assert.match(entityHint.text,/belongs_to|thing|property|connect/i);
+assert.equal(entityHint.source,'lesson');
 const normalization=modelingLessons.find(lesson=>lesson.id==='normalization');
 const nf1=await service.respond('ask',{course:'Data Modeling',lesson:normalization,tab:'Concept'},'Explain 1NF');
 assert.match(nf1.text,/atomic|repeating groups|one value/i);
@@ -61,4 +65,4 @@ await connected.respond('ask',context,'What is SELECT?',history);
 assert.equal(payload.context.userCode,undefined);assert.equal(payload.revealSolution,false);
 await connected.respond('ask',context,'Why did my query fail?',history);
 assert.equal(payload.context.userCode,'PRIVATE DRAFT');
-console.log('PASS: companion actions, normalization guidance, context minimization, hints, cache, history and reaction throttling.');
+console.log('PASS: lesson companion actions, modeling entity hint, context minimization, hints, cache, history and reaction throttling.');
