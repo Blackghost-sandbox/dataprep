@@ -118,7 +118,6 @@ export function AggregateLearningLab(){
   }
 
   function changeDataset(nextId:string){
-    const nextDataset=aggregateDatasets.find(item=>item.id===nextId)??aggregateDatasets[0];
     const next=aggregateScenarios(nextId)[0];
     setDatasetId(nextId);
     setScenarioIndex(0);
@@ -128,7 +127,6 @@ export function AggregateLearningLab(){
     setExecutedColumn(next.column);
     setRunning(false);
     setDirty(false);
-    void nextDataset;
   }
 
   function run(){
@@ -226,7 +224,7 @@ export function AggregateLearningLab(){
         <div className="aggregate-flow">
           <div><span className="aggregate-flow-icon"><Database size={23}/></span><strong>{dataset.id==="orders"?"Orders":"Customers"} table</strong><small>{dataset.rows.length} rows</small></div>
           <ArrowRight size={22}/>
-          <div><span className="aggregate-flow-icon pink"><Sigma size={22}/></span><strong>{executedLabel}</strong><small>{executedFn==="COUNT"?"Count non-null values":"Summarize values"}</small></div>
+          <div><span className="aggregate-flow-icon pink"><Sigma size={22}/></span><strong>{executedLabel}</strong><small>{executedFn==="COUNT"?(executedColumn==="*"?"Count all rows":"Count non-null values"):"Summarize values"}</small></div>
           <ArrowRight size={22}/>
           <div><span className="aggregate-flow-icon green"><Database size={23}/></span><strong>Single result</strong><small>{resultText}</small></div>
         </div>
