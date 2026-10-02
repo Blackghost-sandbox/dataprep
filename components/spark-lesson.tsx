@@ -30,7 +30,24 @@ import { LessonDecisionPractice } from "@/components/lesson-decision-practice";
 import { AirflowConceptLab as AirflowConcept } from "@/components/airflow-concept-lab";
 import { modelingById } from "@/lib/data-modeling";
 import { ModelingConcept, ModelingExample, ModelingPractice } from "@/components/modeling-visuals";
+import { ModelingIntroLab } from "@/components/modeling-intro-lab";
+import { ModelingEntitiesBuilder } from "@/components/modeling-entities-builder";
+import { ModelingKeysConstraintsPlayground } from "@/components/modeling-keys-constraints-playground";
+import { ModelingCardinalityPlayground } from "@/components/modeling-cardinality-playground";
+import { ModelingERBuilder } from "@/components/modeling-er-builder";
+import { ModelingNormalizationPlayground } from "@/components/modeling-normalization-playground";
+import { ModelingDenormalizationSimulator } from "@/components/modeling-denormalization-simulator";
 import { ModelingOltpOlapSimulation } from "@/components/modeling-oltp-olap-simulation";
+import { PythonSummaryConcept } from "@/components/python-summary-page";
+import { PythonQuizConcept } from "@/components/python-quiz-page";
+import { PythonIntroductionLab } from "@/components/python-introduction-lab";
+import { PythonDataStructuresConcept } from "@/components/python-data-structures-page";
+import { PythonFunctionsModulesConcept } from "@/components/python-functions-modules-page";
+import { PythonFilesFormatsConcept } from "@/components/python-files-formats-page";
+import { PythonErrorHandlingConcept } from "@/components/python-error-handling-page";
+import { PythonPandasConcept } from "@/components/python-pandas-page";
+import { PythonHandsOnConcept } from "@/components/python-hands-on-page";
+import { PythonInterviewConcept } from "@/components/python-interview-page";
 
 const proseTerms = new Set(["DataFrame", "DataFrames", "Temporary view", "SQL query", "Catalyst Optimizer", "Physical Plan", "NULL", "GROUP BY", "WHERE", "HAVING", "SUM", "partition", "Data skew", "repartition", "coalesce", "partitionBy", "Caching", "cache", "unpersist", "broadcast join", "Spark UI", "withColumn", "shuffle", "explicit schema", "typed schema", "execution plan", "adaptive execution"]);
 
@@ -98,12 +115,22 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
   const correct = lesson.quiz.filter((q,i) => state.choices[i] === String(q.correct)).length;
   const answered = lesson.quiz.filter((q,i) => q.options.some((_,j) => state.choices[i] === String(j))).length;
   const setup = isPython ? <p className="spark-notice">Python 3.11+ examples use the standard library unless pandas is named. Run examples in your own environment; DataPrep does not execute Python or grade your draft.</p> : isDbt ? <p className="spark-notice">Examples illustrate dbt project code and expected lineage/behavior. DataPrep does not connect to a warehouse or execute dbt commands; validate them in your own dbt project and adapter environment.</p> : isCloud ? <p className="spark-notice">Cloud examples are architecture exercises, not live infrastructure. Service behavior, quotas, pricing and feature availability vary by provider, region, account and date; verify production decisions in the provider documentation.</p> : isSystem ? <p className="spark-notice">System-design examples are reasoning exercises. Justify choices against scale, latency, correctness, reliability, security, team constraints and cost.</p> : kafka ? <p className="spark-notice">{kafka.setup}</p> : air ? <p className="spark-notice">{air.setup}</p> : isModeling ? null : isSql ? <><p className="spark-notice">PostgreSQL-style SQL. Use a scratch database and run the setup once. Results below are illustrative; this website does not execute or grade your query.</p><details><summary>Schema and sample-data setup</summary><DarkCodeCard title="SQL setup · empty scratch database" code={sqlSchema}/></details></> : <p className="spark-notice">Examples target PySpark 3.5.x with an existing classic Spark session named <code>spark</code>. RDD inspection requires classic Spark, not Spark Connect. Run code in your Spark notebook; this page does not execute or validate it.</p>;
+  const introSimulation = isModeling && lesson.id === "introduction" && (active === "Concept" || active === "Simulation");
+  const cardinalitySimulation=isModeling&&lesson.id==="cardinality"&&active==="Simulation";
+  const erBuilder=isModeling&&lesson.id==="er-modeling"&&active==="Interactive Builder";
+  const normalizationExperience=isModeling&&lesson.id==="normalization"&&(active==="Concept"||active==="Interactive Lab");
+  const denormalizationConcept=isModeling&&lesson.id==="denormalization"&&active==="Concept";
   const oltpOlapSimulation=isModeling&&lesson.id==="oltp-olap"&&active==="Simulation";
-  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || oltpOlapSimulation ? " sql-concept-shell" : "")}>
+  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || introSimulation || cardinalitySimulation || erBuilder || normalizationExperience || denormalizationConcept || oltpOlapSimulation ? " sql-concept-shell" : "")}>
     {storageError && <p role="status" className="spark-notice">Device storage is unavailable. Keep a copy of your notes; progress may be lost when you leave.</p>}
     {!ready ? <p role="status">Loading your lesson…</p> : <>
+    {active === "Simulation" && isModeling && lesson.id === "introduction" && <ModelingIntroLab focused/>}
+    {cardinalitySimulation && <ModelingCardinalityPlayground/>}
+    {erBuilder && <ModelingERBuilder/>}
+    {normalizationExperience && <ModelingNormalizationPlayground labMode={active==="Interactive Lab"}/>}
+    {denormalizationConcept && <ModelingDenormalizationSimulator/>}
     {oltpOlapSimulation && <ModelingOltpOlapSimulation/>}
-    {active === "Concept" && (module === "kafka" && lesson.id === "introduction" ? <KafkaIntroLab/> : module === "spark" && lesson.id === "partitioning" ? <SparkPartitioningConcept/> : module === "spark" && lesson.id === "transformations" ? <SparkTransformationsConcept/> : module === "spark" && lesson.id === "performance" ? <SparkPerformanceConcept/> : kafka ? <KafkaConcept lesson={kafka} onTab={onTab}/> : air ? <AirflowConcept lesson={air} onTab={onTab}/> : model ? <ModelingConcept lesson={model} onTab={onTab}/> : <>
+    {active === "Concept" && lesson.id !== "normalization" && lesson.id !== "denormalization" && (isModeling && lesson.id === "introduction" ? <ModelingIntroLab/> : isModeling && lesson.id === "entities" ? <ModelingEntitiesBuilder/> : isModeling && lesson.id === "keys" ? <ModelingKeysConstraintsPlayground/> : module === "python" && lesson.id === "py-introduction" ? <PythonIntroductionLab/> : module === "python" && lesson.id === "py-functions-modules" ? <PythonFunctionsModulesConcept/> : module === "python" && lesson.id === "py-files-formats" ? <PythonFilesFormatsConcept/> : module === "python" && lesson.id === "py-error-handling" ? <PythonErrorHandlingConcept/> : module === "python" && lesson.id === "py-pandas-basics" ? <PythonPandasConcept/> : module === "python" && lesson.id === "py-hands-on-task" ? <PythonHandsOnConcept/> : module === "python" && lesson.id === "py-interview-questions" ? <PythonInterviewConcept/> : module === "python" && lesson.id === "py-data-structures" ? <PythonDataStructuresConcept/> : module === "python" && lesson.id === "py-quiz" ? <PythonQuizConcept/> : module === "python" && lesson.id === "py-summary" ? <PythonSummaryConcept/> : module === "kafka" && lesson.id === "introduction" ? <KafkaIntroLab/> : module === "spark" && lesson.id === "partitioning" ? <SparkPartitioningConcept/> : module === "spark" && lesson.id === "transformations" ? <SparkTransformationsConcept/> : module === "spark" && lesson.id === "performance" ? <SparkPerformanceConcept/> : kafka ? <KafkaConcept lesson={kafka} onTab={onTab}/> : air ? <AirflowConcept lesson={air} onTab={onTab}/> : model ? <ModelingConcept lesson={model} onTab={onTab}/> : <>
       {!isSql && <h2><BookOpen size={22}/> {lesson.title === "Summary" ? (isPython ? "Your Python recap" : "Your Spark recap") : "Understand " + lesson.title}</h2>}
       {isSql && onTab && onLesson ? <SqlConcept lesson={lesson} onTab={onTab} onLesson={onLesson}/> : isDbt ? <DbtLessonVisual lesson={lesson}/> : isCloud ? <CloudLessonVisual lesson={lesson}/> : isSystem ? <SystemDesignVisual lesson={lesson}/> : lesson.id === "spark-sql" ? <SparkSqlVisual/> : <SparkTopicVisual id={lesson.id}/>}
       {!isSql && <><div className="spark-concepts">{lesson.concepts.map(([title,body],i) => <article key={title}><span className="spark-index">{i+1}</span><h3>{title}</h3><p><Text>{body}</Text></p></article>)}</div>
@@ -164,7 +191,7 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
       <textarea id={lesson.id+"-notes"} className="spark-notes" value={state.notes} onChange={e=>update({notes:e.target.value})} placeholder="What does this mean in my own words? When would I use it?"/>
       <p role="status" className="spark-caption">{storageError ? "Not saved: device storage unavailable." : "Automatically saved on this device for this lesson."}</p>
     </>}
-    {!isSql && !isCloud && !isSystem && !oltpOlapSimulation && <footer className="spark-source"><a href={isPython ? "https://docs.python.org/3/" : isDbt ? "https://docs.getdbt.com/docs/introduction" : kafka ? kafka.resource : air ? air.resource : model ? model.resource.url : isSql ? "https://www.postgresql.org/docs/current/queries.html" : lesson.id==="introduction" || lesson.id==="transformations" || lesson.id==="partitioning" ? "https://spark.apache.org/docs/3.5.6/rdd-programming-guide.html" : lesson.id==="performance" ? "https://spark.apache.org/docs/3.5.6/sql-performance-tuning.html" : "https://spark.apache.org/docs/3.5.6/sql-programming-guide.html"} target="_blank" rel="noreferrer">{isPython ? "Read the Python documentation ↗" : isDbt ? "Read the dbt documentation ↗" : kafka ? "Read the Kafka 4.1 reference ↗" : air ? "Read the Airflow 3.1 reference ↗" : model ? model.resource.title+" ↗" : isSql ? "Read the PostgreSQL query guide ↗" : "Read the Apache Spark guide ↗"}</a></footer>}
+    {!isSql && !isCloud && !isSystem && !(isModeling && ["entities","keys"].includes(lesson.id) && active === "Concept") && !cardinalitySimulation && !erBuilder && <footer className="spark-source"><a href={isPython ? "https://docs.python.org/3/" : isDbt ? "https://docs.getdbt.com/docs/introduction" : kafka ? kafka.resource : air ? air.resource : model ? model.resource.url : isSql ? "https://www.postgresql.org/docs/current/queries.html" : lesson.id==="introduction" || lesson.id==="transformations" || lesson.id==="partitioning" ? "https://spark.apache.org/docs/3.5.6/rdd-programming-guide.html" : lesson.id==="performance" ? "https://spark.apache.org/docs/3.5.6/sql-performance-tuning.html" : "https://spark.apache.org/docs/3.5.6/sql-programming-guide.html"} target="_blank" rel="noreferrer">{isPython ? "Read the Python documentation ↗" : isDbt ? "Read the dbt documentation ↗" : kafka ? "Read the Kafka 4.1 reference ↗" : air ? "Read the Airflow 3.1 reference ↗" : model ? model.resource.title+" ↗" : isSql ? "Read the PostgreSQL query guide ↗" : "Read the Apache Spark guide ↗"}</a></footer>}
     </>}
   </section>;
 }
