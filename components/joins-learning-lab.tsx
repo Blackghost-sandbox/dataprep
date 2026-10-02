@@ -6,7 +6,6 @@ import {
   Box,
   CheckCircle2,
   CircleDot,
-  Copy,
   Database,
   FileText,
   Link2,
