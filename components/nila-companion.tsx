@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import Image from "next/image";
-import { ArrowUp, Brain, FlaskConical, Lightbulb, MessageCircle, Minus, Pause, Play, RotateCcw, Sparkles, Square, Volume2, X } from "lucide-react";
+import { ArrowUp, Brain, FlaskConical, Lightbulb, MessageCircle, Maximize2, Minus, Pause, Play, RotateCcw, Sparkles, Square, Volume2, X } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useCompanion } from "@/components/companion-context";
 import { AICompanionService, ReactionEngine, type ChatTurn, type CompanionAction, type CompanionMode, type Expression, type LearningEvent } from "@/lib/companion";
@@ -25,6 +25,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const Panel=embedded?EmbeddedPanel:PopoverContent;
   const companion=useCompanion()!;
   const {context,emit,event}=companion;
+  const entitiesCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="entities";
   const keysCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="keys";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
@@ -105,17 +106,21 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className={keysCompact?"nila-dock nila-keys-compact":"nila-dock"}>
+      <div className={keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
         {keysCompact&&!open ? <>
           <header className="nila-keys-head"><span><Sparkles size={14}/>Mithoo · Learning companion</span></header>
           <div className="nila-keys-body"><div className="nila-keys-prompt">Stuck with constraints?<br/>Try injecting a duplicate key or invalid foreign key to see what happens!</div><Image className="nila-keys-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={94} height={114}/></div>
           <form className="nila-keys-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about keys and constraints" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
-        </> : !keysCompact ? <>
-          {embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="SQL Fundamentals"&&context.lesson.id==="introduction"?"Ask me about tables, SELECT, columns, or what your query returned.":context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
-          {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
-          {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
-          <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
-        </> : null}
+        </> : entitiesCompact&&!open ? <>
+          <header className="nila-entities-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span><button type="button" onClick={()=>changeOpen(true)} aria-label="Open Mithoo"><Maximize2 size={14}/></button></header>
+          <div className="nila-entities-body"><Image className="nila-entities-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={112} height={136}/><div className="nila-entities-prompt">Want a hint for the last classification?<br/>I can help! 💡</div></div>
+          <button type="button" className="nila-entities-hint" disabled={busy} onClick={()=>{changeOpen(true);void request("hint");}}>Give me a hint <ArrowUp size={15}/></button>
+        </> : !(keysCompact||entitiesCompact) ? <>
+{embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="SQL Fundamentals"&&context.lesson.id==="introduction"?"Ask me about tables, SELECT, columns, or what your query returned.":context.course==="Data Modeling"&&context.lesson.id==="introduction"?"Select an entity, inspect its rows, then run the model to watch relationships become explicit. Ask me why each key or relationship exists.":context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":context.lesson.id==="py-hands-on-task"?"Clean the six orders step by step: validate, deduplicate, aggregate, then compare the final totals. Ask me about any rule.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
+        {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
+        {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
+        <PopoverTrigger asChild><button className="nila-launcher" aria-label="Open Mithoo learning companion"><Sparkles size={17}/><span>Mithoo · Learning companion</span><ArrowUp size={17}/></button></PopoverTrigger>
+      </> : null}
       </div>
       {(!embedded||open)&&<Panel className="nila-panel" align="end" side="top" sideOffset={12} collisionPadding={12} aria-label="Mithoo learning companion" onOpenAutoFocus={e=>{e.preventDefault();closeRef.current?.focus();}} onInteractOutside={e=>e.preventDefault()}>
         <header className="nila-header"><span className="nila-mark"><Sparkles size={17}/></span><div><strong>Mithoo</strong><small>Your learning companion</small></div><span className="nila-local">Local mode</span><button onClick={()=>changeOpen(false)} aria-label="Minimize Mithoo"><Minus size={17}/></button><button ref={closeRef} onClick={()=>changeOpen(false)} aria-label="Close Mithoo"><X size={17}/></button></header>
