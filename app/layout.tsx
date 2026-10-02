@@ -30,6 +30,7 @@ import "./python-error-handling.css";
 import "./python-pandas.css";
 import "./python-hands-on.css";
 import "./python-interview.css";
+import "./distinct-lab.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
