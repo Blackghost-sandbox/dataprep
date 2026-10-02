@@ -28,6 +28,7 @@ import "./python-functions-modules.css";
 import "./python-files-formats.css";
 import "./python-error-handling.css";
 import "./python-pandas.css";
+import "./python-hands-on.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
