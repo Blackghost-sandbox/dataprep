@@ -28,6 +28,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   const entitiesCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="entities";
   const keysCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="keys";
   const cardinalityCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="cardinality"&&context.tab==="Simulation";
+  const erCompact=embedded&&context.course==="Data Modeling"&&context.lesson.id==="er-modeling"&&context.tab==="Interactive Builder";
   const [open,setOpen]=useState(false);
   const [bubble,setBubble]=useState("");
   const [expression,setExpression]=useState<Expression>("greeting");
@@ -107,8 +108,12 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
   }
   return <div className="nila-root" data-mode={mode} data-expression={expression}>
     <Popover open={open} onOpenChange={changeOpen}>
-      <div className={cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
-        {cardinalityCompact&&!open ? <>
+      <div className={erCompact?"nila-dock nila-er-compact":cardinalityCompact?"nila-dock nila-cardinality-compact":keysCompact?"nila-dock nila-keys-compact":entitiesCompact?"nila-dock nila-entities-compact":"nila-dock"}>
+        {erCompact&&!open ? <>
+          <header className="nila-er-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
+          <div className="nila-er-body"><div className="nila-er-prompt">Can you add a Supplier table and show how products relate to suppliers?</div><Image className="nila-er-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={98} height={118}/></div>
+          <form className="nila-er-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about ER modeling" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
+        </> : cardinalityCompact&&!open ? <>
           <header className="nila-cardinality-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span></header>
           <div className="nila-cardinality-body"><div className="nila-cardinality-prompt">Try changing the number of orders!<br/>What happens if a customer has zero orders?</div><Image className="nila-cardinality-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={96} height={116}/></div>
           <form className="nila-cardinality-form" onSubmit={e=>{e.preventDefault();if(input.trim()){const question=input.trim();changeOpen(true);void request("ask",question);}}}><input aria-label="Ask Mithoo about cardinality" placeholder="Ask Mithoo anything..." maxLength={1200} value={input} onChange={e=>setInput(e.target.value)}/><button disabled={busy||!input.trim()} aria-label="Send question"><ArrowUp size={17}/></button></form>
@@ -120,7 +125,7 @@ function NilaSession({completionEvent,reactions,quiet,setQuiet,embedded=false}:{
           <header className="nila-entities-head"><span><Sparkles size={14}/>Mithoo · Learning Companion</span><button type="button" onClick={()=>changeOpen(true)} aria-label="Open Mithoo"><Maximize2 size={14}/></button></header>
           <div className="nila-entities-body"><Image className="nila-entities-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={112} height={136}/><div className="nila-entities-prompt">Want a hint for the last classification?<br/>I can help! 💡</div></div>
           <button type="button" className="nila-entities-hint" disabled={busy} onClick={()=>{changeOpen(true);void request("hint");}}>Give me a hint <ArrowUp size={15}/></button>
-        </> : !(cardinalityCompact||keysCompact||entitiesCompact) ? <>
+        </> : !(erCompact||cardinalityCompact||keysCompact||entitiesCompact) ? <>
 {embedded&&!open&&!bubble&&<div className="nila-bubble"><strong>Follow the data ✨</strong><p>{context.course==="SQL Fundamentals"&&context.lesson.id==="introduction"?"Ask me about tables, SELECT, columns, or what your query returned.":context.course==="Data Modeling"&&context.lesson.id==="introduction"?"Select an entity, inspect its rows, then run the model to watch relationships become explicit. Ask me why each key or relationship exists.":context.course==="Apache Airflow"?"Watch task eligibility, states and dependencies. Ask me why a task can run—or why it is waiting.":context.course==="Apache Kafka"?"Ask me about producers, partitions, offsets, or why a slow consumer builds lag.":context.lesson.id==="partitioning"?"Follow a record through the shuffle, or compare how coalesce groups partitions. Ask me about any step.":context.lesson.id==="transformations"?"Step through the filter, selected columns and new age group. Ask me if a step feels unclear.":context.lesson.id==="py-hands-on-task"?"Clean the six orders step by step: validate, deduplicate, aggregate, then compare the final totals. Ask me about any rule.":"Run both paths, then step through the cache reuse. Ask me if a step feels unclear."}</p></div>}
         {!open&&bubble&&<div className="nila-bubble" role="status"><button aria-label="Dismiss Mithoo’s message" onClick={()=>setBubble("")}><X size={13}/></button>{bubble}</div>}
         {!open&&<Image className="nila-idle-avatar" src="/nila-avatar.png" alt="Mithoo, your friendly learning companion" width={105} height={128}/>}
