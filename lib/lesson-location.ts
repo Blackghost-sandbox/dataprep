@@ -4,7 +4,7 @@ export function parseLessonLocation(hash:string,registry:Record<string,{id:strin
     const [module,id,tab="Concept",extra]=hash.replace(/^#/,"").split("/").map(decodeURIComponent);
     if(extra!==undefined||!Object.prototype.hasOwnProperty.call(registry,module))return null;
     const index=registry[module].findIndex(lesson=>lesson.id===id);
-    const validTab=lessonTabs.some(value=>value===tab)||(module==="modeling"&&id==="cardinality"&&tab==="Simulation");
+    const validTab=lessonTabs.some(value=>value===tab)||(module==="modeling"&&id==="introduction"&&tab==="Simulation");
     if(index<0||!validTab)return null;
     return {module,index,tab};
   }catch{return null;}

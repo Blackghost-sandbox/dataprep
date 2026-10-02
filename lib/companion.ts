@@ -57,7 +57,15 @@ export class AICompanionService {
     if(action==="simply")text=guide?`Think: “${guide.question}”\n\n${guide.takeaway}\n\n${guide.parts.map(([part,meaning])=>`${part}: ${meaning}`).join("\n")}\n\nRemember: ${guide.remember}`:`One idea to focus on: ${lesson.description}\n\n${lesson.example.walkthrough[0]}\n\n${lesson.concepts[0]?.[1]??""}`;
     if(action==="example")text=`Here’s the lesson’s worked example:\n\n${lesson.example.code}\n\nExpected sample result (not live execution):\n${lesson.example.output}`;
     if(action==="hint"){
-      if(context.tab!=="Hands-on")text="Open Hands-on and I’ll help you work through the current exercise one hint at a time.";
+      if(context.course==="Data Modeling"&&lesson.id==="entities"){
+        if(hintLevel===1)text="For the last item, ask one question: does “belongs_to” name a thing, describe a thing, or connect one thing to another?";
+        else if(hintLevel===2)text="“belongs_to” describes an association — for example, a Product belongs to a Category. Which of the three classification buckets represents associations?";
+        else text="Place belongs_to in Relationship, then run the checker. Relationships connect entities; they are not entities or descriptive attributes.";
+      }else if(context.course==="Data Modeling"&&lesson.id==="keys"){
+        if(hintLevel===1)text="Try one violation at a time. A duplicate customer_id tests PRIMARY KEY uniqueness; customer_id = 99 on an order tests whether the parent Customer exists.";
+        else if(hintLevel===2)text="Separate row identity from relationship validity: PRIMARY KEY checks the row itself, FOREIGN KEY checks a referenced row, UNIQUE checks duplicate business values, and CHECK validates a condition.";
+        else text="Fix the highlighted cells, then run validation again. For the reference state, order row 4 needs an existing customer_id and order row 5 needs amount > 0.";
+      }else if(context.tab!=="Hands-on")text="Open Hands-on and I’ll help you work through the current exercise one hint at a time.";
       else if(hintLevel===1)text=`Start by naming the required output. Which rows or values should remain?\n\nYour task: ${context.exercise?.task??lesson.practice.task}`;
       else if(hintLevel===2)text=context.exercise?.hint??lesson.practice.hint;
       else text=`Trace one input row through the steps. Check the column names and the expected result shape before changing your code.\n\n${lesson.mistakes[0]?.better??"Compare the result to the requirement."}\n\nThe worked solution stays hidden until you ask for it.`;
