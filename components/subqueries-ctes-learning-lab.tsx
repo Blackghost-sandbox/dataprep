@@ -71,7 +71,6 @@ export function SubqueriesCtesLearningLab(){
   const ids=useMemo(()=>subqueryIds(dataset,executedThreshold),[dataset,executedThreshold]);
   const totals=useMemo(()=>customerTotals(dataset),[dataset]);
   const sql=subquerySql(mode,threshold);
-  const activeScenario=subqueryScenarios.find(item=>item.id===mode)??subqueryScenarios[0];
   const executedScenario=subqueryScenarios.find(item=>item.id===executedMode)??subqueryScenarios[0];
 
   function changeDataset(nextId:string){
