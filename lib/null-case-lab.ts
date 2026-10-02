@@ -43,10 +43,9 @@ export const nullCaseScenarios:Array<{
       "  id,\n" +
       "  name,\n" +
       "  city,\n" +
-      "  CASE\n" +
-      "    WHEN city IS NULL THEN 'Unknown'\n" +
-      "    ELSE city\n" +
-      "  END AS city_label\n" +
+      "  CASE WHEN city IS NULL THEN 'Unknown' ELSE city END AS city_label,\n" +
+      "  signup_date,\n" +
+      "  CASE WHEN signup_date IS NULL THEN 'Not Signed Up' ELSE 'Signed Up' END AS signup_status\n" +
       "FROM customers\n" +
       "ORDER BY id;",
   },
@@ -135,6 +134,20 @@ export function evaluateNullCaseQuery(query:string):NullCaseResult {
       columns:["total_rows","null_cities","null_signup_dates"],
       rows:[[nullCaseRows.length,cityCount,signupCount]],
       explanation:"CASE turns each NULL test into 1 or 0, then SUM counts the matching rows.",
+    };
+  }
+
+  const cityCase=compact.match(/CASE\s+WHEN\s+city\s+IS\s+NULL\s+THEN\s+'([^']*)'\s+ELSE\s+city\s+END\s+AS\s+([A-Za-z_][A-Za-z0-9_]*)/i);
+  const signupCase=compact.match(/CASE\s+WHEN\s+signup_date\s+IS\s+NULL\s+THEN\s+'([^']*)'\s+ELSE\s+'([^']*)'\s+END\s+AS\s+([A-Za-z_][A-Za-z0-9_]*)/i);
+  if(cityCase && signupCase){
+    const [,cityNull,cityAlias]=cityCase;
+    const [,signupNull,signupElse,signupAlias]=signupCase;
+    return {
+      columns:["id","name","city",cityAlias,"signup_date",signupAlias],
+      rows:nullCaseRows.map(row=>[
+        row.id,row.name,row.city,row.city===null?cityNull:row.city,row.signup_date,row.signup_date===null?signupNull:signupElse,
+      ]),
+      explanation:"Each CASE expression evaluates independently: missing cities receive a display label and missing signup dates receive a status.",
     };
   }
 
