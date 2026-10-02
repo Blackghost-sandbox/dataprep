@@ -15,6 +15,7 @@ import "./airflow.css";
 import "./kafka.css";
 import "./mock-interview.css";
 import "./where-lab.css";
+import "./distinct-lab.css";
 import "./spark-performance.css";
 import "./spark-transformations.css";
 import "./spark-partitioning.css";
