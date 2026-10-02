@@ -6,9 +6,11 @@ import { GlossaryText } from "@/components/glossary";
 import { DarkCodeCard } from "@/components/rdd-dataframe-experience";
 import { SqlFundamentalsVisual } from "@/components/sql-fundamentals-visual";
 import { WhereLearningLab } from "@/components/where-learning-lab";
+import { GroupByLearningLab } from "@/components/group-by-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="where")return <WhereLearningLab/>;
+  if(lesson.id==="group-by")return <GroupByLearningLab/>;
   const guide=sqlConceptGuides[lesson.id];
   return <div className="sql-concept-sequence">
     <section className="sql-concept-intro">
