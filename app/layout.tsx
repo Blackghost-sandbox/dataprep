@@ -33,6 +33,7 @@ import "./python-interview.css";
 import "./distinct-lab.css";
 import "./order-by-lab.css";
 import "./limit-lab.css";
+import "./aggregate-lab.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {

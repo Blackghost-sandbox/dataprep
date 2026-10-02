@@ -11,10 +11,12 @@ import { SqlIntroductionLab } from "@/components/sql-introduction-lab";
 import { SelectLearningLab } from "@/components/select-learning-lab";
 import { OrderByLearningLab } from "@/components/order-by-learning-lab";
 import { LimitLearningLab } from "@/components/limit-learning-lab";
+import { AggregateLearningLab } from "@/components/aggregate-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
+  if(lesson.id==="aggregate-functions")return <AggregateLearningLab/>;
   if(lesson.id==="limit")return <LimitLearningLab/>;
   if(lesson.id==="order-by")return <OrderByLearningLab/>;
   if(lesson.id==="distinct")return <DistinctLearningLab/>;
