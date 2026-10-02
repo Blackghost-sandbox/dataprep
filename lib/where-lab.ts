@@ -16,7 +16,7 @@ export function filterQuery(mode:FilterMode,age:number){return `SELECT name, cit
 
 export type WhereCell = string | number | null;
 export type WhereColumnType = "number" | "text" | "date";
-export type WhereOperator = ">" | "<" | ">=" | "<=" | "=" | "!=" | "BETWEEN" | "IS NULL" | "IS NOT NULL";
+export type WhereOperator = ">" | "<" | ">=" | "<=" | "=" | "!=" | "LIKE" | "NOT LIKE" | "BETWEEN" | "IS NULL" | "IS NOT NULL";
 export type WhereJoin = "AND" | "OR";
 export type WhereSimulationRow = Record<string, WhereCell>;
 export type WhereColumn = { key: string; label: string; type: WhereColumnType };
@@ -123,7 +123,7 @@ export function operatorsForWhere(type: WhereColumnType): { value: WhereOperator
     { value: "IS NULL", label: "IS NULL" },
     { value: "IS NOT NULL", label: "IS NOT NULL" },
   ];
-  if (type === "text") return common;
+  if (type === "text") return [...common.slice(0, 2), { value: "LIKE", label: "LIKE (pattern)" }, { value: "NOT LIKE", label: "NOT LIKE" }, ...common.slice(2)];
   return [
     { value: ">", label: "> (greater than)" },
     { value: "<", label: "< (less than)" },
@@ -160,6 +160,16 @@ function compare(left: WhereCell, operator: WhereOperator, rawValue: string, raw
     case "<=": return leftComparable <= rightComparable ? "TRUE" : "FALSE";
     case "=": return leftComparable === rightComparable ? "TRUE" : "FALSE";
     case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
+    case "LIKE": {
+      const pattern = String(rightComparable).replace(/[.*+?^${}()|[\\]\\]/g, "\\    case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
+    case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";").replace(/%/g, ".*").replace(/_/g, ".");
+      return new RegExp("^" + pattern + "$").test(String(leftComparable)) ? "TRUE" : "FALSE";
+    }
+    case "NOT LIKE": {
+      const pattern = String(rightComparable).replace(/[.*+?^${}()|[\\]\\]/g, "\\    case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
+    case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";").replace(/%/g, ".*").replace(/_/g, ".");
+      return new RegExp("^" + pattern + "$").test(String(leftComparable)) ? "FALSE" : "TRUE";
+    }
     case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";
     default: return "UNKNOWN";
   }
