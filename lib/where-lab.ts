@@ -140,6 +140,18 @@ function cleanLiteral(value: string): string {
   return trimmed;
 }
 
+function likeText(value: string, pattern: string): boolean {
+  let valueIndex = 0, patternIndex = 0, starIndex = -1, retryIndex = 0;
+  while (valueIndex < value.length) {
+    if (patternIndex < pattern.length && (pattern[patternIndex] === "_" || pattern[patternIndex] === value[valueIndex])) { valueIndex++; patternIndex++; continue; }
+    if (patternIndex < pattern.length && pattern[patternIndex] === "%") { starIndex = patternIndex++; retryIndex = valueIndex; continue; }
+    if (starIndex >= 0) { patternIndex = starIndex + 1; valueIndex = ++retryIndex; continue; }
+    return false;
+  }
+  while (patternIndex < pattern.length && pattern[patternIndex] === "%") patternIndex++;
+  return patternIndex === pattern.length;
+}
+
 function compare(left: WhereCell, operator: WhereOperator, rawValue: string, rawValue2: string | undefined, type: WhereColumnType): Truth {
   if (operator === "IS NULL") return left === null ? "TRUE" : "FALSE";
   if (operator === "IS NOT NULL") return left === null ? "FALSE" : "TRUE";
@@ -160,21 +172,12 @@ function compare(left: WhereCell, operator: WhereOperator, rawValue: string, raw
     case "<=": return leftComparable <= rightComparable ? "TRUE" : "FALSE";
     case "=": return leftComparable === rightComparable ? "TRUE" : "FALSE";
     case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
-    case "LIKE": {
-      const pattern = String(rightComparable).replace(/[.*+?^${}()|[\\]\\]/g, "\\    case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
-    case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";").replace(/%/g, ".*").replace(/_/g, ".");
-      return new RegExp("^" + pattern + "$").test(String(leftComparable)) ? "TRUE" : "FALSE";
-    }
-    case "NOT LIKE": {
-      const pattern = String(rightComparable).replace(/[.*+?^${}()|[\\]\\]/g, "\\    case "!=": return leftComparable !== rightComparable ? "TRUE" : "FALSE";
-    case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";").replace(/%/g, ".*").replace(/_/g, ".");
-      return new RegExp("^" + pattern + "$").test(String(leftComparable)) ? "FALSE" : "TRUE";
-    }
+    case "LIKE": return likeText(String(leftComparable), String(rightComparable)) ? "TRUE" : "FALSE";
+    case "NOT LIKE": return likeText(String(leftComparable), String(rightComparable)) ? "FALSE" : "TRUE";
     case "BETWEEN": return leftComparable >= rightComparable && leftComparable <= secondComparable ? "TRUE" : "FALSE";
     default: return "UNKNOWN";
   }
 }
-
 export function evaluateWhereCondition(row: WhereSimulationRow, dataset: WhereDataset, condition: WhereCondition): Truth {
   const column = dataset.columns.find(item => item.key === condition.column);
   if (!column) return "UNKNOWN";
