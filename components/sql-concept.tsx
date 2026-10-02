@@ -19,10 +19,12 @@ import { SubqueriesCtesLearningLab } from "@/components/subqueries-ctes-learning
 import { SubqueriesFlowLearningLab } from "@/components/subqueries-flow-learning-lab";
 import { WindowFunctionsLearningLab } from "@/components/window-functions-learning-lab";
 import { NullCaseLearningLab } from "@/components/null-case-learning-lab";
+import { QueryExecutionLearningLab } from "@/components/query-execution-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
+  if(lesson.id==="query-execution")return <QueryExecutionLearningLab/>;
   if(lesson.id==="null-case")return <NullCaseLearningLab/>;
   if(lesson.id==="window-functions")return <WindowFunctionsLearningLab lesson={lesson} onTab={onTab} onLesson={onLesson}/>;
   if(lesson.id==="subqueries-ctes")return <SubqueriesFlowLearningLab/>;
