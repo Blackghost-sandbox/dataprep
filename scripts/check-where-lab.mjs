@@ -54,6 +54,8 @@ assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenario
 assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[2].plan)==='TRUE').length,1,'age >= 30 AND Mumbai');
 assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[3].plan)==='TRUE').length,5,'age < 30 OR Chennai');
 assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[4].plan)==='TRUE').length,0,'no matches');
+const likePlan={join:'AND',conditions:[{column:'city',operator:'LIKE',value:'M%'}]};
+assert.deepEqual(customers.rows.filter(row=>evaluateWherePlan(row,customers,likePlan)==='TRUE').map(row=>row.name),['Bob','Jack']);
 assert.match(buildWhereSimulationQuery(customers,scenarios[0].plan),/WHERE age > 25;/);
 
 const html=renderToString(React.createElement(WhereLearningLab));
