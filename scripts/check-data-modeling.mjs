@@ -42,12 +42,24 @@ for(const lesson of modelingLessons){
     const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson,module:'modeling',active,onTab:()=>{}})));
     assert.ok(!html.includes('Loading your lesson'),lesson.id+' '+active);
     assert.ok(!html.includes('Read the Apache Spark guide'),lesson.id+' wrong resource');
-    if(active==='Concept'){assert.ok(html.includes('Key Takeaway'));assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));}
+    if(active==='Concept'){
+      if(lesson.id==='introduction'){
+        assert.ok(html.includes('Run Simulation'));
+        assert.ok(html.includes('Sample Data'));
+        assert.ok(html.includes('Visual Model (ER Diagram)'));
+      }else{
+        assert.ok(html.includes('Key Takeaway'));
+        assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));
+      }
+    }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
     if(active==='Quiz')assert.ok(html.includes('Submit answers'));
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
+const intro=modelingLessons.find(l=>l.id==='introduction');
+const simulationHtml=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:intro,module:'modeling',active:'Simulation',onTab:()=>{}})));
+for(const label of ['Run Simulation','Step by step','Reset','Define Entities','Add Data','View Relationships','Explore Model'])assert.ok(simulationHtml.includes(label),label);
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));
@@ -66,5 +78,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; intro simulation surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
