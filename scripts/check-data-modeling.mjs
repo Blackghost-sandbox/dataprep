@@ -32,6 +32,7 @@ const {SparkLessonPanel}=load(path.join(root,'components/spark-lesson.tsx'));
 const {Sidebar}=load(path.join(root,'components/dataprep-app.tsx'));
 const {GlossaryProvider}=load(path.join(root,'components/glossary.tsx'));
 const {getGlossaryItem}=load(path.join(root,'lib/glossary.ts'));
+const {parseLessonLocation,lessonLocation}=load(path.join(root,'lib/lesson-location.ts'));
 assert.equal(modelingLessons.length,14);assert.equal(new Set(modelingLessons.map(l=>l.id)).size,14);
 const tabs=['Concept','Examples','Hands-on','Interview Qs','Common Mistakes','Quiz','Notes'];
 for(const lesson of modelingLessons){
@@ -49,8 +50,14 @@ for(const lesson of modelingLessons){
         assert.ok(html.includes('Chennai'));
         assert.ok(html.includes('240.00'));
       }else{
+      if(lesson.id==='entities'){
+        for(const label of ['Model Builder Challenge','Run &amp; Check','Business objects tray','Live model preview','Check results &amp; feedback'])assert.ok(html.includes(label),lesson.id+' '+label);
+        assert.ok(html.includes('8 / 9 classified'));
+      }else{
         assert.ok(html.includes('Key Takeaway'));
         assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));
+      }
+    }
       }
     }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
@@ -58,6 +65,10 @@ for(const lesson of modelingLessons){
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
   }
 }
+const normalization=modelingLessons.find(l=>l.id==='normalization');
+const normalizationLab=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:normalization,module:'modeling',active:'Interactive Lab',onTab:()=>{}})));
+for(const label of ['Normalization Playground','Run Decomposition','Step by step','Dependency View'])assert.ok(normalizationLab.includes(label),label);
+assert.deepEqual(parseLessonLocation(lessonLocation('modeling','normalization','Interactive Lab'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='normalization'),tab:'Interactive Lab'});
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
 assert.ok(sidebar.includes('Modeling'));assert.ok(sidebar.includes('14%'));assert.ok(sidebar.includes('Slowly Changing Dimensions'));
@@ -76,5 +87,5 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
   const matches=t.history.rows.filter(row=>row[4]<=date&&(row[5]===null||date<row[5]));
   assert.equal(matches.length,1);assert.equal(matches[0][0],key);
 }
-console.log('PASS: 14 lessons × 7 hydrated-branch server renders; denormalization read-model surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
+console.log('PASS: 14 lessons × 7 hydrated-branch server renders; entities model-builder surface; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
