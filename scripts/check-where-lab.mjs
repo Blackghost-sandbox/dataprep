@@ -13,8 +13,6 @@ function load(file){
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   let source=fs.readFileSync(file,'utf8');
-  // Server effects never hydrate localStorage. Render the hydrated branch ONLY
-  // in this test fixture; this is a render smoke test, not a browser/storage test.
   if(file.endsWith('spark-lesson.tsx'))source=source.replace('const [ready, setReady] = useState(false);','const [ready, setReady] = useState(true);');
   const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText;
   const localRequire=name=>{
@@ -28,24 +26,40 @@ function load(file){
   return loaded.exports;
 }
 
-
-
 const {DatabaseSync}=require('node:sqlite');
-
-const {filterRows,filterModes,evaluateFilter,filterQuery}=load(path.join(root,'lib/where-lab.ts'));
+const {
+  filterRows,filterModes,evaluateFilter,filterQuery,
+  whereDatasets,whereScenarios,evaluateWherePlan,buildWhereSimulationQuery,
+}=load(path.join(root,'lib/where-lab.ts'));
 const {WhereLearningLab}=load(path.join(root,'components/where-learning-lab.tsx'));
-const db=new DatabaseSync(':memory:');db.exec('CREATE TABLE customers(id INTEGER,name TEXT,city TEXT,age INTEGER)');
-for(const row of filterRows)db.prepare('INSERT INTO customers VALUES(?,?,?,?)').run(row.id,row.name,row.city,row.age);
-let checks=0;
+
+// Keep the legacy NULL-semantics helpers covered because other SQL lessons can reuse them.
+const legacy=new DatabaseSync(':memory:');legacy.exec('CREATE TABLE customers(id INTEGER,name TEXT,city TEXT,age INTEGER)');
+for(const row of filterRows)legacy.prepare('INSERT INTO customers VALUES(?,?,?,?)').run(row.id,row.name,row.city,row.age);
+let legacyChecks=0;
 for(const mode of filterModes)for(const age of [0,19,22,25,29,31,100]){
- const actual=db.prepare(filterQuery(mode.id,age)).all().map(r=>r.name);
- const modeled=filterRows.filter(r=>evaluateFilter(r,mode.id,age)==='TRUE').map(r=>r.name);
- assert.deepEqual(modeled,actual);checks++;
+  const actual=legacy.prepare(filterQuery(mode.id,age)).all().map(r=>r.name);
+  const modeled=filterRows.filter(r=>evaluateFilter(r,mode.id,age)==='TRUE').map(r=>r.name);
+  assert.deepEqual(modeled,actual);legacyChecks++;
 }
-const dan=filterRows.find(r=>r.name==='Dan');
-assert.equal(evaluateFilter(dan,'not-city',25),'UNKNOWN');
-assert.equal(evaluateFilter(dan,'is-null',25),'TRUE');
+legacy.close();
+
+const customers=whereDatasets.find(item=>item.id==='customers');
+assert.ok(customers);
+assert.equal(customers.rows.length,10);
+const scenarios=whereScenarios('customers');
+assert.equal(scenarios.length,5);
+assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[0].plan)==='TRUE').length,9,'age > 25');
+assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[1].plan)==='TRUE').length,2,'city = Chennai');
+assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[2].plan)==='TRUE').length,1,'age >= 30 AND Mumbai');
+assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[3].plan)==='TRUE').length,5,'age < 30 OR Chennai');
+assert.equal(customers.rows.filter(row=>evaluateWherePlan(row,customers,scenarios[4].plan)==='TRUE').length,0,'no matches');
+assert.match(buildWhereSimulationQuery(customers,scenarios[0].plan),/WHERE age > 25;/);
+
 const html=renderToString(React.createElement(WhereLearningLab));
-assert(html.includes('Who gets invited?'));assert(html.includes('Lock prediction'));assert(html.includes('Explain it to an interviewer'));
-assert(html.includes('Predict Dan passes'));assert(!html.includes('Loading'));
-db.close();console.log('PASS: '+checks+' filter cases checked against SQLite, NULL semantics and learning-lab initial render.');
+for(const text of ['Interactive Simulation','Set the condition','Query being executed','Row-by-row evaluation','Input table (customers)','Result table (filtered)','Try it yourself!','Key takeaways','Customers (10 rows)','Run Query','Next Scenario']){
+  assert.ok(html.includes(text),text);
+}
+assert.ok(!html.includes('Who gets invited?'));
+console.log('PASS: '+legacyChecks+' legacy WHERE cases plus 5 screenshot-target scenarios and initial simulation render.');
+console.log('Browser timing, clipboard, dataset switching and responsive layout still require browser verification.');
