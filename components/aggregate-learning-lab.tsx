@@ -207,16 +207,17 @@ export function AggregateLearningLab(){
       <section className="aggregate-try-card">
         <div className="aggregate-try-heading"><span><Sparkles size={18}/></span><div><h3>Try different aggregations</h3><p>See how different functions work on the same data.</p></div></div>
         <div className="aggregate-summary-row">{summaryCards.map(card=><button type="button" key={card.fn} onClick={()=>{
-          const index=scenarios.findIndex(item=>item.fn===card.fn);
-          if(index>=0)applyScenario(index,true);
-          else{
-            setFn(card.fn);
-            setColumn(card.column);
-            setExecutedFn(card.fn);
-            setExecutedColumn(card.column);
+          if(card.fn==="COUNT"){
+            setFn("COUNT");
+            setColumn("*");
+            setExecutedFn("COUNT");
+            setExecutedColumn("*");
             setScenarioIndex(-1);
             setDirty(false);
+            return;
           }
+          const index=scenarios.findIndex(item=>item.fn===card.fn);
+          if(index>=0)applyScenario(index,true);
         }}><span>{card.fn}({card.column})</span><strong>{card.value}</strong></button>)}</div>
       </section>
 
