@@ -6,9 +6,11 @@ import { GlossaryText } from "@/components/glossary";
 import { DarkCodeCard } from "@/components/rdd-dataframe-experience";
 import { SqlFundamentalsVisual } from "@/components/sql-fundamentals-visual";
 import { WhereLearningLab } from "@/components/where-learning-lab";
+import { SqlIntroductionLab } from "@/components/sql-introduction-lab";
 import { HavingLearningLab } from "@/components/having-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
+  if(lesson.id==="introduction")return <SqlIntroductionLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
   if(lesson.id==="having")return <HavingLearningLab/>;
   const guide=sqlConceptGuides[lesson.id];
