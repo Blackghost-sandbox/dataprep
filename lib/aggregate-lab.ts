@@ -120,7 +120,7 @@ export function aggregateValue(dataset:AggregateDataset,fn:AggregateFunction,col
 export function formatAggregateValue(value:number|string|null,fn:AggregateFunction):string{
   if(value===null)return "NULL";
   if(fn==="AVG"&&typeof value==="number")return value.toFixed(2);
-  if(typeof value==="number")return Number.isInteger(value)?String(value):value.toFixed(2);
+  if(typeof value==="number")return Number.isInteger(value)?value.toLocaleString("en-US"):value.toFixed(2);
   return String(value);
 }
 
