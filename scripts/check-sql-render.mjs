@@ -43,7 +43,7 @@ for(const lesson of sqlLessons){
   const tabs=[],links=[];
   const props={lesson,onTab:tab=>tabs.push(tab),onLesson:id=>links.push(id)};
   const concept=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SqlConcept,props)));
-  const headings=lesson.id==='where'?['Who gets invited?','Predict the result','Build the result','Break your assumption','Explain it to an interviewer']:lesson.id==='order-by'?['Interactive Simulation','Choose sorting options','Original data (unsorted)','Result after ORDER BY age ASC','ORDER BY syntax','Visual explanation','Try different scenarios']:['What is','Basic syntax','Follow the data','Why it matters','Remember','Key Takeaway','Explore Examples'];
+  const headings=lesson.id==='where'?['Who gets invited?','Predict the result','Build the result','Break your assumption','Explain it to an interviewer']:lesson.id==='order-by'?['Interactive Simulation','Choose sorting options','ORDER BY syntax','Original data (unsorted)','Result after ORDER BY age ASC','Visual explanation','Try different scenarios']:['What is','Basic syntax','Follow the data','Why it matters','Remember','Key Takeaway','Explore Examples'];
   let previous=-1;
   for(const heading of headings){const position=concept.indexOf(heading);assert.ok(position>previous,lesson.id+': '+heading);previous=position;}
   assert.ok(!concept.includes('In plain English'));
