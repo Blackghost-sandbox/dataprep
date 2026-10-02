@@ -144,7 +144,6 @@ export function SqlIntroductionLab() {
   const [datasetId, setDatasetId] = useState("customers");
   const [scenario, setScenario] = useState(0);
   const dataset = useMemo(() => datasets.find(item => item.id === datasetId) ?? datasets[0], [datasetId]);
-  const initialQuery = scenarios[datasetId][scenario] ?? scenarios[datasetId][0];
   const [query, setQuery] = useState(scenarios.customers[0]);
   const [result, setResult] = useState<QueryResult>(() => evaluate(scenarios.customers[0]));
   const [error, setError] = useState("");
