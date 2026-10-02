@@ -129,10 +129,14 @@ export function groupAggregateAlias(scenario:GroupScenario):string{
   return scenario.aggregateColumn==="total_spend" ? "total_spend" : "total_amount";
 }
 
+export function groupCountAlias(dataset:GroupDataset):string{
+  return dataset.id==="orders" ? "order_count" : "customer_count";
+}
+
 export function groupQuery(dataset:GroupDataset,scenario:GroupScenario):string{
   const alias=groupAggregateAlias(scenario);
   const argument=scenario.aggregateColumn;
-  const extra=scenario.includeCount ? ", COUNT(*) AS order_count" : "";
+  const extra=scenario.includeCount ? `, COUNT(*) AS ${groupCountAlias(dataset)}` : "";
   return `SELECT ${scenario.groupBy}, ${scenario.aggregate}(${argument}) AS ${alias}${extra}\nFROM ${dataset.table}\nGROUP BY ${scenario.groupBy};`;
 }
 
