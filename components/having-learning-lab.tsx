@@ -196,7 +196,7 @@ export function HavingLearningLab(){
 
       <section className="having-result-card">
         <div className="having-panel-heading"><h3><Filter size={17}/><span>3.</span> After HAVING (filtered groups)</h3><small>{passed.length} {passed.length===1?"group":"groups"}</small></div>
-        <div className="having-result-table"><table><thead><tr><th>{executed.groupBy}</th><th>{alias}</th><th>order_count</th></tr></thead><tbody>{passed.map(group=><tr key={String(group.key)}><td>{String(group.key)}</td><td>{formatHavingValue(group.aggregate,executed.aggregate)}</td><td>{group.count}</td></tr>)}</tbody></table></div>
+        <div className="having-result-table"><table><thead><tr><th>{executed.groupBy}</th><th>{alias}</th><th>{dataset.id==="orders"?"order_count":"row_count"}</th></tr></thead><tbody>{passed.map(group=><tr key={String(group.key)}><td>{String(group.key)}</td><td>{formatHavingValue(group.aggregate,executed.aggregate)}</td><td>{group.count}</td></tr>)}</tbody></table></div>
         {!passed.length&&<div className="having-empty"><Filter size={24}/><strong>No groups match</strong><span>Try a different threshold or operator.</span></div>}
       </section>
     </div>
