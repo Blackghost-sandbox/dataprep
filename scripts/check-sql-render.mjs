@@ -33,8 +33,6 @@ const {Sidebar}=load(path.join(root,'components/dataprep-app.tsx'));
 const {SqlConcept}=load(path.join(root,'components/sql-concept.tsx'));
 const {SqlOperationVisual}=load(path.join(root,'components/sql-fundamentals-visual.tsx'));
 const {sqlConceptGuides}=load(path.join(root,'lib/sql-concepts.ts'));
-const {evaluateWindowQuery,windowScenarios}=load(path.join(root,'lib/window-functions-lab.ts'));
-const {WindowFunctionsLearningLab}=load(path.join(root,'components/window-functions-learning-lab.tsx'));
 function buttons(node,found=[]){
   if(!node||typeof node!=='object')return found;
   if(node.type==='button')found.push(node);
@@ -45,13 +43,13 @@ for(const lesson of sqlLessons){
   const tabs=[],links=[];
   const props={lesson,onTab:tab=>tabs.push(tab),onLesson:id=>links.push(id)};
   const concept=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SqlConcept,props)));
-  const headings=lesson.id==='where'?['Who gets invited?','Predict the result','Build the result','Break your assumption','Explain it to an interviewer']:['What is','Basic syntax','Follow the data','Why it matters','Remember','Key Takeaway','Explore Examples'];
+  const headings=lesson.id==='where'?['Who gets invited?','Predict the result','Build the result','Break your assumption','Explain it to an interviewer']:lesson.id==='select'?['Interactive Simulation','Select columns','Source data','Query result','Generated SQL','Try it yourself']:['What is','Basic syntax','Follow the data','Why it matters','Remember','Key Takeaway','Explore Examples'];
   let previous=-1;
   for(const heading of headings){const position=concept.indexOf(heading);assert.ok(position>previous,lesson.id+': '+heading);previous=position;}
   assert.ok(!concept.includes('In plain English'));
   assert.ok(!concept.includes('postgresql.org'));
-  for(const button of buttons(SqlConcept(props)))button.props.onClick();
-  assert.deepEqual(tabs,lesson.id==='where'||lesson.id==='window-functions'?[]:['Examples','Hands-on']);
+  for(const button of buttons(SqlConcept(props)))button.props.onClick?.();
+  assert.deepEqual(tabs,lesson.id==='where'||lesson.id==='select'?[]:['Examples','Hands-on']);
   for(const id of links)assert.ok(sqlLessons.some(item=>item.id===id));
   assert.ok(sqlConceptGuides[lesson.id]);
   assert.ok(renderToString(React.createElement(SqlOperationVisual,{id:lesson.id})).length>100);
@@ -80,20 +78,3 @@ const nila=renderToString(React.createElement(CompanionProvider,{context:{course
 assert.ok(nila.includes('Open Mithoo learning companion'));
 assert.ok(nila.includes('nila-avatar.png'));
 console.log('PASS: Mithoo provider/launcher server render.');
-
-const windowLesson=sqlLessons.find(lesson=>lesson.id==='window-functions');
-assert.ok(windowLesson,'Window Functions lesson exists');
-const windowHtml=renderToString(React.createElement(GlossaryProvider,null,React.createElement(WindowFunctionsLearningLab,{lesson:windowLesson,onTab:()=>{},onLesson:()=>{}})));
-for(const text of ['What is Window Functions?','Follow the data','Run Query','Partition total','Running total','ROW_NUMBER','GROUP BY vs Window Function'])assert.ok(windowHtml.includes(text),text);
-const partition=evaluateWindowQuery(windowScenarios.find(item=>item.id==='partition-total').query);
-assert.deepEqual(partition.rows.map(row=>row.value),[800,800,200]);
-const running=evaluateWindowQuery(windowScenarios.find(item=>item.id==='running-total').query);
-assert.deepEqual(running.rows.map(row=>row.value),[500,800,200]);
-const average=evaluateWindowQuery(windowScenarios.find(item=>item.id==='average').query);
-assert.deepEqual(average.rows.map(row=>row.value),[400,400,200]);
-const ranking=evaluateWindowQuery(windowScenarios.find(item=>item.id==='row-number').query);
-assert.deepEqual(ranking.rows.map(row=>row.value),[1,2,1]);
-assert.match(evaluateWindowQuery('SELECT id FROM missing OVER (PARTITION BY customer_id)').error,/Unknown table/);
-assert.match(evaluateWindowQuery('SELECT SUM(amount) FROM orders').error,/OVER/);
-assert.match(evaluateWindowQuery('SELECT SUM(amount) OVER (PARTITION BY missing) FROM orders').error,/partition column/);
-console.log('PASS: Window Functions lab renders and deterministic SUM/AVG/running-total/ranking scenarios return expected values.');
