@@ -8,7 +8,6 @@ import {
   Database,
   Eye,
   FileCode2,
-  Filter,
   Hash,
   Lightbulb,
   Play,
@@ -69,13 +68,6 @@ export function SubqueriesFlowLearningLab(){
   const generatedSql=subqueryFlowSql(threshold,sortBy,sortOrder);
   const innerSql=subqueryFlowInnerSql(executedThreshold);
 
-  function markDirty(){
-    setDirty(
-      threshold!==executedThreshold ||
-      sortBy!==executedSortBy ||
-      sortOrder!==executedSortOrder
-    );
-  }
 
   function updateThreshold(value:number){
     const normalized=Math.max(0,Math.floor(value||0));
