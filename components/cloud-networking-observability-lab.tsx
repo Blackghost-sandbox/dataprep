@@ -3,9 +3,9 @@
 import {useMemo,useState} from "react";
 import {
   Activity, AlertTriangle, BarChart3, BellRing, CheckCircle2, ChevronLeft,
-  ChevronRight, Cloud, Database, FileText, GraduationCap, Layers3, LockKeyhole,
+  ChevronRight, Database, FileText, GraduationCap, Layers3, LockKeyhole,
   Play, RefreshCcw, Route, ServerCog, ShieldCheck, Sparkles, TimerReset,
-  ToggleLeft, ToggleRight, Trace, Wrench, Zap
+  Trace, Zap
 } from "lucide-react";
 import {
   computeObservability, dataServices, defaultObservabilityControls,
