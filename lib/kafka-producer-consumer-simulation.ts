@@ -165,6 +165,7 @@ export function newProducerConsumerState(dataset: KafkaDatasetId, seedCount = 7)
   return {
     ...state,
     selected: state.logs[0][0] ?? state.logs[1][0] ?? state.logs[2][0] ?? null,
+    timeline: state.timeline.slice(0,6),
     runCount:0,
     status:"Ready. Producer records are stored in three partitions and each consumer owns one partition.",
   };
