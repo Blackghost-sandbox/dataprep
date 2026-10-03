@@ -50,10 +50,6 @@ export function CloudLakehouseHero({description,minutes,currentLesson,total,onPr
   </section>;
 }
 
-function currency(value:number){
-  return value.toLocaleString("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
-}
-
 function FileIcon({file}:{file:LakehouseFile}){
   if(file.type==="Parquet")return <FileType2 size={16}/>;
   if(file.type==="JSON")return <FileJson size={16}/>;
