@@ -4,7 +4,7 @@ import {useMemo,useState} from "react";
 import {
   Box, CheckCircle2, ChevronLeft, ChevronRight, Cloud, Database, Eye, EyeOff,
   FileCode2, FolderKey, GraduationCap, KeyRound, LockKeyhole, Play, RotateCcw,
-  ShieldCheck, UserRound, UsersRound, XCircle
+  ShieldCheck, UserRound, XCircle
 } from "lucide-react";
 import {
   defaultPermissions, evaluateSecurityAccess, permissionLabels, policyDocument,
@@ -95,10 +95,11 @@ export function CloudIdentitySecurityLab(){
   };
 
   const retrieveSecret=()=>{
-    setSecretRetrieved(true);setShowSecret(true);
-    setResult(previous=>({...previous,status:"Secret retrieved from managed secret storage.",audit:[
+    const authorized=permissions["secrets-read"]||permissions.admin;
+    setSecretRetrieved(authorized);setShowSecret(authorized);
+    setResult(previous=>({...previous,status:authorized?"Secret retrieved from managed secret storage.":"Secret retrieval denied: missing secrets permission.",audit:[
       ...previous.audit,
-      {id:"secret-manual",time:"10:24:15",title:"secretsmanager:GetSecretValue",detail:"db-password",outcome:permissions["secrets-read"]||permissions.admin?"allowed":"denied"}
+      {id:"secret-manual",time:"10:24:15",title:"secretsmanager:GetSecretValue",detail:"db-password",outcome:authorized?"allowed":"denied"}
     ]}));
   };
 
