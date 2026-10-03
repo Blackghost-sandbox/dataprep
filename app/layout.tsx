@@ -55,6 +55,7 @@ import "./subqueries-flow-lab.css";
 import "./window-functions-lab.css";
 import "./null-case-lab.css";
 import "./query-execution-lab.css";
+import "./dbt-incremental-models.css";
 import "./dbt-jinja-macros.css";
 import "./dbt-materializations.css";
 import "./dbt-tests-data-quality.css";
