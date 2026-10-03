@@ -58,6 +58,10 @@ export const dbtJinjaDatasets: DbtJinjaDataset[] = [
   },
 ];
 
+export function getDbtJinjaDataset(id: DbtJinjaDatasetId): DbtJinjaDataset {
+  return dbtJinjaDatasets.find(dataset=>dataset.id===id) ?? dbtJinjaDatasets[0];
+}
+
 export const defaultJinjaModel = [
   "-- Using a variable and a macro",
   "{% set start_date = var('start_date', '2024-01-01') %}",
