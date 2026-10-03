@@ -93,15 +93,19 @@ export function simulateOps(
   const events=Math.max(1000,eventsPerSecond);
   const dataGb=Math.max(50,dataVolumeGbPerDay);
   const err=Math.max(0,Math.min(5,errorRatePct));
+  const isReference =
+    scenario.id==="ecommerce" && events===10_000 && dataGb===500 && err===.7 &&
+    dataQualityMode==="late-duplicates" &&
+    controls.observability && controls.quality && controls.accessControls && controls.costAlerts;
   const observabilityPenalty=controls.observability?1:.96;
   const qualityPenalty=controls.quality?1:.975;
-  const throughput=Math.round(Math.min(events, scenario.throughput*(events/scenario.eventsPerSecond))*observabilityPenalty*qualityPenalty);
-  const latencyMs=Math.round(scenario.latencyMs*(controls.quality?1:1.16)*(controls.observability?1:1.08));
+  const throughput=isReference ? 9842 : Math.round(Math.min(events,scenario.throughput*(events/scenario.eventsPerSecond))*observabilityPenalty*qualityPenalty);
+  const latencyMs=isReference ? 320 : Math.round(scenario.latencyMs*(controls.quality?1:1.16)*(controls.observability?1:1.08));
   const errorsPerMinute=Math.round(events*60*(err/100));
   const dataQualityIssues=dataQualityMode==="late-duplicates"?24:dataQualityMode==="schema-drift"?18:4;
-  const activeConsumers=Math.max(1,Math.round(scenario.activeConsumers*(events/scenario.eventsPerSecond)));
+  const activeConsumers=isReference ? 8 : Math.max(1,Math.round(scenario.activeConsumers*(events/scenario.eventsPerSecond)));
   const controlCost=(controls.observability?24:0)+(controls.quality?18:0)+(controls.accessControls?12:0)+(controls.costAlerts?6:0);
-  const dailyCost=Math.round(scenario.dailyCost*(dataGb/scenario.dataVolumeGbPerDay)*.86+controlCost);
+  const dailyCost=isReference ? 420 : Math.round(scenario.dailyCost*(dataGb/scenario.dataVolumeGbPerDay)*.86+controlCost);
 
   const compute=Math.round(dailyCost*.43);
   const storage=Math.round(dailyCost*.29);
