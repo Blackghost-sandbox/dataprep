@@ -7,6 +7,7 @@ import {
   GraduationCap, Lightbulb, Play, RefreshCcw, Settings2, Sparkles, Zap
 } from "lucide-react";
 import {Progress} from "@/components/ui/progress";
+import {useCompanion} from "@/components/companion-context";
 import {
   buildJinjaRunLog,
   compileDbtJinja,
@@ -93,6 +94,7 @@ function CodeEditor({
 }
 
 export function DbtJinjaMacrosLab(){
+  const companion=useCompanion();
   const [datasetId,setDatasetId]=useState<DbtJinjaDatasetId>("ecommerce");
   const [model,setModel]=useState(defaultJinjaModel);
   const [vars,setVars]=useState(defaultProjectVars);
@@ -121,6 +123,8 @@ export function DbtJinjaMacrosLab(){
     window.setTimeout(()=>{
       setHasRun(true);
       setRunning(false);
+      const unresolved=liveCompile.compiledSql.includes("{{")||liveCompile.compiledSql.includes("{%");
+      companion?.emit({type:unresolved?"exercise_error":"exercise_correct",lesson:"Jinja, Variables & Macros",source:"runner"});
     },420);
   };
   const changeDataset=(id:DbtJinjaDatasetId)=>{
