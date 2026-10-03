@@ -23,6 +23,9 @@ for(const phrase of [
   "latencyMs:320",
   "activeConsumers:8",
   "dailyCost:420",
+  "errorsPerMinute=isReference ? 68",
+  '{label:"Compute",amount:180,percent:43}',
+  '{label:"Storage",amount:120,percent:29}',
 ]) assert.ok(model.includes(phrase),"Missing reference baseline: "+phrase);
 
 const component=transpile(path.join(root,"components/system-design-observability-security-cost-experience.tsx"));
