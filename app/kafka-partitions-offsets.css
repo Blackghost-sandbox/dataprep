@@ -1,0 +1,116 @@
+/* Kafka / Partitions & Offsets / Concept only */
+.kafka-module-page:has(.kpo-lab){--kpo-ink:#071735;--kpo-muted:#5d6f8d;--kpo-violet:#6744ff}
+.kafka-module-page:has(.kpo-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.kpo-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.kpo-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.kpo-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.kpo-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.kpo-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kpo-lab) .lesson-hero p{font-size:0}
+.kafka-module-page:has(.kpo-lab) .lesson-hero p:after{content:"Each partition is an ordered log with its own offset. Produce and consume messages to see how offsets work.";font-size:12px;line-height:1.55;color:#5d6f8d}
+.kafka-module-page:has(.kpo-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.kpo-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.kpo-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.kpo-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.kpo-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.kpo-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.kpo-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.kpo-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.kpo-lab) .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.kafka-module-page:has(.kpo-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.kpo-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.kpo-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.kpo-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.kpo-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.kpo-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Each partition is an independent ordered log with its own offset sequence.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.kpo-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.kpo-lab) .lesson-aside>button:last-child{display:none}
+
+.kpo-lab{color:var(--kpo-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:14px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.kpo-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+.kpo-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.kpo-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#2b67a5,#1f4e83);color:#fff;flex-shrink:0}
+.kpo-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.kpo-heading p{max-width:590px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.kpo-top-actions{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.kpo-top-actions>button,.kpo-top-actions select{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.kpo-top-actions>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.kpo-top-actions .kpo-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+.kpo-top-actions label,.kpo-partition-count{display:grid;gap:4px;font-size:10px;font-weight:700;color:#687892}
+.kpo-partition-count>div{display:flex;gap:4px}
+.kpo-partition-count button{width:34px;height:38px;border:1px solid #dce4ef;border-radius:7px;background:#fff;font-size:11px;font-weight:700;color:#324865}
+.kpo-partition-count button[aria-pressed=true]{background:#6744ff;color:#fff;border-color:#6744ff}
+
+.kpo-main-grid{display:grid;grid-template-columns:minmax(0,.88fr) 42px minmax(0,1.18fr) 42px minmax(0,.96fr);gap:0;align-items:center}
+.kpo-producer,.kpo-topic,.kpo-consumer{min-width:0;border-radius:12px;background:#fff}
+.kpo-producer{border:1.5px solid #ff8a35;padding:12px;box-shadow:0 5px 14px rgba(238,122,37,.07)}
+.kpo-producer>header,.kpo-consumer>header{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.kpo-producer>header>span,.kpo-consumer>header>span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;color:#fff}
+.kpo-producer>header>span{background:linear-gradient(135deg,#ff6c1c,#ff4b00)}
+.kpo-producer h3,.kpo-topic h3,.kpo-consumer h3{margin:0;font-size:13px;font-weight:800}
+.kpo-producer h3{color:#e95400}.kpo-producer p,.kpo-consumer p{font-size:10px;color:#667791;margin-top:2px}
+.kpo-producer label,.kpo-consumer label{display:block;font-size:10px;font-weight:700;color:#223754;margin:8px 0}
+.kpo-producer label small{font-size:10px;font-weight:500;color:#7c8ba1}
+.kpo-producer input,.kpo-consumer select{display:block;width:100%;height:33px;margin-top:4px;border:1px solid #dce4ef;border-radius:6px;background:#fff;padding:0 9px;font-size:10px;color:#273e5f}
+.kpo-send,.kpo-consume{width:100%;height:36px;border:0;border-radius:7px;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px}
+.kpo-send{background:linear-gradient(135deg,#744cff,#5f2df0);box-shadow:0 4px 10px rgba(101,65,240,.2)}
+.kpo-producer h4,.kpo-consumer h4{font-size:10px;margin:10px 0 5px}
+.kpo-producer pre{min-height:81px;border-radius:7px;background:#fffaf6;border:1px solid #f4ded0;padding:7px;font-size:10px;line-height:1.45;color:#3f526e;overflow:auto}
+
+.kpo-arrow{display:flex;align-items:center;color:#ff6500}.kpo-arrow i{height:0;border-top:2px solid currentColor;flex:1}.kpo-arrow svg{margin-left:-3px}
+.kpo-arrow-right{color:#6655ff}
+
+.kpo-topic{padding:10px;border:1px solid #d9d2ff;background:linear-gradient(135deg,#f7f4ff,#f3f0ff);box-shadow:0 5px 14px rgba(106,74,229,.07)}
+.kpo-topic>header{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.kpo-topic>header>span{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:#6744ff;color:white}
+.kpo-topic>header h3{color:#5537df}.kpo-topic>header strong{color:#5537df}
+.kpo-topic>header small{margin-left:auto;display:flex;align-items:center;gap:4px;background:#c9f6da;color:#087445;padding:4px 8px;border-radius:12px;font-size:10px;font-weight:700}
+.kpo-partition-stack{display:grid;gap:7px}
+.kpo-partition{display:grid;grid-template-columns:114px minmax(0,1fr);gap:8px;align-items:center;width:100%;min-height:69px;border:1px solid #b9d7ff;border-radius:8px;background:linear-gradient(120deg,#edf6ff,#f8fbff);padding:8px;text-align:left}
+.kpo-partition.orange{border-color:#f7c784;background:linear-gradient(120deg,#fff8e9,#fffdf7)}
+.kpo-partition.pink{border-color:#f6a9d0;background:linear-gradient(120deg,#fff0f8,#fffafd)}
+.kpo-partition.is-selected{box-shadow:0 0 0 2px rgba(103,68,255,.2)}
+.kpo-partition-label{display:flex;gap:7px;align-items:center}
+.kpo-partition-label>span{display:grid;place-items:center;width:27px;height:27px;border-radius:8px;background:#17a8e5;color:#fff;font-size:10px;font-weight:800}
+.kpo-partition.orange .kpo-partition-label>span{background:#ff9700}.kpo-partition.pink .kpo-partition-label>span{background:#ec2c91}
+.kpo-partition-label strong{display:block;font-size:10px;color:#0f6aa3}.kpo-partition.orange .kpo-partition-label strong{color:#d66b00}.kpo-partition.pink .kpo-partition-label strong{color:#c52372}
+.kpo-partition-label small{display:block;font-size:10px;color:#5c7895;margin-top:2px}
+.kpo-records{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.kpo-records>span{min-width:0;min-height:45px;border:1px solid #9dcbff;background:#fff;border-radius:6px;padding:4px 5px;display:flex;flex-direction:column;gap:5px}
+.kpo-partition.orange .kpo-records>span{border-color:#f8bb73}.kpo-partition.pink .kpo-records>span{border-color:#f2a3cb}
+.kpo-records b{align-self:flex-start;border-radius:4px;background:#24a9e9;color:#fff;padding:1px 5px;font-size:10px}.kpo-partition.orange .kpo-records b{background:#ff9700}.kpo-partition.pink .kpo-records b{background:#ed2b8f}
+.kpo-records em{font-style:normal;font-size:10px;line-height:1.2;color:#2d405b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kpo-records .kpo-empty{display:grid;place-items:center;border-style:dashed;color:#c88ac3;font-size:16px;background:transparent}
+
+.kpo-consumer{border:1.5px solid #8ae0b3;background:linear-gradient(135deg,#f0fff7,#fbfffd);padding:12px;box-shadow:0 5px 14px rgba(31,174,102,.06)}
+.kpo-consumer>header>span{background:linear-gradient(135deg,#16b76a,#079c54)}
+.kpo-consumer h3{color:#0e9a52}.kpo-consumer-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpo-consume{background:linear-gradient(135deg,#15b866,#049a4e);margin:8px 0 10px;box-shadow:0 4px 10px rgba(17,168,87,.18)}
+.kpo-consumed{display:grid;gap:5px;min-height:105px}
+.kpo-consumed button{display:grid;grid-template-columns:22px minmax(0,1fr);gap:7px;align-items:center;border:0;background:#f7fafc;border-radius:6px;padding:6px;text-align:left;font-size:10px;color:#263a58}
+.kpo-consumed b,.kpo-message-list article>b{display:grid;place-items:center;width:18px;height:18px;border-radius:5px;background:#24a9e9;color:#fff;font-size:10px}
+.kpo-consumed .tone-1,.kpo-message-list .tone-1{background:#7b57f4}.kpo-consumed .tone-2,.kpo-message-list .tone-2{background:#ec2b8e}
+.kpo-consumed p{font-size:10px;color:#7b8aa2}
+
+.kpo-lower-grid{display:grid;grid-template-columns:1.45fr .7fr .93fr;gap:10px;margin-top:12px}
+.kpo-lower-grid>section{min-width:0;border:1px solid #e2e8f1;border-radius:10px;background:#fff;padding:10px}
+.kpo-lower-grid header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.kpo-lower-grid h3{font-size:11px;margin:0;font-weight:800}
+.kpo-lower-grid h3 span{font-weight:600}
+.kpo-lower-grid header button,.kpo-lower-grid header select{margin-left:auto;border:1px solid #dce3ed;background:#fff;border-radius:6px;padding:5px 8px;font-size:10px;color:#334a68}
+.kpo-event-log{background:linear-gradient(135deg,#0f2b49,#0d2340)!important;border-color:#173a5d!important;color:#fff}
+.kpo-event-log header button{background:#1d4165;color:#e8f4ff;border-color:#2f5577}
+.kpo-event-log ol{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.kpo-event-log li{display:grid;grid-template-columns:7px 52px 65px minmax(0,1fr);gap:7px;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:7px 0;font-size:10px}
+.kpo-event-log li>i{width:6px;height:6px;border-radius:50%;background:#19c77c}.kpo-event-log li:nth-child(2n)>i{background:#ff9a18}
+.kpo-event-log time{color:#bfd0e2}
+.kpo-event-log li>b{justify-self:start;border-radius:4px;padding:3px 6px;font-size:10px;background:#f9ac38;color:#26313e}.kpo-event-log li>b.role-consumer{background:#17c671}
+.kpo-event-log li>span{color:#d9e7f5}.kpo-event-log .kpo-empty-log{display:block;color:#b9cadc}
+.kpo-details dl{display:grid;gap:7px;margin:0}.kpo-details dl>div{display:flex;justify-content:space-between;gap:10px;font-size:10px}.kpo-details dt{color:#60718a}.kpo-details dd{margin:0;font-weight:800;color:#203550}
+.kpo-message-list>div{display:grid;gap:5px}.kpo-message-list article{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:6px;align-items:center;border:1px solid #e5eaf2;border-radius:6px;padding:6px;font-size:10px}.kpo-message-list article span{font-size:10px;color:#2f425d}.kpo-message-list article time{color:#6a7a91;font-size:10px}.kpo-message-list p{font-size:10px;color:#7d8ca2}
+.kpo-status{margin-top:9px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.kpo-status>span{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.kpo-status p{margin:0;flex:1}.kpo-status button{display:flex;align-items:center;gap:5px;border:1px solid #dadff0;background:#fff;border-radius:6px;padding:5px 8px}
+
+.kpo-lab button:hover{filter:brightness(.99)}.kpo-lab button:focus-visible,.kpo-lab input:focus-visible,.kpo-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+@media(max-width:1350px){.kpo-main-grid{grid-template-columns:minmax(0,.9fr) 30px minmax(0,1.15fr) 30px minmax(0,.95fr)}.kpo-toolbar{align-items:flex-start}.kpo-top-actions{max-width:480px}.kpo-lower-grid{grid-template-columns:1.25fr .75fr}.kpo-message-list{grid-column:1/-1}}
+@media(max-width:1050px){.kafka-module-page:has(.kpo-lab) .lesson-layout{grid-template-columns:1fr}.kpo-toolbar{flex-direction:column;align-items:stretch}.kpo-top-actions{max-width:none;justify-content:flex-start}.kpo-main-grid{grid-template-columns:1fr}.kpo-arrow{min-height:28px}.kpo-arrow i{display:none}.kpo-arrow svg{transform:rotate(90deg);margin:auto}.kpo-lower-grid{grid-template-columns:1fr}.kpo-message-list{grid-column:auto}}
+@media(max-width:760px){.kpo-consumer-fields{grid-template-columns:1fr}.kpo-top-actions{display:grid;grid-template-columns:1fr 1fr}.kpo-top-actions label,.kpo-partition-count{grid-column:span 2}.kpo-event-log li{grid-template-columns:7px 48px 60px minmax(0,1fr)}}
