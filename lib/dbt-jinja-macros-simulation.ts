@@ -56,7 +56,7 @@ export const dbtJinjaDatasets: DbtJinjaDataset[] = [
   {
     id: "support",
     label: "Support Operations",
-    relation: "analytics.raw_support_activity",
+    relation: "analytics.support_activity",
     rows: [
       {order_id:"TK901",customer_id:"C101",order_date:"2024-03-01",total_amount:"14.20",region:"US"},
       {order_id:"TK902",customer_id:"C118",order_date:"2024-03-01",total_amount:"21.40",region:"US"},
@@ -172,7 +172,10 @@ export function compileDbtJinja({
 }
 
 export function previewCompiledSql(result: DbtJinjaCompileResult): string {
-  return result.compiledSql.split("\n").slice(0,4).join("\n");
+  const lines=result.compiledSql.split("\n").map(line=>line.trim()).filter(Boolean);
+  const from=lines.find(line=>line.startsWith("from ")) ?? "from analytics.orders";
+  const where=lines.find(line=>line.startsWith("where ")) ?? "where order_date >= '"+result.startDate+"'";
+  return ["select *",from,where].join("\n");
 }
 
 export function buildJinjaRunLog(result: DbtJinjaCompileResult, dataset: DbtJinjaDataset): string[] {
