@@ -29,6 +29,7 @@ export function KafkaProducerConsumerLab(){
   const [scenarioIndex,setScenarioIndex]=useState(0);
   const [state,setState]=useState(()=>newProducerConsumerState("orders"));
   const [timelineVisible,setTimelineVisible]=useState(true);
+  const [inspectorTab,setInspectorTab]=useState<"message"|"headers">("message");
 
   useEffect(()=>{setState(newProducerConsumerState(dataset));},[dataset]);
   const topic=dataset==="orders"?"orders":"payments";
@@ -116,8 +117,8 @@ export function KafkaProducerConsumerLab(){
       </section>
 
       <section className="kpc-inspector">
-        <header><h3><Eye size={18}/>Message Inspector</h3><div><button className="is-active">Message</button><button>Headers</button></div></header>
-        <MessageJson record={selected}/>
+        <header><h3><Eye size={18}/>Message Inspector</h3><div><button className={inspectorTab==="message"?"is-active":""} aria-pressed={inspectorTab==="message"} onClick={()=>setInspectorTab("message")}>Message</button><button className={inspectorTab==="headers"?"is-active":""} aria-pressed={inspectorTab==="headers"} onClick={()=>setInspectorTab("headers")}>Headers</button></div></header>
+        {inspectorTab==="message"?<MessageJson record={selected}/>:<pre className="kpc-json">{JSON.stringify({topic,partition:selected?.partition??0,offset:selected?.offset??0,event_type:selected?.event_type??"order",content_type:"application/json"},null,2)}</pre>}
       </section>
 
       <section className="kpc-view">
