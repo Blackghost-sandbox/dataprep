@@ -181,7 +181,7 @@ export function referenceStreamingState():StreamingSimulationState{
 export function stablePartition(key:string,partitions:number){
   let hash=0;
   for(let i=0;i<key.length;i++)hash=(hash*31+key.charCodeAt(i))>>>0;
-  return hash%Math.max(1,partitions);
+  return (hash+1)%Math.max(1,partitions);
 }
 
 export function simulateStreaming(controls:StreamingControls):StreamingSimulationState{
