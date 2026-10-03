@@ -2,9 +2,9 @@
 
 import {useMemo,useState} from "react";
 import {
-  BarChart3, Box, Check, ChevronDown, ChevronLeft, ChevronRight, Cloud, Code2,
+  BarChart3, Box, Check, ChevronDown, ChevronLeft, ChevronRight, Cloud,
   Database, Download, FileJson2, FileText, Folder, FolderOpen, GraduationCap,
-  Lightbulb, Play, RotateCcw, Rows3, Server, SlidersHorizontal, Zap
+  Play, RotateCcw, Rows3, SlidersHorizontal, Zap
 } from "lucide-react";
 import {
   generateObjectStorageData, newObjectStorageSimulationState, objectStorageDataSources,
@@ -74,10 +74,13 @@ export function CloudObjectStorageLab(){
   const [volumeMb,setVolumeMb]=useState(100);
   const [bucket,setBucket]=useState("dataprep-lake");
   const [storageClass,setStorageClass]=useState(objectStorageProviders.aws.defaultStorageClass);
-  const [pathPrefix,setPathPrefix]=useState("raw");
+  const [pathPrefix,setPathPrefix]=useState("raw/ecommerce/");
   const [partitionByDate,setPartitionByDate]=useState(true);
   const [engine,setEngine]=useState<QueryEngineId>("athena");
-  const [state,setState]=useState(()=>newObjectStorageSimulationState());
+  const [state,setState]=useState(()=>runObjectStorageSimulation({
+    provider:"aws",dataSource:"ecommerce",format:"json",volumeMb:100,
+    partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake"
+  }));
 
   const providerMeta=objectStorageProviders[provider];
   const sourceMeta=objectStorageDataSources[dataSource];
@@ -96,9 +99,12 @@ export function CloudObjectStorageLab(){
   const generate=()=>setState(generateObjectStorageData({dataSource,format,volumeMb}));
   const run=()=>setState(runObjectStorageSimulation({provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket}));
   const reset=()=>{
-    setDataSource("ecommerce");setFormat("json");setVolumeMb(100);setBucket("dataprep-lake");
-    setStorageClass(objectStorageProviders[provider].defaultStorageClass);setPathPrefix("raw");setPartitionByDate(true);
-    setEngine(objectStorageProviders[provider].queryEngine);setState(newObjectStorageSimulationState());
+    setProvider("aws");setDataSource("ecommerce");setFormat("json");setVolumeMb(100);setBucket("dataprep-lake");
+    setStorageClass(objectStorageProviders.aws.defaultStorageClass);setPathPrefix("raw/ecommerce/");setPartitionByDate(true);
+    setEngine("athena");setState(runObjectStorageSimulation({
+      provider:"aws",dataSource:"ecommerce",format:"json",volumeMb:100,
+      partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake"
+    }));
   };
   const runQuery=()=>{
     if(!state.uploaded){
@@ -131,7 +137,7 @@ export function CloudObjectStorageLab(){
     <div className="os-stage-grid">
       <article className="os-stage ingest">
         <h3><span>1</span>Ingest Data</h3><p>Simulate data from different sources and formats.</p>
-        <label>Data Source<select value={dataSource} onChange={e=>{setDataSource(e.target.value as ObjectStorageDataSourceId);setState(newObjectStorageSimulationState());}}>{(Object.keys(objectStorageDataSources) as ObjectStorageDataSourceId[]).map(id=><option key={id} value={id}>{objectStorageDataSources[id].label}</option>)}</select></label>
+        <label>Data Source<select value={dataSource} onChange={e=>{const next=e.target.value as ObjectStorageDataSourceId;setDataSource(next);setPathPrefix(`raw/${objectStorageDataSources[next].folder}/`);setState(newObjectStorageSimulationState());}}>{(Object.keys(objectStorageDataSources) as ObjectStorageDataSourceId[]).map(id=><option key={id} value={id}>{objectStorageDataSources[id].label}</option>)}</select></label>
         <label>File Format<select value={format} onChange={e=>{setFormat(e.target.value as ObjectStorageFormatId);setState(newObjectStorageSimulationState());}}>{(Object.keys(objectStorageFormats) as ObjectStorageFormatId[]).map(id=><option key={id} value={id}>{objectStorageFormats[id].label}</option>)}</select></label>
         <label className="os-range"><span>Daily Volume <b>{volumeMb} MB</b></span><input type="range" min="50" max="500" step="50" value={volumeMb} onChange={e=>{setVolumeMb(Number(e.target.value));setState(newObjectStorageSimulationState());}}/></label>
         <button className="os-stage-primary" onClick={generate}><Database size={14}/>Generate Data</button>
@@ -143,7 +149,7 @@ export function CloudObjectStorageLab(){
         <h3><span><Box size={15}/></span>Object Storage</h3><p>Data is stored as objects in a bucket/container.</p>
         <label>{providerMeta.bucketLabel} / Container<select value={bucket} onChange={e=>setBucket(e.target.value)}><option value="dataprep-lake">dataprep-lake</option><option value="analytics-lake">analytics-lake</option></select></label>
         <label>Storage Class<select value={storageClass} onChange={e=>setStorageClass(e.target.value)}>{providerMeta.storageClasses.map(item=><option key={item}>{item}</option>)}</select></label>
-        <label>Path Prefix<input value={pathPrefix} onChange={e=>setPathPrefix(e.target.value)} placeholder="raw"/></label>
+        <label>Path Prefix<input value={pathPrefix} onChange={e=>setPathPrefix(e.target.value)} placeholder="raw/ecommerce/"/></label>
         <label className="os-check"><input type="checkbox" checked={partitionByDate} onChange={e=>setPartitionByDate(e.target.checked)}/><span><Check size={11}/></span>Partition by date <small title="Organize objects into date prefixes">?</small></label>
       </article>
 
