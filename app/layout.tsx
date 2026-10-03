@@ -80,6 +80,7 @@ import "./system-design-ingestion.css";
 import "./system-design-storage-modeling.css";
 import "./system-design-batch-streaming.css";
 import "./system-design-correctness-recovery.css";
+import "./system-design-scaling-bottlenecks.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
