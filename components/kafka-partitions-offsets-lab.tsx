@@ -93,7 +93,7 @@ export function KafkaPartitionsOffsetsLab(){
     <div className="kpo-lower-grid">
       <section className="kpo-event-log">
         <header><h3>Event Log <span>(Live)</span></h3><button onClick={()=>setState(s=>clearOffsetEvents(s))}>Clear</button></header>
-        <ol>{state.events.length?state.events.slice(-6).reverse().map(event=><li key={event.id}><i/><time>{event.time}</time><b className={"role-"+event.role.toLowerCase()}>{event.role}</b><span>{event.text}</span></li>):<li className="kpo-empty-log">No events yet. Run, send, or consume to create a trace.</li>}</ol>
+        <ol>{state.events.length?state.events.slice(-6).map(event=><li key={event.id}><i/><time>{event.time}</time><b className={"role-"+event.role.toLowerCase()}>{event.role}</b><span>{event.text}</span></li>):<li className="kpo-empty-log">No events yet. Run, send, or consume to create a trace.</li>}</ol>
       </section>
 
       <section className="kpo-details">
