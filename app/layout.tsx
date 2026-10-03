@@ -82,6 +82,7 @@ import "./system-design-batch-streaming.css";
 import "./system-design-correctness-recovery.css";
 import "./system-design-scaling-bottlenecks.css";
 import "./system-design-serving-consumer.css";
+import "./system-design-observability-security-cost.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
