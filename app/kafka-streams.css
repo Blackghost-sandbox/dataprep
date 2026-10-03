@@ -1,0 +1,58 @@
+/* Kafka / Kafka Streams & Stream Processing / Concept only */
+.kafka-module-page:has(.ksp-lab){--ksp-ink:#071735;--ksp-muted:#60718e;--ksp-violet:#6744ff}
+.kafka-module-page:has(.ksp-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.ksp-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.ksp-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.ksp-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.ksp-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.ksp-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.ksp-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.ksp-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.ksp-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.ksp-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.ksp-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.ksp-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.ksp-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.ksp-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.ksp-lab) .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.kafka-module-page:has(.ksp-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.ksp-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.ksp-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.ksp-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.ksp-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.ksp-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Kafka Streams is a stream processing library for building real-time applications over Kafka topics.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.ksp-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.ksp-lab) .lesson-aside>button:last-child{display:none}
+
+.ksp-lab{color:var(--ksp-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:12px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.ksp-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+.ksp-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.ksp-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2c66a5,#1f4e83);color:#fff;flex-shrink:0}
+.ksp-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.ksp-heading p{max-width:620px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.ksp-controls{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ksp-controls>button,.ksp-controls select{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.ksp-controls>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.ksp-controls .ksp-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+.ksp-controls label{display:grid;gap:4px}.ksp-controls label>span{font-size:10px;font-weight:700;color:#687892}.ksp-controls select{min-width:180px}
+.ksp-switch{display:flex!important;align-items:center!important;gap:7px!important;margin-bottom:6px!important}.ksp-switch input{position:absolute;opacity:0;pointer-events:none}.ksp-switch i{width:31px;height:18px;border-radius:999px;background:#cfd8e6;position:relative}.ksp-switch i:after{content:"";position:absolute;width:14px;height:14px;top:2px;left:2px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:.2s}.ksp-switch input:checked+i{background:#6744ff}.ksp-switch input:checked+i:after{transform:translateX(13px)}.ksp-switch b{font-size:10px;color:#526681;white-space:nowrap}
+
+.ksp-flow-grid{display:grid;grid-template-columns:minmax(0,.95fr) 22px minmax(0,2fr) 22px minmax(0,.75fr);gap:0;align-items:stretch}
+.ksp-input,.ksp-output{border:1px solid #dbe4ef;background:#fff;border-radius:10px;padding:9px;min-width:0}
+.ksp-input>header,.ksp-output>header{display:flex;align-items:center;gap:7px;margin-bottom:7px}.ksp-input>header>span,.ksp-output>header>span{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#14a85f;color:#fff}.ksp-output>header>span{background:#247de0}.ksp-input h3,.ksp-output h3{font-size:11px;margin:0;font-weight:800}.ksp-input h3 small,.ksp-output h3 small{font-size:10px;font-weight:600;color:#6a7b92}.ksp-input header button{margin-left:auto;border:1px solid #bfe4ff;background:#edf8ff;color:#2c79c7;border-radius:6px;padding:5px 7px;font-size:10px;display:flex;align-items:center;gap:4px}
+.ksp-add-row{display:grid;grid-template-columns:70px 1fr 54px;gap:5px;margin-bottom:6px}.ksp-add-row select,.ksp-add-row input,.ksp-add-row button{height:30px;border:1px solid #dce3ec;border-radius:6px;background:#fff;padding:0 7px;font-size:10px}.ksp-add-row button{background:#6744ff;color:#fff;border:0}
+.ksp-input table,.ksp-output table,.ksp-state-store table{width:100%;border-collapse:collapse}.ksp-input th,.ksp-input td,.ksp-output th,.ksp-output td,.ksp-state-store th,.ksp-state-store td{padding:7px 5px;border-bottom:1px solid #edf0f4;text-align:left;font-size:10px}.ksp-input th,.ksp-output th,.ksp-state-store th{background:#f7f9fc;color:#51627b}.ksp-input tr.filtered td:nth-child(3){color:#e64949}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;background:#19ad62}.dot.d1{background:#2f7de1}.dot.d2{background:#eb3e8f}.dot.d3{background:#1ac470}.dot.d4{background:#f06a14}
+.ksp-arrow{display:grid;place-items:center;color:#5e43d5;font-size:22px}
+.ksp-topology{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;align-items:stretch}.ksp-stage-wrap{display:grid;grid-template-columns:minmax(0,1fr) 14px;align-items:center}.ksp-stage-wrap:last-child{grid-template-columns:1fr}.ksp-stage-arrow{font-size:18px;color:#5a4bd5;text-align:center}.ksp-stage{border:1px solid #e1d6f4;border-radius:9px;background:#fff8fd;padding:9px;min-width:0}.ksp-stage.purple{background:#f7f4ff;border-color:#d7ccff}.ksp-stage.orange{background:#fff8ef;border-color:#f5d2a7}.ksp-stage.blue{background:#f1f9ff;border-color:#bddfff}.ksp-stage.green{background:#f2fff7;border-color:#bfe7cf}.ksp-stage.active{box-shadow:0 0 0 2px rgba(103,68,255,.18)}
+.ksp-stage header{display:flex;align-items:center;gap:6px}.ksp-stage header>span{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#e83c8f;color:#fff}.ksp-stage.purple header>span{background:#6744ff}.ksp-stage.orange header>span{background:#ee811a}.ksp-stage.blue header>span{background:#2685e8}.ksp-stage.green header>span{background:#16ad62}.ksp-stage h3{font-size:10px;margin:0}.ksp-stage>strong{display:block;margin-top:8px;font-size:10px;color:#e33588}.ksp-stage.purple>strong{color:#6744ff}.ksp-stage.orange>strong{color:#dd7108}.ksp-stage.blue>strong{color:#2475ce}.ksp-stage.green>strong{color:#0d8f51}.ksp-stage p{font-size:10px;color:#5c6f86;line-height:1.35;min-height:28px;margin:4px 0}.ksp-stage em{display:inline-flex;align-items:center;gap:4px;background:#daf8e5;color:#0a7e4c;border-radius:10px;padding:3px 7px;font-size:10px;font-style:normal}.ksp-stage>small{display:block;margin-top:7px;border-radius:6px;background:#f3f5f8;padding:5px;text-align:center;color:#63728a;font-size:10px}
+
+.ksp-lower-grid{display:grid;grid-template-columns:1.12fr .78fr .68fr;gap:10px;margin-top:11px}.ksp-lower-grid>section,.ksp-right-stack>section{min-width:0;border:1px solid #e1e7ef;border-radius:10px;background:#fff;padding:10px}.ksp-lower-grid header,.ksp-right-stack header{display:flex;align-items:center;gap:6px;margin-bottom:7px}.ksp-lower-grid h3,.ksp-right-stack h3{font-size:11px;margin:0;font-weight:800}
+.ksp-code,.ksp-event-log{background:#0e233e!important;border-color:#163b60!important;color:#fff}.ksp-code header button,.ksp-event-log header button{margin-left:auto;border:1px solid #325879;background:#1c4265;color:#eef6ff;border-radius:6px;padding:5px 8px;font-size:10px}.ksp-code pre{margin:0;color:#e8f3ff;font:10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;max-height:245px;overflow:auto}
+.ksp-event-log ol{list-style:none;padding:0;margin:0}.ksp-event-log li{display:grid;grid-template-columns:7px 50px 75px minmax(0,1fr);gap:7px;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:5px 0;font-size:10px}.ksp-event-log li>i{width:6px;height:6px;border-radius:50%;background:#ef7892}.ksp-event-log time{color:#bcd0e5}.ksp-event-log li>b{justify-self:start;border-radius:4px;padding:3px 6px;font-size:10px}.role-source{background:#f0a93a;color:#27313d}.role-filter{background:#7055e3;color:#fff}.role-aggregate{background:#2d83df;color:#fff}.ksp-event-log li>span{color:#dce8f6}.ksp-empty-log{display:block!important;color:#b9cadc}
+.ksp-right-stack{display:grid;gap:10px}.ksp-state-store>header>span,.ksp-takeaways>header>span{display:grid;place-items:center;width:25px;height:25px;border-radius:6px;background:#6846df;color:#fff}.ksp-state-store select{width:100%;height:31px;border:1px solid #dce3ec;border-radius:6px;background:#fff;padding:0 7px;font-size:10px;margin-bottom:6px}.ksp-takeaways{background:linear-gradient(135deg,#f1fff7,#f9fffc)!important;border-color:#c8ebd6!important}.ksp-takeaways>header>span{background:#19b16a}.ksp-takeaways ul{list-style:none;padding:0;margin:0;display:grid;gap:5px}.ksp-takeaways li{display:flex;align-items:flex-start;gap:6px;font-size:10px;color:#4b5e75}.ksp-takeaways li svg{color:#12a75f;flex-shrink:0}
+.ksp-status{margin-top:9px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.ksp-status>span:first-child{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.ksp-status p{margin:0;flex:1}
+.ksp-lab button:focus-visible,.ksp-lab input:focus-visible,.ksp-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+
+@media(max-width:1400px){.ksp-flow-grid{grid-template-columns:minmax(0,.85fr) 18px minmax(0,1.85fr) 18px minmax(0,.7fr)}.ksp-toolbar{align-items:flex-start}.ksp-controls{max-width:530px}.ksp-lower-grid{grid-template-columns:1fr 1fr}.ksp-right-stack{grid-column:1/-1;grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.kafka-module-page:has(.ksp-lab) .lesson-layout{grid-template-columns:1fr}.ksp-toolbar{flex-direction:column;align-items:stretch}.ksp-controls{max-width:none;justify-content:flex-start}.ksp-flow-grid,.ksp-lower-grid{grid-template-columns:1fr}.ksp-topology{grid-template-columns:1fr}.ksp-stage-wrap{grid-template-columns:1fr}.ksp-stage-arrow{transform:rotate(90deg);padding:4px}.ksp-arrow{transform:rotate(90deg);min-height:24px}.ksp-right-stack{grid-column:auto;grid-template-columns:1fr}}
+@media(max-width:760px){.ksp-controls{display:grid;grid-template-columns:1fr 1fr}.ksp-controls label{grid-column:span 2}.ksp-event-log li{grid-template-columns:7px 48px 67px minmax(0,1fr)}}
