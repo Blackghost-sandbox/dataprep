@@ -56,6 +56,13 @@ import "./window-functions-lab.css";
 import "./null-case-lab.css";
 import "./query-execution-lab.css";
 import "./dbt-project-structure.css";
+import "./dbt-incremental-models.css";
+import "./dbt-jinja-macros.css";
+import "./dbt-materializations.css";
+import "./dbt-tests-data-quality.css";
+import "./dbt-sources-source.css";
+import "./dbt-introduction.css";
+import "./dbt-models-ref.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
