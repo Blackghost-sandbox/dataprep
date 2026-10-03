@@ -47,7 +47,7 @@ export function runIngestionSimulation(scenario:IngestionScenario,state:Ingestio
   const failureFactor=(state.enabled.saas?.18:0)+(state.enabled.events?.28:0)+(state.enabled.oltp?.22:0)+(state.enabled.logs?.12:0);
   const records=Math.round(scenario.baseRecords*sourceFactor*modeFactor);
   const latencyMin=Number(Math.max(.2,scenario.baseLatencyMin*latencyFactor).toFixed(1));
-  const failed=Math.max(0,Math.round(scenario.baseFailed*(.55+failureFactor)));
+  const failed=Math.max(0,Math.round(scenario.baseFailed*(.38+failureFactor)));
   const throughput=Math.round(scenario.baseThroughput*sourceFactor*(state.mode==="batch"?1:state.mode==="cdc"?1.18:1.42));
   const logLines=[
     "[BATCH] Starting scheduled extract...",
