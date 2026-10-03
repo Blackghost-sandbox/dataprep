@@ -43,7 +43,7 @@ export function runIngestionSimulation(scenario:IngestionScenario,state:Ingestio
   const active=Object.values(state.enabled).filter(Boolean).length;
   const sourceFactor=Math.max(.35,active/3);
   const modeFactor=state.mode==="batch"?1:state.mode==="cdc"?1.12:1.28;
-  const latencyFactor=state.mode==="batch"?1:state.mode==="cdc"?.62:.38;
+  const latencyFactor=state.mode==="batch" ? 1 : state.mode==="cdc" ? .62 : .38;
   const failureFactor=(state.enabled.saas?.18:0)+(state.enabled.events?.28:0)+(state.enabled.oltp?.22:0)+(state.enabled.logs?.12:0);
   const records=Math.round(scenario.baseRecords*sourceFactor*modeFactor);
   const latencyMin=Number(Math.max(.2,scenario.baseLatencyMin*latencyFactor).toFixed(1));
