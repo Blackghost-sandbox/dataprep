@@ -1,0 +1,81 @@
+/* Kafka / Consumer Offsets / Concept only */
+.kafka-module-page:has(.kco-lab){--kco-ink:#071735;--kco-muted:#60718e;--kco-violet:#6744ff}
+.kafka-module-page:has(.kco-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.kco-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.kco-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.kco-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.kco-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.kco-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kco-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.kco-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.kco-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.kco-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.kco-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.kco-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.kco-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.kco-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.kco-lab) .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.kafka-module-page:has(.kco-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.kco-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.kco-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.kco-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.kco-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.kco-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Committed offset is the next offset the consumer will read on restart.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.kco-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.kco-lab) .lesson-aside>button:last-child{display:none}
+
+.kco-lab{color:var(--kco-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:14px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.kco-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+.kco-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.kco-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2c66a5,#1c4d81);color:#fff;flex-shrink:0}
+.kco-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.kco-heading p{max-width:590px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.kco-controls{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.kco-controls>button,.kco-controls select{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.kco-controls>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.kco-controls .kco-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+.kco-controls label{display:grid;gap:4px}.kco-controls label>span{font-size:10px;font-weight:700;color:#687892}
+.kco-controls select{min-width:150px}
+.kco-switch{display:flex!important;align-items:center!important;gap:7px!important;margin-bottom:6px}
+.kco-switch input{position:absolute;opacity:0;pointer-events:none}
+.kco-switch i{width:31px;height:18px;border-radius:999px;background:#cfd8e6;position:relative}.kco-switch i:after{content:"";position:absolute;width:14px;height:14px;top:2px;left:2px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:.2s}.kco-switch input:checked+i{background:#6744ff}.kco-switch input:checked+i:after{transform:translateX(13px)}
+.kco-switch b{font-size:10px;color:#526681;white-space:nowrap}
+
+.kco-main-grid{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(0,.86fr) minmax(0,.82fr);gap:10px;align-items:stretch}
+.kco-topic,.kco-consumer,.kco-processing{min-width:0;border-radius:12px;padding:11px}
+.kco-topic{border:1px solid #d8d1ff;background:linear-gradient(135deg,#f7f4ff,#fbfaff)}
+.kco-consumer{border:1px solid #a9d2ff;background:linear-gradient(135deg,#f4f9ff,#fbfdff)}
+.kco-processing{border:1px solid #ffc48e;background:linear-gradient(135deg,#fff9f1,#fffdf9)}
+.kco-topic>header,.kco-consumer>header,.kco-processing>header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.kco-topic>header>span,.kco-consumer>header>span,.kco-processing>header>span{display:grid;place-items:center;width:31px;height:31px;border-radius:8px;color:#fff}
+.kco-topic>header>span{background:#6744ff}.kco-consumer>header>span{background:#167de7}.kco-processing>header>span{background:#ff7a0b}
+.kco-topic h3,.kco-consumer h3,.kco-processing h3{font-size:13px;font-weight:800;margin:0}.kco-topic h3{color:#5133de}.kco-consumer h3{color:#176ec7}.kco-processing h3{color:#d95600}
+.kco-consumer>header small{margin-left:auto;display:flex;align-items:center;gap:4px;background:#ddf8e7;color:#087d4c;border-radius:12px;padding:4px 7px;font-size:10px}
+
+.kco-partition-card{border:1px solid #d9e1ec;background:#fff;border-radius:9px;padding:10px;position:relative}.kco-partition-card>header{display:flex;align-items:center;gap:8px}.kco-partition-card>header>span{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#ff7410;color:#fff}.kco-partition-card>header strong{font-size:11px;color:#d85900}.kco-partition-card>header p{font-size:10px;color:#5d708a;margin-top:2px}
+.kco-offset-strip{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;margin-top:11px}
+.kco-offset-strip button{position:relative;min-height:54px;border:1px solid #e2e6ee;border-radius:7px;background:#f5f7fa;font-size:10px;color:#405471}.kco-offset-strip button b{font-size:10px}.kco-offset-strip button svg{position:absolute;left:4px;top:4px}
+.kco-offset-strip .processed{background:#e8faef;border-color:#9ee1bd;color:#097647}.kco-offset-strip .current{background:#f0edff;border:2px solid #6744ff;color:#4f34c7}.kco-offset-strip .committed{background:#eef2f8;color:#61728b}.kco-offset-strip .next{background:#f3f5f8;color:#6a798e}.kco-offset-strip .available{background:#fff0f6;border-color:#f4bfd5;color:#ae3f71}
+.kco-loop-arrow{position:absolute;left:34%;bottom:-7px;color:#6744ff;font-size:19px}
+.kco-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}.kco-legend span{display:flex;align-items:center;gap:5px;font-size:10px;color:#60728c}.kco-legend i{width:10px;height:10px;border-radius:50%}.kco-legend i.processed{background:#1bb56a}.kco-legend i.current{background:#6744ff}.kco-legend i.not-fetched{background:#aeb9c8}.kco-legend i.available{background:#e85a9a}
+
+.kco-consumer dl{display:grid;gap:7px;margin:0}.kco-consumer dl>div{display:grid;grid-template-columns:1fr 86px;gap:8px;align-items:center;padding:4px 0}.kco-consumer dt{font-size:10px;color:#4f6380}.kco-consumer dd{margin:0;font-size:10px;font-weight:800;color:#233a59;padding:7px 9px;border-radius:6px;background:#f7f9fc}.kco-consumer .highlight-purple dd{background:#ede8ff;color:#4d34bf;font-size:13px}.kco-consumer .highlight-green dd{background:#e8faef;color:#0a7d4b;font-size:13px}
+
+.kco-processing ol{list-style:none;padding:0;margin:0 0 9px;display:grid;gap:5px}.kco-processing li{display:grid;grid-template-columns:23px minmax(0,1fr) 18px;gap:7px;align-items:center;border-radius:7px;background:#f3f5f9;padding:7px}.kco-processing li.is-active{background:#eee9ff;color:#5b3fd0}.kco-processing li>b{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#8998ad;color:#fff;font-size:10px}.kco-processing li.is-active>b{background:#6744ff}.kco-processing li>span{font-size:10px}
+.kco-spinner{width:15px;height:15px;border-radius:50%;border:2px solid #d4ccff;border-top-color:#6744ff;animation:kco-spin 1s linear infinite}@keyframes kco-spin{to{transform:rotate(360deg)}}
+.kco-process,.kco-commit{width:100%;height:35px;border:0;border-radius:7px;font-size:11px;font-weight:800}.kco-process{background:linear-gradient(135deg,#744cff,#5f2df0);color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}.kco-commit{background:#eee9ff;color:#6541dd}
+.kco-autocommit{display:flex!important;align-items:center!important;gap:7px!important;margin:8px 0;font-size:10px;color:#4e607b}.kco-autocommit input{accent-color:#6744ff}
+
+.kco-lower-grid{display:grid;grid-template-columns:.95fr 1.08fr .8fr;gap:10px;margin-top:12px}.kco-lower-grid>section{min-width:0;border:1px solid #e2e8f1;border-radius:10px;background:#fff;padding:10px}.kco-lower-grid header{display:flex;align-items:center;gap:7px;margin-bottom:8px}.kco-lower-grid h3{font-size:11px;margin:0;font-weight:800}.kco-lower-grid h3 small{font-size:10px;font-weight:600;color:#61728a}
+.kco-details>header>span{display:grid;place-items:center;width:25px;height:25px;border-radius:6px;background:#e73791;color:#fff}.kco-details pre{min-height:145px;border:1px solid #dce3ed;border-radius:7px;background:#fbfcff;padding:9px;font:10px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;color:#35506f;white-space:pre-wrap}.kco-details>p{font-size:10px;color:#718198}
+.kco-event-log{background:linear-gradient(135deg,#0f2b49,#0d2340)!important;border-color:#173a5d!important;color:#fff}.kco-event-log header button{margin-left:auto;border:1px solid #315777;background:#1d4165;color:#e8f4ff;border-radius:6px;padding:5px 8px;font-size:10px}.kco-event-log ol{list-style:none;padding:0;margin:0}.kco-event-log li{display:grid;grid-template-columns:7px 51px 65px minmax(0,1fr);gap:7px;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:6px 0;font-size:10px}.kco-event-log li>i{width:6px;height:6px;border-radius:50%;background:#1ac879}.kco-event-log time{color:#bfd0e2}.kco-event-log li>b{justify-self:start;border-radius:4px;padding:3px 6px;font-size:10px;background:#6fc7f2;color:#0b3955}.kco-event-log li>b.role-process{background:#f4a129;color:#2c2a22}.kco-event-log li>b.role-success{background:#18b86a;color:#082c1b}.kco-event-log li>b.role-commit{background:#7d5de6;color:#fff}.kco-event-log li>b.role-restart{background:#ef5d94;color:#fff}.kco-event-log li>span{color:#d9e7f5}.kco-empty-log{display:block!important;color:#b9cadc}
+
+.kco-progress>header>span{display:grid;place-items:center;width:25px;height:25px;border-radius:6px;background:#19a86a;color:#fff}.kco-progress-line{position:relative;display:grid;gap:9px;padding-left:22px}.kco-progress-line:before{content:"";position:absolute;left:8px;top:7px;bottom:8px;width:2px;background:#cfd8e5}.kco-progress-line article{display:grid;grid-template-columns:15px minmax(0,1fr) 44px;gap:7px;align-items:center;position:relative}.kco-progress-line article>i{width:12px;height:12px;border-radius:50%;margin-left:-20px;z-index:1}.kco-progress-line i.done{background:#16ad63}.kco-progress-line i.commit{background:#6744ff}.kco-progress-line i.next{background:#fff;border:2px solid #6d88ac}.kco-progress-line span{font-size:10px;color:#4f627f}.kco-progress-line b{display:grid;place-items:center;border-radius:6px;background:#e7faee;color:#087a49;padding:6px;font-size:11px}.kco-progress-line article:nth-child(2) b{background:#ece8ff;color:#4d34c2}.kco-progress-line article:nth-child(3) b{background:#eef2f7;color:#48607d}
+.kco-tip{display:flex;gap:7px;border:1px solid #f4dfab;background:#fff9df;border-radius:7px;padding:8px;margin-top:11px;color:#de9b00}.kco-tip p{font-size:10px;line-height:1.45;color:#5d582f;margin:0}
+
+.kco-status{margin-top:9px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.kco-status>span:first-child{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.kco-status p{margin:0;flex:1}
+.kco-lab button:focus-visible,.kco-lab input:focus-visible,.kco-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+@media(max-width:1350px){.kco-main-grid{grid-template-columns:1.35fr .8fr}.kco-processing{grid-column:1/-1}.kco-toolbar{align-items:flex-start}.kco-controls{max-width:520px}.kco-lower-grid{grid-template-columns:1fr 1fr}.kco-progress{grid-column:1/-1}}
+@media(max-width:1050px){.kafka-module-page:has(.kco-lab) .lesson-layout{grid-template-columns:1fr}.kco-toolbar{flex-direction:column;align-items:stretch}.kco-controls{max-width:none;justify-content:flex-start}.kco-main-grid,.kco-lower-grid{grid-template-columns:1fr}.kco-processing,.kco-progress{grid-column:auto}}
+@media(max-width:760px){.kco-offset-strip{grid-template-columns:repeat(4,1fr)}.kco-controls{display:grid;grid-template-columns:1fr 1fr}.kco-controls label{grid-column:span 2}.kco-event-log li{grid-template-columns:7px 48px 62px minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.kco-spinner{animation:none}}
