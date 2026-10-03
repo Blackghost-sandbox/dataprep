@@ -31,6 +31,7 @@ import "./kafka-connect.css";
 import "./kafka-streams.css";
 import "./kafka-reliability-production.css";
 import "./kafka-architecture-review.css";
+import "./kafka-ordering-delivery.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
