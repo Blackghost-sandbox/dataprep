@@ -128,7 +128,7 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
   const factDimensionSimulation=isModeling&&lesson.id==="facts-dimensions"&&active==="Simulation";
   const starSchemaSimulation=isModeling&&lesson.id==="star-schema"&&active==="Simulation";
   const snowflakeSchemaSimulation=isModeling&&lesson.id==="snowflake-schema"&&active==="Simulation";
-  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || introSimulation || cardinalitySimulation || erBuilder || normalizationExperience || denormalizationConcept || oltpOlapSimulation || factDimensionSimulation || starSchemaSimulation || snowflakeSchemaSimulation ? " sql-concept-shell" : "")}>
+  return <section className={"spark-lesson"+(((isSql || isModeling) && active==="Concept") || (isDbt && lesson.id==="dbt-introduction" && active==="Concept") || introSimulation || cardinalitySimulation || erBuilder || normalizationExperience || denormalizationConcept || oltpOlapSimulation || factDimensionSimulation || starSchemaSimulation || snowflakeSchemaSimulation ? " sql-concept-shell" : "")}>
     {storageError && <p role="status" className="spark-notice">Device storage is unavailable. Keep a copy of your notes; progress may be lost when you leave.</p>}
     {!ready ? <p role="status">Loading your lesson…</p> : <>
     {active === "Simulation" && isModeling && lesson.id === "introduction" && <ModelingIntroLab focused/>}
