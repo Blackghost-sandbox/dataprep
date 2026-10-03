@@ -68,7 +68,7 @@ export const sparkDataSources = {
 } satisfies Record<SparkDataSourceId,{label:string;short:string;uri:string}>;
 
 export const workerTypes = {
-  "Standard (4 vCPU, 16 GB)":{vcpu:4,memory:16,speed:1,costPerWorkerHour:.63},
+  "Standard (4 vCPU, 16 GB)":{vcpu:4,memory:16,speed:1,costPerWorkerHour:.532},
   "Memory Optimized (4 vCPU, 32 GB)":{vcpu:4,memory:32,speed:1.08,costPerWorkerHour:.83},
   "Compute Optimized (8 vCPU, 16 GB)":{vcpu:8,memory:16,speed:1.42,costPerWorkerHour:1.02},
 } satisfies Record<SparkWorkerType,{vcpu:number;memory:number;speed:number;costPerWorkerHour:number}>;
