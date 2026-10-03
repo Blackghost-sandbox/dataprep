@@ -107,13 +107,13 @@ export function computeCostMetrics(controls:CostControls):CostMetrics{
 
   const monthlyIngestGb=controls.dailyDataGb*30;
   const storageTb=monthlyIngestGb*(controls.retentionDays/30)/1024;
-  const storageCost=storageTb*1024*storage.monthlyGb*(controls.lifecyclePolicy?.86:1);
+  const storageCost=storageTb*1024*storage.monthlyGb*(controls.lifecyclePolicy ? .86 : 1);
 
-  const scanTb=controls.dailyDataGb/1024*30*scenario.baseScanFactor*(controls.pruneScans?.42:1);
+  const scanTb=controls.dailyDataGb/1024*30*scenario.baseScanFactor*(controls.pruneScans ? .42 : 1);
   const computeScale=Math.max(.45,controls.dailyDataGb/500);
-  const computeCost=compute.baseMonthly*computeScale*(controls.autoScaling?.82:1);
+  const computeCost=compute.baseMonthly*computeScale*(controls.autoScaling ? .82 : 1);
 
-  const servingCost=serving.baseMonthly*Math.max(.5,controls.dailyDataGb/500)*(controls.cacheServing?.78:1);
+  const servingCost=serving.baseMonthly*Math.max(.5,controls.dailyDataGb/500)*(controls.cacheServing ? .78 : 1);
   const networkGb=controls.crossRegion?Math.round(monthlyIngestGb*.28):Math.round(monthlyIngestGb*.03);
   const networkCost=networkGb*(controls.crossRegion?.09:.015);
   const opsCost=controls.managedServices?260:420;
