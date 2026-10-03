@@ -44,20 +44,21 @@ const seedRecords = [
 ];
 
 function timeParts(sequence:number){
-  const total=24*60+15+sequence;
-  const minute=Math.floor(total/60);
+  const total=10*3600+24*60+15+sequence;
+  const hour=Math.floor(total/3600)%24;
+  const minute=Math.floor((total%3600)/60);
   const second=total%60;
-  return {minute,second};
+  return {hour,minute,second};
 }
 
 function timestampFor(sequence:number){
-  const {minute,second}=timeParts(sequence);
-  return `2026-10-02 10:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
+  const {hour,minute,second}=timeParts(sequence);
+  return `2026-10-02 ${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
 }
 
 function clockFor(sequence:number){
-  const {minute,second}=timeParts(sequence);
-  return `10:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
+  const {hour,minute,second}=timeParts(sequence);
+  return `${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
 }
 
 function hashKey(key:string){
