@@ -121,14 +121,6 @@ export function runDbtDataTests(rows: DbtTestRow[]): DbtTestFailure[] {
     rowIndexes:nullCustomer,
   });
 
-  const nullAmount=rows.flatMap((row,index)=>row.total_amount.trim()===""?[index]:[]);
-  if(nullAmount.length)failures.push({
-    id:"not-null-amount",
-    test:"not_null_stg_orders_total_amount",
-    detail:nullAmount.length+" null value"+(nullAmount.length===1?"":"s"),
-    rowIndexes:nullAmount,
-  });
-
   const invalidAmount=rows.flatMap((row,index)=>{
     const value=Number(row.total_amount);
     return row.total_amount.trim()!=="" && (!Number.isFinite(value)||value<0)?[index]:[];
@@ -155,7 +147,7 @@ export function buildDbtTestTerminal(failures: DbtTestFailure[]): string[] {
     "Running with dbt=1.7.0",
     "Found 4 tests, 4 nodes",
     ...configured.map((test,index)=>{
-      const failed=failures.some(item=>item.test===test || (test==="accepted_values_stg_orders_total_amount" && item.id==="not-null-amount"));
+      const failed=failures.some(item=>item.test===test);
       return "["+(index+1)+"/4] test "+test+"   ... "+(failed?"FAIL":"PASS");
     }),
     "Finished running 4 tests in 1.62s",
