@@ -90,7 +90,7 @@ export function replicaBrokers(partition:number,brokerCount:number,replicationFa
   return replicas;
 }
 
-function seedRecord(item:typeof starterRecords[number],index:number):ClusterRecord{
+function seedRecord(item:(typeof starterRecords)[number],index:number):ClusterRecord{
   return {
     id:"seed-"+item.order_id,
     ...item,
@@ -112,7 +112,7 @@ export function createClusterState(brokerCount=3,replicationFactor=3,topic:Clust
     partitionCount,
     nextOffsets:baseOffsets.map(offset=>offset+1),
     records,
-    consumed:records.slice(0,3).map(rows=>rows[0]).filter(Boolean),
+    consumed:records.slice(0,3).map(rows=>rows[0]).filter((record):record is ClusterRecord=>record!==undefined),
     selectedPartition:0,
     sequence:6,
     events:[
