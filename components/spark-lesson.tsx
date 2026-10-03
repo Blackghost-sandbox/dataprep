@@ -46,6 +46,7 @@ import { CloudIntroductionLab } from "@/components/cloud-introduction-lab";
 import { SystemDesignVisual } from "@/components/system-design-visual";
 import { SystemDesignFrameworkLab } from "@/components/system-design-framework-experience";
 import { SystemScaleEstimationLab } from "@/components/system-design-scale-estimation-experience";
+import { SystemIngestionLab } from "@/components/system-design-ingestion-experience";
 import { kafkaById } from "@/lib/kafka-lessons";
 import { KafkaConcept } from "@/components/kafka-visuals";
 import { LessonDecisionPractice } from "@/components/lesson-decision-practice";
@@ -175,7 +176,7 @@ export function SparkLessonPanel({lesson, active, module = "spark", onTab, onLes
       <div className="spark-walkthrough"><h3>Step {step+1} of {lesson.example.walkthrough.length}</h3><p><Text>{lesson.example.walkthrough[step]}</Text></p><div className="spark-actions"><button disabled={step===0} onClick={()=>setStep(s=>s-1)}>Previous step</button><button disabled={step===lesson.example.walkthrough.length-1} onClick={()=>setStep(s=>s+1)}>Next step</button></div></div>
       <h3>Expected result</h3><pre className="spark-output">{lesson.example.output}</pre><p className="spark-caption">Illustrative expected result; formatting and timing may differ in your environment.</p>
     </>)}
-    {active === "Hands-on" && (isSystem && lesson.id === "scale-estimation" ? <SystemScaleEstimationLab/> : <>
+    {active === "Hands-on" && (isSystem && lesson.id === "scale-estimation" ? <SystemScaleEstimationLab/> : isSystem && lesson.id === "ingestion-design" ? <SystemIngestionLab/> : <>
       {(lesson.id === "hands-on-task" || isPython && lesson.id==="py-hands-on-task") && <SparkTopicVisual id={lesson.id}/>}
       <h2>{lesson.title === "Hands-on Task" ? (isPython ? "Data-cleaning pipeline mini-project" : "Sales pipeline mini-project") : "Try it yourself"}</h2>{setup}
       <p className="spark-task"><Text>{lesson.practice.task}</Text></p>
