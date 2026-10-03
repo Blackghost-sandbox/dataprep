@@ -101,15 +101,16 @@ export function KafkaBrokersClusterLab(){
         <div className={"kbc-brokers brokers-"+state.brokerCount}>
           {Array.from({length:state.brokerCount},(_,index)=>{
             const broker=index+1, placement=brokerPartitions(state,broker);
+            const visiblePlacement=placement.slice(0,3);
             const leaders=placement.filter(item=>item.leader).length;
             const tone=brokerTone[index]??"blue";
             return <section key={broker} className={"kbc-broker "+tone+(selectedBroker===broker?" is-selected":"")}>
               <button className="kbc-broker-head" onClick={()=>setSelectedBroker(broker)}>
                 <span><Server size={16}/></span><div><h4>Broker {broker}</h4><small>broker-{broker}:9092</small></div>
               </button>
-              <div className="kbc-broker-metrics"><span>Leader: <b>{leaders}</b></span><span>Replicas: <b>{placement.length}</b></span></div>
+              <div className="kbc-broker-metrics"><span>Leader: <b>{leaders}</b></span><span>Replicas: <b>{Math.min(3,placement.length)}</b></span></div>
               <div className="kbc-replica-stack">
-                {placement.map(item=><button key={item.partition} className={"kbc-replica "+(item.leader?"leader":"replica")} onClick={()=>setState(s=>selectClusterPartition(s,item.partition))}>
+                {visiblePlacement.map(item=><button key={item.partition} className={"kbc-replica "+(item.leader?"leader":"replica")} onClick={()=>setState(s=>selectClusterPartition(s,item.partition))}>
                   <div><Database size={14}/><strong>P{item.partition} ({item.leader?"Leader":"Replica"})</strong></div>
                   <span>{item.replicas.map(replica=><b key={replica} className={"replica-"+replica}>{replica}</b>)}</span>
                 </button>)}
