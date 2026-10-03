@@ -86,7 +86,7 @@ function vmMetrics(controls:ComputeControls,scenario:ComputeScenarioId):ComputeM
   const parallel=Math.max(1,controls.vmInstances*vm.capacity);
   const processing=Math.max(.4,meta.baseMinutes*(scenario==="daily-sales"?1.19:1.12)/Math.min(1.2,parallel/2));
   return {
-    startup:`~ ${vm.startup.toFixed(1).replace(".0","")}–${Math.ceil(vm.startup+.6)} min`,
+    startup:controls.vmInstanceType==="t3.medium"?"~ 2–3 min":controls.vmInstanceType==="m6i.large"?"~ 1–2 min":"~ 1–2 min",
     processingMinutes:round1(processing),
     scalability:controls.vmScaling==="Manual"?"Manual":"Automatic",
     isolation:"Strong",
