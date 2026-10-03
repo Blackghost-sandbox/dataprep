@@ -111,6 +111,14 @@ export function readMessage(message:SchemaMessage,reader:SchemaVersion):SchemaRe
   const ignoredFields:string[]=[];
 
   if(reader==="v1"){
+    if(message.schema==="v3"&&message.product===undefined){
+      return {
+        ok:false,
+        value:null,
+        ignoredFields,
+        reason:"Reader V1 requires product, but Writer V3 removed it. This retained record is incompatible under the strict V1 contract.",
+      };
+    }
     if(message.currency!==undefined)ignoredFields.push("currency");
     return {
       ok:true,
@@ -122,9 +130,7 @@ export function readMessage(message:SchemaMessage,reader:SchemaVersion):SchemaRe
       ignoredFields,
       reason:message.currency!==undefined
         ?"Unknown field 'currency' is ignored by Reader V1 in this teaching compatibility model."
-        :message.product===undefined
-          ?"Reader V1 can deserialize the retained record, but required product data is missing and resolves to null in this demo."
-          :"Reader V1 matched the expected fields.",
+        :"Reader V1 matched the expected fields.",
     };
   }
 
