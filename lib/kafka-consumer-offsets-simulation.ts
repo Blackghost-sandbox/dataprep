@@ -71,11 +71,11 @@ export function createConsumerOffsetsState():ConsumerOffsetsState{
     running:true,
     sequence:5,
     events:[
-      {id:"seed-fetch-211",time:"10:24:12",role:"FETCH",text:"Fetched message at offset 211"},
-      {id:"seed-process-211",time:"10:24:13",role:"PROCESS",text:"Processing message 211"},
-      {id:"seed-success-211",time:"10:24:13",role:"SUCCESS",text:"Processed message 211"},
-      {id:"seed-commit-212",time:"10:24:13",role:"COMMIT",text:"Committed offset 212"},
-      {id:"seed-fetch-212",time:"10:24:14",role:"FETCH",text:"Fetched message at offset 212"},
+      {id:"seed-fetch-210",time:"10:24:12",role:"FETCH",text:"Fetched message at offset 210"},
+      {id:"seed-process-210",time:"10:24:13",role:"PROCESS",text:"Processing message 210"},
+      {id:"seed-success-210",time:"10:24:13",role:"SUCCESS",text:"Processed message 210"},
+      {id:"seed-commit-211",time:"10:24:13",role:"COMMIT",text:"Committed offset 211"},
+      {id:"seed-fetch-211",time:"10:24:14",role:"FETCH",text:"Fetched message at offset 211"},
     ],
     status:"Ready. Fetch position is independent from durable committed progress.",
   };
