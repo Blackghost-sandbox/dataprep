@@ -97,7 +97,7 @@ function IncrementalFlow({
   dataset:ReturnType<typeof getDbtIncrementalDataset>;
 }){
   const defaultResult=runDbtIncrementalMerge(dataset,dataset.incoming);
-  const statuses=new Map(defaultResult.rows.filter(row=>row.status!=="unchanged").map(row=>[row.order_id,row.status as "updated"|"inserted"]));
+  const statuses=new Map<string,"updated"|"inserted">(defaultResult.rows.filter(row=>row.status!=="unchanged").map(row=>[row.order_id,row.status as "updated"|"inserted"] as const));
 
   return <section className="dbti-explainer">
     <header className="dbti-section-head">
