@@ -2,8 +2,8 @@
 
 import {useMemo,useState} from "react";
 import {
-  Boxes, CheckCircle2, ChevronLeft, ChevronRight, Cloud, Container, Database,
-  FileOutput, Gauge, GraduationCap, Layers3, Play, RefreshCcw, Server,
+  CheckCircle2, ChevronLeft, ChevronRight, Cloud, Container, Database,
+  FileOutput, Gauge, GraduationCap, Play, RefreshCcw, Server,
   Sparkles, TimerReset, Zap
 } from "lucide-react";
 import {
