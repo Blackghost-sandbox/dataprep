@@ -1,0 +1,78 @@
+/* Kafka / Ordering & Delivery Semantics / Concept only */
+.kafka-module-page:has(.kod-lab){--kod-ink:#071735;--kod-muted:#60718e;--kod-violet:#6744ff}
+.kafka-module-page:has(.kod-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.kod-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.kod-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.kod-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.kod-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.kod-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kod-lab) .lesson-hero h1+p{font-size:0}
+.kafka-module-page:has(.kod-lab) .lesson-hero h1+p:after{content:"Understand how Kafka ensures ordering, and choose the right delivery guarantees for your use case.";font-size:12px;line-height:1.55;color:#5d6f8d}
+.kafka-module-page:has(.kod-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.kod-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.kod-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.kod-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.kod-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.kod-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.kod-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.kod-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.kod-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.kod-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.kod-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.kod-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.kod-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.kod-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Kafka guarantees order within a partition. At-least-once may duplicate records; exactly-once Kafka processing requires idempotent producers and transactions.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.kod-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.kod-lab) .lesson-aside>button:last-child{display:none}
+
+.kod-lab{color:var(--kod-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:13px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.kod-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:10px}
+.kod-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.kod-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2c66a5,#1f4e83);color:#fff;flex-shrink:0}
+.kod-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.kod-heading p{max-width:650px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.kod-controls{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.kod-controls>button,.kod-controls select{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.kod-controls>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.kod-controls label{display:grid;gap:4px}.kod-controls label>span{font-size:10px;font-weight:700;color:#687892}.kod-controls select{min-width:210px}
+.kod-controls .kod-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+
+.kod-mode-speed-row{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:10px}
+.kod-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;min-width:420px}
+.kod-modes button,.kod-speed button{height:34px;border:1px solid #dfe5ef;border-radius:7px;background:#f7f9fc;color:#5b6e86;font-size:10px;font-weight:700}
+.kod-modes button.active,.kod-speed button.active{border-color:#8c6fff;background:#eee9ff;color:#6543d9;box-shadow:0 0 0 1px rgba(103,68,255,.08)}
+.kod-speed{display:flex;align-items:center;gap:5px}.kod-speed>span{font-size:10px;font-weight:700;color:#50627a;margin-right:4px}.kod-speed button{padding:0 10px;background:#fff}
+
+.kod-main-grid{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:10px}
+.kod-diagram{display:grid;grid-template-columns:minmax(0,.72fr) 26px minmax(0,1.2fr) 26px minmax(0,.82fr);align-items:center;gap:0}
+.kod-producer,.kod-topic,.kod-consumers{min-width:0;border:1px solid #e0e5ed;border-radius:10px;padding:10px;background:#fff}
+.kod-producer{background:linear-gradient(180deg,#f8f5ff,#fff);border-color:#ddd2ff}.kod-topic{background:linear-gradient(180deg,#f2f9ff,#fbfdff);border-color:#b9dbff}.kod-consumers{background:linear-gradient(180deg,#f1fff7,#fbfffd);border-color:#bde6cd}
+.kod-producer>header,.kod-topic>header,.kod-consumers>header{display:flex;align-items:center;gap:8px;margin-bottom:8px}.kod-producer>header>span,.kod-topic>header>span,.kod-consumers>header>span{display:grid;place-items:center;width:31px;height:31px;border-radius:8px;color:#fff}
+.kod-producer>header>span{background:#6744ff}.kod-topic>header>span{background:#1881e2}.kod-consumers>header>span{background:#18ad62}
+.kod-producer h3,.kod-topic h3,.kod-consumers h3{font-size:12px;margin:0;font-weight:800}.kod-producer h3{color:#5738cf}.kod-topic h3{color:#1571c8}.kod-consumers h3{color:#0a8a50}
+.kod-producer>p,.kod-consumers>p{font-size:10px;line-height:1.45;color:#576a83;margin:7px 0}
+.kod-producer pre{margin:0;border:1px solid #e1ddf4;border-radius:7px;background:#fbfaff;padding:8px;font:10px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#2f4663;white-space:pre-wrap}
+.kod-producer footer,.kod-consumers footer{display:flex;justify-content:space-between;gap:7px;margin-top:8px;font-size:9px;color:#64758c}.kod-producer footer b,.kod-consumers footer b{color:#5336c8}
+.kod-arrow{display:grid;place-items:center;color:#5e48d7;font-size:26px}
+.kod-partitions{display:grid;gap:7px}.kod-partitions section{border:1px solid #dce4ed;border-radius:7px;background:#fff;padding:7px}.kod-partitions section.selected{box-shadow:0 0 0 2px rgba(103,68,255,.14)}.kod-partitions section>header{display:flex;align-items:center;gap:5px;margin-bottom:5px}.kod-partitions section>header strong{font-size:10px}.kod-partitions section>header svg{color:#344b6b}.kod-partitions section>div{display:flex;gap:5px}.kod-partitions button{min-width:46px;border:1px solid #dfe4ed;border-radius:6px;background:#f7f9fc;padding:5px 6px;color:#374e6c}.kod-partitions button small{display:block;font-size:8px;color:#8a98a8}.kod-partitions button b{font-size:10px}.kod-partitions button.fetched{border-color:#8f72ff;background:#eee9ff;color:#593cc6}.kod-partitions button.processed{background:#e9faef;border-color:#afe4c2;color:#0a7c4a}.kod-partitions button.duplicate{background:#fff3df;border-color:#f0c98b;color:#b66b08}.kod-partitions button.lost{background:#ffe9ee;border-color:#efb4c4;color:#c52c51}
+.kod-topic footer{margin-top:8px;border-top:1px solid #e5eaf1;padding-top:7px;display:flex;justify-content:space-between;font-size:9px;color:#5e7087}.kod-topic footer strong{color:#5e43d3}
+.kod-consumers>div{display:grid;gap:6px}.kod-consumers>div button{height:32px;border:1px solid #dce7e1;border-radius:7px;background:#f7fffa;color:#49645a;font-size:10px;display:flex;align-items:center;gap:7px;padding:0 9px}.kod-consumers>div button.active{border-color:#91d9af;background:#e9faef;color:#0a7e4b;font-weight:800}
+
+.kod-guarantees{border:1px solid #e1e6ee;border-radius:10px;background:#fff;padding:10px}.kod-guarantees>header{display:flex;align-items:center;gap:7px;margin-bottom:8px}.kod-guarantees>header>span{display:grid;place-items:center;width:29px;height:29px;border-radius:7px;background:#2a79dc;color:#fff}.kod-guarantees h3{font-size:11px;margin:0}
+.kod-guarantees>button{width:100%;display:grid;grid-template-columns:20px minmax(0,1fr);gap:7px;border:1px solid #e2e7ef;border-radius:8px;background:#fff;padding:9px;text-align:left;margin-top:7px}.kod-guarantees>button.active{border-color:#8b6df4;background:#faf8ff;box-shadow:0 0 0 1px rgba(103,68,255,.08)}.kod-guarantees .radio{display:grid;place-items:center;width:18px;height:18px;border:1px solid #bac7d6;border-radius:50%}.kod-guarantees .radio i{width:8px;height:8px;border-radius:50%;background:#6744ff}.kod-guarantees strong{font-size:10px}.kod-guarantees p{font-size:9px;line-height:1.4;color:#5c6f87;margin:3px 0 0}
+.kod-guarantee-note{display:flex;gap:6px;margin-top:8px;border:1px solid #c9e9d5;background:#effff5;border-radius:7px;padding:7px;color:#0b9054}.kod-guarantee-note p{margin:0;color:#416455;font-size:9px;line-height:1.45}
+
+.kod-lower-grid{display:grid;grid-template-columns:1.35fr .72fr .9fr;gap:10px;margin-top:10px}
+.kod-lower-grid>section{min-width:0;border:1px solid #e1e7ef;border-radius:10px;background:#fff;padding:10px}.kod-lower-grid header{display:flex;align-items:center;gap:7px;margin-bottom:8px}.kod-lower-grid h3{font-size:11px;margin:0;font-weight:800}
+.kod-event-log{background:#0e233e!important;border-color:#173a5d!important;color:#fff}.kod-event-log header button{margin-left:auto;border:1px solid #315777;background:#1d4165;color:#e8f4ff;border-radius:6px;padding:5px 8px;font-size:10px}.kod-event-log ol{list-style:none;padding:0;margin:0}.kod-event-log li{display:grid;grid-template-columns:7px 51px 74px minmax(0,1fr);gap:7px;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding:5px 0;font-size:9px}.kod-event-log li>i{width:6px;height:6px;border-radius:50%;background:#8b68ef}.kod-event-log time{color:#bcd0e5}.kod-event-log li>b{justify-self:start;border-radius:4px;padding:3px 5px;font-size:9px}.role-producer{background:#f0af31;color:#27313d}.role-broker{background:#7655df;color:#fff}.role-consumer{background:#1eba6d;color:#092d1b}.role-commit{background:#28a0db;color:#08283c}.role-retry{background:#ef8b24;color:#2d2922}.role-txn{background:#b04fe0;color:#fff}.kod-event-log li>span{color:#dce8f5}.kod-empty{display:block!important;color:#b9cadc}
+.kod-partition-state>header>span,.kod-takeaways>header>span{display:grid;place-items:center;width:26px;height:26px;border-radius:6px;background:#6744ff;color:#fff}.kod-takeaways>header>span{background:#16a8c1}
+.kod-partition-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.kod-partition-tabs button{height:28px;border:1px solid #e0e5ec;border-radius:6px;background:#f8fafc;color:#586b83;font-size:9px}.kod-partition-tabs button.active{background:#eee9ff;color:#6543dc;border-color:#a991f8;font-weight:800}
+.kod-offset-row{display:flex;gap:5px;margin:8px 0}.kod-offset-row button{min-width:42px;border:1px solid #dfe5ed;border-radius:6px;background:#f7f9fc;padding:5px;color:#425875}.kod-offset-row button small{display:block;height:9px;font-size:8px}.kod-offset-row button.processed{background:#e9faef;border-color:#afe2c1;color:#087c49}.kod-offset-row button.fetched{background:#eee9ff;border-color:#9578f5;color:#5b3fc7}.kod-offset-row button.duplicate{background:#fff4df;border-color:#efca90;color:#a9650d}.kod-offset-row button.lost{background:#ffe9ee;border-color:#efb4c4;color:#c82a50}
+.kod-partition-state dl{display:grid;gap:5px;margin:0}.kod-partition-state dl>div{display:flex;justify-content:space-between;gap:8px;font-size:9px}.kod-partition-state dt{color:#60718a}.kod-partition-state dd{margin:0;font-weight:800;color:#273d59}
+.kod-takeaways ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}.kod-takeaways li{display:flex;align-items:flex-start;gap:6px;font-size:10px;line-height:1.4;color:#485b73}.kod-takeaways li svg{color:#13aa61;flex-shrink:0;margin-top:1px}
+.kod-status{margin-top:8px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.kod-status>span:first-child{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.kod-status p{margin:0;flex:1}
+.kod-lab button:focus-visible,.kod-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+
+@media(max-width:1400px){.kod-main-grid{grid-template-columns:minmax(0,1fr) 225px}.kod-diagram{grid-template-columns:minmax(0,.68fr) 22px minmax(0,1.15fr) 22px minmax(0,.78fr)}.kod-lower-grid{grid-template-columns:1.15fr .85fr}.kod-takeaways{grid-column:1/-1}}
+@media(max-width:1100px){.kafka-module-page:has(.kod-lab) .lesson-layout{grid-template-columns:1fr}.kod-toolbar{flex-direction:column;align-items:stretch}.kod-controls{justify-content:flex-start}.kod-main-grid{grid-template-columns:1fr}.kod-diagram{grid-template-columns:1fr}.kod-arrow{transform:rotate(90deg);min-height:24px}.kod-lower-grid{grid-template-columns:1fr}.kod-takeaways{grid-column:auto}}
+@media(max-width:760px){.kod-mode-speed-row{flex-direction:column;align-items:stretch}.kod-modes{min-width:0}.kod-controls{display:grid;grid-template-columns:1fr 1fr}.kod-controls label{grid-column:1/-1}.kod-event-log li{grid-template-columns:7px 48px 66px minmax(0,1fr)}}
