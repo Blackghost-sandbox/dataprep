@@ -53,7 +53,7 @@ function SliderCard({
 }) {
   return <article className={"sdsb-slider-card " + tone}>
     <div className="sdsb-slider-top"><span>{icon}</span><div><strong>{title}</strong><small>{subtitle}</small></div></div>
-    <b>{title === "Source" || title === "Sink" ? Math.round(value / 1000) + "K" : value}{title === "Source" ? " events/min" : title === "Partitioning" ? "" : title === "Processing" ? "" : ""}</b>
+    <b>{title === "Source" ? Math.round(value / 1000) + "K events/min" : title === "Partitioning" ? "Partitions: " + value : title === "Processing" ? "Workers: " + value : "Write rate: " + Math.round(value / 1000) + "K"}</b>
     <input type="range" min={min} max={max} step={step} value={value} onChange={event => onChange(Number(event.target.value))}/>
     <div className="sdsb-range-labels"><span>{title === "Source" || title === "Sink" ? "10K" : min}</span><span>{title === "Source" || title === "Sink" ? "100K" : value}</span><span>{title === "Source" || title === "Sink" ? "500K" : max}</span></div>
   </article>;
