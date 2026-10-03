@@ -93,9 +93,9 @@ export function objectStoragePath({
   dataSource:ObjectStorageDataSourceId;partitionByDate:boolean;pathPrefix:string;
 }){
   const source=objectStorageDataSources[dataSource];
-  const clean=pathPrefix.replace(/^\/+|\/+$/g,"") || "raw";
-  if(!partitionByDate)return `${clean}/${source.folder}/`;
-  return `${clean}/${source.folder}/year=2026/month=10/day=02/`;
+  const clean=pathPrefix.replace(/^\/+|\/+$/g,"") || `raw/${source.folder}`;
+  if(!partitionByDate)return `${clean}/`;
+  return `${clean}/year=2026/month=10/day=02/`;
 }
 
 export function objectStorageFiles({
