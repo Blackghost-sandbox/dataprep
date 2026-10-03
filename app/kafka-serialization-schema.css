@@ -6,6 +6,8 @@
 .kafka-module-page:has(.kse-lab) .lesson-hero .size-16{width:48px;height:48px}
 .kafka-module-page:has(.kse-lab) .lesson-hero .mb-4{margin-bottom:8px}
 .kafka-module-page:has(.kse-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kse-lab) .lesson-hero h1+p{font-size:0}
+.kafka-module-page:has(.kse-lab) .lesson-hero h1+p:after{content:"Test new writers against old readers and new readers against retained old records.";font-size:12px;line-height:1.55;color:#5d6f8d}
 .kafka-module-page:has(.kse-lab) .lesson-tabs{padding:0 10px}
 .kafka-module-page:has(.kse-lab) .lesson-tabs [role=tablist]{height:44px}
 .kafka-module-page:has(.kse-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
