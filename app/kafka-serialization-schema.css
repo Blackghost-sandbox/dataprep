@@ -1,0 +1,76 @@
+/* Kafka / Serialization & Schema Evolution / Concept only */
+.kafka-module-page:has(.kse-lab){--kse-ink:#071735;--kse-muted:#60718e;--kse-violet:#6744ff}
+.kafka-module-page:has(.kse-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.kse-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.kse-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.kse-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.kse-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.kse-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kse-lab) .lesson-hero h1+p{font-size:0}
+.kafka-module-page:has(.kse-lab) .lesson-hero h1+p:after{content:"Test new writers against old readers and new readers against retained old records.";font-size:12px;line-height:1.55;color:#5d6f8d}
+.kafka-module-page:has(.kse-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.kse-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.kse-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.kse-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.kse-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.kse-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.kse-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.kse-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.kse-lab) .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.kafka-module-page:has(.kse-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.kse-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.kse-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.kse-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.kse-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.kse-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Use a schema registry (Avro/Protobuf) to manage schema changes and ensure compatibility between producers and consumers.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.kse-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.kse-lab) .lesson-aside>button:last-child{display:none}
+
+.kse-lab{color:var(--kse-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:14px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.kse-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+.kse-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.kse-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2c66a5,#1f4e83);color:#fff;flex-shrink:0}
+.kse-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.kse-heading p{max-width:560px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.kse-controls{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.kse-controls>button,.kse-controls select{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.kse-controls>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.kse-controls .kse-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+.kse-controls label{display:grid;gap:4px}.kse-controls label>span{font-size:10px;font-weight:700;color:#687892}.kse-controls select{min-width:165px}
+.kse-switch{display:flex!important;align-items:center!important;gap:7px!important;margin-bottom:6px!important}.kse-switch input{position:absolute;opacity:0;pointer-events:none}.kse-switch i{width:31px;height:18px;border-radius:999px;background:#cfd8e6;position:relative}.kse-switch i:after{content:"";position:absolute;width:14px;height:14px;top:2px;left:2px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:.2s}.kse-switch input:checked+i{background:#6744ff}.kse-switch input:checked+i:after{transform:translateX(13px)}.kse-switch b{font-size:10px;color:#526681;white-space:nowrap}
+
+.kse-main-grid{display:grid;grid-template-columns:minmax(0,.92fr) 26px minmax(0,1.12fr) 26px minmax(0,.92fr);gap:0;align-items:stretch}
+.kse-writer,.kse-topic,.kse-reader{min-width:0;border-radius:12px;padding:11px}
+.kse-writer{border:1px solid #e6c9f8;background:linear-gradient(135deg,#fff4ff,#fdfaff)}
+.kse-topic{border:1px solid #a9d2ff;background:linear-gradient(135deg,#f2f9ff,#fbfdff)}
+.kse-reader{border:1px solid #b9e5cc;background:linear-gradient(135deg,#f1fff7,#fbfffd)}
+.kse-writer>header,.kse-topic>header,.kse-reader>header{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.kse-writer>header .step,.kse-reader>header .step{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#a64be8;color:#fff;font-weight:800}
+.kse-reader>header .step{background:#0da05a}
+.kse-writer h3,.kse-topic h3,.kse-reader h3{font-size:13px;font-weight:800;margin:0}
+.kse-writer h3{color:#9336d5}.kse-topic h3{color:#176dc8}.kse-reader h3{color:#0c8d51}
+.kse-writer header p,.kse-reader header p{font-size:10px;color:#5e7088;margin-top:2px}
+.kse-topic>header>span{display:grid;place-items:center;width:31px;height:31px;border-radius:8px;background:#1885e9;color:#fff}.kse-topic>header small{margin-left:auto;background:#d7f5e4;color:#0a8050;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:700}
+
+.kse-version-tabs{display:grid;grid-template-columns:repeat(3,1fr);background:#f2f4f8;border-radius:7px;overflow:hidden;margin-bottom:8px}.kse-version-tabs button{min-height:34px;border:0;background:transparent;font-size:10px;color:#5e6f87}.kse-version-tabs button.is-active{background:#fff;color:#603fe0;border-bottom:2px solid #6744ff;font-weight:800}
+.kse-code-wrap,.kse-reader-output{border:1px solid #dfe5ee;border-radius:8px;background:#0d213c;padding:9px;min-height:129px}.kse-code-wrap pre,.kse-reader-output pre{margin:0;color:#eef5ff;font:10px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap}.kse-code-wrap small,.kse-reader-output small{display:block;color:#9db0c8;font-size:10px;margin-top:6px}
+.kse-compat{display:flex;gap:6px;align-items:flex-start;border-radius:7px;padding:7px;margin:8px 0;font-size:10px}.kse-compat.ok{background:#e9faef;color:#087c4b}.kse-compat.bad{background:#fff0e8;color:#b64a1f}.kse-compat p{margin:0;line-height:1.4}
+.kse-produce{width:100%;height:36px;border:0;border-radius:7px;background:linear-gradient(135deg,#744cff,#5f2df0);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px}
+.kse-arrow{display:grid;place-items:center;font-size:26px;color:#2b79d0}
+
+.kse-message-list{display:grid;gap:7px}.kse-topic-message{display:grid;grid-template-columns:31px 72px 31px minmax(0,1fr);gap:7px;align-items:center;border:1px solid #dce4ee;border-radius:7px;background:#fff;padding:7px;text-align:left}.kse-topic-message.orange{border-color:#f4c58e;background:#fff9f1}.kse-topic-message.green{border-color:#b7e6cb;background:#f3fff8}.kse-topic-message.is-selected{box-shadow:0 0 0 2px rgba(103,68,255,.18)}
+.kse-doc-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:7px;background:#2485e9;color:#fff}.kse-topic-message.orange .kse-doc-icon{background:#ff7d0b}.kse-topic-message.green .kse-doc-icon{background:#12aa61}
+.kse-offset strong{display:block;font-size:10px}.kse-offset small{display:block;font-size:10px;color:#7a8ba1;margin-top:2px}.kse-topic-message>b{justify-self:start;border-radius:6px;background:#ece8ff;color:#6745df;padding:4px 6px;font-size:10px}.kse-topic-message.orange>b{background:#fff0df;color:#dc6a00}.kse-topic-message.green>b{background:#def8e8;color:#07804c}.kse-topic-message code{font-size:10px;color:#5b6d85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.kse-read-result{display:flex;gap:8px;border-radius:8px;padding:9px;margin-top:9px}.kse-read-result.ok{border:1px solid #b5e6c9;background:#edfff4;color:#0c9858}.kse-read-result.bad{border:1px solid #f3bea7;background:#fff3ec;color:#c04a1a}.kse-read-result>svg{flex-shrink:0}.kse-read-result strong{font-size:11px}.kse-read-result p,.kse-read-result small{font-size:10px;line-height:1.45;margin-top:2px;color:#466252}
+
+.kse-lower-grid{display:grid;grid-template-columns:1fr .9fr .9fr;gap:10px;margin-top:12px}.kse-lower-grid>section{min-width:0;border:1px solid #e2e8f1;border-radius:10px;background:#fff;padding:10px}.kse-lower-grid header{display:flex;align-items:flex-start;gap:7px;margin-bottom:8px}.kse-lower-grid header>span{display:grid;place-items:center;width:29px;height:29px;border-radius:8px;color:#fff}.kse-strategies header>span{background:#9e65ef}.kse-incompatible header>span{background:#ff7043}.kse-takeaways header>span{background:#16baa3}.kse-lower-grid h3{font-size:11px;margin:0;font-weight:800}.kse-lower-grid header p{font-size:10px;color:#62738c;margin-top:2px}
+.kse-strategies>div{display:grid;gap:6px}.kse-strategies article{display:grid;grid-template-columns:90px minmax(0,1fr);gap:7px}.kse-strategies article>b{border-radius:6px;padding:6px 8px;font-size:10px;color:#168954;background:#e9faef}.kse-strategies article:nth-child(2)>b{background:#e7f5ff;color:#1b83c9}.kse-strategies article:nth-child(3)>b{background:#f2ebff;color:#7049db}.kse-strategies article>span{display:flex;align-items:center;gap:5px;border:1px solid #e5eaf2;border-radius:6px;padding:6px 8px;font-size:10px;color:#50627b}
+.kse-incompatible ul,.kse-takeaways ul{list-style:none;padding:0;margin:0;display:grid;gap:5px}.kse-incompatible li,.kse-takeaways li{display:flex;align-items:center;gap:7px;font-size:10px;color:#485b74}.kse-incompatible li>b{display:grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#ff655b;color:#fff}.kse-takeaways li svg{color:#13ad62;flex-shrink:0}
+.kse-byte-preview{margin-top:9px;border:1px solid #dce3ed;border-radius:7px;background:#f8fafc;padding:7px}.kse-byte-preview strong{display:block;font-size:10px;margin-bottom:4px}.kse-byte-preview code{display:block;font-size:10px;color:#566981;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.kse-status{margin-top:9px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.kse-status>span:first-child{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.kse-status p{margin:0;flex:1}
+.kse-lab button:focus-visible,.kse-lab input:focus-visible,.kse-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+@media(max-width:1350px){.kse-main-grid{grid-template-columns:minmax(0,.9fr) 22px minmax(0,1fr) 22px minmax(0,.9fr)}.kse-toolbar{align-items:flex-start}.kse-controls{max-width:520px}.kse-lower-grid{grid-template-columns:1fr 1fr}.kse-takeaways{grid-column:1/-1}}
+@media(max-width:1050px){.kafka-module-page:has(.kse-lab) .lesson-layout{grid-template-columns:1fr}.kse-toolbar{flex-direction:column;align-items:stretch}.kse-controls{max-width:none;justify-content:flex-start}.kse-main-grid,.kse-lower-grid{grid-template-columns:1fr}.kse-arrow{min-height:26px;transform:rotate(90deg)}.kse-takeaways{grid-column:auto}}
+@media(max-width:760px){.kse-controls{display:grid;grid-template-columns:1fr 1fr}.kse-controls label{grid-column:span 2}.kse-topic-message{grid-template-columns:31px 70px 30px minmax(0,1fr)}}
