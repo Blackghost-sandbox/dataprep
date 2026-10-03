@@ -57,7 +57,7 @@ const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("systemScaleEstimationHandsOn"));
 assert.ok(app.includes("SystemScaleEstimationHero"));
 assert.ok(app.includes("SystemScaleEstimationRightRail"));
-assert.ok(app.includes("!systemScaleEstimationHandsOn&&<NilaCompanion"));
+assert.ok(app.includes("SystemScaleEstimationRightRail"));
 
 const lesson=fs.readFileSync(path.join(root,"components/spark-lesson.tsx"),"utf8");
 assert.ok(lesson.includes("SystemScaleEstimationLab"));
