@@ -38,9 +38,9 @@ const seedRecords = [
   {value:"OrderCreated",key:"customer_101",partition:0},
   {value:"CustomerCreated",key:"customer_205",partition:1},
   {value:"PaymentProcessed",key:"customer_101",partition:0},
+  {value:"OrderShipped",key:"customer_101",partition:0},
   {value:"ProfileUpdated",key:"customer_205",partition:1},
   {value:"InventoryReserved",key:"customer_330",partition:2},
-  {value:"OrderShipped",key:"customer_101",partition:0},
 ];
 
 function timeParts(sequence:number){
