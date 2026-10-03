@@ -38,7 +38,7 @@ assert.ok(compiled.compiledSql.includes("analytics.raw_orders"));
 assert.ok(compiled.compiledSql.includes("where order_date >= '2024-01-01'"));
 assert.ok(!compiled.compiledSql.includes("{%"));
 assert.ok(!compiled.compiledSql.includes("{{"));
-assert.equal(compiled.rows.length,5);
+assert.equal(compiled.rows.length,125);
 
 const changed=model.compileDbtJinja({
   model:model.defaultJinjaModel,
@@ -48,8 +48,18 @@ const changed=model.compileDbtJinja({
 });
 assert.equal(changed.startDate,"2024-01-05");
 assert.equal(changed.region,"CA");
-assert.equal(changed.rows.length,2);
+assert.equal(changed.rows.length,122);
 assert.ok(changed.compiledSql.includes("2024-01-05"));
+
+const regionModel=model.defaultJinjaModel+"\nand region = '{{ var('region', 'US') }}'";
+const regionResult=model.compileDbtJinja({
+  model:regionModel,
+  vars:"vars:\n  start_date: '2024-01-01'\n  region: 'CA'",
+  macro:model.defaultMacro,
+  dataset:ecommerce,
+});
+assert.ok(regionResult.rows.length>0);
+assert.ok(regionResult.rows.every(row=>row.region==="CA"));
 
 const macroModel=model.defaultJinjaModel+"\nand {{ date_filter('order_date') }}";
 const macroResult=model.compileDbtJinja({
