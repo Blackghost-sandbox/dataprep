@@ -1,0 +1,75 @@
+/* Kafka / Kafka Connect / Concept only */
+.kafka-module-page:has(.kcn-lab){--kcn-ink:#071735;--kcn-muted:#60718e;--kcn-violet:#6744ff}
+.kafka-module-page:has(.kcn-lab) main{padding:10px 12px!important;max-width:1600px}
+.kafka-module-page:has(.kcn-lab) .lesson-hero{padding:16px 18px;border-radius:18px}
+.kafka-module-page:has(.kcn-lab) .lesson-hero h1{font-size:29px;line-height:1.05}
+.kafka-module-page:has(.kcn-lab) .lesson-hero .size-16{width:48px;height:48px}
+.kafka-module-page:has(.kcn-lab) .lesson-hero .mb-4{margin-bottom:8px}
+.kafka-module-page:has(.kcn-lab) .lesson-hero .mt-5{margin-top:10px}
+.kafka-module-page:has(.kcn-lab) .lesson-tabs{padding:0 10px}
+.kafka-module-page:has(.kcn-lab) .lesson-tabs [role=tablist]{height:44px}
+.kafka-module-page:has(.kcn-lab) .lesson-tabs [role=tab]{font-size:12px;padding-inline:10px}
+.kafka-module-page:has(.kcn-lab) .lesson-layout{grid-template-columns:minmax(0,1fr) 292px;gap:12px}
+.kafka-module-page:has(.kcn-lab) .spark-lesson{padding:0;border:0;background:transparent;box-shadow:none}
+.kafka-module-page:has(.kcn-lab) .lesson-aside{gap:12px}
+.kafka-module-page:has(.kcn-lab) .lesson-aside>section:first-child{padding:14px 12px;border-radius:14px}
+.kafka-module-page:has(.kcn-lab) .lesson-playlist summary{font-size:13px;margin-bottom:9px}
+.kafka-module-page:has(.kcn-lab) .lesson-playlist [data-slot=progress]{height:6px;margin-bottom:10px}
+.kafka-module-page:has(.kcn-lab) .lesson-state-row{height:auto;min-height:30px;padding:5px 6px;gap:7px;border-radius:8px;font-size:11px;line-height:1.25}
+.kafka-module-page:has(.kcn-lab) .lesson-state-row>svg{width:16px;height:16px;flex-shrink:0}
+.kafka-module-page:has(.kcn-lab) .lesson-state-row small{font-size:10px;white-space:nowrap}
+.kafka-module-page:has(.kcn-lab) .lesson-aside>button:nth-child(2){transform:none;padding:14px;border-radius:14px;background:linear-gradient(120deg,#fff9df,#fff6e8)}
+.kafka-module-page:has(.kcn-lab) .lesson-aside>button:nth-child(2)>p{font-size:0}
+.kafka-module-page:has(.kcn-lab) .lesson-aside>button:nth-child(2)>p:after{content:"Source connectors bring data from external systems into Kafka. Sink connectors move data from Kafka to external systems. Connector tasks perform the work and can run in parallel.";font-size:11px;line-height:1.55;color:#5d4b21}
+.kafka-module-page:has(.kcn-lab) .lesson-aside>section:nth-of-type(2),
+.kafka-module-page:has(.kcn-lab) .lesson-aside>button:last-child{display:none}
+
+.kcn-lab{color:var(--kcn-ink);font-size:12px;background:linear-gradient(180deg,#fff,#fbfcff);border:1px solid #e4e9f2;border-radius:16px;padding:12px;box-shadow:0 7px 24px rgba(34,52,85,.05)}
+.kcn-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:12px}
+.kcn-heading{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.kcn-heading>span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3a75d6,#1f56b9);color:#fff;flex-shrink:0}
+.kcn-heading h2{font-size:18px;line-height:1.1;margin:1px 0 4px;font-weight:800}
+.kcn-heading p{max-width:650px;font-size:11px;line-height:1.45;color:#5a6d8d}
+.kcn-controls{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.kcn-controls label{display:grid;gap:4px}.kcn-controls label>span{font-size:10px;font-weight:700;color:#687892}
+.kcn-controls select,.kcn-controls>button{height:38px;border:1px solid #dce4ef;border-radius:8px;background:#fff;padding:0 11px;font-size:11px;color:#243958}
+.kcn-controls select{min-width:205px}.kcn-controls>button{display:flex;align-items:center;gap:6px;justify-content:center}
+.kcn-controls .kcn-run{background:linear-gradient(135deg,#7c61ff,#5d3cf2);color:#fff;border-color:#6a4af1;font-weight:800;box-shadow:0 5px 12px rgba(102,75,242,.22)}
+
+.kcn-flow-grid{display:grid;grid-template-columns:minmax(0,.78fr) 24px minmax(0,1.15fr) 24px minmax(0,.66fr) minmax(0,.54fr) 24px minmax(0,1.15fr) 24px minmax(0,.72fr);gap:0;align-items:stretch}
+.kcn-flow-grid>article{min-width:0;border-radius:10px;padding:9px}
+.kcn-source-system{border:1px solid #b8dbff;background:linear-gradient(135deg,#f4faff,#fbfdff)}
+.kcn-source-connector{border:1px solid #d8ccff;background:linear-gradient(135deg,#f8f5ff,#fcfbff)}
+.kcn-topic{border:1px solid #bfc7ff;background:linear-gradient(135deg,#f6f5ff,#fbfbff)}
+.kcn-transform{border:1px solid #ffd6ae;background:linear-gradient(135deg,#fffaf4,#fffdfa)}
+.kcn-sink-connector{border:1px solid #ffc1d3;background:linear-gradient(135deg,#fff5f8,#fffafd)}
+.kcn-destination{border:1px solid #b7e9cd;background:linear-gradient(135deg,#f2fff8,#fbfffd)}
+.kcn-flow-grid article>header{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.kcn-flow-grid article>header>span{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:#2684e9;color:#fff}
+.kcn-source-connector>header>span{background:#8d68ef}.kcn-topic>header>span{background:#6a4be4}.kcn-transform>header>svg{color:#ef7b00}.kcn-sink-connector>header>span{background:#ef4b77}
+.kcn-flow-grid h3{font-size:11px;font-weight:800;margin:0}.kcn-source-system h3{color:#2669bc}.kcn-source-connector h3{color:#7450de}.kcn-topic h3{color:#4832be}.kcn-transform h3{color:#de6d00}.kcn-sink-connector h3{color:#ce3159}.kcn-destination h3{color:#087d4a}
+.kcn-flow-grid article>header p{font-size:10px;color:#67788f;margin-top:2px}.kcn-flow-grid article>header em{margin-left:auto;background:#dff8e8;color:#087d4b;border-radius:12px;padding:4px 7px;font-size:10px;font-style:normal}
+.kcn-system-brand{display:flex;align-items:center;gap:8px;justify-content:center;margin:9px 0}.kcn-system-brand>svg{color:#2b79d6}.kcn-system-brand.snow>svg{color:#24b6e5}.kcn-system-brand strong{display:block;font-size:11px}.kcn-system-brand span{display:inline-block;margin-top:4px;border-radius:10px;background:#daf7e6;color:#097b4b;padding:3px 7px;font-size:10px}
+.kcn-table-card{border:1px solid #d7e5f2;background:#fff;border-radius:7px;overflow:hidden}.kcn-table-card>header{display:flex!important;align-items:center;gap:5px!important;background:#eef7ff;padding:6px;margin:0!important}.kcn-destination .kcn-table-card>header{background:#ebfaf2}.kcn-table-card>header strong{font-size:10px}.kcn-table-card dl{margin:0}.kcn-table-card dl>div{display:flex;justify-content:space-between;border-top:1px solid #edf1f5;padding:5px 7px}.kcn-table-card dt,.kcn-table-card dd{font-size:10px;color:#4e627c}.kcn-table-card dd{margin:0}
+.kcn-poll,.kcn-ingest{display:flex;align-items:center;gap:5px;margin:9px 0 0;font-size:10px;color:#2878d0}.kcn-ingest{color:#0b8b53}
+.kcn-source-connector pre,.kcn-sink-connector pre,.kcn-topic pre{margin:0;border-radius:7px;background:#10213a;color:#eff6ff;padding:8px;font:10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow:auto}
+.kcn-chip-row{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}.kcn-chip-row span{background:#f1edff;color:#6550b7;border-radius:5px;padding:4px 6px;font-size:10px}
+.kcn-source-connector h4,.kcn-sink-connector h4,.kcn-topic h4{font-size:10px;margin:6px 0}
+.kcn-task-list{display:grid;gap:4px}.kcn-task-list article{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:5px;align-items:center;border:1px solid #ebeef3;background:#fff;border-radius:6px;padding:5px}.kcn-task-list article>span{display:flex;align-items:center;gap:4px;font-size:10px}.kcn-task-list b{background:#def8e7;color:#087d4a;border-radius:5px;padding:3px 5px;font-size:10px}.kcn-task-list em,.kcn-task-list small{font-style:normal;font-size:10px;color:#5f7088}
+.kcn-rate{display:block;width:max-content;margin:0 auto 7px;border-radius:10px;background:#e9ddff;color:#704ad8;padding:4px 8px;font-size:10px}.kcn-topic>section{border:1px solid #d7dfea;background:#fff;border-radius:7px;padding:7px}.kcn-topic footer{margin-top:8px}.kcn-topic footer>span{display:flex;align-items:center;gap:5px;font-size:10px;color:#5e7087}.kcn-topic footer>div{display:flex;gap:4px;margin-top:5px}.kcn-topic footer b{display:grid;place-items:center;min-width:29px;border-radius:5px;background:#eeeaff;color:#5d45c7;padding:4px;font-size:10px}.kcn-topic footer small{display:block;font-size:9px}
+.kcn-transform>header{display:flex;align-items:center;gap:5px}.kcn-transform section{display:flex;gap:6px;align-items:flex-start;border:1px solid #f0e3d3;background:#fff;border-radius:7px;padding:7px;margin-top:6px}.kcn-transform section>span{font-size:13px;color:#f08916}.kcn-transform section strong{display:block;font-size:10px}.kcn-transform section small{display:block;font-size:9px;color:#6f7e91;margin-top:2px}
+.kcn-arrow{display:grid;place-items:center;color:#2d79d1;font-size:22px}.kcn-arrow.orange{color:#ed8b12}
+
+.kcn-metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}.kcn-metrics article{display:grid;grid-template-columns:34px minmax(0,1fr);gap:7px;align-items:center;border:1px solid #e3e8f0;border-radius:9px;background:#fff;padding:8px}.kcn-metrics article>span{display:grid;place-items:center;width:31px;height:31px;border-radius:8px;background:#eee9ff;color:#6643db}.kcn-metrics article:nth-child(2)>span{background:#e7faef;color:#0a9556}.kcn-metrics article:nth-child(3)>span{background:#e9f3ff;color:#2775ce}.kcn-metrics article:nth-child(4)>span{background:#fff2df;color:#e3810b}.kcn-metrics article:nth-child(5)>span{background:#ffe8ee;color:#e23a61}.kcn-metrics article:nth-child(6)>span{background:#eee8ff;color:#7148e1}.kcn-metrics strong,.kcn-metrics b,.kcn-metrics small{display:block}.kcn-metrics strong{font-size:10px;color:#51627b}.kcn-metrics b{font-size:13px;color:#223956;margin-top:2px}.kcn-metrics small{font-size:10px;color:#73849b;margin-top:1px}
+
+.kcn-lower-grid{display:grid;grid-template-columns:1.02fr 1.18fr;gap:10px;margin-top:10px}.kcn-lower-grid>section{min-width:0;border:1px solid #e2e8f1;border-radius:10px;background:#fff;padding:10px}.kcn-lower-grid header{display:flex;align-items:center;gap:7px;margin-bottom:7px}.kcn-lower-grid h3{font-size:11px;margin:0;font-weight:800}.kcn-lower-grid header button{margin-left:auto;border:1px solid #dce3ed;background:#fff;border-radius:6px;padding:5px 8px;font-size:10px;color:#334a68;display:flex;align-items:center;gap:5px}
+.kcn-event-filters{display:flex;gap:5px;margin-bottom:6px}.kcn-event-filters button{border:0;border-radius:11px;background:#f1f3f7;padding:4px 8px;font-size:10px;color:#5c6d84}.kcn-event-filters button.active{background:#6c4be8;color:#fff}
+.kcn-event-log ol{list-style:none;padding:0;margin:0}.kcn-event-log li{display:grid;grid-template-columns:52px 78px minmax(0,1fr);gap:7px;align-items:center;border-top:1px solid #edf0f4;padding:5px 0;font-size:10px}.kcn-event-log time{color:#6d7d93}.kcn-event-log li>b{justify-self:start;border-radius:4px;padding:3px 6px;font-size:10px}.role-source{background:#dcebff;color:#2a69b8}.role-task{background:#e7f8ed;color:#0c8a50}.role-transform{background:#fff0d9;color:#d47a07}.role-sink{background:#f7e6fb;color:#a743c1}.role-error{background:#ffe6ec;color:#d52c51}.kcn-empty-log{display:block!important;color:#78879a}
+.kcn-inspector-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f0f2f6;border-radius:7px;overflow:hidden;margin-bottom:7px}.kcn-inspector-tabs button{height:30px;border:0;background:transparent;font-size:10px;color:#5e7087}.kcn-inspector-tabs button.active{background:#7048e4;color:#fff;font-weight:800}
+.kcn-inspector-body{display:grid;grid-template-columns:1fr 24px 1fr;gap:6px;align-items:center}.kcn-inspector-body>span{font-size:20px;color:#347bd5;text-align:center}.kcn-inspector-body pre{min-height:138px;border:1px solid #dbe2ec;border-radius:7px;background:#10213a;color:#edf5ff;padding:8px;font:10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;overflow:auto;opacity:.84}.kcn-inspector-body pre.focus{box-shadow:0 0 0 2px rgba(103,68,255,.16);opacity:1}.kcn-inspector>p{display:flex;align-items:center;gap:5px;margin:7px 0 0;border:1px solid #b9e6c8;background:#ecfff4;color:#087b4a;border-radius:6px;padding:6px;font-size:10px}
+.kcn-status{margin-top:9px;display:flex;align-items:center;gap:9px;border:1px solid #e4e7f3;border-radius:8px;background:#f7f6ff;padding:7px 9px;font-size:10px;color:#60708a}.kcn-status>span:first-child{display:flex;align-items:center;gap:4px;color:#0a8b55;font-weight:700}.kcn-status p{margin:0;flex:1}
+.kcn-lab button:focus-visible,.kcn-lab input:focus-visible,.kcn-lab select:focus-visible{outline:2px solid #6744ff;outline-offset:2px}
+
+@media(max-width:1450px){.kcn-flow-grid{grid-template-columns:minmax(0,.72fr) 18px minmax(0,1.06fr) 18px minmax(0,.62fr) minmax(0,.5fr) 18px minmax(0,1.06fr) 18px minmax(0,.68fr)}.kcn-toolbar{align-items:flex-start}.kcn-controls{max-width:540px}.kcn-metrics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1150px){.kafka-module-page:has(.kcn-lab) .lesson-layout{grid-template-columns:1fr}.kcn-toolbar{flex-direction:column;align-items:stretch}.kcn-controls{max-width:none;justify-content:flex-start}.kcn-flow-grid{grid-template-columns:1fr}.kcn-arrow{min-height:25px;transform:rotate(90deg)}.kcn-metrics{grid-template-columns:repeat(2,1fr)}.kcn-lower-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.kcn-controls{display:grid;grid-template-columns:1fr 1fr}.kcn-controls label{grid-column:span 2}.kcn-metrics{grid-template-columns:1fr}.kcn-inspector-body{grid-template-columns:1fr}.kcn-inspector-body>span{transform:rotate(90deg)}}
