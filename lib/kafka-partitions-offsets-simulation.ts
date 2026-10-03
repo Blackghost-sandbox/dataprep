@@ -43,12 +43,21 @@ const seedRecords = [
   {value:"OrderShipped",key:"customer_101",partition:0},
 ];
 
+function timeParts(sequence:number){
+  const total=24*60+15+sequence;
+  const minute=Math.floor(total/60);
+  const second=total%60;
+  return {minute,second};
+}
+
 function timestampFor(sequence:number){
-  return `2026-10-02 10:24:${String(15+sequence).padStart(2,"0")}`;
+  const {minute,second}=timeParts(sequence);
+  return `2026-10-02 10:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
 }
 
 function clockFor(sequence:number){
-  return `10:24:${String(15+sequence).padStart(2,"0")}`;
+  const {minute,second}=timeParts(sequence);
+  return `10:${String(minute).padStart(2,"0")}:${String(second).padStart(2,"0")}`;
 }
 
 function hashKey(key:string){
@@ -88,6 +97,13 @@ export function createOffsetLabState(partitionCount=3):OffsetLabState{
   }
   const selectedPartition=0;
   const consumed=logs[0].slice(0,3);
+  const seed0=seedRecords[0].partition%count;
+  const seed1=seedRecords[1].partition%count;
+  const seed2=seedRecords[2].partition%count;
+  const seed0Offset=0;
+  const seed1Offset=seed1===seed0?1:0;
+  const seed2Offset=[seed0,seed1].filter(p=>p===seed2).length;
+  const lastConsumed=consumed[consumed.length-1]?.offset??0;
   return {
     partitionCount:count,
     logs,
@@ -97,16 +113,16 @@ export function createOffsetLabState(partitionCount=3):OffsetLabState{
     consumed,
     sequence,
     events:[
-      {id:"seed-0",time:"10:24:15",role:"PRODUCER",text:"Sent message to partition 0 (offset 0)"},
-      {id:"seed-1",time:"10:24:16",role:"PRODUCER",text:"Sent message to partition 1 (offset 0)"},
-      {id:"seed-2",time:"10:24:17",role:"PRODUCER",text:"Sent message to partition 0 (offset 1)"},
-      {id:"seed-3",time:"10:24:18",role:"CONSUMER",text:"Consumed 3 messages from partition 0 (offsets 0-2)"},
+      {id:"seed-0",time:"10:24:15",role:"PRODUCER",text:`Sent message to partition ${seed0} (offset ${seed0Offset})`},
+      {id:"seed-1",time:"10:24:16",role:"PRODUCER",text:`Sent message to partition ${seed1} (offset ${seed1Offset})`},
+      {id:"seed-2",time:"10:24:17",role:"PRODUCER",text:`Sent message to partition ${seed2} (offset ${seed2Offset})`},
+      {id:"seed-3",time:"10:24:18",role:"CONSUMER",text:`Consumed ${consumed.length} messages from partition 0 (offsets 0-${lastConsumed})`},
     ],
     status:"Ready. Produce a message or consume from a selected partition.",
   };
 }
 
-export function withPartitionCount(state:OffsetLabState,count:number){
+export function withPartitionCount(_state:OffsetLabState,count:number){
   return createOffsetLabState(count);
 }
 
