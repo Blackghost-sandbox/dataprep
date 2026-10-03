@@ -3,7 +3,7 @@
 import {useMemo,useState} from "react";
 import {
   Activity, AlertTriangle, CheckCircle2, CircleDot, Copy, Database, FileJson,
-  Gauge, Play, RefreshCcw, Repeat2, Server, ShieldCheck, Sparkles, Users, Zap
+  Gauge, Play, RefreshCcw, Repeat2, Server, ShieldCheck, Sparkles, Users
 } from "lucide-react";
 import {
   clearReliabilityEvents, createReliabilityState, reliabilityScenarios,
