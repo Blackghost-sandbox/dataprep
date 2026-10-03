@@ -98,6 +98,7 @@ function IncrementalFlow({
 }){
   const defaultResult=runDbtIncrementalMerge(dataset,dataset.incoming);
   const statuses=new Map<string,"updated"|"inserted">(defaultResult.rows.filter(row=>row.status!=="unchanged").map(row=>[row.order_id,row.status as "updated"|"inserted"] as const));
+  const incomingStatuses=new Map<string,"updated"|"inserted">(dataset.incoming.map(row=>[row.order_id,getChangeType(dataset.existing,row)==="update"?"updated":"inserted"] as const));
 
   return <section className="dbti-explainer">
     <header className="dbti-section-head">
@@ -113,7 +114,7 @@ function IncrementalFlow({
         </article>
         <article className="dbti-flow-card dbti-change-card">
           <header><span><Upload size={18}/></span><strong>New / Changed Data</strong></header>
-          <MiniTable rows={dataset.incoming}/>
+          <MiniTable rows={dataset.incoming} statusByKey={incomingStatuses}/>
         </article>
       </div>
 
