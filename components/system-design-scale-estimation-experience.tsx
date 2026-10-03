@@ -75,7 +75,7 @@ export function SystemScaleEstimationLab(){
   const [advanced,setAdvanced]=useState(false);
   const [breakdownMode,setBreakdownMode]=useState<"storage"|"daily">("storage");
 
-  const patch=<K extends keyof ScaleInputs>(key:K,value:ScaleInputs[K])=>setInputs(current=>({...current,[key]:value}));
+  const patch=<K extends keyof ScaleInputs,>(key:K,value:ScaleInputs[K])=>setInputs(current=>({...current,[key]:value}));
   const chooseScenario=(id:ScaleScenarioId)=>{
     const next=getScaleScenario(id);
     setScenarioId(id);
