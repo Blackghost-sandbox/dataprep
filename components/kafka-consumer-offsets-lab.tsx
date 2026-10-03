@@ -43,7 +43,7 @@ export function KafkaConsumerOffsetsLab(){
           <header><span><Database size={15}/></span><div><strong>Partition 1</strong><p>Messages (offsets 208 - 215)</p></div></header>
           <div className="kco-offset-strip">
             {state.records.map(item=>{
-              const cls=item.offset<=state.lastProcessed?"processed":item.offset===state.fetchPosition?"current":item.offset<state.committedOffset?"committed":item.offset===state.committedOffset?"next":"available";
+              const cls=item.offset<=state.lastProcessed?"processed":item.offset===state.fetchPosition?"current":item.offset===state.fetchPosition+1?"next":item.offset<state.fetchPosition?"committed":"available";
               return <button key={item.offset} className={cls} aria-current={item.offset===state.fetchPosition?"true":undefined} onClick={()=>setState(s=>({...s,fetchPosition:item.offset,processingStep:1,status:`Fetch position moved to offset ${item.offset} for inspection.`}))}>
                 {item.offset<=state.lastProcessed&&<CheckCircle2 size={11}/>}<b>{item.offset}</b>
               </button>;
