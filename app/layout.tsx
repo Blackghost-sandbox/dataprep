@@ -26,6 +26,7 @@ import "./kafka-message-keys.css";
 import "./kafka-consumer-groups.css";
 import "./kafka-consumer-offsets.css";
 import "./kafka-replication-fault-tolerance.css";
+import "./kafka-serialization-schema.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
