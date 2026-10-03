@@ -159,7 +159,15 @@ export function compileDbtJinja({
 
   sql=sql.replace(/\n{3,}/g,"\n\n").trim();
 
-  const rows=dataset.rows.filter(row=>row.order_date>=startDate);
+  const dateMatch=sql.match(/order_date\s*>=\s*['\"](\d{4}-\d{2}-\d{2})['\"]/i);
+  const regionMatch=sql.match(/region\s*=\s*['\"]([^'\"]+)['\"]/i);
+  const effectiveStartDate=dateMatch?.[1] ?? "";
+  const effectiveRegion=regionMatch?.[1] ?? "";
+  const rows=dataset.rows.filter(row=>{
+    const dateOk=!effectiveStartDate || row.order_date>=effectiveStartDate;
+    const regionOk=!effectiveRegion || row.region===effectiveRegion;
+    return dateOk && regionOk;
+  });
   return {
     compiledSql:sql,
     startDate,
