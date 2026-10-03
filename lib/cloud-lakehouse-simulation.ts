@@ -142,7 +142,7 @@ export function simulateLakehouse({
     logs:[
       {id:"1",text:`Loaded ${files.length} objects from object storage.`,tone:"info"},
       {id:"2",text:`Created ${meta.label} table metadata.`,tone:"success"},
-      {id:"3",text:operations.append?"Appended new data transactionally.":"Append step skipped.",tone:operations.append?"success":"muted"},
+      {id:"3",text:operations["append"]?"Appended new data transactionally.":"Append step skipped.",tone:operations["append"]?"success":"muted"},
       {id:"4",text:operations["schema-evolution"]?"Schema evolution enabled.":"Schema evolution disabled.",tone:"accent"},
       {id:"5",text:operations["time-travel"]?"Versioned snapshot committed.":"Time travel disabled for this run.",tone:"info"},
       {id:"6",text:"Consistent table read completed.",tone:"success"},
