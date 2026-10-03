@@ -63,6 +63,7 @@ import "./dbt-tests-data-quality.css";
 import "./dbt-sources-source.css";
 import "./dbt-introduction.css";
 import "./dbt-models-ref.css";
+import "./system-design-framework.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
