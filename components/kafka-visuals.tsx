@@ -3,6 +3,7 @@ import { useState, type ReactNode } from "react";
 import { ArrowDown, ArrowRight, BookOpen, Database, Eye, Network, Send, Users } from "lucide-react";
 import { GlossaryText } from "@/components/glossary";
 import { KafkaPartitionsOffsetsLab } from "@/components/kafka-partitions-offsets-lab";
+import { KafkaBrokersClusterLab } from "@/components/kafka-brokers-cluster-lab";
 import { useWalkthrough, WalkthroughControls } from "@/components/walkthrough-controls";
 import { assignPartitions, eventSnapshot, keyRoutes, lag, orderEvent, recoveryTrace, replicaSnapshot, streamTotals, teachingPartition, type DeliveryMode } from "@/lib/kafka-model";
 import type { KafkaLesson } from "@/lib/kafka-lessons";

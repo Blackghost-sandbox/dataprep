@@ -21,6 +21,7 @@ import "./spark-partitioning.css";
 import "./kafka-intro.css";
 import "./kafka-producers-consumers.css";
 import "./kafka-partitions-offsets.css";
+import "./kafka-brokers-cluster.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
