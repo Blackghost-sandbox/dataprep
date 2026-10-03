@@ -4,7 +4,7 @@ import { ArrowDown, ArrowRight, BookOpen, Database, Eye, Network, Send, Users } 
 import { GlossaryText } from "@/components/glossary";
 import { KafkaMessageKeysLab } from "@/components/kafka-message-keys-lab";
 import { useWalkthrough, WalkthroughControls } from "@/components/walkthrough-controls";
-import { assignPartitions, eventSnapshot, keyRoutes, lag, orderEvent, recoveryTrace, replicaSnapshot, streamTotals, teachingPartition, type DeliveryMode } from "@/lib/kafka-model";
+import { assignPartitions, eventSnapshot, lag, orderEvent, recoveryTrace, replicaSnapshot, streamTotals, type DeliveryMode } from "@/lib/kafka-model";
 import type { KafkaLesson } from "@/lib/kafka-lessons";
 
 function Card({title,children,active=false}:{title:string;children:ReactNode;active?:boolean}){return <div className={"topic-box kafka-object"+(active?" kafka-active":"")}><h4>{title}</h4>{children}</div>;}
