@@ -13,6 +13,7 @@ import "./companion.css";
 import "./data-modeling.css";
 import "./airflow.css";
 import "./kafka.css";
+import "./kafka-consumer-groups.css";
 import "./mock-interview.css";
 import "./where-lab.css";
 import "./spark-performance.css";
