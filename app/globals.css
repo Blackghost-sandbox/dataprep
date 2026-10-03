@@ -94,6 +94,11 @@
     "Liberation Mono", "Courier New", monospace;
 }
 
+/* Default app scale; browser zoom remains under the visitor's control. */
+html {
+  zoom: 0.75;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -124,3 +129,4 @@ button { cursor: pointer; }
 .spark-partitioning-density .topic-visual { padding-top: 12px; padding-bottom: 12px; }
 .spark-partitioning-density .topic-visual > h3 { margin-top: 4px; margin-bottom: 4px; }
 .spark-partitioning-density .topic-subtitle { margin-bottom: 10px; }
+
