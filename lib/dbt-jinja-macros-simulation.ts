@@ -15,33 +15,43 @@ export type DbtJinjaDataset = {
   rows: DbtJinjaRow[];
 };
 
+function generatedRows(prefix:string,count:number,month:number,startDay:number): DbtJinjaRow[] {
+  return Array.from({length:count},(_,index)=>{
+    const date=new Date(Date.UTC(2024,month-1,startDay+(index%20)));
+    return {
+      order_id:prefix+String(index+1).padStart(4,"0"),
+      customer_id:"C"+String(100+index).padStart(3,"0"),
+      order_date:date.toISOString().slice(0,10),
+      total_amount:(35+(index%17)*11.25).toFixed(2),
+      region:index%4===0?"CA":"US",
+    };
+  });
+}
+
 export const dbtJinjaDatasets: DbtJinjaDataset[] = [
   {
     id: "ecommerce",
     label: "E-commerce Orders (Sample)",
-    relation: "analytics.raw_orders",
+    relation: "analytics.orders",
     rows: [
       {order_id:"1001",customer_id:"C001",order_date:"2024-01-02",total_amount:"120.50",region:"US"},
       {order_id:"1002",customer_id:"C004",order_date:"2024-01-03",total_amount:"75.20",region:"US"},
       {order_id:"1003",customer_id:"C002",order_date:"2024-01-04",total_amount:"310.00",region:"CA"},
       {order_id:"1004",customer_id:"C001",order_date:"2024-01-05",total_amount:"45.99",region:"US"},
       {order_id:"1005",customer_id:"C010",order_date:"2024-01-06",total_amount:"220.00",region:"US"},
-      {order_id:"1006",customer_id:"C014",order_date:"2023-12-28",total_amount:"89.50",region:"US"},
-      {order_id:"1007",customer_id:"C021",order_date:"2023-12-20",total_amount:"132.25",region:"CA"},
-    ],
+    ].concat(generatedRows("2",120,1,7)),
   },
   {
     id: "subscriptions",
     label: "Subscription Revenue",
-    relation: "analytics.raw_subscriptions",
+    relation: "analytics.subscriptions",
     rows: [
       {order_id:"SUB301",customer_id:"C011",order_date:"2024-02-03",total_amount:"49.00",region:"US"},
       {order_id:"SUB302",customer_id:"C022",order_date:"2024-02-05",total_amount:"29.00",region:"EU"},
       {order_id:"SUB303",customer_id:"C031",order_date:"2024-02-06",total_amount:"99.00",region:"US"},
       {order_id:"SUB304",customer_id:"C045",order_date:"2024-02-08",total_amount:"49.00",region:"US"},
       {order_id:"SUB305",customer_id:"C052",order_date:"2024-02-09",total_amount:"79.00",region:"EU"},
-      {order_id:"SUB306",customer_id:"C063",order_date:"2024-01-15",total_amount:"39.00",region:"US"},
-    ],
+    ].concat(generatedRows("S",75,2,10)),
   },
   {
     id: "support",
@@ -53,8 +63,7 @@ export const dbtJinjaDatasets: DbtJinjaDataset[] = [
       {order_id:"TK903",customer_id:"C144",order_date:"2024-03-02",total_amount:"11.80",region:"EU"},
       {order_id:"TK904",customer_id:"C156",order_date:"2024-03-02",total_amount:"32.10",region:"US"},
       {order_id:"TK905",customer_id:"C171",order_date:"2024-03-03",total_amount:"18.60",region:"US"},
-      {order_id:"TK906",customer_id:"C182",order_date:"2024-02-18",total_amount:"27.30",region:"EU"},
-    ],
+    ].concat(generatedRows("T",95,3,5)),
   },
 ];
 
