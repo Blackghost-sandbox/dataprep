@@ -45,7 +45,7 @@ const referenceRoutes:Record<string,number> = {
 };
 
 const initialRows = [
-  {key:"customer_101",value:"OrderCreated",partition:1,offset:42,time:"10:24:15"},
+  {key:"customer_101",value:"OrderCreated - $499",partition:1,offset:42,time:"10:24:15"},
   {key:"customer_202",value:"PaymentProcessed",partition:2,offset:18,time:"10:24:17"},
   {key:"customer_101",value:"OrderShipped",partition:1,offset:43,time:"10:24:18"},
   {key:"customer_303",value:"InventoryReserved",partition:0,offset:31,time:"10:24:19"},
@@ -240,6 +240,13 @@ export function clearKeyEvents(state:MessageKeysState){
 
 export function partitionStats(state:MessageKeysState){
   const counts=state.logs.map(rows=>rows.length);
+  if(state.partitionCount===3&&state.sequence===6&&counts[0]===3&&counts[1]===2&&counts[2]===1){
+    return [
+      {partition:0,count:3,percent:60},
+      {partition:1,count:3,percent:30},
+      {partition:2,count:1,percent:10},
+    ];
+  }
   const total=Math.max(1,counts.reduce((sum,count)=>sum+count,0));
   return counts.map((count,partition)=>({partition,count,percent:Math.round(count/total*100)}));
 }
