@@ -42,6 +42,7 @@ import "./subqueries-flow-lab.css";
 import "./window-functions-lab.css";
 import "./null-case-lab.css";
 import "./query-execution-lab.css";
+import "./dbt-introduction.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
