@@ -31,7 +31,7 @@ export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(ta
   if(lesson.id==="joins")return <JoinsLearningLab/>;
   if(lesson.id==="having")return <HavingLearningLab/>;
   if(lesson.id==="group-by")return <GroupByLearningLab/>;
-  if(lesson.id==="aggregate-functions")return <AggregateLearningLab/>;
+  if(lesson.id==="aggregates"||lesson.id==="aggregate-functions")return <AggregateLearningLab/>;
   if(lesson.id==="limit")return <LimitLearningLab/>;
   if(lesson.id==="order-by")return <OrderByLearningLab/>;
   if(lesson.id==="distinct")return <DistinctLearningLab/>;
@@ -51,3 +51,4 @@ export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(ta
     <nav className="spark-actions" aria-label="Continue learning"><button type="button" onClick={()=>onTab("Examples")}>Explore Examples →</button><button type="button" onClick={()=>onTab("Hands-on")}>Practice {lesson.title} →</button></nav></section>
   </div>;
 }
+

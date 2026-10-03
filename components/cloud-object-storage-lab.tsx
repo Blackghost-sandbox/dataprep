@@ -113,8 +113,8 @@ export function CloudObjectStorageLab(){
     }
     setState(previous=>({...previous,queried:true,status:`${queryEngines[engine].label} returned 1 row from the stored objects.`,logs:[
       ...previous.logs,
-      {id:"manual-query-"+previous.logs.length,time:"10:24:19",text:`Running ${queryEngines[engine].label} query...`,tone:"muted"},
-      {id:"manual-result-"+previous.logs.length,time:"10:24:21",text:"Query completed successfully ✓",tone:"success"},
+      {id:"manual-query-"+previous.logs.length,time:"10:24:19",text:`Running ${queryEngines[engine].label} query...`,tone:"muted" as const},
+      {id:"manual-result-"+previous.logs.length,time:"10:24:21",text:"Query completed successfully ✓",tone:"success" as const},
     ].slice(-14)}));
   };
   const download=()=>{
@@ -195,3 +195,4 @@ export function CloudObjectStorageLab(){
     <footer className="os-status"><span><Rows3 size={14}/>{state.status}</span><span>{providerMeta.service} · {sourceMeta.label} · {objectStorageFormats[format].label}</span><span className={state.queried?"is-ok":""}>{state.queried?"Query complete":"Waiting"}</span></footer>
   </section>;
 }
+

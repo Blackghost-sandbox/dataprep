@@ -43,7 +43,11 @@ for(const lesson of modelingLessons){
     const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson,module:'modeling',active,onTab:()=>{}})));
     assert.ok(!html.includes('Loading your lesson'),lesson.id+' '+active);
     assert.ok(!html.includes('Read the Apache Spark guide'),lesson.id+' wrong resource');
-    if(active==='Concept'){assert.ok(html.includes('Key Takeaway'));assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'));}
+    if(active==='Concept'){
+      const specialized={introduction:'Interactive Simulation',entities:'Model Builder Challenge',keys:'Constraint Playground',normalization:'Normalization Playground',denormalization:'Read Model Builder'};
+      if(specialized[lesson.id])assert.ok(html.includes(specialized[lesson.id]),lesson.id+' specialized concept');
+      else {assert.ok(html.includes('Key Takeaway'),lesson.id);assert.ok(html.includes('See the model')||html.includes('See the history')||html.includes('Two different jobs')||html.includes('From question to model'),lesson.id);}
+    }
     if(active==='Hands-on'){assert.ok(html.includes('Check design choice'));assert.ok(html.includes('not automatically graded'));}
     if(active==='Quiz')assert.ok(html.includes('Submit answers'));
     if(active==='Notes')assert.ok(html.includes(lesson.id+'-notes'));
@@ -52,7 +56,15 @@ for(const lesson of modelingLessons){
 const snowflakeSchema=modelingLessons.find(l=>l.id==='snowflake-schema');
 const snowflakeSimulation=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:snowflakeSchema,module:'modeling',active:'Simulation',onTab:()=>{}})));
 for(const label of ['Interactive Simulation','Run Simulation','Schema View','Data View','Fact Sales','Customer Segment','Product Category','Product Subcategory','Selected Table Data','Sample Analytical Query','Run Query','Query Result','Key Takeaways','Copy snowflake analytical query'])assert.ok(snowflakeSimulation.includes(label),label);
-for(const value of ['Alice','Laptop','subcategory_key','category_key','total_sales'])assert.ok(snowflakeSimulation.includes(value),value);
+// The initial data inspector selects Product; customer rows are reached by its selector.
+for(const value of ['Laptop','subcategory_key','category_key','total_sales'])assert.ok(snowflakeSimulation.includes(value),value);
+for(const [id,tab] of [['introduction','Simulation'],['cardinality','Simulation'],['er-modeling','Interactive Builder'],['normalization','Interactive Lab'],['oltp-olap','Simulation'],['facts-dimensions','Simulation'],['star-schema','Simulation']]){
+  const index=modelingLessons.findIndex(l=>l.id===id);
+  assert.deepEqual(parseLessonLocation(lessonLocation('modeling',id,tab),{modeling:modelingLessons}),{module:'modeling',index,tab});
+  const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{lesson:modelingLessons[index],module:'modeling',active:tab,onTab:()=>{}})));
+  assert.ok(html.includes('Reset')&&html.includes('Run'),id+' simulation renders controls');
+}
+assert.equal(parseLessonLocation('#modeling/keys/Simulation',{modeling:modelingLessons}),null);
 assert.deepEqual(parseLessonLocation(lessonLocation('modeling','snowflake-schema','Simulation'),{modeling:modelingLessons}),{module:'modeling',index:modelingLessons.findIndex(l=>l.id==='snowflake-schema'),tab:'Simulation'});
 for(const term of ['Entity','Attribute','Relationship','Primary Key','Foreign Key','Cardinality','Normalization','Denormalization','Grain','Fact','Dimension','Surrogate Key','Natural Key','Star Schema','Snowflake Schema','SCD'])assert.ok(getGlossaryItem(term),term);
 const sidebar=renderToString(React.createElement(Sidebar,{collapsed:false,setCollapsed:()=>{},onLesson:()=>{},currentLesson:0,completed:[0,1],module:'modeling',onModule:()=>{}}));
@@ -74,3 +86,4 @@ for(const [date,key] of [['2026-01-10',101],['2026-02-01',205],['2026-02-15',205
 }
 console.log('PASS: 14 lessons × 7 hydrated-branch server renders; Snowflake Schema simulation and deep-link; glossary coverage; sidebar progress; table shapes; SQL keys, references, totals and SCD boundaries.');
 console.log('Browser navigation, persistence, keyboard interactions and responsive layout still require live verification.');
+

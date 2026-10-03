@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   BarChart3,
+  ArrowRight,
   BookOpen,
   Check,
   CheckCircle2,
@@ -282,3 +283,4 @@ export function PythonPandasCompanion() {
     </section>
   );
 }
+

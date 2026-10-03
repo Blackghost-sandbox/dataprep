@@ -13,6 +13,7 @@ import {
   ClipboardCheck,
   Code2,
   Copy,
+  Database,
   FileText,
   Lightbulb,
   List,
@@ -493,3 +494,4 @@ export function PythonInterviewCompanion() {
     </section>
   );
 }
+

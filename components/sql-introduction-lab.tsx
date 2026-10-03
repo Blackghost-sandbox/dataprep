@@ -13,6 +13,11 @@ import {
   Play,
   RotateCcw,
   Table2,
+  KeyRound,
+  UserRound,
+  CalendarDays,
+  Hash,
+  MapPin,
   TriangleAlert,
 } from "lucide-react";
 import { useCompanion } from "@/components/companion-context";
@@ -122,8 +127,11 @@ function evaluate(query: string): QueryResult {
 function DataTable({ dataset, result = false }: { dataset: Dataset | QueryResult; result?: boolean }) {
   return <div className={"sql-intro-table-wrap" + (result ? " sql-intro-result-table" : "")} tabIndex={0} role="region" aria-label={result ? "Query result table" : "Source data table"}>
     <table>
-      <thead><tr>{dataset.columns.map(column => <th scope="col" key={column}>{column}</th>)}</tr></thead>
-      <tbody>{dataset.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((value, columnIndex) => <td key={dataset.columns[columnIndex]}>{value === null ? <em>NULL</em> : value}</td>)}</tr>)}</tbody>
+      <thead><tr>{dataset.columns.map(column => {
+        const Icon = column === "id" || column.endsWith("_id") ? KeyRound : column.includes("date") ? CalendarDays : column === "name" ? UserRound : column === "city" ? MapPin : Hash;
+        return <th scope="col" key={column}><span className="sql-semantic-header"><Icon size={14} aria-hidden="true"/>{column}</span></th>;
+      })}</tr></thead>
+      <tbody>{dataset.rows.map((row, rowIndex) => <tr key={rowIndex}>{row.map((value, columnIndex) => <td key={dataset.columns[columnIndex]}>{value === null ? <em>NULL</em> : dataset.columns[columnIndex] === "city" ? <span className="sql-city-pill">{value}</span> : value}</td>)}</tr>)}</tbody>
     </table>
   </div>;
 }
@@ -289,3 +297,4 @@ export function SqlIntroductionLab() {
     </div>
   </section>;
 }
+

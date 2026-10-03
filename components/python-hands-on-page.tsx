@@ -9,6 +9,7 @@ import {
   Database,
   FileCode2,
   Layers3,
+  Lightbulb,
   Play,
   RotateCcw,
   ShieldCheck,
@@ -251,3 +252,4 @@ export function PythonHandsOnConcept() {
     </div>
   );
 }
+

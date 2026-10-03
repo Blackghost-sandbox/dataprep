@@ -1,0 +1,249 @@
+/* Shared readability and alignment pass for every SQL Fundamentals concept lab. */
+.sql-module-page:not(.modeling-module-page){
+  --sql-text:#172554;
+  --sql-muted:#64748b;
+  --sql-border:#e3e8f1;
+  --sql-purple:#6552ed;
+  --sql-panel-radius:18px;
+}
+
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{gap:14px 16px}
+.sql-module-page:not(.modeling-module-page) .lesson-hero{min-height:0;padding:16px 18px}
+.sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:30px;line-height:1.08}
+.sql-module-page:not(.modeling-module-page) .lesson-hero h1+p{max-width:920px;font-size:15px;line-height:1.55;color:#4f6282}
+.sql-module-page:not(.modeling-module-page) .lesson-tabs{min-height:50px;padding-inline:12px}
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-list]{min-height:48px}
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-trigger]{min-height:46px;padding-inline:13px;font-size:13px}
+.sql-concept-layout .lesson-content{min-width:0}
+.sql-concept-layout .lesson-aside{gap:14px}
+.sql-concept-layout .lesson-aside>section,
+.sql-concept-layout .lesson-aside>button{border-radius:18px}
+.sql-concept-layout .lesson-state-row{min-height:34px;font-size:12.5px}
+.sql-concept-layout .perf-right-rail{grid-column:2;grid-row:1 / span 3;display:flex;min-width:0;flex-direction:column;gap:14px;align-self:start}
+.sql-concept-layout .perf-right-rail .lesson-aside{display:flex;min-width:0;flex-direction:column;gap:14px}
+.sql-concept-layout .perf-right-rail .lesson-playlist .space-y-1{max-height:none;overflow:visible;padding-right:0}
+.sql-concept-layout .perf-right-rail .nila-root{position:relative;right:auto;bottom:auto;z-index:1;width:100%}
+.sql-concept-layout .perf-right-rail .nila-dock{position:relative;right:auto;bottom:auto;width:100%}
+.sql-concept-layout .perf-right-rail .nila-idle-avatar{width:88px;height:auto;margin-right:14px}
+.sql-concept-layout .perf-right-rail .nila-launcher{width:100%;justify-content:flex-start;padding-right:86px}
+.sql-concept-layout .perf-right-rail .nila-bubble{position:relative;right:auto;bottom:auto;width:100%;margin:0 0 8px;padding-right:78px}
+.sql-concept-layout .perf-right-rail .nila-panel{width:min(390px,calc(100vw - 24px))!important}
+
+/* Every simulator behaves responsively according to its own available width. */
+.sql-concept-layout :is(
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+  .null-case-lab,.qe-lab
+){container-type:inline-size;min-width:0;color:var(--sql-text)}
+
+.sql-concept-layout :is(
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+  .null-sim-card,.qe-card
+){border-color:var(--sql-border);border-radius:var(--sql-panel-radius);box-shadow:0 10px 30px rgba(32,48,80,.055)}
+
+/* Lab titles and their one-line teaching prompt. */
+.sql-concept-layout :is(
+  .sql-intro-lab-title,.select-lab-title,.where-sim-title,.distinct-title,
+  .order-title,.limit-title,.aggregate-title,.group-title,.having-title,
+  .joins-title,.subflow-title,.wf-lab-title,.null-sim-title,.qe-title
+) h2{font-size:21px!important;line-height:1.18!important;letter-spacing:-.018em}
+.sql-concept-layout :is(
+  .sql-intro-lab-title,.select-lab-title,.where-sim-title,.distinct-title,
+  .order-title,.limit-title,.aggregate-title,.group-title,.having-title,
+  .joins-title,.subflow-title,.wf-lab-title,.null-sim-title,.qe-title
+) p{font-size:14px!important;line-height:1.5!important;color:#61718b!important}
+
+/* Controls should be readable without losing the compact workstation feel. */
+.sql-concept-layout :is(button,select,input,textarea){font-size:12px}
+.sql-concept-layout :is(
+  .sql-intro-lab-actions,.select-lab-actions,.where-sim-actions,.distinct-actions,
+  .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+  .joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions
+) :is(button,select){min-height:38px;font-size:14px!important}
+.sql-concept-layout :is(
+  .sql-intro-dataset,.select-lab-actions,.where-sim-actions,.distinct-actions,
+  .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+  .joins-actions,.subflow-actions,.wf-lab-actions,.null-dataset,.qe-actions
+) label>span{font-size:16px!important}
+
+/* Section headings, explanatory copy, and badges. */
+.sql-concept-layout :is(h3,h4){line-height:1.35}
+.sql-concept-layout :is(
+  .sql-intro-panel-title,.select-panel-heading,.where-panel-heading,
+  .distinct-panel-heading,.order-panel-heading,.limit-panel-heading,
+  .aggregate-panel-heading,.group-panel-heading,.having-panel-heading,
+  .joins-panel-heading,.subflow-panel-heading,.wf-panel-title
+) :is(h3,strong){font-size:13px!important}
+.sql-concept-layout :is(
+  .distinct-columns-card,.order-options-card,.limit-options-card,
+  .aggregate-picker,.group-source-card,.having-controls
+)>h3{font-size:14px!important}
+.sql-concept-layout :is(
+  .distinct-columns-card,.order-options-card,.limit-options-card,
+  .aggregate-picker,.group-source-card,.having-controls
+)>p{font-size:14px!important;line-height:1.45!important}
+
+/* Data tables are the lesson: keep them comfortably legible. */
+.sql-concept-layout :is(
+  .sql-intro-table-wrap,.select-table-shell,.where-data-table,.distinct-table-wrap,
+  .order-table-wrap,.limit-table-wrap,.aggregate-table-wrap,.group-table-wrap,
+  .having-table-wrap,.joins-table-wrap,.joins-result-table,.subflow-table-wrap,
+  .wf-table-wrap,.null-table-wrap,.qe-table-wrap
+) table{font-size:13px!important;line-height:1.35}
+.sql-concept-layout :is(
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+  .null-case-lab,.qe-lab
+) table{font-size:13px!important;line-height:1.4}
+.sql-concept-layout :is(
+  .sql-intro-table-wrap,.select-table-shell,.where-data-table,.distinct-table-wrap,
+  .order-table-wrap,.limit-table-wrap,.aggregate-table-wrap,.group-table-wrap,
+  .having-table-wrap,.joins-table-wrap,.joins-result-table,.subflow-table-wrap,
+  .wf-table-wrap,.null-table-wrap,.qe-table-wrap
+) :is(th,td){height:32px!important;padding:7px 10px!important}
+
+/* Lists, help text, scenario labels, and takeaway copy. */
+.sql-concept-layout :is(
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+  .null-case-lab,.qe-lab
+) :is(p,li,small,label){line-height:1.45}
+.sql-concept-layout :is(
+  .sql-intro-bottom,.select-challenge-grid,.where-bottom,.distinct-bottom,
+  .order-visual-card,.order-scenarios-card,.limit-visual-card,.limit-scenarios-card,
+  .aggregate-bottom,.group-bottom,.having-bottom,.joins-bottom,.subflow-bottom,
+  .wf-explain-grid,.null-bottom-grid,.qe-bottom
+) :is(p,li,small,code){font-size:13px!important}
+
+/* Code should be as readable as the tables beside it. */
+.sql-concept-layout :is(
+  .sql-intro-code-lines,.select-sql-lines,.comparison-code-line,
+  .wf-editor-shell textarea,.null-code-shell textarea,.qe-code-shell textarea
+){font-size:14px!important;line-height:1.65!important}
+
+/* A few labs use different heading element names but share the same hierarchy. */
+.sql-concept-layout .aggregate-title h2,
+.sql-concept-layout .wf-lab-header h3{font-size:21px!important;line-height:1.18!important;letter-spacing:-.018em}
+.sql-concept-layout .wf-lab-header p{font-size:14px!important;line-height:1.5!important}
+
+/* Container-aware stacking fixes the squeezed center column caused by both rails. */
+@container (max-width:900px){
+  .sql-concept-layout :is(
+    .sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,
+    .order-header,.limit-header,.aggregate-header,.group-header,.having-header,
+    .joins-header,.subflow-header,.wf-lab-header,.null-sim-header,.qe-header
+  ){align-items:flex-start;flex-direction:column}
+  .sql-concept-layout :is(
+    .sql-intro-lab-actions,.select-lab-actions,.where-sim-actions,.distinct-actions,
+    .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+    .joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions
+  ){width:100%;justify-content:flex-start;flex-wrap:wrap}
+}
+
+@media(max-width:1320px) and (min-width:901px){
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:30px}
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-trigger]{padding-inline:8px;font-size:12px}
+}
+
+@media(max-width:900px){
+  .sql-module-page:not(.modeling-module-page) .lesson-hero{min-height:auto;padding:16px}
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:28px}
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1+p{font-size:14px}
+  .sql-concept-layout .lesson-aside{grid-column:1;grid-row:4}
+  .sql-concept-layout .perf-right-rail{grid-column:1;grid-row:4}
+}
+
+/* The app uses display:contents for the lesson layout. Tailwind space-y
+   still adds margins to its grid items, doubling the explicit row gap. */
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{
+  grid-template-columns:minmax(0,1fr) 280px;
+  grid-template-rows:min-content min-content minmax(0,1fr);
+  align-content:start;row-gap:16px;
+}
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main>*{margin-block:0!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content{margin-block:0!important;font-size:14px;min-width:0}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(p,li){font-size:14px!important;line-height:1.55}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(small,label,figcaption){font-size:12px!important;line-height:1.5}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(button,select,input){font-size:13px!important;min-height:34px}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(h3,h4){font-size:16px!important;line-height:1.35}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(code,pre,textarea){font-size:14px!important;line-height:1.65}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(span,strong,b){font-size:inherit}
+.sql-module-page:not(.modeling-module-page) .lesson-content table :is(th,td){font-size:13px!important;line-height:1.4;padding:7px 10px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content table th{background:linear-gradient(135deg,#ede9fe,#e0e7ff);color:#493697;font-weight:700;border-bottom:1px solid #d4ccf1}
+.sql-module-page:not(.modeling-module-page) .lesson-content table tbody tr:nth-child(even) td:not([class]){background:#f8faff}
+.sql-module-page:not(.modeling-module-page) .lesson-content table tbody tr:hover td:not([class]){background:#edf2ff}
+.sql-module-page:not(.modeling-module-page) .lesson-content [class*="result"] table th{background:linear-gradient(135deg,#dcfce7,#d1fae5);color:#166534;border-color:#bbebcf}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is([class*="table-wrap"],[class*="table-scroll"]){border-radius:10px;border:1px solid #e3e8f1;max-width:100%}
+.sql-module-page:not(.modeling-module-page) .lesson-aside :is(p,button,a){font-size:13px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-aside :is(small,.lesson-state){font-size:12px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-aside>section{padding:14px}
+.sql-module-page:not(.modeling-module-page) .lesson-state-row{min-height:36px;flex-wrap:wrap}
+.sql-module-page:not(.modeling-module-page) .dataprep-sidebar nav button{font-size:14px;min-height:36px}
+.sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,.96fr) minmax(0,1.08fr) minmax(0,.96fr)}
+.sql-concept-layout .sql-intro-editor textarea{min-height:220px}
+.sql-concept-layout :is(.aggregate-grid,.limit-grid,.order-grid,.distinct-grid,.group-grid,.having-grid,.joins-grid){grid-template-rows:auto}
+.sql-concept-layout :is(.sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,.order-header,.limit-header,.aggregate-header,.group-header,.having-header,.joins-header,.subflow-header,.wf-lab-header,.null-sim-header,.qe-header){gap:12px;flex-wrap:wrap}
+.sql-concept-layout :is(.sql-intro-controls,.select-lab-actions,.where-sim-actions,.distinct-actions,.order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,.joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions){gap:8px;flex-wrap:wrap}
+@container(max-width:1000px){
+  .sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .sql-concept-layout .sql-intro-result-stage{grid-column:1/-1}
+}
+@container(max-width:700px){
+  .sql-concept-layout :is(.sql-intro-workspace,.sql-intro-bottom,.select-data-flow,.select-lab-bottom){grid-template-columns:minmax(0,1fr)}
+  .sql-concept-layout .sql-intro-result-stage{grid-column:auto}
+}
+@media(max-width:900px){
+  .sql-module-page:not(.modeling-module-page) .dataprep-main>main{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs{overflow-x:auto}
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs [role=tablist]{flex-wrap:nowrap;width:max-content}
+}
+/* Metadata and diagram labels follow the same readable floor as controls. */
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(div,span,strong,b,em){font-size:13px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(h2,h3,h4) :is(span,strong,b){font-size:inherit!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(code,pre,.comparison-code-line,.sql-intro-code-lines) :is(span,strong,b){font-size:14px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-card{height:auto;min-height:140px}
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-scroll{height:auto;max-height:300px;min-height:90px;padding:12px;overflow:auto}
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-line{font-size:14px!important;line-height:1.65!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-line>span:last-child{white-space:pre-wrap;overflow-wrap:anywhere}
+.sql-concept-layout .sql-intro-editor-shell{height:auto;min-height:270px}
+.sql-concept-layout .sql-intro-editor{min-height:220px}
+.sql-module-page:not(.modeling-module-page) .perf-right-rail .lesson-playlist .space-y-1{max-height:none;overflow:visible}
+.sql-concept-layout :is(.joins-panel-heading,.group-panel-heading,.having-panel-heading,.aggregate-panel-heading,.order-panel-heading,.limit-panel-heading,.distinct-panel-heading,.subflow-panel-heading){flex-wrap:wrap;align-items:flex-start}
+.sql-concept-layout .joins-scenario-row{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.sql-concept-layout .joins-scenario-row button{height:auto;min-height:64px}
+.sql-concept-layout .joins-scenario-row button small{white-space:normal}
+.sql-concept-layout :is(.sql-intro-bottom,.select-lab-bottom){align-items:start}
+.sql-semantic-header{display:inline-flex;align-items:center;gap:6px}
+.sql-semantic-header svg{flex-shrink:0;color:#7357dc}
+.sql-intro-result-table .sql-semantic-header svg{color:#16a065}
+.sql-city-pill{display:inline-block;padding:2px 7px;border-radius:6px;background:#edf2ff;color:#375ca3;font-weight:600}
+.sql-module-page:not(.modeling-module-page) .lesson-content .sql-city-pill{font-size:12px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content legend{font-size:12px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content button{height:auto;min-height:36px;line-height:1.4;padding-block:7px}
+/* Reflow the teaching stages based on workspace width, not viewport width.
+   Both navigation rails consume room even on otherwise wide screens. */
+@container(max-width:1000px){
+  .sql-concept-layout :is(.where-sim-grid,.distinct-grid,.order-grid,.limit-grid,.aggregate-grid,.group-main-grid,.having-main-grid,.joins-main-grid){grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+  .sql-concept-layout :is(.distinct-grid,.order-grid,.limit-grid,.aggregate-grid)>*{grid-column:auto!important;grid-row:auto!important}
+  .sql-concept-layout :is(.distinct-result-card,.order-result-card,.limit-result-card,.aggregate-result-card,.group-result-card,.having-result-card,.joins-result-card){grid-column:1/-1!important}
+  .sql-concept-layout :is(.having-builder,.subflow-controls){grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sql-concept-layout :is(.wf-workspace,.null-workspace,.qe-workspace){grid-template-columns:minmax(0,1fr)}
+  .sql-concept-layout .null-stage-head{display:none}
+  .sql-concept-layout :is(.having-bottom-grid,.subflow-top-grid){grid-template-columns:minmax(0,1fr)}
+  .sql-concept-layout .subflow-top-grid>svg{transform:rotate(90deg);justify-self:center}
+}
+@container(max-width:700px){
+  .sql-concept-layout :is(.where-sim-grid,.distinct-grid,.order-grid,.limit-grid,.aggregate-grid,.group-main-grid,.having-main-grid,.joins-main-grid,.where-bottom-grid,.where-try-card,.distinct-bottom,.group-bottom-grid,.joins-mid-grid,.joins-bottom-grid,.subflow-middle-grid,.subflow-bottom-grid,.wf-explain-grid,.null-bottom-grid,.qe-bottom){grid-template-columns:minmax(0,1fr)}
+  .sql-concept-layout :is(.where-scenarios,.having-scenario-row,.group-scenario-row,.wf-scenarios,.qe-stage-strip){grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.sql-concept-layout :is(.wf-lab-header,.sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,.order-header,.limit-header,.aggregate-header,.group-header,.having-header,.joins-header,.subflow-header,.null-sim-header,.qe-header) .visual-title{flex:0 1 auto;min-height:0}
+.sql-concept-layout .wf-scenarios button{flex-direction:column;align-items:flex-start;text-align:left}
+.sql-concept-layout .wf-scenarios button span{white-space:normal}
+.sql-concept-layout .qe-stage-strip{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
+.sql-concept-layout .qe-stage-strip button :is(strong,small){white-space:normal;overflow:visible}
+

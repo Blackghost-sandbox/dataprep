@@ -106,7 +106,7 @@ export function runDbtIncrementalMerge(
   dataset: DbtIncrementalDataset,
   incomingRows: DbtIncrementalRow[],
 ): DbtIncrementalRunResult {
-  const byKey = new Map(dataset.existing.map(row=>[row.order_id,{...row,status:"unchanged" as const}]));
+  const byKey = new Map<string, DbtIncrementalMergedRow>(dataset.existing.map(row=>[row.order_id,{...row,status:"unchanged" as const}]));
   let updatedRows=0;
   let insertedRows=0;
 
@@ -167,3 +167,4 @@ export function getChangeType(
   if(!previous)return "insert";
   return sameBusinessValues(previous,row)?"no-change":"update";
 }
+

@@ -95,7 +95,7 @@ export function selectableColumns(dataset:AggregateDataset,fn:AggregateFunction)
   return fn==="COUNT" ? [{key:"*",label:"* (all rows)",type:"number",sqlType:"ALL"},...columns] : columns;
 }
 
-export function aggregateValue(dataset:AggregateDataset,fn:AggregateFunction,columnKey:string|"*"):number|string|null{
+export function aggregateValue(dataset:AggregateDataset,fn:AggregateFunction,columnKey:string|"*"):AggregateCell{
   if(fn==="COUNT"&&columnKey==="*")return dataset.rows.length;
   const values=dataset.rows.map(row=>row[columnKey]).filter(value=>value!==null&&value!==undefined);
   if(fn==="COUNT")return values.length;
@@ -117,7 +117,7 @@ export function aggregateValue(dataset:AggregateDataset,fn:AggregateFunction,col
   return values.reduce((best,value)=>fn==="MIN"?(compare(value,best)<0?value:best):(compare(value,best)>0?value:best));
 }
 
-export function formatAggregateValue(value:number|string|null,fn:AggregateFunction):string{
+export function formatAggregateValue(value:AggregateCell,fn:AggregateFunction):string{
   if(value===null)return "NULL";
   if(fn==="AVG"&&typeof value==="number")return value.toFixed(2);
   if(typeof value==="number")return Number.isInteger(value)?value.toLocaleString("en-US"):value.toFixed(2);
@@ -145,3 +145,4 @@ export function aggregateSteps(dataset:AggregateDataset,fn:AggregateFunction,col
   if(fn==="MIN")return [`Scan values in ${target}`,"Keep the smallest value seen",`Minimum = ${formatAggregateValue(aggregateValue(dataset,fn,column),fn)}`];
   return [`Scan values in ${target}`,"Keep the largest value seen",`Maximum = ${formatAggregateValue(aggregateValue(dataset,fn,column),fn)}`];
 }
+
