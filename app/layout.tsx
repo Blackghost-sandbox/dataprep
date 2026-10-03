@@ -29,6 +29,7 @@ import "./kafka-replication-fault-tolerance.css";
 import "./kafka-serialization-schema.css";
 import "./kafka-connect.css";
 import "./kafka-streams.css";
+import "./kafka-reliability-production.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
