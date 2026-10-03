@@ -83,8 +83,8 @@ function EditableTable({
       <tbody>{rows.slice(0,8).map((row,index)=><tr key={row.row}>
         <td>{row.row}</td>
         {(["order_id","customer_id","order_date","total_amount"] as const).map(key=>{
-          const bad=badCells.has(index+":"+key);
           const value=row[key];
+          const bad=badCells.has(index+":"+key) || ((key==="order_id"||key==="customer_id"||key==="total_amount") && value.trim()==="") || (key==="total_amount" && Number(value)<0);
           return <td className={bad?"is-bad":""} key={key}>
             {editing?<input value={value} onChange={e=>update(index,key,e.target.value)} aria-label={key+" row "+row.row}/>:<span>{value||"NULL"}</span>}
           </td>;
