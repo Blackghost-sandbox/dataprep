@@ -113,9 +113,9 @@ export function compact(value:number):string{
 }
 
 export function formatPb(value:number):string{
-  if(value>=100)return Math.round(value)+" PB";
-  if(value>=10)return value.toFixed(1).replace(/\.0$/,"")+" PB";
-  if(value>=1)return value.toFixed(1)+" PB";
+  if(value>=100)return Math.floor(value)+" PB";
+  if(value>=10)return value.toFixed(2).replace(/0+$/,"").replace(/\.$/,"")+" PB";
+  if(value>=1)return (Number.isInteger(value)?value.toFixed(1):value.toFixed(2).replace(/0+$/,"").replace(/\.$/,""))+" PB";
   const tb=value*1000;
   return (tb>=100?Math.round(tb):Number(tb.toFixed(1)))+" TB";
 }
