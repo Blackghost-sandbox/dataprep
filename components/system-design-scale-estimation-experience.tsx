@@ -61,8 +61,8 @@ function ArchitectureFlow({result}:{result:ScaleResult}){
   </section>;
 }
 
-function ResultCard({icon,label,value,detail,tone}:{icon:React.ReactNode;label:string;value:string;detail:string;tone:string}){
-  return <article className={"sdse-result "+tone}><span>{icon}</span><div><small>{label}</small><strong>{value}</strong><em>{detail}</em></div></article>;
+function ResultCard({icon,label,value,detail,tone,trend}:{icon:React.ReactNode;label:string;value:string;detail:string;tone:string;trend?:string}){
+  return <article className={"sdse-result "+tone}><span>{icon}</span><div><small>{label}</small><strong>{value}</strong><em>{detail}</em>{trend&&<i>{trend}</i>}</div></article>;
 }
 
 export function SystemScaleEstimationLab(){
@@ -140,7 +140,7 @@ export function SystemScaleEstimationLab(){
         <section className="sdse-results">
           <h3>3. Estimated Numbers (Results)</h3>
           <div className="sdse-results-grid">
-            <ResultCard tone="blue" icon={<Gauge size={19}/>} label="Throughput" value={result.roundedPeakQps.toLocaleString()} detail={"requests / second · "+inputs.peakMultiplier+"× peak"}/>
+            <ResultCard tone="blue" icon={<Gauge size={19}/>} label="Throughput" value={result.roundedPeakQps.toLocaleString()} detail="requests / second" trend={"↑ "+inputs.peakMultiplier+"× peak"}/>
             <ResultCard tone="purple" icon={<BarChart3 size={19}/>} label="Daily Requests" value={compact(result.dailyRequests)} detail="requests / day"/>
             <ResultCard tone="green" icon={<Database size={19}/>} label="Daily Data Ingest" value={formatPb(result.dailyIngestPb)} detail="per day"/>
             <ResultCard tone="orange" icon={<HardDrive size={19}/>} label="Total Storage" value={formatPb(result.annualRawPb)} detail={"for "+(inputs.retentionDays===365?"1 year":inputs.retentionDays+" days")}/>
