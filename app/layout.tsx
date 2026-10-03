@@ -33,6 +33,8 @@ import "./kafka-reliability-production.css";
 import "./kafka-architecture-review.css";
 import "./kafka-ordering-delivery.css";
 import "./cloud-identity-security.css";
+import "./cloud-object-storage.css";
+import "./cloud-introduction.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
