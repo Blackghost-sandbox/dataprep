@@ -3,7 +3,7 @@
 import {useMemo,useState} from "react";
 import {
   Boxes, ChevronRight, CircleDot, Database, Play, RadioTower, RefreshCcw,
-  RotateCcw, Send, Sparkles, Zap
+  RotateCcw, Send, Sparkles
 } from "lucide-react";
 import {
   clearOffsetEvents, consumeOffsetMessages, createOffsetLabState, offsetScenarioCatalog,
