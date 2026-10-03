@@ -242,7 +242,7 @@
 .pyff-code{overflow:hidden;height:266px;border:1px solid #223950;border-radius:7px;background:linear-gradient(145deg,#13263e,#09182b);color:#dce7f4;box-shadow:0 5px 11px #152a421a}
 .pyff-code>header{display:flex;align-items:center;justify-content:space-between;height:27px;padding:0 9px;border-bottom:1px solid #31475e;color:#fff;font-size:18px}
 .pyff-copy{display:flex;align-items:center;gap:4px;color:#d2deeb;font-size:18px}
-.pyff-code pre{margin:0!important;padding:8px 10px!important;overflow:auto!important;background:transparent!important;color:#d9e6f4!important;font:8px/1.45 var(--font-mono)!important;white-space:pre!important;scrollbar-width:thin}
+.pyff-code pre{margin:0!important;padding:8px 10px!important;overflow:auto!important;background:transparent!important;color:#d9e6f4!important;font:18px/1.45 var(--font-mono)!important;white-space:pre!important;scrollbar-width:thin}
 .pyff-code pre span{display:block}.pyff-code pre .is-comment{color:#7cb38b}
 .pyff-stage-status{
   position:absolute;left:10px;right:10px;bottom:9px;
@@ -258,10 +258,10 @@
 .pyff-preview pre{
   height:86px;margin:0!important;padding:6px 7px!important;overflow:auto;
   border:1px solid #e0e6ee;border-radius:6px;background:#fff;color:#334964;
-  font:7px/1.25 var(--font-mono)!important;white-space:pre;
+  font:18px/1.45 var(--font-mono)!important;white-space:pre;
 }
 .pyff-parquet-preview{display:grid;height:86px;border:1px solid #dce7ef;border-radius:6px;background:#fff;overflow:hidden}
-.pyff-parquet-preview span{display:flex;align-items:center;justify-content:space-between;padding:0 8px;border-bottom:1px solid #edf1f5;color:#415775;font-size:18px}.pyff-parquet-preview span:last-child{border-bottom:0}.pyff-parquet-preview b{font:700 7.2px var(--font-mono);color:#0f9d67}
+.pyff-parquet-preview span{display:flex;align-items:center;justify-content:space-between;padding:0 8px;border-bottom:1px solid #edf1f5;color:#415775;font-size:18px}.pyff-parquet-preview span:last-child{border-bottom:0}.pyff-parquet-preview b{font:700 18px var(--font-mono);color:#0f9d67}
 
 .pyff-file-list{display:grid;margin-top:1px;border:1px solid #dde8e3;border-radius:7px;overflow:hidden;background:#fff}
 .pyff-file-list>div{display:grid;grid-template-columns:36px 1fr 49px;align-items:center;gap:7px;min-height:53px;padding:6px 7px;border-bottom:1px solid #e9efec}.pyff-file-list>div:last-child{border-bottom:0}
@@ -271,7 +271,7 @@
 .pyff-schema{display:grid;border:1px solid #dce8e2;border-radius:7px;overflow:hidden;background:#fff;font-size:18px}
 .pyff-schema>div{display:grid;grid-template-columns:1fr 1fr;min-height:32px;align-items:center;border-bottom:1px solid #edf1ef}.pyff-schema>div:last-child{border-bottom:0}
 .pyff-schema span,.pyff-schema strong,.pyff-schema code{padding:0 8px}.pyff-schema>div:first-child{background:#f5faf7;color:#36506f}
-.pyff-schema code{color:#0b9760;font:700 7.6px var(--font-mono)}
+.pyff-schema code{color:#0b9760;font:700 18px var(--font-mono)}
 .pyff-success{
   display:flex;align-items:center;gap:8px;
   min-height:51px;margin-top:8px;padding:8px 9px;
@@ -352,7 +352,7 @@
 .pyff-companion-actions button:first-child{border:none;background:linear-gradient(135deg,#7250f3,#5f3ce9);color:#fff;box-shadow:0 5px 12px #6544ec26}
 .pyff-companion-expand{position:relative;margin:0 10px 10px;padding:8px;border:1px solid #e2ddf8;border-radius:8px;background:#faf8ff;color:#415573}
 .pyff-companion-expand>div{display:flex;gap:5px}.pyff-companion-expand input{min-width:0;flex:1;height:28px;padding:0 8px;border:1px solid #d8d1f4;border-radius:6px;background:#fff;outline:none;font-size:18px}.pyff-companion-expand div>button{width:38px;border-radius:6px;background:#6645e6;color:#fff;font-size:18px;font-weight:700}
-.pyff-companion-expand p{margin:6px 0 0;font-size:18px;line-height:1.4}.pyff-companion-expand pre{max-height:120px;margin:0;padding:5px;overflow:auto;white-space:pre-wrap;font:7.4px/1.35 var(--font-mono);color:#4b5f7c}.pyff-expand-close{position:absolute;right:4px;top:4px;color:#6c6f84}
+.pyff-companion-expand p{margin:6px 0 0;font-size:18px;line-height:1.4}.pyff-companion-expand pre{max-height:120px;margin:0;padding:5px;overflow:auto;white-space:pre-wrap;font:18px/1.45 var(--font-mono);color:#4b5f7c}.pyff-expand-close{position:absolute;right:4px;top:4px;color:#6c6f84}
 
 /* File preview modal */
 .pyff-modal-backdrop{
@@ -365,7 +365,7 @@
   box-shadow:0 24px 70px #0b173642;
 }
 .pyff-modal>header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #e6ebf1;background:#fafbfe}.pyff-modal>header div{display:flex;flex-direction:column}.pyff-modal>header strong{font-size:18px}.pyff-modal>header small{margin-top:2px;color:#71809a;font-size:18px}.pyff-modal>header button{color:#60708b}
-.pyff-modal>pre{max-height:420px;margin:0!important;padding:16px!important;overflow:auto;background:#0d1d31!important;color:#dce6f4!important;font:10px/1.55 var(--font-mono)!important;white-space:pre!important}
+.pyff-modal>pre{max-height:420px;margin:0!important;padding:16px!important;overflow:auto;background:#0d1d31!important;color:#dce6f4!important;font:18px/1.55 var(--font-mono)!important;white-space:pre!important}
 .pyff-modal>footer{display:flex;justify-content:flex-end;gap:8px;padding:10px 12px;border-top:1px solid #e7ebf1}.pyff-modal>footer button{height:30px;padding:0 11px;border:1px solid #dfe4ec;border-radius:7px;color:#4a5e7c;font-size:18px}.pyff-modal>footer .pyff-copy{background:#6747e9;color:#fff;border-color:#6747e9}
 
 /* Sidebar density from reference */

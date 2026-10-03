@@ -84,7 +84,7 @@
 .pypd-mini-table i:nth-child(4n+2),.pypd-mini-table i:nth-child(4n+3){background:#9bc7f2}
 .pypd-chip{
   position:absolute;z-index:5;display:grid;place-items:center;height:36px;padding:0 17px;border-radius:12px;
-  font:700 11px var(--font-mono);box-shadow:0 7px 17px #344a6c14;
+  font:700 18px var(--font-mono);box-shadow:0 7px 17px #344a6c14;
 }
 .pypd-chip.chip-filter{left:334px;top:13px;background:#cde9ff;color:#156bb6;transform:rotate(-5deg)}
 .pypd-chip.chip-group{left:323px;top:68px;background:#d8f5df;color:#137a45;transform:rotate(-9deg)}
@@ -138,7 +138,7 @@
 .pypd-table th{height:23px;background:#edf4fb;font-weight:750}.pypd-table th,.pypd-table td{padding:4px 7px;text-align:center;border-right:1px solid #dce5ee;border-bottom:1px solid #dce5ee;white-space:nowrap}
 .pypd-table th:last-child,.pypd-table td:last-child{border-right:0}.pypd-table tr:last-child td{border-bottom:0}
 .pypd-result{margin-top:1px;font-size:18px}.pypd-result th{background:#f2f5f9}.pypd-result strong{color:#14213f}
-.pypd-inline-code{display:block;margin-top:7px;padding:5px 7px;border-radius:6px;background:#f0eaff;color:#6540e7;font:700 7.7px var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pypd-inline-code{display:block;margin-top:7px;padding:5px 7px;border-radius:6px;background:#f0eaff;color:#6540e7;font:700 18px var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pypd-stage-green .pypd-inline-code{background:#ddf6e8;color:#06975b}.pypd-stage-orange .pypd-inline-code{background:#ffead3;color:#e15e12}
 .pypd-stage-note{margin:7px 3px 0;color:#576b89;font-size:18px;line-height:1.32}
 .pypd-groups{display:grid;gap:7px}
@@ -173,7 +173,7 @@
 .pypd-code>header{display:flex;align-items:center;justify-content:space-between;height:27px;padding:0 10px;border-bottom:1px solid #28415e;color:#fff;font-size:18px}
 .pypd-code>header>div{display:flex;align-items:center;gap:7px}.pypd-code>header button{display:flex;align-items:center;gap:5px;color:#cad6e5;font-size:18px}
 .pypd-python-badge{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#278fe0 0 50%,#f3c52d 50% 100%);font-size:18px;font-weight:800}
-.pypd-code pre{margin:0!important;padding:7px 0!important;overflow:auto;background:transparent!important;color:inherit!important;font:7.5px/1.28 var(--font-mono)!important;white-space:pre!important}
+.pypd-code pre{margin:0!important;padding:7px 0!important;overflow:auto;background:transparent!important;color:inherit!important;font:18px/1.45 var(--font-mono)!important;white-space:pre!important}
 .pypd-code pre span{display:grid;grid-template-columns:28px 1fr;padding-right:8px}.pypd-code pre i{text-align:right;padding-right:8px;color:#607996;font-style:normal}.pypd-code pre b{font-weight:500;color:#e5edf6}.pypd-code pre .is-comment{color:#77b883}
 .pypd-concepts{height:267px}
 .pypd-concepts h3,.pypd-concepts h4{margin:0;color:#152440;font-size:18px}
@@ -190,7 +190,7 @@
 .pypd-decision>span{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#ffe4ed;color:#d92767}
 .pypd-decision.pypd-tone-blue>span{background:#e3f0ff;color:#1783d4}.pypd-decision.pypd-tone-violet>span{background:#eae4ff;color:#6c46ed}.pypd-decision.pypd-tone-orange>span{background:#ffead1;color:#e06d15}
 .pypd-decision small{display:block;color:#263953;font-size:18px;line-height:1.15}.pypd-decision strong{display:block;margin-top:3px;color:#d31f61;font-size:18px;line-height:1.1}.pypd-decision.pypd-tone-blue strong{color:#1479c3}.pypd-decision.pypd-tone-violet strong{color:#6640e4}.pypd-decision.pypd-tone-orange strong{color:#d86114}
-.pypd-decision code{display:block;margin-top:4px;padding:2px 4px;border-radius:4px;background:#f6f3ff;color:#6240e4;font:5.9px/1.2 var(--font-mono)}
+.pypd-decision code{display:block;margin-top:4px;padding:2px 4px;border-radius:4px;background:#f6f3ff;color:#6240e4;font:18px/1.45 var(--font-mono)}
 
 /* Right rail */
 .pypd-right-rail{display:flex;min-width:0;flex-direction:column;gap:11px}
@@ -217,7 +217,7 @@
 .pypd-companion-actions button:first-child{border:none;background:linear-gradient(135deg,#7250f3,#5f3ce9);color:#fff;box-shadow:0 5px 12px #6544ec26}
 .pypd-companion-expand{position:relative;margin:0 10px 10px;padding:8px;border:1px solid #e1dcf8;border-radius:8px;background:#faf8ff;color:#415573}
 .pypd-companion-expand>div{display:flex;gap:5px}.pypd-companion-expand input{min-width:0;flex:1;height:28px;padding:0 8px;border:1px solid #d8d1f4;border-radius:6px;background:#fff;outline:none;font-size:18px}.pypd-companion-expand div>button{width:38px;border-radius:6px;background:#6645e6;color:#fff;font-size:18px;font-weight:700}
-.pypd-companion-expand p{margin:6px 0 0;font-size:18px;line-height:1.4}.pypd-companion-expand pre{max-height:150px;margin:0;padding:5px;overflow:auto;white-space:pre-wrap;font:7.3px/1.35 var(--font-mono);color:#4b5f7c}.pypd-expand-close{position:absolute;right:4px;top:4px;color:#6c6f84}
+.pypd-companion-expand p{margin:6px 0 0;font-size:18px;line-height:1.4}.pypd-companion-expand pre{max-height:150px;margin:0;padding:5px;overflow:auto;white-space:pre-wrap;font:18px/1.45 var(--font-mono);color:#4b5f7c}.pypd-expand-close{position:absolute;right:4px;top:4px;color:#6c6f84}
 
 /* Sidebar */
 .python-pandas-page .dataprep-sidebar{background:linear-gradient(180deg,#071a34,#05213f)}
@@ -245,4 +245,17 @@
   .pypd-stage{height:auto;min-height:210px}
 }
 @media(prefers-reduced-motion:reduce){.pypd-stage{transition:none}}
+
+/* Allow readable text to determine content height. */
+.pypd-hero{height:auto;min-height:210px}
+.pypd-hero-copy{position:relative;height:auto;min-height:210px}
+.pypd-stage{height:auto;min-height:310px}
+.pypd-stage>header{height:auto;min-height:72px}
+.pypd-code,.pypd-concepts{height:auto;min-height:320px}
+.pypd-code>header{height:auto;min-height:40px;gap:12px;flex-wrap:wrap;padding-block:8px}
+.pypd-code pre{max-height:460px}
+.pypd-timeline>header{height:auto;min-height:32px;flex-wrap:wrap}
+.pypd-time{grid-template-columns:25px minmax(0,1fr)}
+.pypd-time-icon{display:none}
+.pypd-table{display:block;overflow-x:auto}
 

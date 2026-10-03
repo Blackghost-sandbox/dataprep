@@ -140,7 +140,7 @@
   display:grid;place-items:center;
   height:34px;padding:0 14px;
   border-radius:10px;
-  font:700 13px var(--font-mono);
+  font:700 18px var(--font-mono);
   box-shadow:0 8px 17px #283c5d12;
 }
 .pyfm-chip-def{left:22px;top:34px;transform:rotate(-10deg);background:#e7e7ff;color:#5252df}
@@ -152,7 +152,7 @@
   background:#fff;
   box-shadow:0 8px 18px #52608c15;
   color:#4c55df;
-  font:700 14px var(--font-mono);
+  font:700 18px var(--font-mono);
 }
 .pyfm-file-mini:before{content:"";position:absolute;inset:8px;border-radius:5px;background:#f1f2ff;z-index:-1}
 .pyfm-files{
@@ -167,7 +167,7 @@
 .pyfm-files div{
   display:flex;align-items:center;gap:6px;
   height:23px;color:#44597b;
-  font:600 9px var(--font-mono);
+  font:600 18px var(--font-mono);
 }
 .pyfm-files svg{color:#6a8fe8}
 .pyfm-dot{position:absolute;width:10px;height:10px;border-radius:50%}
@@ -265,7 +265,7 @@
 .pyfm-stage>header p{margin:3px 0 0;white-space:pre-line;color:#5f7090;font-size:18px;line-height:1.25}
 .pyfm-code{overflow:hidden;height:92px;border:1px solid #273a52;border-radius:7px;background:linear-gradient(145deg,#16283f,#0a1a2d);color:#dce7f4;box-shadow:0 5px 11px #152a421c}
 .pyfm-code header{display:flex;align-items:center;justify-content:space-between;height:22px;padding:0 8px;border-bottom:1px solid #33465d;color:#dfe8f4;font-size:18px}
-.pyfm-code pre{margin:0!important;padding:8px 9px!important;overflow:hidden!important;background:transparent!important;color:inherit!important;font:8.5px/1.45 var(--font-mono)!important;white-space:pre!important}
+.pyfm-code pre{margin:0!important;padding:8px 9px!important;overflow:hidden!important;background:transparent!important;color:inherit!important;font:18px/1.45 var(--font-mono)!important;white-space:pre!important}
 .pyfm-code pre span{display:block}
 .pyfm-code pre span:first-child{color:#f28ad0}.pyfm-code-blue pre span{color:#dce7f4}.pyfm-code-blue pre span::first-letter{color:inherit}
 .pyfm-code-green pre span:first-child,.pyfm-code-pink pre span:first-child{color:#f28ad0}
@@ -275,15 +275,15 @@
 .pyfm-params,.pyfm-output,.pyfm-pitfall,.pyfm-tree{margin-top:10px;min-height:89px;border:1px solid #e3e8f0;border-radius:8px;background:#fff;padding:8px 9px}
 .pyfm-params{display:grid;align-content:center;gap:7px}
 .pyfm-params div{display:grid;grid-template-columns:70px 1fr;align-items:center;gap:10px;color:#536687;font-size:18px}
-.pyfm-params code{display:grid;place-items:center;height:25px;border-radius:8px;background:#f1edff;color:#5e3fe6;font:700 9px var(--font-mono)}
+.pyfm-params code{display:grid;place-items:center;height:25px;border-radius:8px;background:#f1edff;color:#5e3fe6;font:700 18px var(--font-mono)}
 .pyfm-output{background:#f7fbff;border-color:#dbeaf8}
 .pyfm-output>strong,.pyfm-pitfall>strong{display:block;margin-bottom:6px;color:#1578bd;font-size:18px}
 .pyfm-output div,.pyfm-pitfall div{display:grid;grid-template-columns:1fr 14px 50px;align-items:center;gap:5px;margin:4px 0;color:#536687;font-size:18px}
 .pyfm-output code,.pyfm-pitfall code{font-size:18px}.pyfm-output svg,.pyfm-pitfall svg{color:#8ca0bb}
-.pyfm-output b{display:grid;place-items:center;height:22px;border-radius:6px;background:#ddf8e8;color:#0a9c5e;font:700 8.7px var(--font-mono)}
+.pyfm-output b{display:grid;place-items:center;height:22px;border-radius:6px;background:#ddf8e8;color:#0a9c5e;font:700 18px var(--font-mono)}
 .pyfm-pitfall{background:#fff7fa;border-color:#f4d8e3}
-.pyfm-pitfall>strong{color:#d31d5d}.pyfm-pitfall b{display:grid;place-items:center;height:22px;border-radius:6px;background:#ffe4ed;color:#cc1f5d;font:700 8.2px var(--font-mono)}
-.pyfm-tree{padding:6px 9px;background:#f7fffb;border-color:#d8eee3;font:8.1px/1.25 var(--font-mono);color:#4d6382}
+.pyfm-pitfall>strong{color:#d31d5d}.pyfm-pitfall b{display:grid;place-items:center;height:22px;border-radius:6px;background:#ffe4ed;color:#cc1f5d;font:700 18px var(--font-mono)}
+.pyfm-tree{padding:6px 9px;background:#f7fffb;border-color:#d8eee3;font:18px/1.45 var(--font-mono);color:#4d6382}
 .pyfm-tree>strong{display:flex;align-items:center;gap:5px;margin-bottom:3px;color:#176fc7;font-size:18px}
 .pyfm-tree div{display:grid;grid-template-columns:21px 12px 54px 1fr;align-items:center;height:14px}.pyfm-tree small{color:#5a6d88;font-size:18px}
 
@@ -309,7 +309,7 @@
 .pyfm-example{height:161px;overflow:hidden;border:1px solid #1e3553;border-radius:8px;background:linear-gradient(145deg,#07192d,#06162a);color:#dce7f4}
 .pyfm-example>header{display:flex;align-items:center;justify-content:space-between;height:26px;padding:0 10px;border-bottom:1px solid #25405f;color:#fff;font-size:18px}
 .pyfm-example>header button{display:flex;align-items:center;gap:5px;color:#cdd8e6;font-size:18px}
-.pyfm-example pre{margin:0!important;padding:5px 0!important;overflow:hidden!important;background:transparent!important;color:inherit!important;font:7.7px/1.25 var(--font-mono)!important;white-space:pre!important}
+.pyfm-example pre{margin:0!important;padding:5px 0!important;overflow:hidden!important;background:transparent!important;color:inherit!important;font:18px/1.45 var(--font-mono)!important;white-space:pre!important}
 .pyfm-example pre span{display:grid;grid-template-columns:24px 1fr;padding-right:8px}.pyfm-example pre i{text-align:right;padding-right:7px;color:#637b98;font-style:normal}.pyfm-example pre b{font-weight:500;color:#e8edf5}.pyfm-example pre .is-comment{color:#76b47e}
 .pyfm-key-concepts{height:161px;padding:6px 8px;border:1px solid #e1e7ef;border-radius:8px;background:#fff}
 .pyfm-key-concepts h3{margin:0 0 5px;color:#172440;font-size:18px}
@@ -382,5 +382,5 @@
 .pyfm-companion-expand{margin:0 10px 10px;padding:8px 9px;border:1px solid #e3defb;border-radius:8px;background:#faf8ff;color:#425776;font-size:18px;line-height:1.4}
 .pyfm-companion-expand>label,.pyfm-companion-expand>strong{display:block;margin-bottom:5px;color:#5f43d9;font-size:18px;font-weight:700}
 .pyfm-companion-expand>div{display:flex;gap:5px}.pyfm-companion-expand input{min-width:0;flex:1;height:28px;padding:0 8px;border:1px solid #d8d0f7;border-radius:7px;background:#fff;outline:none;font-size:18px}.pyfm-companion-expand div>button{width:42px;border-radius:7px;background:#6948ea;color:#fff;font-size:18px;font-weight:700}
-.pyfm-companion-expand p{margin:6px 0 0}.pyfm-companion-expand code{display:block;padding:6px;border-radius:6px;background:#12233a;color:#e5edf8;white-space:pre-wrap;font:7.8px/1.35 var(--font-mono)}
+.pyfm-companion-expand p{margin:6px 0 0}.pyfm-companion-expand code{display:block;padding:6px;border-radius:6px;background:#12233a;color:#e5edf8;white-space:pre-wrap;font:18px/1.45 var(--font-mono)}
 

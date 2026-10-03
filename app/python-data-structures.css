@@ -69,7 +69,7 @@
 .pyds-source-label>div{display:flex;flex-direction:column}
 .pyds-source-label strong{color:#4f35e8;font-size:18px;line-height:1.25}
 .pyds-source-label small{margin-top:2px;color:#4f35e8;font-size:18px;line-height:1.25}
-.pyds-source-code{margin:0!important;padding:8px 12px!important;overflow:hidden;border:1px solid #293f5f;border-radius:8px;background:linear-gradient(145deg,#1b2d48,#0b1b31)!important;color:#dce7f8!important;box-shadow:0 7px 15px #13284b1c;font:9.2px/1.5 var(--font-mono)!important;white-space:pre!important}
+.pyds-source-code{margin:0!important;padding:8px 12px!important;overflow:hidden;border:1px solid #293f5f;border-radius:8px;background:linear-gradient(145deg,#1b2d48,#0b1b31)!important;color:#dce7f8!important;box-shadow:0 7px 15px #13284b1c;font:18px/1.5 var(--font-mono)!important;white-space:pre!important}
 .pyds-source-code code{display:block}.pyds-source-code code>span{display:block}
 .pyds-source-code b{color:#f17e72;font-weight:500}.pyds-source-code em{color:#8ea1ba;font-style:normal}
 .pyds-same-data{padding:12px 14px;border-radius:9px;background:linear-gradient(145deg,#f5f0ff,#ebe7ff);color:#5637df}
@@ -88,12 +88,12 @@
 .pyds-card-heading{display:grid;grid-template-columns:35px 35px minmax(0,1fr);align-items:center;gap:7px;margin-bottom:8px}
 .pyds-number{display:grid;place-items:center;width:35px;height:35px;border-radius:50%;background:#eeeaff;color:#6141ec;font-size:20px;font-weight:800}
 .pyds-dict .pyds-number{background:#e5f3ff;color:#1685d5}.pyds-set .pyds-number{background:#e1f8ef;color:#10a873}.pyds-tuple .pyds-number{background:#eee8ff;color:#6241e8}
-.pyds-type-icon{display:grid;place-items:center;width:35px;height:35px;border-radius:9px;background:#eeeaff;color:#6849ec;font:700 14px/1 var(--font-mono)}
+.pyds-type-icon{display:grid;place-items:center;width:35px;height:35px;border-radius:9px;background:#eeeaff;color:#6849ec;font:700 18px/1.45 var(--font-mono)}
 .pyds-dict .pyds-type-icon{background:#e8f4ff;color:#1783d5}.pyds-set .pyds-type-icon{background:#e3f9f1;color:#0fa879}.pyds-tuple .pyds-type-icon{background:#efe9ff;color:#6b45ed}
 .pyds-title-block{display:flex;flex-direction:column;min-width:0}.pyds-title-block strong{color:#5641e7;font-size:18px}.pyds-title-block small{color:#7b6df0;font-size:18px}
 .pyds-dict .pyds-title-block strong{color:#167ac1}.pyds-dict .pyds-title-block small{color:#42a0dc}.pyds-set .pyds-title-block strong{color:#109d70}.pyds-set .pyds-title-block small{color:#29aa80}
 .pyds-structure-card>p{height:42px;margin:0 2px 7px;color:#516483;font-size:18px;line-height:1.25}
-.pyds-structure-card pre{height:84px;margin:0!important;padding:7px 9px!important;overflow:hidden;border-radius:7px;background:linear-gradient(145deg,#172940,#0c1d32)!important;color:#d8e3f3!important;font:8.7px/1.35 var(--font-mono)!important;white-space:pre!important}
+.pyds-structure-card pre{height:84px;margin:0!important;padding:7px 9px!important;overflow:hidden;border-radius:7px;background:linear-gradient(145deg,#172940,#0c1d32)!important;color:#d8e3f3!important;font:18px/1.45 var(--font-mono)!important;white-space:pre!important}
 .pyds-structure-card pre span{display:block}.pyds-structure-card pre span:nth-child(2),.pyds-structure-card pre span:nth-child(3){color:#f17a70}
 .pyds-set pre span:nth-child(2){color:#44d6c2}.pyds-tuple pre span:nth-child(1){color:#f07b70}.pyds-tuple pre span:nth-child(3){color:#7f8fa7}
 .pyds-structure-card ul{display:grid;gap:3px;margin:7px 0 0;padding:0;list-style:none}
@@ -116,7 +116,7 @@
 .pyds-concept-cards article{display:grid;grid-template-columns:34px 30px minmax(0,1fr);align-items:start;gap:7px;min-height:87px;padding:8px 10px;border:1px solid #e5e9f1;border-radius:10px;background:#fff}
 .pyds-concept-number{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#eee9ff;color:#6545ef;font-size:18px;font-weight:800}
 .pyds-concept-number-2{background:#e5f3ff;color:#1486d7}.pyds-concept-number-3{background:#f1e8ff;color:#7b40ef}
-.pyds-concept-icon{display:grid;place-items:center;width:28px;height:28px;color:#6545ef;font:800 12px var(--font-mono)}
+.pyds-concept-icon{display:grid;place-items:center;width:28px;height:28px;color:#6545ef;font:800 18px var(--font-mono)}
 .pyds-concept-cards strong{display:block;margin-top:2px;color:#162440;font-size:18px;line-height:1.15}.pyds-concept-cards p{margin:4px 0 0;color:#5f718f;font-size:18px;line-height:1.22}
 
 /* Right rail */
