@@ -131,7 +131,7 @@ export function computeObservability(controls:ObservabilityControls):Observabili
     controls.networkIssue==="timeout" ? 3.5 :
     controls.networkIssue==="blocked" ? 12 : 0;
 
-  const workerCapacity=Math.max(1,controls.workerCount)*36/Math.max(.5,controls.processingTimeSeconds);
+  const workerCapacity=Math.max(1,controls.workerCount)*80/Math.max(.5,controls.processingTimeSeconds);
   const capacityPenalty=Math.max(0,controls.eventsPerSecond-workerCapacity);
   const errorRate=Math.min(99,Math.round((baseError+issuePenalty+capacityPenalty*.035)*10)/10);
   const processed=Math.max(0,Math.round(controls.eventsPerSecond*(1-errorRate/100)));
