@@ -66,7 +66,7 @@ const policy=model.policyDocument(defaults);
 assert.ok(policy.includes("s3:GetObject"));
 assert.ok(policy.includes("redshift:ExecuteQuery"));
 assert.ok(policy.includes("raw-data"));
-assert.ok(model.secretMetadata("aws").includes("AWS"));
+assert.ok(model.secretMetadata("aws").includes("arn:aws:secretsmanager"));
 assert.ok(model.secretMetadata("azure").includes("vault.azure.net"));
 assert.ok(model.secretMetadata("gcp").includes("projects/dataprep"));
 
