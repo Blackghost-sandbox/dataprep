@@ -52,26 +52,27 @@ assert.equal(files[0].name,"orders_0001.json");
 
 const aws=model.runObjectStorageSimulation({
   provider:"aws",dataSource:"ecommerce",format:"json",volumeMb:100,
-  partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake"
+  partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake",storageClass:"Standard"
 });
 assert.equal(aws.generated,true);
 assert.equal(aws.uploaded,true);
 assert.equal(aws.queried,true);
 assert.ok(aws.logs.some(entry=>entry.text.includes("s3://dataprep-lake")));
 assert.ok(aws.logs.some(entry=>entry.text.includes("Athena")));
+assert.ok(aws.logs.some(entry=>entry.text.includes("Storage class: Standard")));
 assert.equal(model.objectStorageResult(100,"ecommerce").total_orders,1000);
 assert.equal(model.objectStorageResult(100,"ecommerce").total_revenue,125430.5);
 
 const gcp=model.runObjectStorageSimulation({
   provider:"gcp",dataSource:"clickstream",format:"parquet",volumeMb:200,
-  partitionByDate:true,pathPrefix:"raw/clickstream/",bucket:"dataprep-lake"
+  partitionByDate:true,pathPrefix:"raw/clickstream/",bucket:"dataprep-lake",storageClass:"Standard"
 });
 assert.ok(gcp.logs.some(entry=>entry.text.includes("gs://dataprep-lake")));
 assert.ok(gcp.logs.some(entry=>entry.text.includes("BigQuery")));
 
 const azure=model.runObjectStorageSimulation({
   provider:"azure",dataSource:"crm",format:"csv",volumeMb:150,
-  partitionByDate:false,pathPrefix:"raw/crm/",bucket:"dataprep-lake"
+  partitionByDate:false,pathPrefix:"raw/crm/",bucket:"dataprep-lake",storageClass:"Hot"
 });
 assert.ok(azure.logs.some(entry=>entry.text.includes("abfss://dataprep-lake")));
 assert.ok(azure.logs.some(entry=>entry.text.includes("Synapse")));
