@@ -19,6 +19,7 @@ import "./spark-performance.css";
 import "./spark-transformations.css";
 import "./spark-partitioning.css";
 import "./kafka-intro.css";
+import "./kafka-partitions-offsets.css";
 import "./airflow-lab.css";
 import "./python-summary.css";
 import "./python-quiz.css";
