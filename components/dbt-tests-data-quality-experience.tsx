@@ -73,7 +73,7 @@ function EditableTable({
     return map;
   },[failures]);
 
-  const update=(index:number,key:keyof DbtTestRow,value:string)=>{
+  const update=(index:number,key:"order_id"|"customer_id"|"order_date"|"total_amount",value:string)=>{
     setRows(rows.map((row,rowIndex)=>rowIndex===index?{...row,[key]:value}:row));
   };
 
