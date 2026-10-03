@@ -48,7 +48,7 @@ for(const phrase of [
   "Next Scenario",
   "Simulation Results",
   "Event Logs",
-  "Analysis & Takeaways",
+  "Analysis &amp; Takeaways",
   "Lesson Progress",
   "Quick Notes",
 ]) assert.ok(source.includes(phrase),"Missing UI contract: "+phrase);
