@@ -96,7 +96,7 @@
 
 /* Default app scale; browser zoom remains under the visitor's control. */
 html {
-  zoom: 0.67;
+  zoom: 0.75;
 }
 
 body {
