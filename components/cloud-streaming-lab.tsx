@@ -2,9 +2,8 @@
 
 import {useMemo,useState} from "react";
 import {
-  Activity, Boxes, CheckCircle2, ChevronLeft, ChevronRight, CloudCog, Database,
-  Gauge, GraduationCap, Layers3, Play, RefreshCcw, Send, ServerCog, Sparkles,
-  TimerReset, Users, XCircle, Zap
+  Activity, Boxes, CheckCircle2, ChevronLeft, ChevronRight, CloudCog,
+  GraduationCap, Play, RefreshCcw, Send, Sparkles, TimerReset, XCircle, Zap
 } from "lucide-react";
 import {
   defaultStreamingControls, deliverySemantics, eventTypes, partitionKeys,
