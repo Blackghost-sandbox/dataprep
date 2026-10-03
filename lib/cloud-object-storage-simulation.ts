@@ -130,10 +130,10 @@ export function objectStorageResult(volumeMb:number,dataSource:ObjectStorageData
 }
 
 export function runObjectStorageSimulation({
-  provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket,
+  provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket,storageClass,
 }:{
   provider:ObjectStorageProviderId;dataSource:ObjectStorageDataSourceId;format:ObjectStorageFormatId;
-  volumeMb:number;partitionByDate:boolean;pathPrefix:string;bucket:string;
+  volumeMb:number;partitionByDate:boolean;pathPrefix:string;bucket:string;storageClass:string;
 }):ObjectStorageSimulationState{
   const p=objectStorageProviders[provider];
   const source=objectStorageDataSources[dataSource];
@@ -145,11 +145,12 @@ export function runObjectStorageSimulation({
       log(0,`Generating sample ${source.folder} data...`,"muted"),
       log(1,`Created ${records.toLocaleString("en-US")} records (${volumeMb} MB)`,"info"),
       log(2,`Uploading to ${p.uriPrefix}${bucket}/${path}...`,"accent"),
-      log(3,partitionByDate?`Partitioned path: ${path}`:"Partitioning disabled; objects stored under source prefix","accent"),
-      log(4,`Objects created: 3 ${objectStorageFormats[format].label} files`,"info"),
-      log(5,`Running ${queryEngines[p.queryEngine].label} query...`,"muted"),
-      log(6,"Query completed successfully ✓","success"),
-      log(7,"Returned 1 row","success"),
+      log(3,`Storage class: ${storageClass}`,"info"),
+      log(4,partitionByDate?`Partitioned path: ${path}`:"Partitioning disabled; objects stored under source prefix","accent"),
+      log(5,`Objects created: 3 ${objectStorageFormats[format].label} files`,"info"),
+      log(6,`Running ${queryEngines[p.queryEngine].label} query...`,"muted"),
+      log(7,"Query completed successfully ✓","success"),
+      log(8,"Returned 1 row","success"),
     ],
     status:`${p.service} pipeline completed successfully.`,
   };
