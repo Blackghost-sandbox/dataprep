@@ -101,7 +101,7 @@ export function simulateOps(
   const qualityPenalty=controls.quality?1:.975;
   const throughput=isReference ? 9842 : Math.round(Math.min(events,scenario.throughput*(events/scenario.eventsPerSecond))*observabilityPenalty*qualityPenalty);
   const latencyMs=isReference ? 320 : Math.round(scenario.latencyMs*(controls.quality?1:1.16)*(controls.observability?1:1.08));
-  const errorsPerMinute=Math.round(events*60*(err/100));
+  const errorsPerMinute=isReference ? 68 : Math.round(events*60*(err/100));
   const dataQualityIssues=dataQualityMode==="late-duplicates"?24:dataQualityMode==="schema-drift"?18:4;
   const activeConsumers=isReference ? 8 : Math.max(1,Math.round(scenario.activeConsumers*(events/scenario.eventsPerSecond)));
   const controlCost=(controls.observability?24:0)+(controls.quality?18:0)+(controls.accessControls?12:0)+(controls.costAlerts?6:0);
@@ -131,7 +131,13 @@ export function simulateOps(
     activeConsumers,
     dailyCost,
     logs,
-    costBreakdown:[
+    costBreakdown:isReference ? [
+      {label:"Compute",amount:180,percent:43},
+      {label:"Storage",amount:120,percent:29},
+      {label:"Data Transfer",amount:60,percent:14},
+      {label:"Monitoring",amount:40,percent:10},
+      {label:"Other",amount:20,percent:5},
+    ] : [
       {label:"Compute",amount:compute,percent:43},
       {label:"Storage",amount:storage,percent:29},
       {label:"Data Transfer",amount:transfer,percent:14},
