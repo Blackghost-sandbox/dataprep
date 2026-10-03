@@ -1,10 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { createRequire } from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 
 const root = path.resolve(import.meta.dirname, "..");
+const require = createRequire(import.meta.url);
 
 function transpile(file) {
   const source = fs.readFileSync(file, "utf8");
