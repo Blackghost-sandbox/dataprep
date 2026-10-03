@@ -79,7 +79,7 @@ export function CloudObjectStorageLab(){
   const [engine,setEngine]=useState<QueryEngineId>("athena");
   const [state,setState]=useState(()=>runObjectStorageSimulation({
     provider:"aws",dataSource:"ecommerce",format:"json",volumeMb:100,
-    partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake"
+    partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake",storageClass:"Standard"
   }));
 
   const providerMeta=objectStorageProviders[provider];
@@ -97,18 +97,18 @@ export function CloudObjectStorageLab(){
     setState(newObjectStorageSimulationState());
   };
   const generate=()=>setState(generateObjectStorageData({dataSource,format,volumeMb}));
-  const run=()=>setState(runObjectStorageSimulation({provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket}));
+  const run=()=>setState(runObjectStorageSimulation({provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket,storageClass}));
   const reset=()=>{
     setProvider("aws");setDataSource("ecommerce");setFormat("json");setVolumeMb(100);setBucket("dataprep-lake");
     setStorageClass(objectStorageProviders.aws.defaultStorageClass);setPathPrefix("raw/ecommerce/");setPartitionByDate(true);
     setEngine("athena");setState(runObjectStorageSimulation({
       provider:"aws",dataSource:"ecommerce",format:"json",volumeMb:100,
-      partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake"
+      partitionByDate:true,pathPrefix:"raw/ecommerce/",bucket:"dataprep-lake",storageClass:"Standard"
     }));
   };
   const runQuery=()=>{
     if(!state.uploaded){
-      setState(runObjectStorageSimulation({provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket}));
+      setState(runObjectStorageSimulation({provider,dataSource,format,volumeMb,partitionByDate,pathPrefix,bucket,storageClass}));
       return;
     }
     setState(previous=>({...previous,queried:true,status:`${queryEngines[engine].label} returned 1 row from the stored objects.`,logs:[
@@ -177,7 +177,7 @@ export function CloudObjectStorageLab(){
       </section>
 
       <section className="os-results">
-        <header><h3>Query Results</h3><button onClick={download}><Download size={13}/>Download</button></header>
+        <header><h3>Query Results</h3><button onClick={download} disabled={!state.queried}><Download size={13}/>Download</button></header>
         <table><thead><tr><th>date</th><th>total_orders</th><th>total_revenue</th></tr></thead><tbody>{state.queried?<tr><td>{result.date}</td><td>{result.total_orders.toLocaleString("en-US")}</td><td>{money(result.total_revenue)}</td></tr>:<tr className="is-placeholder"><td colSpan={3}>Run the query to see results</td></tr>}</tbody></table>
       </section>
 
