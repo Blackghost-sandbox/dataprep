@@ -77,6 +77,7 @@ import "./dbt-models-ref.css";
 import "./system-design-framework.css";
 import "./system-design-scale-estimation.css";
 import "./system-design-ingestion.css";
+import "./system-design-storage-modeling.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {
