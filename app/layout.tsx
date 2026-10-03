@@ -32,6 +32,7 @@ import "./kafka-streams.css";
 import "./kafka-reliability-production.css";
 import "./kafka-architecture-review.css";
 import "./kafka-ordering-delivery.css";
+import "./cloud-streaming.css";
 import "./cloud-lakehouse.css";
 import "./cloud-data-warehouse.css";
 import "./cloud-managed-spark.css";
