@@ -59,8 +59,8 @@ function MiniTable({
     <tbody>{rows.map(row=>{
       const status=statusByKey?.get(row.order_id);
       return <tr key={row.order_id} className={status?"is-"+status:""}>
-        <td>{row.order_id}</td><td>{row.customer_id}</td><td>{row.order_date}</td><td>{row.amount}</td>
-        {status==="inserted"&&<td className="dbti-new-tag">NEW</td>}
+        <td>{row.order_id}</td><td>{row.customer_id}</td><td>{row.order_date}</td>
+        <td><span className="dbti-amount-cell">{row.amount}{status==="inserted"&&<em className="dbti-new-tag">NEW</em>}</span></td>
       </tr>;
     })}</tbody>
   </table></div>;
