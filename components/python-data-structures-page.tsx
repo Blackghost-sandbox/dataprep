@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useState } from "react";
 import Image from "next/image";
 import {
@@ -198,7 +200,7 @@ function StructureCard({
         <span className="pyds-title-block"><strong>{item.name}</strong><small>— {item.subtitle}</small></span>
       </div>
       <p>{item.intro}</p>
-      <pre><code>{item.code.map((line, index)=><span key={index}>{line || " "}</span>)}</code></pre>
+      <pre><code>{item.code.map((line, index)=><span key={index}><PythonCodeLine code={line || " "} /></span>)}</code></pre>
       <ul>
         {item.bullets.map((bullet)=><li key={bullet}><span>✓</span>{bullet}</li>)}
       </ul>
@@ -291,3 +293,4 @@ export function PythonDataStructuresCompanion() {
     </section>
   );
 }
+

@@ -2,7 +2,7 @@
 /* Python / Introduction / Concept — premium pipeline experience */
 .python-intro-page main{max-width:1600px}
 .python-intro-page .lesson-hero{padding:16px 20px}
-.python-intro-page .lesson-hero h1{font-size:30px}
+.python-intro-page .lesson-hero h1{font-size:27px}
 .python-intro-page .lesson-hero .size-16{width:54px;height:54px}
 .python-intro-page .lesson-tabs{border-radius:14px}
 .python-intro-page .lesson-tabs [role=tablist]{height:54px}
@@ -11,8 +11,8 @@
 .python-intro-page .spark-lesson>footer{margin:0 20px 18px}
 .python-intro-page .lesson-content>section:last-child{border-radius:16px}
 .python-intro-page .lesson-aside>section{padding:16px;border-radius:16px}
-.python-intro-page .lesson-aside .lesson-state-row{padding:6px 7px;font-size:14px}
-.python-intro-page .lesson-state{font-size:14px;padding:3px 6px;border-radius:5px;background:#f1f5f9;color:#64748b;white-space:nowrap}
+.python-intro-page .lesson-aside .lesson-state-row{padding:6px 7px;font-size:12px}
+.python-intro-page .lesson-state{font-size:12px;padding:3px 6px;border-radius:5px;background:#f1f5f9;color:#64748b;white-space:nowrap}
 .python-intro-page .lesson-state-learning{background:#ede9fe;color:#6d5df6}
 .python-intro-page .lesson-state-completed{background:#dcfce7;color:#15803d}
 .python-intro-page .lesson-aside>button{border-radius:16px;padding:16px}
@@ -21,10 +21,10 @@
 .py-intro-lab-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:16px}
 .py-intro-lab-title{display:flex;align-items:flex-start;gap:12px;min-width:0}
 .py-intro-eye{display:grid;place-items:center;width:40px;height:40px;flex:0 0 auto;border-radius:13px;background:linear-gradient(145deg,#eef4ff,#f0eaff);color:#6958f5}
-.py-intro-lab-title h2{margin:0!important;font-size:23px!important;line-height:1.25!important;color:#101c50!important;letter-spacing:-.02em}
-.py-intro-lab-title p{margin:4px 0 0;max-width:800px;color:#5d6f99;font-size:16px;line-height:1.45}
+.py-intro-lab-title h2{margin:0!important;font-size:21px!important;line-height:1.25!important;color:#101c50!important;letter-spacing:-.02em}
+.py-intro-lab-title p{margin:4px 0 0;max-width:800px;color:#5d6f99;font-size:14px;line-height:1.45}
 .py-intro-view-toggle{display:flex;gap:8px;flex:0 0 auto}
-.py-intro-view-toggle button{height:36px;display:flex;align-items:center;gap:7px;padding:0 13px;border:1px solid #dce5f5;border-radius:10px;background:#fff;color:#45608a;font-size:14px;font-weight:650;box-shadow:0 3px 12px #29456f0a}
+.py-intro-view-toggle button{height:36px;display:flex;align-items:center;gap:7px;padding:0 13px;border:1px solid #dce5f5;border-radius:10px;background:#fff;color:#45608a;font-size:12px;font-weight:650;box-shadow:0 3px 12px #29456f0a}
 .py-intro-view-toggle button.is-active{border-color:#735cf6;background:linear-gradient(135deg,#7259f7,#5d3df0);color:#fff;box-shadow:0 8px 18px #6d5df62e}
 
 .py-intro-pipeline{display:grid;grid-template-columns:minmax(185px,1fr) 34px minmax(205px,1fr) 34px minmax(185px,1fr) 28px minmax(150px,.68fr);align-items:stretch;gap:6px}
@@ -32,7 +32,7 @@
 .py-intro-stage header{display:flex;align-items:center;gap:9px;margin-bottom:10px}
 .py-intro-stage header>span:last-child{display:flex;flex-direction:column;min-width:0}
 .py-intro-stage header strong{font-size:17px;line-height:1.15}
-.py-intro-stage header small{margin-top:2px;font-size:14px;color:#56709d;line-height:1.2}
+.py-intro-stage header small{margin-top:2px;font-size:12px;color:#56709d;line-height:1.2}
 .py-intro-stage-number{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;color:white;font-size:17px;font-weight:800;box-shadow:0 6px 12px #00000016}
 .py-intro-stage-extract{border-color:#9ec8ff;background:linear-gradient(180deg,#f4f9ff,#eaf5ff)}
 .py-intro-stage-extract header strong{color:#0f63d8}.py-intro-stage-extract .py-intro-stage-number{background:#1474ee}
@@ -44,8 +44,8 @@
 .py-intro-item{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:center;gap:8px;width:100%;min-height:48px;padding:7px 8px;border:1px solid #e3e9f2;border-radius:9px;background:#ffffffea;text-align:left;box-shadow:0 3px 8px #24416d0b;transition:.18s ease}
 .py-intro-item:hover,.py-intro-item.is-selected{transform:translateY(-1px);border-color:#9f91fb;box-shadow:0 7px 18px #5140bd18}
 .py-intro-item>span:last-child{display:flex;min-width:0;flex-direction:column}
-.py-intro-item strong{overflow:hidden;text-overflow:ellipsis;color:#132351;font-size:14px;line-height:1.2;white-space:normal}
-.py-intro-item small{margin-top:2px;color:#60739a;font-size:14px;line-height:1.25}
+.py-intro-item strong{overflow:hidden;text-overflow:ellipsis;color:#132351;font-size:12px;line-height:1.2;white-space:normal}
+.py-intro-item small{margin-top:2px;color:#60739a;font-size:12px;line-height:1.25}
 .py-intro-item-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:9px}
 .tone-blue{background:#dcecff;color:#1474ee}.tone-green{background:#dcf9e9;color:#0aa45b}.tone-sky{background:#dcf5ff;color:#0e9fdb}.tone-orange{background:#fff0d7;color:#f59e0b}
 .tone-violet{background:#eee5ff;color:#8153e8}.tone-purple{background:#ece4ff;color:#7c3aed}.tone-indigo{background:#e9e8ff;color:#5656e8}.tone-emerald{background:#dcfce7;color:#16a34a}
@@ -58,57 +58,57 @@
 .py-intro-connector-green{color:#12a55d}.py-intro-connector-green .py-intro-connector-node{background:#10aa5e}
 .py-intro-business-link{display:flex;align-items:center;justify-content:center;color:#10aa5e}
 .py-intro-business{border:1px solid #f1d69b;border-radius:12px;padding:10px;background:linear-gradient(180deg,#fffaf0,#fff5dc)}
-.py-intro-business>header{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#14214c;font-size:14px;line-height:1.05}
+.py-intro-business>header{display:flex;align-items:center;gap:8px;margin-bottom:10px;color:#14214c;font-size:12px;line-height:1.05}
 .py-intro-business>header svg{color:#f59e0b}
 
 .py-intro-example-grid{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(235px,.75fr);gap:12px;margin-top:12px}
 .py-intro-code-card{overflow:hidden;border:1px solid #1b3659;border-radius:12px;background:#071a34;box-shadow:0 10px 24px #0b183622}
 .py-intro-code-card>header{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;padding:6px 10px;border-bottom:1px solid #24415f}
-.py-intro-code-title{display:flex;align-items:center;gap:8px;color:#fff;font-size:14px}
-.py-intro-python-mark{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2e8fff 0 50%,#ffd94a 50% 100%);color:white;font-size:14px;font-weight:900;text-shadow:0 1px 2px #0005}
-.py-intro-python-mark.small{width:24px;height:24px;border-radius:6px;font-size:14px}
+.py-intro-code-title{display:flex;align-items:center;gap:8px;color:#fff;font-size:12px}
+.py-intro-python-mark{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2e8fff 0 50%,#ffd94a 50% 100%);color:white;font-size:12px;font-weight:900;text-shadow:0 1px 2px #0005}
+.py-intro-python-mark.small{width:24px;height:24px;border-radius:6px;font-size:12px}
 .py-intro-code-actions{display:flex;align-items:center;gap:8px}
 .py-intro-code-tabs{display:flex;border:1px solid #294767;border-radius:9px;background:#0d2646;padding:2px}
-.py-intro-code-tabs button{padding:4px 11px;border-radius:7px;color:#a9bdd7;font-size:14px}
+.py-intro-code-tabs button{padding:4px 11px;border-radius:7px;color:#a9bdd7;font-size:12px}
 .py-intro-code-tabs button.is-active{background:#1b416d;color:#fff}
-.py-intro-copy{display:flex;align-items:center;gap:5px;color:#d6e1ef;font-size:14px}
-.py-intro-code-card pre{margin:0;padding:10px 0 12px;overflow:auto;color:#e5edf8;font-size:14px;line-height:1.65}
+.py-intro-copy{display:flex;align-items:center;gap:5px;color:#d6e1ef;font-size:12px}
+.py-intro-code-card pre{margin:0;padding:10px 0 12px;overflow:auto;color:#e5edf8;font-size:12px;line-height:1.65}
 .py-intro-code-line{display:grid;grid-template-columns:28px 1fr;padding:0 12px 0 0;transition:.15s}
 .py-intro-code-line.is-highlighted{background:#17314e}
 .py-intro-code-number{padding-right:8px;text-align:right;color:#607997;user-select:none}
 .py-intro-comment{color:#79c89a}
 
 .py-intro-runner{border:1px solid #dce5f1;border-radius:12px;background:#fff;padding:10px;box-shadow:0 8px 22px #2d426a0c}
-.py-intro-runner>header{display:flex;align-items:center;gap:7px;color:#14214c;font-size:14px}
+.py-intro-runner>header{display:flex;align-items:center;gap:7px;color:#14214c;font-size:12px}
 .py-intro-runner>header svg{color:#693ff5;fill:#693ff5}
 .py-intro-run-steps{display:grid;gap:4px;margin:8px 0}
 .py-intro-run-steps>div{display:grid;grid-template-columns:22px 1fr;align-items:center;gap:7px;padding:6px;border-radius:8px;background:#f7f9fc;color:#536989}
 .py-intro-run-steps>div.is-active{background:linear-gradient(90deg,#eee9ff,#f7f5ff);color:#5f40df}
 .py-intro-run-steps>div.is-complete:not(.is-active){color:#15905a}
-.py-intro-run-steps>div>span:first-child{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#dce5f0;font-size:14px;font-weight:800}
+.py-intro-run-steps>div>span:first-child{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#dce5f0;font-size:12px;font-weight:800}
 .py-intro-run-steps>div.is-active>span:first-child{background:#6d5df6;color:white}
 .py-intro-run-steps>div.is-complete:not(.is-active)>span:first-child{background:#d9f7e7;color:#15905a}
 .py-intro-run-steps strong,.py-intro-run-steps small{display:block}
-.py-intro-run-steps strong{font-size:14px}.py-intro-run-steps small{margin-top:1px;font-size:14px;line-height:1.2}
+.py-intro-run-steps strong{font-size:12px}.py-intro-run-steps small{margin-top:1px;font-size:12px;line-height:1.2}
 .py-intro-run-actions{display:grid;grid-template-columns:1fr auto;gap:7px}
-.py-intro-run-actions button{height:30px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:7px;font-size:14px;font-weight:700}
+.py-intro-run-actions button{height:30px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:7px;font-size:12px;font-weight:700}
 .py-intro-run-primary{background:linear-gradient(135deg,#724ef7,#5a37e8);color:#fff;box-shadow:0 6px 14px #6d5df62a}
 .py-intro-run-reset{padding:0 12px;border:1px solid #dce4ef;color:#506480;background:#fff}
 .py-intro-output{margin-top:9px}
-.py-intro-output-title{display:flex;align-items:center;gap:6px;margin-bottom:5px;color:#536989;font-size:14px;font-weight:700}
-.py-intro-output table{width:100%;border-collapse:collapse;overflow:hidden;border:1px solid #e1e7ef;border-radius:7px;font-size:14px}
+.py-intro-output-title{display:flex;align-items:center;gap:6px;margin-bottom:5px;color:#536989;font-size:12px;font-weight:700}
+.py-intro-output table{width:100%;border-collapse:collapse;overflow:hidden;border:1px solid #e1e7ef;border-radius:7px;font-size:12px}
 .py-intro-output th,.py-intro-output td{padding:3px 6px;border:1px solid #e7ecf3;text-align:center}
 .py-intro-output th{background:#f4f7fb;color:#43597d}.py-intro-output td{color:#17315f;font-weight:650}
 
 .py-intro-architecture{display:grid;grid-template-columns:1fr auto 1.25fr auto 1fr;align-items:center;gap:16px;min-height:305px;padding:28px;border:1px solid #e1e7f3;border-radius:14px;background:radial-gradient(circle at 50% 45%,#f0ecff 0,#f8faff 38%,#fff 75%)}
 .py-intro-arch-source,.py-intro-arch-destinations{display:grid;gap:10px}
-.py-intro-arch-source span,.py-intro-arch-destinations span{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #dde6f3;border-radius:11px;background:white;color:#233b68;font-weight:700;font-size:14px;box-shadow:0 5px 14px #2334520b}
+.py-intro-arch-source span,.py-intro-arch-destinations span{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #dde6f3;border-radius:11px;background:white;color:#233b68;font-weight:700;font-size:12px;box-shadow:0 5px 14px #2334520b}
 .py-intro-arch-python{display:flex;flex-direction:column;align-items:center;padding:22px 18px;border:1px solid #cabfff;border-radius:18px;background:linear-gradient(145deg,#ffffff,#f2edff);box-shadow:0 14px 30px #6d5df619;text-align:center}
-.py-intro-arch-python strong{margin-top:10px;color:#372477}.py-intro-arch-python small{color:#6c74a0;font-size:14px}
-.py-intro-arch-python>div{display:flex;align-items:center;gap:7px;margin-top:14px;padding:7px 10px;border-radius:8px;background:#6d5df6;color:#fff;font-size:14px;font-weight:700}
+.py-intro-arch-python strong{margin-top:10px;color:#372477}.py-intro-arch-python small{color:#6c74a0;font-size:12px}
+.py-intro-arch-python>div{display:flex;align-items:center;gap:7px;margin-top:14px;padding:7px 10px;border-radius:8px;background:#6d5df6;color:#fff;font-size:12px;font-weight:700}
 .py-intro-arch-arrow{color:#9184ea}
 .py-intro-arch-consumers{grid-column:3;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:-5px;padding:10px;border:1px dashed #c9d3e5;border-radius:11px;color:#51688e}
-.py-intro-arch-consumers span{display:flex;flex-direction:column}.py-intro-arch-consumers strong{font-size:14px}.py-intro-arch-consumers small{font-size:14px}
+.py-intro-arch-consumers span{display:flex;flex-direction:column}.py-intro-arch-consumers strong{font-size:12px}.py-intro-arch-consumers small{font-size:12px}
 
 @media(max-width:1450px){
   .py-intro-pipeline{grid-template-columns:minmax(165px,1fr) 26px minmax(180px,1fr) 26px minmax(165px,1fr)}

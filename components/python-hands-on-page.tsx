@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BarChart3,
@@ -184,7 +186,7 @@ function CodeSolution() {
   return (
     <section className="pyhot-code">
       <header><div><span>&lt;/&gt;</span><strong>Python Solution (Standard Library Only)</strong></div><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?"Copied":"Copy"}</button></header>
-      <pre><code>{solution.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{solution.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }

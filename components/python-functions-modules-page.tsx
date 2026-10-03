@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -237,7 +239,7 @@ function ExamplePanel() {
     <section className="pyfm-example">
       <header><strong>Python Example – Functions and Modules Together</strong><button type="button" onClick={copy}>{copied ? <Check size={13}/> : <Copy size={13}/>} {copied ? "Copied" : "Copy"}</button></header>
       <pre><code>{exampleLines.map((line, index) => (
-        <span key={index}><i>{index + 1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}>{line || " "}</b></span>
+        <span key={index}><i>{index + 1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></b></span>
       ))}</code></pre>
     </section>
   );
@@ -379,3 +381,4 @@ export function PythonFunctionsModulesCompanion() {
     </section>
   );
 }
+

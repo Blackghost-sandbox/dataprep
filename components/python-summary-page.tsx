@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -205,7 +207,7 @@ function PipelineSketch({activeStage}:{activeStage:number}) {
       <header><div><Code2 size={16}/><strong>End-to-end pipeline sketch</strong></div><div><span>Python</span><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>}<span className="sr-only">{copied?"Copied":"Copy"}</span></button></div></header>
       <pre><code>{pipelineCode.map((section,sectionIndex)=>section.lines.map((line)=>{
         lineNumber+=1;
-        return <span key={lineNumber} className={sectionIndex===mappedSection?"is-active":""}><i>{lineNumber}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>;
+        return <span key={lineNumber} className={sectionIndex===mappedSection?"is-active":""}><i>{lineNumber}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>;
       }))}</code></pre>
     </section>
   );
@@ -266,3 +268,4 @@ export function PythonSummaryCompanion() {
     </section>
   );
 }
+

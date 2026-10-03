@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -213,7 +215,7 @@ function CodeBox({ title = "Python", code }: { title?: string; code: string }) {
   return (
     <div className="pyff-code">
       <header><span>{title}</span><CopyButton text={code}/></header>
-      <pre><code>{code.split("\n").map((line, index) => <span key={index} className={line.trim().startsWith("#") ? "is-comment" : ""}>{line || " "}</span>)}</code></pre>
+      <pre><code>{code.split("\n").map((line, index) => <span key={index} className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></span>)}</code></pre>
     </div>
   );
 }
@@ -497,3 +499,4 @@ export function PythonFilesFormatsCompanion() {
     </section>
   );
 }
+

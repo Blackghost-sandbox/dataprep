@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -259,7 +261,7 @@ function CodeExample() {
   return (
     <section className="pyerr-code-example">
       <header><strong>Python example · parse_amount with logging</strong><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?"Copied":"Copy"}</button></header>
-      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }
@@ -396,3 +398,4 @@ export function PythonErrorHandlingCompanion() {
     </section>
   );
 }
+

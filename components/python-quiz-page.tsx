@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -243,7 +245,7 @@ function CodePanel({ code }: { code:string }) {
   return (
     <section className="pyquiz-code">
       <header><div><span className="pyquiz-python-small">Py</span><strong>Python Code</strong></div><CopyButton text={code}/></header>
-      <pre><code>{code.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{code.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }
@@ -424,3 +426,4 @@ export function PythonQuizCompanion() {
     </section>
   );
 }
+
