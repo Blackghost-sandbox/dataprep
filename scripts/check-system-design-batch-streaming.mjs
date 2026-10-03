@@ -29,7 +29,7 @@ assert.equal(result.batchOrders, 600000);
 assert.equal(result.batchLatencyMinutes, 60);
 assert.equal(result.batchFreshnessMinutes, 60);
 assert.equal(result.streamingOrders, 35420);
-assert.equal(result.streamLatencySeconds, 2.7);
+assert.equal(result.streamLatencySeconds, 2.4);
 assert.equal(model.batchStreamingScenarios.length, 3);
 
 const componentFile = path.join(root, "components/system-design-batch-streaming-experience.tsx");
