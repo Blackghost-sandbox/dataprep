@@ -4,8 +4,7 @@ import {useMemo,useState} from "react";
 import {
   Activity, AlertTriangle, BarChart3, BellRing, CheckCircle2, ChevronLeft,
   ChevronRight, Database, FileText, GraduationCap, Layers3, LockKeyhole,
-  Play, RefreshCcw, Route, ServerCog, ShieldCheck, Sparkles, TimerReset,
-  Trace, Zap
+  Play, RefreshCcw, Route, ServerCog, ShieldCheck, Sparkles, TimerReset, Zap
 } from "lucide-react";
 import {
   computeObservability, dataServices, defaultObservabilityControls,
@@ -25,7 +24,7 @@ function NetworkingHeroArtwork(){
     <div className="no-observe-stack">
       <span><BarChart3 size={17}/>Metrics</span>
       <span><FileText size={17}/>Logs</span>
-      <span><Trace size={17}/>Traces</span>
+      <span><Route size={17}/>Traces</span>
       <span><BellRing size={17}/>Alerts</span>
     </div>
   </div>;
