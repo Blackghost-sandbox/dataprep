@@ -3,8 +3,7 @@
 import {useEffect,useMemo,useState} from "react";
 import {
   BarChart3, CheckCircle2, ChevronLeft, ChevronRight, Cloud, Database, FileCheck2,
-  GraduationCap, Layers3, Play, RefreshCcw, ServerCog, Sparkles, TimerReset,
-  Workflow, Zap
+  GraduationCap, Play, RefreshCcw, Sparkles, TimerReset, Workflow, Zap
 } from "lucide-react";
 import {
   completedOrchestrationState, dagDefinition, orchestrators, referenceOrchestrationState,
