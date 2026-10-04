@@ -22,7 +22,8 @@ export function KafkaPartitionsOffsetsLab(){
 
   const selectedRows=state.logs[state.selectedPartition]??[];
   const details=useMemo(()=>partitionDetails(state,state.selectedPartition),[state,state.selectedPartition]);
-  const previewSeconds=15+state.sequence;\n  const previewTimestamp="2026-10-02 10:"+String(24+Math.floor(previewSeconds/60)).padStart(2,"0")+":"+String(previewSeconds%60).padStart(2,"0");
+  const previewSeconds=15+state.sequence;
+  const previewTimestamp="2026-10-02 10:"+String(24+Math.floor(previewSeconds/60)).padStart(2,"0")+":"+String(previewSeconds%60).padStart(2,"0");
 
   const reset=()=>setState(createOffsetLabState(state.partitionCount));
   const run=()=>setState(s=>runOffsetScenario(s,scenario,messageValue,messageKey));

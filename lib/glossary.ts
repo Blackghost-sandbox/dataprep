@@ -1,3 +1,4 @@
+import { sqlKeywordEntries } from "@/lib/sql-keywords";
 export interface GlossaryItem {
   contextOnly?: boolean;
   id: string;
@@ -18,6 +19,7 @@ export interface GlossaryItem {
 
 // Frequency values are editorial demo estimates, not measured interview statistics.
 export const glossary: GlossaryItem[] = [
+  ...sqlKeywordEntries,
   {"id":"kafka-producer","term":"Producer","contextOnly":true,"category":"Kafka","style":"concept","difficulty":"Medium","interviewFrequency":0,"definition":"An application component that publishes records to Kafka topics.","explanation":"A producer serializes keys and values, chooses partitions and handles delivery outcomes. An acknowledgement is not proof that a consumer completed its work.","related":["Kafka","Kafka Topic"],"questions":["How does Producer affect order-event recovery?"],"mistakes":["Assuming a guarantee at this boundary automatically covers external business effects."],"flow":["Create event","Serialize","Send","Acknowledgement"]},
   {"id":"kafka-consumer","term":"Consumer","contextOnly":true,"category":"Kafka","style":"concept","difficulty":"Medium","interviewFrequency":0,"definition":"An application component that fetches and processes Kafka records.","explanation":"In an ordinary consumer group it reads assigned partitions. Fetching, processing and committing progress are separate actions.","related":["Kafka","Kafka Topic"],"questions":["How does Consumer affect order-event recovery?"],"mistakes":["Assuming a guarantee at this boundary automatically covers external business effects."],"flow":["Fetch","Process","Commit next offset"]},
   {"id":"kafka-partition","term":"Partition","contextOnly":true,"category":"Kafka","style":"concept","difficulty":"Medium","interviewFrequency":0,"definition":"One ordered log inside a Kafka topic.","explanation":"Its offsets form a local position space. Different partitions do not have a shared global order; replicas copy the same logical partition.","related":["Kafka","Kafka Topic"],"questions":["How does Partition affect order-event recovery?"],"mistakes":["Assuming a guarantee at this boundary automatically covers external business effects."],"flow":["Topic","Partition log","Local offsets"]},

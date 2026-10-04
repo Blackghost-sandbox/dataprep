@@ -291,30 +291,31 @@ function RelationshipLines({
   stage: number;
 }) {
   const exists = (id: string) => relationships.some((relationship) => relationship.id === id);
+  const end = (id: string, side: number) => relationships.find(relationship => relationship.id === id)?.cardinality.split(":")[side] ?? "?";
   return (
-    <svg className={`merd-lines ${stage < 2 ? "is-muted" : ""}`} viewBox="0 0 760 390" aria-label="ER relationship connectors">
+    <svg className={`merd-lines ${stage < 2 ? "is-muted" : ""}`} viewBox={`0 0 760 ${entities.Supplier || entities.Category ? 820 : 500}`} aria-label="ER relationship connectors">
       {entities.Customer && entities.Order && exists("customer-order") && <>
-        <path className="merd-line merd-line-blue" d="M250 82 H310 Q326 82 326 98 V116 Q326 130 342 130 H405"/>
-        <text x="267" y="72">1</text><text x="387" y="72">M</text>
+        <path className="merd-line merd-line-blue" d="M215 100 H500"/>
+        <text x="230" y="88">{end("customer-order",0)}</text><text x="478" y="88">{end("customer-order",1)}</text>
         <rect x="292" y="102" width="67" height="26" rx="12"/><text className="merd-label merd-label-blue" x="325.5" y="119">places</text>
       </>}
       {entities.Order && entities.OrderLine && exists("order-line") && <>
-        <path className="merd-line merd-line-orange" d="M500 156 V215"/>
-        <text x="478" y="176">1</text><text x="478" y="219">M</text>
-        <rect className="merd-rect-orange" x="461" y="181" width="79" height="25" rx="12"/><text className="merd-label merd-label-orange" x="500.5" y="198">contains</text>
+        <path className="merd-line merd-line-orange" d="M595 195 V270"/>
+        <text x="577" y="209">{end("order-line",0)}</text><text x="577" y="264">{end("order-line",1)}</text>
+        <rect className="merd-rect-orange" x="555" y="219" width="80" height="25" rx="12"/><text className="merd-label merd-label-orange" x="595" y="237">contains</text>
       </>}
       {entities.Product && entities.OrderLine && exists("product-line") && <>
-        <path className="merd-line merd-line-pink" d="M254 296 H402"/>
-        <text x="267" y="285">1</text><text x="385" y="285">M</text>
-        <rect className="merd-rect-pink" x="289" y="281" width="82" height="26" rx="12"/><text className="merd-label merd-label-pink" x="330" y="298">references</text>
+        <path className="merd-line merd-line-pink" d="M215 350 H500"/>
+        <text x="230" y="338">{end("product-line",0)}</text><text x="478" y="338">{end("product-line",1)}</text>
+        <rect className="merd-rect-pink" x="302" y="340" width="92" height="26" rx="12"/><text className="merd-label merd-label-pink" x="348" y="358">references</text>
       </>}
       {entities.Supplier && entities.Product && exists("supplier-product") && <>
-        <path className="merd-line merd-line-cyan" d="M310 236 Q294 260 254 286"/>
-        <text x="308" y="250">1</text><text x="264" y="279">M</text>
+        <path className="merd-line merd-line-cyan" d="M120 600 V505"/>
+        <text x="130" y="585">{end("supplier-product",0)}</text><text x="130" y="525">{end("supplier-product",1)}</text>
       </>}
       {entities.Category && entities.Product && exists("category-product") && <>
-        <path className="merd-line merd-line-violet" d="M312 333 Q286 321 254 310"/>
-        <text x="302" y="326">1</text><text x="264" y="309">M</text>
+        <path className="merd-line merd-line-violet" d="M595 600 V545 H230 V420 H215"/>
+        <text x="605" y="585">{end("category-product",0)}</text><text x="235" y="437">{end("category-product",1)}</text>
       </>}
     </svg>
   );
@@ -621,7 +622,7 @@ export function ModelingERBuilder() {
           onDragOver={(event) => event.preventDefault()}
           onDrop={dropEntity}
         >
-          <div className="merd-canvas-inner" style={{ transform: `scale(${zoom})` }}>
+          <div className="merd-canvas-inner" style={{ transform: `scale(${zoom})`, height: entities.Supplier || entities.Category ? 820 : 500 }}>
             <RelationshipLines entities={entities} relationships={relationships} stage={Math.max(0, activeStep)}/>
             {entities.Customer && <CanvasEntity entity={entities.Customer} selected={selectedEntity === "Customer"} stage={Math.max(0, activeStep)} onSelect={() => setSelectedEntity("Customer")}/>}
             {entities.Order && <CanvasEntity entity={entities.Order} selected={selectedEntity === "Order"} stage={Math.max(0, activeStep)} onSelect={() => setSelectedEntity("Order")}/>}

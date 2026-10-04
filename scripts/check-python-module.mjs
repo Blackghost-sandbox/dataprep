@@ -20,6 +20,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
+      if(base.endsWith('.json'))return JSON.parse(fs.readFileSync(base,'utf8'));
       const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
       assert.ok(found,name);return load(found);
     }return require(name);
@@ -43,6 +44,7 @@ for(const lesson of pythonLessons){
  for(const active of ['Concept','Examples','Hands-on','Interview Qs','Common Mistakes','Quiz','Notes']){
   const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkLessonPanel,{module:'python',lesson,active})));
   assert(html.length>300);assert(!html.includes('Examples target PySpark'));assert(!html.includes('Read the Apache Spark guide'));
+  if(active==='Examples')assert(html.includes('Run Code'),lesson.id+' '+active+' execution control');
   if(active==='Hands-on')assert(html.includes('Your Python draft'));
   assert.equal(parseLessonLocation(lessonLocation('python',lesson.id,active),{python:pythonLessons}).index,pythonLessons.indexOf(lesson));renders++;
  }
@@ -50,3 +52,6 @@ for(const lesson of pythonLessons){
 const html=renderToString(React.createElement(Sidebar,{module:'python',collapsed:false,setCollapsed:()=>{},currentLesson:0,completed:[],onLesson:()=>{},onModule:()=>{}}));
 assert(html.includes('Data Structures for ETL'));assert(html.includes('Python for Data Engineering'));
 console.log('PASS: 10 Python lessons, '+renders+' tab renders, quiz indices, Python draft UI, sidebar and lesson deep links.');
+
+
+

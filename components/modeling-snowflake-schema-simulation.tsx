@@ -91,7 +91,7 @@ function cloneTables(tables:Record<TableId,TableDef>):Record<TableId,TableDef>{
 function makeScenario(id:ScenarioId,name:string,customerPrefix:string,amounts:number[]):Scenario{
   const tables=cloneTables(retailTables);
   tables.customer.rows=tables.customer.rows.map((row,index)=>({...row,name:index===0?customerPrefix:row.name}));
-  tables.fact.rows=tables.fact.rows.map((row,index)=>({...row,order_id:row.order_id+(id==="ecommerce"?1000:2000),amount:amounts[index]??row.amount}));
+  tables.fact.rows=tables.fact.rows.map((row,index)=>({...row,order_id:Number(row.order_id)+(id==="ecommerce"?1000:2000),amount:amounts[index]??row.amount}));
   if(id==="subscriptions"){
     tables.product.rows=[
       {product_key:101,product_name:"Starter Plan",subcategory_key:10},

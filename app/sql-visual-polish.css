@@ -1,0 +1,879 @@
+/* Shared readability and alignment pass for every SQL Fundamentals concept lab. */
+
+.sql-module-page:not(.modeling-module-page){
+
+  --sql-text:#172554;
+
+  --sql-muted:#64748b;
+
+  --sql-border:#e3e8f1;
+
+  --sql-purple:#6552ed;
+
+  --sql-panel-radius:18px;
+
+}
+
+
+
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{gap:14px 16px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-hero{min-height:0;padding:16px 18px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:30px;line-height:1.08}
+
+.sql-module-page:not(.modeling-module-page) .lesson-hero h1+p{max-width:920px;font-size:15px;line-height:1.55;color:#4f6282}
+
+.sql-module-page:not(.modeling-module-page) .lesson-tabs{min-height:50px;padding-inline:12px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-list]{min-height:48px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-trigger]{min-height:46px;padding-inline:13px;font-size:13px}
+
+.sql-concept-layout .lesson-content{min-width:0}
+
+.sql-concept-layout .lesson-aside{gap:14px}
+
+.sql-concept-layout .lesson-aside>section,
+
+.sql-concept-layout .lesson-aside>button{border-radius:18px}
+
+.sql-concept-layout .lesson-state-row{min-height:34px;font-size:12.5px}
+
+.sql-concept-layout .perf-right-rail{grid-column:2;grid-row:1 / span 3;display:flex;min-width:0;flex-direction:column;gap:14px;align-self:start}
+
+.sql-concept-layout .perf-right-rail .lesson-aside{display:flex;min-width:0;flex-direction:column;gap:14px}
+
+.sql-concept-layout .perf-right-rail .lesson-playlist .space-y-1{max-height:none;overflow:visible;padding-right:0}
+
+.sql-concept-layout .perf-right-rail .nila-root{position:relative;right:auto;bottom:auto;z-index:1;width:100%}
+
+.sql-concept-layout .perf-right-rail .nila-dock{position:relative;right:auto;bottom:auto;width:100%}
+
+.sql-concept-layout .perf-right-rail .nila-idle-avatar{width:88px;height:auto;margin-right:14px}
+
+.sql-concept-layout .perf-right-rail .nila-launcher{width:100%;justify-content:flex-start;padding-right:86px}
+
+.sql-concept-layout .perf-right-rail .nila-bubble{position:relative;right:auto;bottom:auto;width:100%;margin:0 0 8px;padding-right:78px}
+
+.sql-concept-layout .perf-right-rail .nila-panel{width:min(390px,calc(100vw - 24px))!important}
+
+
+
+/* Every simulator behaves responsively according to its own available width. */
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+
+  .null-case-lab,.qe-lab
+
+){container-type:inline-size;min-width:0;color:var(--sql-text)}
+
+
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+
+  .null-sim-card,.qe-card
+
+){border-color:var(--sql-border);border-radius:var(--sql-panel-radius);box-shadow:0 10px 30px rgba(32,48,80,.055)}
+
+
+
+/* Lab titles and their one-line teaching prompt. */
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab-title,.select-lab-title,.where-sim-title,.distinct-title,
+
+  .order-title,.limit-title,.aggregate-title,.group-title,.having-title,
+
+  .joins-title,.subflow-title,.wf-lab-title,.null-sim-title,.qe-title
+
+) h2{font-size:21px!important;line-height:1.18!important;letter-spacing:-.018em}
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab-title,.select-lab-title,.where-sim-title,.distinct-title,
+
+  .order-title,.limit-title,.aggregate-title,.group-title,.having-title,
+
+  .joins-title,.subflow-title,.wf-lab-title,.null-sim-title,.qe-title
+
+) p{font-size:14px!important;line-height:1.5!important;color:#61718b!important}
+
+
+
+/* Controls should be readable without losing the compact workstation feel. */
+
+.sql-concept-layout :is(button,select,input,textarea){font-size:12px}
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab-actions,.select-lab-actions,.where-sim-actions,.distinct-actions,
+
+  .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+
+  .joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions
+
+) :is(button,select){min-height:38px;font-size:14px!important}
+
+.sql-concept-layout :is(
+
+  .sql-intro-dataset,.select-lab-actions,.where-sim-actions,.distinct-actions,
+
+  .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+
+  .joins-actions,.subflow-actions,.wf-lab-actions,.null-dataset,.qe-actions
+
+) label>span{font-size:16px!important}
+
+
+
+/* Section headings, explanatory copy, and badges. */
+
+.sql-concept-layout :is(h3,h4){line-height:1.35}
+
+.sql-concept-layout :is(
+
+  .sql-intro-panel-title,.select-panel-heading,.where-panel-heading,
+
+  .distinct-panel-heading,.order-panel-heading,.limit-panel-heading,
+
+  .aggregate-panel-heading,.group-panel-heading,.having-panel-heading,
+
+  .joins-panel-heading,.subflow-panel-heading,.wf-panel-title
+
+) :is(h3,strong){font-size:13px!important}
+
+.sql-concept-layout :is(
+
+  .distinct-columns-card,.order-options-card,.limit-options-card,
+
+  .aggregate-picker,.group-source-card,.having-controls
+
+)>h3{font-size:14px!important}
+
+.sql-concept-layout :is(
+
+  .distinct-columns-card,.order-options-card,.limit-options-card,
+
+  .aggregate-picker,.group-source-card,.having-controls
+
+)>p{font-size:14px!important;line-height:1.45!important}
+
+
+
+/* Data tables are the lesson: keep them comfortably legible. */
+
+.sql-concept-layout :is(
+
+  .sql-intro-table-wrap,.select-table-shell,.where-data-table,.distinct-table-wrap,
+
+  .order-table-wrap,.limit-table-wrap,.aggregate-table-wrap,.group-table-wrap,
+
+  .having-table-wrap,.joins-table-wrap,.joins-result-table,.subflow-table-wrap,
+
+  .wf-table-wrap,.null-table-wrap,.qe-table-wrap
+
+) table{font-size:13px!important;line-height:1.35}
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+
+  .null-case-lab,.qe-lab
+
+) table{font-size:13px!important;line-height:1.4}
+
+.sql-concept-layout :is(
+
+  .sql-intro-table-wrap,.select-table-shell,.where-data-table,.distinct-table-wrap,
+
+  .order-table-wrap,.limit-table-wrap,.aggregate-table-wrap,.group-table-wrap,
+
+  .having-table-wrap,.joins-table-wrap,.joins-result-table,.subflow-table-wrap,
+
+  .wf-table-wrap,.null-table-wrap,.qe-table-wrap
+
+) :is(th,td){height:32px!important;padding:7px 10px!important}
+
+
+
+/* Lists, help text, scenario labels, and takeaway copy. */
+
+.sql-concept-layout :is(
+
+  .sql-intro-lab,.select-lab,.where-simulator,.distinct-simulator,
+
+  .order-simulator,.limit-simulator,.aggregate-simulator,.group-simulator,
+
+  .having-simulator,.joins-simulator,.subflow-simulator,.wf-lab,
+
+  .null-case-lab,.qe-lab
+
+) :is(p,li,small,label){line-height:1.45}
+
+.sql-concept-layout :is(
+
+  .sql-intro-bottom,.select-challenge-grid,.where-bottom,.distinct-bottom,
+
+  .order-visual-card,.order-scenarios-card,.limit-visual-card,.limit-scenarios-card,
+
+  .aggregate-bottom,.group-bottom,.having-bottom,.joins-bottom,.subflow-bottom,
+
+  .wf-explain-grid,.null-bottom-grid,.qe-bottom
+
+) :is(p,li,small,code){font-size:13px!important}
+
+
+
+/* Code should be as readable as the tables beside it. */
+
+.sql-concept-layout :is(
+
+  .sql-intro-code-lines,.select-sql-lines,.comparison-code-line,
+
+  .wf-editor-shell textarea,.null-code-shell textarea,.qe-code-shell textarea
+
+){font-size:14px!important;line-height:1.65!important}
+
+
+
+/* A few labs use different heading element names but share the same hierarchy. */
+
+.sql-concept-layout .aggregate-title h2,
+
+.sql-concept-layout .wf-lab-header h3{font-size:21px!important;line-height:1.18!important;letter-spacing:-.018em}
+
+.sql-concept-layout .wf-lab-header p{font-size:14px!important;line-height:1.5!important}
+
+
+
+/* Container-aware stacking fixes the squeezed center column caused by both rails. */
+
+@container (max-width:900px){
+
+  .sql-concept-layout :is(
+
+    .sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,
+
+    .order-header,.limit-header,.aggregate-header,.group-header,.having-header,
+
+    .joins-header,.subflow-header,.wf-lab-header,.null-sim-header,.qe-header
+
+  ){align-items:flex-start;flex-direction:column}
+
+  .sql-concept-layout :is(
+
+    .sql-intro-lab-actions,.select-lab-actions,.where-sim-actions,.distinct-actions,
+
+    .order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,
+
+    .joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions
+
+  ){width:100%;justify-content:flex-start;flex-wrap:wrap}
+
+}
+
+
+
+@media(max-width:1320px) and (min-width:901px){
+
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:30px}
+
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs [data-slot=tabs-trigger]{padding-inline:8px;font-size:12px}
+
+}
+
+
+
+@media(max-width:900px){
+
+  .sql-module-page:not(.modeling-module-page) .lesson-hero{min-height:auto;padding:16px}
+
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1{font-size:28px}
+
+  .sql-module-page:not(.modeling-module-page) .lesson-hero h1+p{font-size:14px}
+
+  .sql-concept-layout .lesson-aside{grid-column:1;grid-row:4}
+
+  .sql-concept-layout .perf-right-rail{grid-column:1;grid-row:4}
+
+}
+
+
+
+/* The app uses display:contents for the lesson layout. Tailwind space-y
+
+   still adds margins to its grid items, doubling the explicit row gap. */
+
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{
+
+  grid-template-columns:minmax(0,1fr) 280px;
+
+  grid-template-rows:min-content min-content minmax(0,1fr);
+
+  align-content:start;row-gap:16px;
+
+}
+
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main>*{margin-block:0!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content{margin-block:0!important;font-size:14px;min-width:0}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(p,li){font-size:14px!important;line-height:1.55}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(small,label,figcaption){font-size:12px!important;line-height:1.5}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(button,select,input){font-size:13px!important;min-height:34px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(h3,h4){font-size:16px!important;line-height:1.35}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(code,pre,textarea){font-size:14px!important;line-height:1.65}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(span,strong,b){font-size:inherit}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content table :is(th,td){font-size:13px!important;line-height:1.4;padding:7px 10px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content table th{background:linear-gradient(135deg,#ede9fe,#e0e7ff);color:#493697;font-weight:700;border-bottom:1px solid #d4ccf1}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content table tbody tr:nth-child(even) td:not([class]){background:#f8faff}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content table tbody tr:hover td:not([class]){background:#edf2ff}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content [class*="result"] table th{background:linear-gradient(135deg,#dcfce7,#d1fae5);color:#166534;border-color:#bbebcf}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is([class*="table-wrap"],[class*="table-scroll"]){border-radius:10px;border:1px solid #e3e8f1;max-width:100%}
+
+.sql-module-page:not(.modeling-module-page) .lesson-aside :is(p,button,a){font-size:13px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-aside :is(small,.lesson-state){font-size:12px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-aside>section{padding:14px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-state-row{min-height:36px;flex-wrap:wrap}
+
+.sql-module-page:not(.modeling-module-page) .dataprep-sidebar nav button{font-size:14px;min-height:36px}
+
+.sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,.96fr) minmax(0,1.08fr) minmax(0,.96fr)}
+
+.sql-concept-layout .sql-intro-editor textarea{min-height:220px}
+
+.sql-concept-layout :is(.aggregate-grid,.limit-grid,.order-grid,.distinct-grid,.group-grid,.having-grid,.joins-grid){grid-template-rows:auto}
+
+.sql-concept-layout :is(.sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,.order-header,.limit-header,.aggregate-header,.group-header,.having-header,.joins-header,.subflow-header,.wf-lab-header,.null-sim-header,.qe-header){gap:12px;flex-wrap:wrap}
+
+.sql-concept-layout :is(.sql-intro-controls,.select-lab-actions,.where-sim-actions,.distinct-actions,.order-actions,.limit-actions,.aggregate-actions,.group-actions,.having-actions,.joins-actions,.subflow-actions,.wf-lab-actions,.null-sim-actions,.qe-actions){gap:8px;flex-wrap:wrap}
+
+@container(max-width:700px){
+
+  .sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+
+  .sql-concept-layout .sql-intro-result-stage{grid-column:1/-1}
+
+}
+
+@container(max-width:700px){
+
+  .sql-concept-layout :is(.sql-intro-workspace,.sql-intro-bottom,.select-data-flow,.select-lab-bottom){grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout .sql-intro-result-stage{grid-column:auto}
+
+}
+
+@media(max-width:900px){
+
+  .sql-module-page:not(.modeling-module-page) .dataprep-main>main{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs{overflow-x:auto}
+
+  .sql-module-page:not(.modeling-module-page) .lesson-tabs [role=tablist]{flex-wrap:nowrap;width:max-content}
+
+}
+
+/* Metadata and diagram labels follow the same readable floor as controls. */
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(div,span,strong,b,em){font-size:13px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(h2,h3,h4) :is(span,strong,b){font-size:inherit!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(code,pre,.comparison-code-line,.sql-intro-code-lines) :is(span,strong,b){font-size:14px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-card{height:auto;min-height:140px}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-scroll{height:auto;max-height:300px;min-height:90px;padding:12px;overflow:auto}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-line{font-size:14px!important;line-height:1.65!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .comparison-code-line>span:last-child{white-space:pre-wrap;overflow-wrap:anywhere}
+
+.sql-concept-layout .sql-intro-editor-shell{height:auto;min-height:270px}
+
+.sql-concept-layout .sql-intro-editor{min-height:220px}
+
+.sql-module-page:not(.modeling-module-page) .perf-right-rail .lesson-playlist .space-y-1{max-height:none;overflow:visible}
+
+.sql-concept-layout :is(.joins-panel-heading,.group-panel-heading,.having-panel-heading,.aggregate-panel-heading,.order-panel-heading,.limit-panel-heading,.distinct-panel-heading,.subflow-panel-heading){flex-wrap:wrap;align-items:flex-start}
+
+.sql-concept-layout .joins-scenario-row{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+
+.sql-concept-layout .joins-scenario-row button{height:auto;min-height:64px}
+
+.sql-concept-layout .joins-scenario-row button small{white-space:normal}
+
+.sql-concept-layout :is(.sql-intro-bottom,.select-lab-bottom){align-items:start}
+
+.sql-semantic-header{display:inline-flex;align-items:center;gap:6px}
+
+.sql-semantic-header svg{flex-shrink:0;color:#7357dc}
+
+.sql-intro-result-table .sql-semantic-header svg{color:#16a065}
+
+.sql-city-pill{display:inline-block;padding:2px 7px;border-radius:6px;background:#edf2ff;color:#375ca3;font-weight:600}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .sql-city-pill{font-size:12px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content legend{font-size:12px!important}
+
+.sql-module-page:not(.modeling-module-page) .lesson-content button{height:auto;min-height:36px;line-height:1.4;padding-block:7px}
+
+/* Reflow the teaching stages based on workspace width, not viewport width.
+
+   Both navigation rails consume room even on otherwise wide screens. */
+
+@container(max-width:1000px){
+
+  .sql-concept-layout :is(.where-sim-grid,.distinct-grid,.order-grid,.limit-grid,.aggregate-grid,.group-main-grid,.having-main-grid,.joins-main-grid){grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+
+  .sql-concept-layout :is(.distinct-grid,.order-grid,.limit-grid,.aggregate-grid)>*{grid-column:auto!important;grid-row:auto!important}
+
+  .sql-concept-layout :is(.distinct-result-card,.order-result-card,.limit-result-card,.aggregate-result-card,.group-result-card,.having-result-card,.joins-result-card){grid-column:1/-1!important}
+
+  .sql-concept-layout :is(.having-builder,.subflow-controls){grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .sql-concept-layout :is(.wf-workspace,.null-workspace,.qe-workspace){grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout .null-stage-head{display:none}
+
+  .sql-concept-layout :is(.having-bottom-grid,.subflow-top-grid){grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout .subflow-top-grid>svg{transform:rotate(90deg);justify-self:center}
+
+}
+
+@container(max-width:700px){
+
+  .sql-concept-layout :is(.where-sim-grid,.distinct-grid,.order-grid,.limit-grid,.aggregate-grid,.group-main-grid,.having-main-grid,.joins-main-grid,.where-bottom-grid,.where-try-card,.distinct-bottom,.group-bottom-grid,.joins-mid-grid,.joins-bottom-grid,.subflow-middle-grid,.subflow-bottom-grid,.wf-explain-grid,.null-bottom-grid,.qe-bottom){grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout :is(.where-scenarios,.having-scenario-row,.group-scenario-row,.wf-scenarios,.qe-stage-strip){grid-template-columns:repeat(2,minmax(0,1fr))}
+
+}
+
+.sql-concept-layout :is(.wf-lab-header,.sql-intro-lab-header,.select-lab-toolbar,.where-sim-header,.distinct-header,.order-header,.limit-header,.aggregate-header,.group-header,.having-header,.joins-header,.subflow-header,.null-sim-header,.qe-header) .visual-title{flex:0 1 auto;min-height:0}
+
+.sql-concept-layout .wf-scenarios button{flex-direction:column;align-items:flex-start;text-align:left}
+
+.sql-concept-layout .wf-scenarios button span{white-space:normal}
+
+.sql-concept-layout .qe-stage-strip{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}
+
+.sql-concept-layout .qe-stage-strip button :is(strong,small){white-space:normal;overflow:visible}
+
+/* Reset stage placement before applying a single workspace-based reflow.
+
+   Older viewport queries must not leave spans on the wide layout. */
+
+.sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr)}
+
+.sql-concept-layout .sql-intro-result-stage{grid-column:auto;grid-row:auto;border-top:0}
+
+.sql-concept-layout .subflow-top-grid{grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr);align-items:start}
+
+.sql-concept-layout .subflow-top-grid>section{grid-column:auto;grid-row:auto}
+
+.sql-concept-layout .subflow-top-arrow{display:grid;align-self:center;min-height:32px}
+
+.sql-concept-layout .subflow-process-card{align-content:start}
+
+@container(max-width:700px){
+
+  .sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr)}
+
+  .sql-concept-layout .sql-intro-result-stage{grid-column:1/-1!important;border-top:1px solid #e8edf4}
+
+  .sql-concept-layout .subflow-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .sql-concept-layout .subflow-top-arrow{display:none}
+
+  .sql-concept-layout .subflow-result-card{grid-column:1/-1!important}
+
+}
+
+@container(max-width:700px){
+
+  .sql-concept-layout .sql-intro-workspace,.sql-concept-layout .subflow-top-grid{grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout .sql-intro-result-stage,.sql-concept-layout .subflow-result-card{grid-column:1}
+
+}
+
+.sql-keyword-surface{display:contents}
+
+
+
+
+
+.sql-module-page:not(.modeling-module-page) .lesson-content .glossary-term{display:inline;min-height:0!important;height:auto;line-height:inherit;padding:0!important;border-radius:0;vertical-align:baseline}
+
+.sql-keyword-preview{position:fixed;z-index:90;width:360px;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);overflow:auto;border:1px solid #ddd5f6;border-radius:14px;background:white;color:#334155;padding:16px;box-shadow:0 14px 45px #17255426;font-size:14px;line-height:1.55}
+
+.sql-keyword-preview.is-simple{width:300px}
+
+.sql-keyword-preview header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;color:#5b43c0}
+
+.sql-keyword-preview header strong{font-size:17px}
+
+.sql-keyword-preview header button{padding:4px;border-radius:5px;cursor:pointer}
+
+.sql-keyword-preview p{margin:0}
+
+.sql-keyword-preview .sql-keyword-detail{margin-top:10px;padding-top:10px;border-top:1px solid #eee9f7;color:#64748b}
+
+.sql-keyword-deep-dive{display:block;width:100%;margin-top:14px;border-radius:8px;background:#6950e9;color:white;padding:9px 12px;cursor:pointer;font-weight:600}
+
+
+
+
+/* Keep the three teaching stages together at normal desktop zoom.
+
+   Clear legacy viewport spans; only the lab's available width controls reflow. */
+
+.sql-concept-layout .having-main-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto}
+
+.sql-concept-layout .having-main-grid>section{grid-column:auto!important;grid-row:auto}
+
+.sql-concept-layout .having-bottom-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.sql-concept-layout .having-where-card{grid-column:auto}
+
+.sql-concept-layout .subflow-top-grid{grid-template-columns:minmax(0,1fr) 20px minmax(0,1.08fr) 20px minmax(0,1fr)}
+
+.sql-concept-layout .subflow-query-box pre{margin-left:0;overflow-wrap:anywhere}
+
+@container(max-width:700px){
+
+  .sql-concept-layout .having-main-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .sql-concept-layout .having-main-grid>.having-result-card{grid-column:1/-1!important}
+
+  .sql-concept-layout .having-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .sql-concept-layout .having-where-card{grid-column:1/-1}
+
+  .sql-concept-layout .subflow-top-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+}
+
+@container(max-width:580px){
+
+  .sql-concept-layout :is(.sql-intro-workspace,.having-main-grid,.having-bottom-grid,.subflow-top-grid){grid-template-columns:minmax(0,1fr)}
+
+  .sql-concept-layout .having-main-grid>section{grid-column:1!important}
+
+}
+
+
+@container(min-width:701px){
+  .sql-concept-layout .sql-intro-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,1fr)}
+  .sql-concept-layout .sql-intro-result-stage,.sql-concept-layout .subflow-result-card{grid-column:auto!important;grid-row:auto}
+}
+@container(max-width:700px){
+  .sql-concept-layout .sql-intro-result-stage,.sql-concept-layout .subflow-result-card{grid-column:1/-1!important}
+}
+
+/* The mobile module picker adds a grid row before the hero. */
+@media(max-width:900px){
+  .sql-module-page:not(.modeling-module-page) .sql-concept-layout .perf-right-rail{display:flex!important;grid-column:1;grid-row:5;flex-direction:column;min-width:0;width:100%}
+  .sql-module-page:not(.modeling-module-page) .sql-concept-layout .lesson-aside{grid-column:1;grid-row:5;width:100%;min-width:0}
+  .sql-concept-layout :is(.sql-intro-workspace,.having-main-grid,.having-bottom-grid,.subflow-top-grid){grid-template-columns:minmax(0,1fr)!important}
+  .sql-concept-layout :is(.sql-intro-workspace,.having-main-grid,.subflow-top-grid)>:is(article,section){grid-column:1!important;grid-row:auto}
+  .sql-concept-layout .subflow-top-arrow{display:none}
+}
+
+/* Use the established SQL view at 90% of its previous default size. */
+html:has(.sql-module-page:not(.modeling-module-page)){zoom:.675}
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [role=tab]{font-size:16px!important}
+.sql-module-page:not(.modeling-module-page) .lesson-tabs [role=tab] :is(span,strong){font-size:inherit!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content{overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-gutter:stable;min-height:0;padding-right:6px}
+.sql-module-page:not(.modeling-module-page) .lesson-content:focus-visible{outline:2px solid #8b76ed;outline-offset:2px;border-radius:12px}
+@media(min-width:901px){
+  html:has(.sql-module-page:not(.modeling-module-page)),body:has(.sql-module-page:not(.modeling-module-page)){overflow:hidden}
+  .sql-module-page:not(.modeling-module-page) .dataprep-main{height:calc(100dvh / .675);min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  .sql-module-page:not(.modeling-module-page) .dataprep-navbar{flex-shrink:0}
+  .sql-module-page:not(.modeling-module-page) .dataprep-main>main{flex:1;width:100%;min-height:0;overflow:hidden;grid-template-rows:min-content min-content minmax(0,1fr)}
+  .sql-module-page:not(.modeling-module-page) .lesson-content{height:100%;align-self:stretch}
+  .sql-module-page:not(.modeling-module-page) .perf-right-rail{min-height:0;height:100%;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-gutter:stable;align-self:stretch}
+  .sql-module-page:not(.modeling-module-page) .lesson-aside{min-height:0;max-height:100%;overflow-y:auto;overscroll-behavior-y:contain;align-self:stretch}
+  .sql-module-page:not(.modeling-module-page) .perf-right-rail .lesson-aside{max-height:none;overflow:visible;flex-shrink:0}
+}
+@media(max-width:900px){
+  .sql-module-page:not(.modeling-module-page) .lesson-content{max-height:75dvh}
+}
+
+.sql-module-page:not(.modeling-module-page) :is(.perf-right-rail,.lesson-aside){overflow-x:hidden}
+
+/* Fill the space beside navigation instead of centering a capped canvas. */
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{max-width:none;margin-inline:0;width:100%}
+
+/* The progress rail overlays the lesson, so opening it never reflows tables. */
+.sql-module-page:not(.modeling-module-page) .dataprep-main>main{grid-template-columns:minmax(0,1fr)!important}
+.sql-module-page:not(.modeling-module-page) :is(.perf-right-rail,.lesson-layout>.lesson-aside){display:flex!important;position:fixed;z-index:45;top:80px;bottom:16px;right:38px;width:480px;max-width:calc(100vw - 64px);height:auto!important;max-height:none;min-height:0;overflow-y:auto;overflow-x:hidden;flex-direction:column;gap:14px;padding:14px;border:1px solid #e3dff5;border-radius:16px;background:#f7f8fd;box-shadow:-10px 10px 35px #17255424;transform:translateX(calc(100% + 60px));opacity:0;visibility:hidden;pointer-events:none;transition:transform 230ms ease,opacity 230ms ease,visibility 230ms;will-change:transform}
+.sql-module-page.sql-progress-open :is(.perf-right-rail,.lesson-layout>.lesson-aside){transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto}
+.sql-module-page .perf-right-rail .lesson-aside{display:flex;position:static;width:100%;height:auto;max-height:none;overflow:visible;flex-shrink:0}
+.sql-progress-edge{position:fixed;z-index:46;right:0;top:110px;display:flex;align-items:center;gap:9px;writing-mode:vertical-rl;padding:14px 10px;border:1px solid #ded6f5;border-right:0;border-radius:10px 0 0 10px;background:#f3efff;color:#6552ed;font-size:16px;font-weight:600;cursor:pointer;box-shadow:-3px 3px 12px #6552ed14}
+.sql-progress-edge:focus-visible{outline:2px solid #6552ed;outline-offset:2px}
+.sql-progress-open .sql-progress-edge svg{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.sql-module-page :is(.perf-right-rail,.lesson-layout>.lesson-aside){transition:none}}
+
+.sql-module-page #sql-progress-panel{position:fixed;width:480px;max-width:calc(100dvw / .675 - 64px);height:auto;grid-row:auto;grid-column:auto}
+
+.sql-module-page #sql-progress-panel{inset:80px 38px auto auto;align-self:stretch!important;height:calc(100dvh / .675 - 96px)!important;max-height:calc(100dvh / .675 - 96px)}
+
+/* Only the overlay scrolls; its contents grow naturally within it. */
+.sql-module-page #sql-progress-panel .lesson-aside{height:auto!important;max-height:none!important;min-height:0;overflow:visible!important;flex-shrink:0}
+.sql-module-page #sql-progress-panel .lesson-playlist .space-y-1{max-height:none!important;height:auto;overflow:visible!important}
+.sql-module-page #sql-progress-panel>section{flex-shrink:0}
+
+/* Tables show their full contents; scrolling belongs to the lesson panel. */
+.sql-module-page:not(.modeling-module-page) .lesson-content :is(div,section,article):has(>table){height:auto!important;max-height:none!important;overflow:visible!important;min-width:0}
+.sql-module-page:not(.modeling-module-page) .lesson-content table{width:100%!important;min-width:0!important;max-width:100%;table-layout:fixed!important;white-space:normal!important}
+.sql-module-page:not(.modeling-module-page) .lesson-content table :is(th,td){white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+.sql-module-page:not(.modeling-module-page) .lesson-content table col{width:auto!important}
+
+.sql-beginner-intro{container-type:inline-size;margin-bottom:18px;border:1px solid #e2def3;border-radius:18px;background:linear-gradient(140deg,#faf8ff,#fff 55%,#f5fbff);padding:26px;color:#24324c}
+.sql-beginner-intro>header{margin-bottom:24px}.sql-beginner-eyebrow{display:block;margin-bottom:9px;color:#7861c9;letter-spacing:.1em;font-weight:700}
+.sql-module-page .lesson-content .sql-beginner-intro h2{font-size:30px!important;line-height:1.2;letter-spacing:-.025em;margin:0 0 8px}
+.sql-beginner-intro p{margin:0;color:#65738b}.sql-beginner-story{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding-bottom:24px}.sql-beginner-story>div{position:relative;padding-left:45px}.sql-beginner-number{position:absolute;left:0;top:0;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#eae3fc;color:#6b50be;font-weight:800}.sql-beginner-story h3{margin:0 0 7px}.sql-beginner-path{display:inline-block;margin-top:10px;color:#7059ba;font-weight:600}
+.sql-beginner-workspace{display:grid;grid-template-columns:1fr 1fr;gap:20px}.sql-beginner-workspace>section{min-width:0;border:1px solid #e4e8f2;border-radius:14px;background:#fff;padding:22px}.sql-beginner-card-heading{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}.sql-beginner-card-heading>svg{color:#8065d3;flex-shrink:0;margin-top:3px}.sql-beginner-card-heading h3{margin:0 0 4px}.sql-beginner-switches{display:flex;gap:8px;margin-bottom:14px}.sql-beginner-switches button{border:1px solid #e4dff2;border-radius:8px;background:#fff;padding:8px 18px;color:#685886;font-weight:600;cursor:pointer}.sql-beginner-switches button[aria-pressed=true]{background:#7258d8;border-color:#7258d8;color:white;box-shadow:0 3px 8px #7258d825}.sql-beginner-table{border-radius:10px;border:1px solid #e4e8f2;overflow:hidden!important}.sql-module-page .lesson-content .sql-beginner-table table :is(th,td){height:46px;padding:12px 16px!important}.sql-module-page .lesson-content .sql-beginner-table .is-highlighted{background:#e7defb!important;color:#594099!important;box-shadow:inset 0 0 0 1px #d7c7f5;transition:background 180ms}.sql-beginner-definition{display:flex;gap:10px;align-items:flex-start;margin-top:16px!important;padding:12px;background:#f8f5ff;border-radius:9px;min-height:68px}.sql-beginner-definition>svg{flex-shrink:0;color:#a477d8;margin-top:2px}.sql-beginner-question{display:grid;gap:8px;background:#f8f6ff;border-radius:10px;padding:16px;margin-bottom:14px}.sql-beginner-question>span{color:#9a8eb5;letter-spacing:.09em;font-weight:700}.sql-module-page .lesson-content .sql-beginner-question strong{font-size:20px!important;color:#45355f}.sql-beginner-code{padding:18px 20px;border-radius:10px;background:#102036;color:#eff4ff;white-space:pre-wrap;margin:0 0 18px}.sql-beginner-code span{color:#74c5ff}.sql-beginner-translation{display:grid;grid-template-columns:1fr .65fr 1.4fr;gap:12px}.sql-beginner-translation>div{display:grid;gap:7px;align-content:start}.sql-beginner-translation code{color:#7056c5;font-weight:700}.sql-beginner-translation span{color:#70809a}.sql-beginner-reassurance{display:flex;gap:8px;margin-top:18px!important;color:#418267!important}.sql-beginner-reassurance svg{flex-shrink:0;margin-top:2px}.sql-beginner-intro>footer{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:24px;padding-top:20px;border-top:1px solid #e5e1f0}.sql-beginner-intro>footer strong{color:#44305f}.sql-beginner-intro>footer p{margin-top:4px}.sql-beginner-intro>footer button{display:flex;align-items:center;gap:10px;flex-shrink:0;border-radius:10px;padding:12px 20px!important;background:#7055d5;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 5px 14px #7055d52b}
+@container(max-width:780px){.sql-beginner-story,.sql-beginner-workspace{grid-template-columns:1fr}.sql-beginner-intro>footer{align-items:flex-start;flex-direction:column}.sql-beginner-translation{grid-template-columns:1fr}.sql-beginner-intro{padding:18px}}
+
+
+/* The basics unfold from the introduction and tuck back upward. */
+.sql-basics-header-toggle{display:flex;align-items:center;gap:8px;border:1px solid #dfd5f5;border-radius:8px;background:#faf8ff;color:#7055be;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer}
+.lesson-hero>.sql-basics-header-toggle{position:absolute;right:18px;bottom:16px}
+.sql-basics-header-toggle svg:last-child{transform:rotate(90deg);transition:transform 380ms ease}
+.sql-basics-header-toggle[aria-expanded=true] svg:last-child{transform:rotate(-90deg)}
+.sql-basics-roll{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows 380ms cubic-bezier(.25,.8,.25,1),opacity 300ms ease;margin:0!important}
+.sql-basics-roll.is-open{grid-template-rows:1fr;opacity:1}
+.sql-basics-roll-inner{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 380ms}
+.sql-basics-roll.is-open .sql-basics-roll-inner{visibility:visible}
+.sql-basics-roll-content{transform:translateY(-28px);transition:transform 380ms cubic-bezier(.25,.8,.25,1);padding-bottom:16px}
+.sql-basics-roll.is-open .sql-basics-roll-content{transform:translateY(0)}
+.sql-basics-roll .sql-beginner-intro{margin:0}
+@media(max-width:900px){.sql-module-page .lesson-hero:has(>.sql-basics-header-toggle){padding-bottom:60px}.lesson-hero>.sql-basics-header-toggle{right:16px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){.sql-basics-roll,.sql-basics-roll-inner,.sql-basics-roll-content,.sql-basics-header-toggle svg{transition:none}}
+
+/* A graphical paper roll over the workspace, rather than an accordion. */
+@property --sql-roll-progress{syntax:"<percentage>";inherits:true;initial-value:0%}
+.sql-module-page:not(.modeling-module-page) .lesson-content{position:relative;isolation:isolate}
+.sql-basics-roll{--sql-roll-progress:0%;position:absolute;inset:0 6px auto 0;z-index:15;display:block;grid-template-rows:none;max-height:100%;opacity:1;visibility:hidden;pointer-events:none;clip-path:inset(0 0 calc(100% - var(--sql-roll-progress)) 0 round 0 0 18px 18px);transition:--sql-roll-progress 720ms cubic-bezier(.22,.8,.25,1),visibility 720ms;filter:drop-shadow(0 15px 20px #34215430)}
+.sql-basics-roll.is-open{--sql-roll-progress:100%;visibility:visible;pointer-events:auto;grid-template-rows:none}
+.sql-basics-roll-inner,.sql-basics-roll.is-open .sql-basics-roll-inner{visibility:visible;min-height:0;overflow:auto;max-height:inherit;transition:none;background:#faf8ff;border-radius:0 0 18px 18px}
+.sql-basics-roll-content,.sql-basics-roll.is-open .sql-basics-roll-content{transform:none;padding-bottom:0;transition:none}
+.sql-basics-roll::after{content:"";position:absolute;z-index:3;left:0;right:0;top:var(--sql-roll-progress);height:30px;transform:translateY(-100%);border-radius:50% 50% 9px 9px / 30% 30% 9px 9px;background:linear-gradient(180deg,#faf7ff 0%,#ded2f7 28%,#b6a1db 55%,#f0e7fc 82%,#fff 100%);box-shadow:0 -3px 10px #51358720,0 8px 12px #34215440;pointer-events:none}
+.sql-basics-roll.is-open::after{animation:sql-roll-edge-settle 850ms ease forwards}
+@keyframes sql-roll-edge-settle{0%,78%{opacity:1}100%{opacity:0}}
+.sql-basics-roll .sql-beginner-intro{border-radius:0 0 18px 18px;border-top:3px solid #9376db;background:linear-gradient(120deg,#f5efff,#fff 48%,#f0f9ff);box-shadow:inset 0 7px 12px #8161bf10}
+.sql-basics-roll .sql-beginner-number{animation:sql-basics-glow 3s ease-in-out infinite}
+@keyframes sql-basics-glow{0%,100%{box-shadow:0 0 0 0 #9173da00}50%{box-shadow:0 0 0 6px #9173da14}}
+@media(prefers-reduced-motion:reduce){.sql-basics-roll{transition:none}.sql-basics-roll::after{display:none}.sql-basics-roll .sql-beginner-number{animation:none}}
+
+.sql-basics-roll{height:100%;background:#faf8ff}
+.sql-basics-roll-inner{height:100%;max-height:100%;overflow-y:auto;scrollbar-width:thin}
+
+/* Ask the database: an illustrated, paced introduction. */
+.sql-story{min-height:100%;padding:28px 36px;background:radial-gradient(ellipse at 15% 20%,#eae5ff,transparent 50%),radial-gradient(ellipse at 90% 80%,#ddf6ef,transparent 45%),#fafbff;color:#26324d;display:flex;flex-direction:column}
+.sql-story-header{display:flex;align-items:center;justify-content:space-between;gap:24px}.sql-story-header>span{color:#8774af;letter-spacing:.15em;font-weight:700}.sql-story-steps{display:flex;gap:24px}.sql-story-steps>span{display:flex;align-items:center;gap:7px;color:#a5acc0}.sql-story-steps>span.is-reached{color:#6c52c0}.sql-story-steps small{font-size:12px!important}
+.sql-story-title{margin:28px 0 18px;text-align:center}.sql-story-chapter{color:#a48abe;letter-spacing:.13em;font-weight:600}.sql-module-page .lesson-content .sql-story-title h2{font-size:36px!important;line-height:1.2;margin:10px 0 12px;letter-spacing:-.025em;color:#302749}.sql-story-title p{max-width:750px;margin:0 auto;color:#77829a}
+.sql-story-stage{min-height:350px;display:grid;place-items:center;flex:1;position:relative;animation:sql-scene-arrive 500ms ease both}.sql-story-collection{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:40px;width:min(100%,950px);padding:28px 0}.sql-story-shop,.sql-story-database{display:grid;justify-items:center;gap:13px;position:relative}.sql-story-building{display:grid;justify-items:center;gap:12px;color:#8d70cb;padding:24px;border-radius:28px;background:linear-gradient(135deg,#fff,#eee7fd);box-shadow:0 18px 35px #7b57b21c;border:1px solid #fff}.sql-story-building>span{letter-spacing:.1em;font-weight:700;font-size:11px!important}.sql-story-scene-label,.sql-story-database>span{color:#8894a9}.sql-story-database>svg{color:#40ac98;filter:drop-shadow(0 10px 12px #35b49625);animation:sql-db-breathe 3s ease-in-out infinite}.sql-story-database>strong{color:#358f7f}.sql-story-orbit{position:absolute;width:160px;height:160px;border:1px dashed #9dd4c6;border-radius:50%;top:-23px;animation:sql-orbit 24s linear infinite;pointer-events:none}.sql-story-orbit:before{content:"";position:absolute;top:16px;left:24px;width:9px;height:9px;background:#61c2aa;border-radius:50%}
+.sql-story-card-stream{position:relative;display:grid;gap:12px;z-index:1}.sql-story-person{display:flex;gap:12px;align-items:center;border:1px solid #e7dff5;border-radius:13px;padding:13px 18px;background:white;box-shadow:0 7px 15px #574d8510;animation:sql-customer-flow 3.8s ease-in-out infinite;animation-delay:calc(var(--card-index)*450ms)}.sql-story-person>span{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#eee6ff;color:#9672c6;font-weight:700}.sql-story-person>div{display:grid;gap:3px}.sql-story-person small{color:#a1a5b8}.sql-story-trail{position:absolute;top:50%;left:-20%;right:-20%;z-index:-1;display:flex;justify-content:space-between}.sql-story-trail i{width:4px;height:4px;border-radius:50%;background:#b8c7d9}
+.sql-story-organize{width:min(100%,800px);padding:22px;border:1px solid #e4e4f4;border-radius:18px;background:#ffffffc9;box-shadow:0 20px 45px #5944740c}.sql-story-table-heading{display:flex;align-items:center;gap:10px;color:#8770ba;margin-bottom:16px}.sql-story-table-heading>span{margin-left:auto;color:#9ba3b5}.sql-story-table table{border-collapse:separate;border-spacing:5px;width:100%}.sql-module-page .lesson-content .sql-story-table :is(th,td){height:54px;border-radius:8px;border:1px solid transparent;background:#f0f2f8!important;padding:14px!important;transition:opacity 240ms,background 240ms,box-shadow 240ms}.sql-module-page .lesson-content .sql-story-table .spotlight{background:#eee1ff!important;color:#7953b4;box-shadow:0 0 0 1px #ceb5ec,0 5px 12px #9c70c31a}.sql-story-table .subdued{opacity:.4}.sql-story-structure-controls{display:flex;justify-content:center;gap:10px;margin-top:18px}.sql-story-structure-controls button{border-radius:999px;border:1px solid #dfd5ed;padding:8px 22px!important;background:white;color:#967fb1;cursor:pointer}.sql-story-structure-controls button[aria-pressed=true]{background:#8061c4;color:#fff;border-color:#8061c4}.sql-story-structure-definition{text-align:center;margin:16px 0 0;color:#8d7f9f}
+.sql-story-query-scene{width:min(100%,1000px);display:grid;gap:18px}.sql-story-question{display:flex;align-items:center;justify-content:center;gap:18px;color:#8d77ae;animation:sql-question-enter 550ms ease both}.sql-story-question>span{font-size:11px!important;letter-spacing:.12em}.sql-module-page .lesson-content .sql-story-question strong{font-size:22px!important;color:#635074}.sql-story-code{display:grid;gap:16px;padding:22px 28px;background:#14233b;border-radius:18px;box-shadow:0 13px 28px #19264618;animation:sql-question-enter 600ms 150ms ease both}.sql-story-code-label{color:#7b8bac;letter-spacing:.12em;font-size:11px!important}.sql-module-page .lesson-content .sql-story-code>code{font-size:24px!important;color:#eceaf9}.sql-story-code code>b{color:#99cfee}.sql-story-code-meaning{display:flex;gap:30px;flex-wrap:wrap;color:#8d9ab6}.sql-story-code-meaning b{color:#b0a0dc;margin-right:6px}.sql-story-query-flow{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;align-items:center;gap:12px;padding:12px 0}.sql-story-query-chip,.sql-story-query-db,.sql-story-output{display:grid;justify-items:center;gap:9px;color:#9480b8}.sql-story-query-db{color:#42a58e}.sql-story-query-track{display:flex;justify-content:space-evenly;border-top:1px dashed #c2cbdc;position:relative}.sql-story-query-track>span{position:relative;top:-4px;width:7px;height:7px;border-radius:50%;background:#af9ad0;opacity:.4}.is-running .sql-story-query-track>span{animation:sql-query-packet 700ms ease-in-out infinite}.is-running .sql-story-query-track>span:nth-child(2){animation-delay:160ms}.is-running .sql-story-query-track>span:nth-child(3){animation-delay:320ms}.is-running .sql-story-query-db svg{animation:sql-db-breathe 450ms ease infinite}.sql-story-output.is-ready{color:#37a17c}.sql-story-results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.sql-story-results>div{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid #cde7dc;border-radius:12px;padding:15px;color:#418f72;animation:sql-result-arrive 500ms ease both;animation-delay:calc(var(--card-index)*140ms)}.sql-story-results>div span{margin-left:auto;color:#89a89b}.sql-story-results>p{grid-column:1/-1;text-align:center;color:#8ca199;margin:4px 0}.sql-story-execution-status{text-align:center;color:#9384ac;min-height:25px}
+.sql-story-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;padding-top:20px;border-top:1px solid #e4def0}.sql-story-footer>span{color:#9a90aa}.sql-story-footer button{display:flex;align-items:center;gap:9px;border-radius:10px;padding:12px 20px!important;cursor:pointer}.sql-story-back{border:1px solid #e1dbe9;background:#ffffffb5;color:#9b88b1}.sql-story-back:disabled{opacity:.3;cursor:default}.sql-story-next{border:0;background:linear-gradient(135deg,#9974d5,#7254b9);color:#fff;box-shadow:0 7px 18px #8361be28}.sql-story-next:disabled{opacity:.65;cursor:wait}
+@keyframes sql-scene-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes sql-customer-flow{0%,100%{transform:translateX(-16px);opacity:.55}35%,65%{transform:translateX(16px);opacity:1}}@keyframes sql-db-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}@keyframes sql-orbit{to{transform:rotate(360deg)}}@keyframes sql-question-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes sql-query-packet{0%{opacity:.15;transform:translateX(-15px)}50%{opacity:1}100%{opacity:.15;transform:translateX(15px)}}@keyframes sql-result-arrive{from{opacity:0;transform:translateX(-20px) scale(.9)}to{opacity:1;transform:translateX(0) scale(1)}}
+@container(max-width:750px){.sql-story{padding:22px}.sql-story-header{align-items:flex-start;flex-direction:column;gap:14px}.sql-story-collection{gap:14px;grid-template-columns:1fr 1fr}.sql-story-card-stream{grid-column:1/-1;grid-row:2;grid-template-columns:repeat(3,1fr)}.sql-story-person{padding:10px;gap:6px}.sql-story-person>span{display:none}.sql-story-query-flow{gap:5px}.sql-story-code-meaning{gap:10px}.sql-story-results{grid-template-columns:1fr}.sql-story-footer{flex-wrap:wrap}.sql-story-footer>span{display:none}.sql-story-question{flex-wrap:wrap}.sql-story-steps{gap:14px}}
+@media(prefers-reduced-motion:reduce){.sql-story *{animation:none!important;transition:none!important}}
+
+.sql-basics-roll-inner{container-type:inline-size}.sql-basics-roll-content:has(.sql-story){min-height:100%}
+
+.sql-module-page .lesson-content .sql-story-title h2{text-align:center!important;width:100%}
+.sql-basics-roll-content:has(.sql-story){height:100%}.sql-story{height:100%;box-sizing:border-box}
+.sql-module-page .lesson-content .sql-story-title h2{display:block!important}
+
+/* A tiny shop world: receipts become records, questions become answers. */
+.sql-story{position:relative;background-image:radial-gradient(circle at 15% 35%,#eee5ff 0,transparent 40%),radial-gradient(circle at 85% 75%,#dff8ec 0,transparent 40%),radial-gradient(#9b8cbd19 1px,transparent 1px);background-size:auto,auto,24px 24px}
+.sql-story-shop{position:relative}.sql-story-shop-spark{color:#409c7f;font-weight:800;letter-spacing:.12em;margin-bottom:16px;transform:rotate(-6deg)}
+.sql-story-building{position:relative;box-shadow:0 22px 50px #8c67c91a}.sql-story-building:after{content:'';position:absolute;width:130%;height:14px;border-radius:50%;background:#9d83bc18;bottom:-22px;filter:blur(5px)}
+.sql-story-receipt{position:absolute;top:65%;left:-25px;width:125px;padding:14px;background:#fffdf6;border-top:3px solid #f2cf7f;box-shadow:0 9px 22px #6c577d1c;transform:rotate(-9deg);z-index:2;display:grid;gap:7px;animation:sql-receipt-arrive 900ms both;clip-path:polygon(0 0,100% 0,100% 94%,90% 100%,80% 94%,70% 100%,60% 94%,50% 100%,40% 94%,30% 100%,20% 94%,10% 100%,0 94%)}
+.sql-story-receipt span{font-size:9px!important;letter-spacing:.12em;color:#a68b54}.sql-story-receipt strong{color:#534461}.sql-story-receipt small,.sql-story-receipt i{font-size:10px!important;color:#887e8c}.sql-story-shop>.sql-story-scene-label{margin-top:80px}
+.sql-story-db-note{position:absolute;right:-40px;top:8px;padding:8px 13px;border-radius:12px;background:white;border:1px solid #cdebdc;color:#43977d;box-shadow:0 5px 18px #388c7110;transform:rotate(8deg);animation:sql-note-float 4s ease-in-out infinite}.sql-story-db-note.note-two{right:auto;left:-40px;top:72px;transform:rotate(-8deg);animation-delay:-1s}.sql-story-db-note.note-three{top:auto;bottom:-22px;right:-20px;animation-delay:-2s}
+.sql-story-table-caption{text-align:center;letter-spacing:.15em;color:#a18aad;margin-bottom:22px;font-size:11px!important}.sql-story-table .spotlight{position:relative;box-shadow:inset 0 0 0 1px #a686eb;transition:background 350ms,box-shadow 350ms}.sql-story-table td{transition:opacity 350ms,background 350ms}
+.sql-story-question-options{display:flex;justify-content:center;gap:10px;margin:18px 0}.sql-story-question-options button{border:1px solid #dfd5f2;background:#fff9;border-radius:24px;padding:9px 16px;color:#80758d;transition:background 200ms,transform 200ms}.sql-story-question-options button[aria-pressed=true]{background:#7650df;color:white;box-shadow:0 5px 16px #7650df25}.sql-story-question-options button:hover{transform:translateY(-2px)}.sql-story-question-options span{display:block;font-size:9px!important;opacity:.8}.sql-story-code em{color:#9fe0b7;font-style:normal}.sql-story-code-meaning{flex-wrap:wrap}
+.sql-story-success-seal{display:flex;align-items:center;justify-content:center;gap:8px;color:#309d77;letter-spacing:.12em;padding:14px;grid-column:1/-1;animation:sql-seal-stamp 650ms both}.sql-story-query-scene{position:relative}.sql-story-confetti{position:absolute;left:50%;top:70%;pointer-events:none}.sql-story-confetti i{position:absolute;width:6px;height:11px;border-radius:2px;background:#b299ed;animation:sql-story-celebrate 1300ms ease-out both;animation-delay:calc(var(--particle)*35ms)}.sql-story-confetti i:nth-child(3n){background:#70cca5}.sql-story-confetti i:nth-child(3n+1){background:#f1c76b}
+@keyframes sql-receipt-arrive{from{opacity:0;transform:translateY(-35px) rotate(0)}to{opacity:1;transform:translateY(0) rotate(-9deg)}}
+@keyframes sql-note-float{50%{translate:0 -7px}}
+@keyframes sql-seal-stamp{from{opacity:0;transform:scale(1.3) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes sql-story-celebrate{from{opacity:1;transform:rotate(calc(var(--particle)*30deg)) translateY(0)}to{opacity:0;transform:rotate(calc(var(--particle)*30deg)) translateY(-160px) rotate(180deg)}}
+@container(max-width:750px){.sql-story-receipt{left:0;width:90px;top:60%}.sql-story-db-note{right:-8px}.sql-story-db-note.note-two{left:-8px}.sql-story-question-options{flex-wrap:wrap}.sql-story-shop>.sql-story-scene-label{margin-top:95px}}
+@media(prefers-reduced-motion:reduce){.sql-story-receipt,.sql-story-db-note,.sql-story-success-seal,.sql-story-confetti i{animation:none}.sql-story-confetti{display:none}}
+
+/* The data district: a playful illustrated world with a working query terminal. */
+.sql-story{background-color:#faf8ff;background-image:radial-gradient(ellipse at 15% 65%,#e7dcfc 0,transparent 47%),radial-gradient(ellipse at 85% 60%,#d4f5e8 0,transparent 45%),linear-gradient(#faf9ff,#f3f8ff)}
+.sql-story-collection{position:relative;gap:90px!important;max-width:1150px!important;isolation:isolate;padding:38px 20px 55px}
+.sql-story-collection:after{content:'';position:absolute;z-index:-1;left:5%;right:5%;bottom:38px;height:75px;background:linear-gradient(175deg,#c3b4dd33,#a9dbc633);border-radius:50%;transform:skewX(-15deg);border-bottom:2px solid #cabbe33d}
+.sql-story-city{position:absolute;left:-85px;bottom:55px;width:390px;height:210px;z-index:-1;opacity:.42;display:flex;align-items:flex-end;gap:14px;pointer-events:none}.sql-story-city i{display:block;width:55px;height:90px;background:repeating-linear-gradient(0deg,transparent 0 19px,#fff8 20px 25px),repeating-linear-gradient(90deg,#c7b6e0 0 14px,#dfd2ef 15px 25px);border-radius:7px 7px 0 0;transform:skewY(-5deg)}.sql-story-city i:nth-child(2){height:150px}.sql-story-city i:nth-child(3){height:195px}.sql-story-city i:nth-child(4){height:120px}.sql-story-city i:nth-child(5){height:75px}.sql-story-city>span{position:absolute;bottom:-30px;left:40px;color:#8e72b7;font-size:10px!important;letter-spacing:.25em}
+.sql-story-shop .sql-story-building{width:185px;height:195px;border-radius:16px 16px 9px 9px;border:2px solid #b79aca;background:linear-gradient(135deg,#fff9ed,#f3e9fa);box-shadow:12px 12px 0 #b8a0d331,0 25px 55px #8d72ac28;padding-top:48px;overflow:visible;transform:rotate(-3deg)}
+.sql-story-awning{position:absolute;top:0;left:-9px;right:-9px;height:38px;display:flex;filter:drop-shadow(0 5px 2px #72539b20)}.sql-story-awning i{flex:1;background:#9571c3;border-radius:5px 5px 11px 11px}.sql-story-awning i:nth-child(even){background:#fff1cd}.sql-story-shop-door{position:absolute;right:17px;bottom:0;width:27px;height:50px;border:2px solid #b697cf;border-radius:5px 5px 0 0;background:#dcd0ee80}.sql-story-shop-door:after{content:'';position:absolute;right:4px;top:26px;width:4px;height:4px;border-radius:50%;background:#9775bc}
+.sql-story-shop-spark{position:relative;z-index:2;margin-bottom:23px}.sql-story-receipt{top:72%;left:-45px;z-index:3}.sql-story-shop>.sql-story-scene-label{margin-top:90px}
+.sql-story-stream-label{display:block;text-align:center;letter-spacing:.16em;color:#8f75b0;font-size:10px!important;margin-bottom:14px}.sql-story-person{position:relative;background:linear-gradient(115deg,#fff,#faf6ff)!important;border:1px solid #ddcdec!important;border-left:5px solid #b197d4!important;width:275px!important;padding:17px!important;box-shadow:0 10px 22px #9074b519!important;transform-origin:left center}.sql-story-person:after{content:'';position:absolute;right:12px;top:10px;bottom:10px;width:29px;background:repeating-linear-gradient(90deg,#c8b7d6 0 1px,transparent 1px 3px);opacity:.45}.sql-story-person>.sql-story-passport-stamp{position:absolute!important;width:auto!important;height:auto!important;right:50px;bottom:8px;padding:2px 4px;border:1px solid #6cb999;border-radius:3px!important;background:transparent!important;color:#58a383!important;font-size:7px!important;letter-spacing:.08em;transform:rotate(-10deg)}
+.sql-story-database{position:relative;background:linear-gradient(135deg,#effff8,#d5f2e9);border:2px solid #97ceb9;border-radius:26px;padding:58px 38px 30px;box-shadow:12px 12px 0 #88baa930,0 20px 45px #72ad9423;transform:rotate(3deg)}.sql-story-db-terminal{position:absolute;top:14px;left:14px;right:14px;display:flex;align-items:center;gap:5px;border-bottom:1px solid #abd5c4;padding-bottom:9px}.sql-story-db-terminal i{width:6px;height:6px;border-radius:50%;background:#74cba8;animation:sql-terminal-blink 2s infinite}.sql-story-db-terminal i:nth-child(2){animation-delay:300ms}.sql-story-db-terminal i:nth-child(3){animation-delay:600ms}.sql-story-db-terminal span{margin-left:auto;color:#528e77;font-size:8px!important;letter-spacing:.08em}.sql-story-database .sql-story-orbit{inset:-24px}.sql-story-db-note{z-index:3;right:-60px!important}.sql-story-db-note.note-two{left:-60px!important;right:auto!important}.sql-story-db-note.note-three{right:-32px!important}
+.sql-story-code{position:relative;padding-top:55px!important;box-shadow:0 20px 40px #24345520!important;border:1px solid #526682!important;transform:perspective(1000px) rotateX(2deg)}.sql-story-terminal-chrome{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:7px;padding:13px 17px;background:#ffffff0a;border-bottom:1px solid #ffffff12}.sql-story-terminal-chrome i{width:9px;height:9px;border-radius:50%;background:#ef9d9d}.sql-story-terminal-chrome i:nth-child(2){background:#edcf84}.sql-story-terminal-chrome i:nth-child(3){background:#8bd0b1}.sql-story-terminal-chrome span{margin:auto;color:#96a8c3;font-size:10px!important}
+.sql-story-query-db{position:relative;overflow:hidden;border:1px solid #b1d9c8;border-radius:20px;padding:18px 27px;background:#e9fcf3;box-shadow:0 10px 24px #73b4961c}.sql-story-db-scanner{position:absolute;inset:0;opacity:0;background:linear-gradient(transparent,#83d7b670,transparent);height:30px}.is-running .sql-story-db-scanner{opacity:1;animation:sql-scan-records 850ms linear infinite}.is-running .sql-story-query-db{box-shadow:0 0 30px #87d8b95c}
+@keyframes sql-scan-records{from{translate:0 -30px}to{translate:0 140px}}
+@keyframes sql-terminal-blink{50%{opacity:.3;box-shadow:0 0 5px #50bc95}}
+@container(max-width:950px){.sql-story-collection{gap:35px!important}.sql-story-person{width:220px!important}.sql-story-shop .sql-story-building{width:145px}.sql-story-database{padding:50px 20px 25px}.sql-story-city{left:-30px;width:260px}}
+@container(max-width:750px){.sql-story-collection{gap:20px!important;padding:30px 15px}.sql-story-card-stream{z-index:3}.sql-story-person{width:100%!important;padding:12px!important}.sql-story-person>.sql-story-passport-stamp{display:none}.sql-story-db-note{display:none}.sql-story-city{opacity:.2}.sql-story-shop .sql-story-building{width:130px;height:170px}.sql-story-receipt{left:-5px}.sql-story-database{padding:50px 18px 25px}.sql-story-stream-label{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.sql-story-db-terminal i,.is-running .sql-story-db-scanner{animation:none}}
+
+/* Follow a record: hands-on discovery in the illustrated world. */
+.sql-story-title{margin:22px 0 8px}.sql-module-page .lesson-content .sql-story-title p{font-size:17px!important;line-height:1.65;max-width:850px;color:#65748b}.sql-module-page .lesson-content .sql-story-title h2{font-size:40px!important;color:#312347}
+.sql-story-stage.scene-0{min-height:440px}.sql-story-collection{width:min(100%,1200px);grid-template-columns:240px 300px 265px;justify-content:center;gap:75px!important;align-items:center}.sql-story-card-stream{gap:15px}.sql-story-person{width:300px!important;text-align:left;cursor:pointer;transition:box-shadow 250ms,border-color 250ms,scale 250ms}.sql-story-person.is-selected{border-color:#9670cf!important;box-shadow:0 0 0 3px #a280d825,0 14px 25px #8365b52a!important;background:linear-gradient(115deg,#fff,#eee4ff)!important;animation:none;scale:1.04}.sql-story-person:hover{scale:1.04}.sql-story-person:focus-visible,.sql-story-row-picker button:focus-visible{outline:3px solid #7650df;outline-offset:5px}.sql-module-page .lesson-content .sql-story-person strong{font-size:19px!important;color:#49345e}.sql-module-page .lesson-content .sql-story-person small{font-size:14px!important;color:#81708d}.sql-story-stream-label{color:#76548e;font-size:11px!important;line-height:1.5;max-width:270px;margin:0 auto 8px}
+.sql-story-database{padding:52px 25px 22px;transform:rotate(2deg);min-width:245px;gap:9px}.sql-story-database>svg{width:80px;height:80px}.sql-story-record-preview{width:100%;background:#ffffffb8;border-radius:12px;border:1px solid #a8d5c1;padding:13px;margin-top:6px;animation:sql-record-reveal 700ms 500ms both}.sql-story-record-preview>span{font-size:9px!important;letter-spacing:.13em;color:#4a8c70;font-weight:700}.sql-story-record-preview dl{margin:10px 0 0;display:grid;gap:7px}.sql-story-record-preview dl>div{display:flex;justify-content:space-between;gap:16px}.sql-story-record-preview dt{font-family:monospace;color:#7b9c8b;font-size:12px!important}.sql-story-record-preview dd{margin:0;color:#30694e;font-weight:700;font-size:13px!important}
+.sql-story-record-flight{position:absolute;z-index:5;left:52%;top:40%;display:flex;align-items:center;gap:8px;background:white;border:1px solid #b7d4c4;border-radius:10px;padding:10px 14px;box-shadow:0 9px 24px #5d927e25;pointer-events:none;animation:sql-follow-record 900ms ease-in-out both}.sql-story-record-flight>span{display:grid;place-items:center;width:27px;height:27px;border-radius:8px;background:#eee4fc;color:#8060ab}.sql-story-record-flight small{color:#6c9680}
+.sql-story-row-picker{display:flex;gap:8px;justify-content:center;margin-top:12px}.sql-story-row-picker button{border:1px solid #e1d6ed;border-radius:20px;background:#fff;padding:7px 17px;color:#9883aa}.sql-story-row-picker button[aria-pressed=true]{background:#eee3ff;border-color:#b39bd3;color:#754fa2}.sql-story-organize{max-width:900px!important;width:min(100%,900px)}.sql-story-table th,.sql-story-table td{padding:22px 24px!important;font-size:18px!important}.sql-story-structure-definition{font-size:17px!important;color:#705a8a}
+.sql-story-query-scene{max-width:1080px}.sql-story-results>div{min-height:65px}.sql-story-results .sql-story-success-seal{min-height:auto;background:transparent;border:0;box-shadow:none;grid-column:1/-1;justify-content:center}.sql-story-results .sql-story-success-seal>span{margin-left:0;color:#309d77}.sql-story-footer{background:#ffffff73;border:1px solid #e5def1;border-radius:16px;padding:16px 20px;margin-top:14px}.sql-story-next{box-shadow:0 8px 22px #7650df30}.sql-story-next:hover{filter:brightness(1.06)}
+@keyframes sql-follow-record{0%{opacity:0;transform:translate(-80px,0) scale(.8)}20%{opacity:1}75%{opacity:1;transform:translate(220px,0) scale(.9)}100%{opacity:0;transform:translate(260px,20px) scale(.5)}}
+@keyframes sql-record-reveal{from{opacity:.3;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+@container(max-width:1100px){.sql-story-collection{grid-template-columns:190px 250px 225px;gap:38px!important}.sql-story-person{width:250px!important}.sql-story-database{min-width:210px}.sql-story-db-note{display:none}}
+@container(max-width:750px){.sql-story-collection{grid-template-columns:1fr 1fr;gap:22px!important;width:100%}.sql-story-card-stream{grid-template-columns:1fr;grid-row:2;grid-column:1/-1;width:min(100%,380px);margin:auto}.sql-story-person{width:100%!important}.sql-story-person>span:first-child{display:grid}.sql-story-stream-label{grid-column:1/-1}.sql-story-database{min-width:0;padding:45px 12px 18px}.sql-story-record-preview{padding:8px}.sql-story-record-preview dd{font-size:11px!important}.sql-story-title h2{font-size:30px!important}.sql-story-record-flight{display:none}.sql-story-city{display:none}.sql-story-table th,.sql-story-table td{padding:15px!important;font-size:15px!important}.sql-story-footer{padding:12px}.sql-story-stage.scene-0{min-height:0}.sql-story-shop>.sql-story-scene-label{margin-top:95px}}
+@media(prefers-reduced-motion:reduce){.sql-story-record-flight{display:none}.sql-story-record-preview{animation:none}.sql-story-person{transition:none}}
+.sql-module-page .lesson-content:has(.sql-basics-roll.is-open){overflow:hidden!important}
+
+/* Luminous pathways make data movement visible without interrupting the story. */
+.sql-story{background:radial-gradient(ellipse at 15% 55%,#e7d9ff 0,transparent 45%),radial-gradient(ellipse at 90% 65%,#cdf6e8 0,transparent 48%),linear-gradient(135deg,#fffdfd,#f3f2ff 55%,#f1fcf8);overflow:hidden}
+.sql-story:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(#9c84c727 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(transparent,#0004,transparent)}.sql-story>header,.sql-story>footer,.sql-story-title,.sql-story-stage{z-index:1}
+.sql-story-title{position:relative}.sql-story-chapter{display:inline-block;background:#fff9;border:1px solid #e8ddf3;border-radius:30px;padding:7px 15px;box-shadow:0 4px 15px #a187bf08}.sql-module-page .lesson-content .sql-story-title h2{background:linear-gradient(110deg,#433055,#70519b 50%,#368e77);background-clip:text;color:transparent;letter-spacing:-.035em;font-size:44px!important}
+.sql-story-header>span{border-left:3px solid #aa8bd5;padding-left:12px}.sql-story-steps>span{background:#ffffff6b;border:1px solid #e6def0;padding:6px 11px;border-radius:20px;transition:background 300ms,box-shadow 300ms}.sql-story-steps>span[aria-current=step]{background:#fff;border-color:#c5ade4;box-shadow:0 4px 15px #a17ec521}
+.sql-story-collection{padding-top:65px;padding-bottom:45px}.sql-story-world-label{position:absolute;left:40px;top:0;display:flex;align-items:center;gap:12px;letter-spacing:.13em;color:#9883b3;font-size:10px!important}.sql-story-world-label>span{display:grid;place-items:center;width:25px;height:25px;border:1px solid #bca6d5;border-radius:50%;font-size:10px!important}.sql-story-world-label>i{width:45px;height:1px;background:#c5b1df}
+.sql-story-network{position:absolute;inset:0;width:100%;height:100%;z-index:-1;overflow:visible;pointer-events:none}.sql-story-network-line{fill:none;stroke:url(#sql-story-route);stroke-width:2;stroke-dasharray:6 9;animation:sql-route-stream 2.5s linear infinite}.sql-story-network-glow{fill:none;stroke:url(#sql-story-route);stroke-width:14;opacity:.2;filter:url(#sql-story-glow)}.sql-story-network-node{fill:#d7c2ef;stroke:#fff;stroke-width:5;opacity:.5}
+.sql-story-shop{animation:sql-world-arrive 800ms 100ms both}.sql-story-card-stream{animation:sql-world-arrive 800ms 250ms both}.sql-story-database{animation:sql-server-arrive 850ms 400ms both;background:linear-gradient(140deg,#fafffd,#c8efe0 75%,#b4dfcd);box-shadow:9px 10px 0 #78b69d44,17px 20px 30px #6fa68b20,inset 2px 2px 0 #fff;isolation:isolate}.sql-story-database:after{content:'';position:absolute;inset:0;z-index:-1;border-radius:24px;background:linear-gradient(120deg,transparent 25%,#fff7 45%,transparent 65%);background-size:250% 100%;animation:sql-glass-shine 7s ease-in-out infinite;pointer-events:none}.sql-story-shop .sql-story-building{background:linear-gradient(140deg,#fff9ed 20%,#f0dffb);box-shadow:8px 10px 0 #b397d353,17px 20px 30px #8361a31c,inset 2px 2px 0 #fff}.sql-story-awning{transform:perspective(180px) rotateX(-10deg);transform-origin:top}.sql-story-person{box-shadow:3px 4px 0 #c4b1de33,0 12px 25px #80649e15!important}.sql-story-person>span:first-child{background:linear-gradient(135deg,#f0e4ff,#d7c1f3);border:1px solid #fff8;box-shadow:inset 0 1px 1px #fff;color:#8356ad}
+.sql-story-server-halo{position:absolute;left:50%;top:80px;width:110px;height:110px;translate:-50% -15%;z-index:-1;pointer-events:none}.sql-story-server-halo i{position:absolute;inset:0;border:1px solid #73bf9f;border-radius:50%;opacity:0;animation:sql-server-pulse 3.6s ease-out infinite}.sql-story-server-halo i:nth-child(2){animation-delay:1.2s}.sql-story-server-halo i:nth-child(3){animation-delay:2.4s}
+.sql-story-record-preview{box-shadow:inset 0 1px 0 #fff,0 5px 12px #74ad8d18;background:linear-gradient(135deg,#ffffffed,#effcf6)}.sql-story-record-preview dl>div{padding-bottom:5px;border-bottom:1px solid #c5e5d44d}.sql-story-record-preview dl>div:last-child{border:0;padding-bottom:0}
+.sql-story-table{position:relative;border:1px solid #d7c8e8;border-radius:18px;box-shadow:0 20px 45px #8163a221;overflow:hidden!important}.sql-story-table-scan{position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,#fff8 45%,transparent 70%);translate:-110% 0;z-index:2;animation:sql-table-sweep 1100ms 250ms both}.sql-story-code{box-shadow:0 24px 45px #35496a2b,inset 0 1px 0 #ffffff1a!important;background:radial-gradient(ellipse at 80% 0,#263e61,transparent 65%),#14233b}.is-running .sql-story-code{animation:sql-terminal-work 800ms ease-in-out infinite}.sql-story-results>div:not(.sql-story-success-seal){box-shadow:0 10px 25px #69a88914;border-bottom:3px solid #b2dfc9}
+@keyframes sql-route-stream{to{stroke-dashoffset:-60}}
+@keyframes sql-world-arrive{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes sql-server-arrive{from{opacity:0;translate:0 25px;rotate:-3deg}to{opacity:1;translate:0 0;rotate:0deg}}
+@keyframes sql-server-pulse{0%{scale:.6;opacity:0}20%{opacity:.3}100%{scale:1.6;opacity:0}}
+@keyframes sql-glass-shine{0%,30%{background-position:100% 0}80%,100%{background-position:-100% 0}}
+@keyframes sql-table-sweep{to{translate:110% 0}}
+@keyframes sql-terminal-work{50%{border-color:#81b6da;box-shadow:0 20px 45px #7399c530}}
+@container(max-width:950px){.sql-story-world-label{left:10px}.sql-story-steps{gap:8px}.sql-story-steps>span{padding:5px 8px}.sql-story-collection{padding-top:55px}}
+@container(max-width:750px){.sql-story-network,.sql-story-world-label{display:none}.sql-story-collection{padding-top:30px}.sql-module-page .lesson-content .sql-story-title h2{font-size:30px!important}.sql-story-steps{flex-wrap:wrap}.sql-story-steps small{font-size:10px!important}}
+@media(prefers-reduced-motion:reduce){.sql-story-network-packets,.sql-story-server-halo,.sql-story-table-scan{display:none}.sql-story-network-line,.sql-story-shop,.sql-story-card-stream,.sql-story-database,.sql-story-database:after,.is-running .sql-story-code{animation:none}}
+
+/* Reading and retrieval practice stay beside the visual story. */
+.sql-story:has(.sql-definition-panel){height:auto;min-height:100%;overflow:hidden}.sql-story-learning-layout{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:32px;align-items:stretch;flex:1;margin-top:24px;min-width:0}.sql-story-learning-layout>.sql-story-stage{container-type:inline-size;min-width:0;min-height:450px;align-self:stretch}.sql-definition-panel{background:#fffffff0;border:1px solid #ddd4ea;border-radius:22px;padding:24px;box-shadow:0 14px 35px #7d669611;position:relative;z-index:2;align-self:start}.sql-definition-heading{display:flex;align-items:center;gap:12px;color:#8761ad}.sql-definition-heading>svg{flex-shrink:0}.sql-definition-heading span{font-size:10px!important;letter-spacing:.13em;color:#957ea8;font-weight:700}.sql-module-page .lesson-content .sql-definition-heading h3{font-size:21px!important;line-height:1.35;margin:5px 0 0;color:#4d365f}.sql-module-page .lesson-content .sql-definition-panel p{font-size:18px!important;line-height:1.6;margin:8px 0 0;color:#485569}.sql-module-page .lesson-content .sql-definition-panel .sql-definition-intro{font-size:15px!important;color:#8891a1;line-height:1.5;margin-top:15px}.sql-definition-terms{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0}.sql-definition-terms button{background:#f8f5fc;border:1px solid #e5ddef;border-radius:20px;padding:8px 13px;color:#8e78a4;font-size:14px!important}.sql-definition-terms button[aria-pressed=true]{background:#8056b3;border-color:#8056b3;color:white;box-shadow:0 4px 12px #8056b320}.sql-definition-panel section{margin-top:20px}.sql-definition-panel section>span{display:block;font-size:10px!important;font-weight:700;letter-spacing:.12em;color:#a18caf}.sql-definition-core{padding:18px;background:linear-gradient(130deg,#f6effe,#fbf8ff);border:1px solid #e4d6f2;border-left:3px solid #aa88cd;border-radius:12px}.sql-module-page .lesson-content .sql-definition-core h4{font-size:24px!important;color:#6b478c;margin:7px 0 0}.sql-module-page .lesson-content .sql-definition-core p{font-weight:600;color:#514063}.sql-definition-plain{padding:0 4px}.sql-definition-interview{padding:16px;background:#eef8f3;border:1px solid #d9eade;border-radius:12px}.sql-definition-panel .sql-definition-interview>span{color:#77a48a}.sql-module-page .lesson-content .sql-definition-interview p{color:#456453;font-size:17px!important}.sql-definition-recall{padding-top:20px;border-top:1px dashed #e3d8ed}.sql-definition-recall small{display:block;margin:9px 0 12px;color:#9b90a6;font-size:13px!important;line-height:1.5}.sql-definition-recall button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:11px 14px;border:1px solid #d7c6e9;border-radius:10px;color:#8053a9;background:#faf6ff;font-size:14px!important}.sql-definition-recall button[aria-expanded=true]>svg{rotate:180deg}.sql-recall-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows 250ms ease}.sql-recall-answer.is-revealed{grid-template-rows:1fr}.sql-recall-answer>div{overflow:hidden}.sql-module-page .lesson-content .sql-recall-answer p{font-size:16px!important;color:#756383;background:#faf7fe;border-radius:8px;padding:12px;margin-top:10px}.sql-definition-panel button:focus-visible{outline:3px solid #a381cb;outline-offset:3px}
+@container(max-width:1400px){.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) 390px;gap:24px}.sql-definition-panel{padding:20px}.sql-module-page .lesson-content .sql-definition-panel p{font-size:17px!important}}
+@container(max-width:1000px){.sql-story-learning-layout{grid-template-columns:1fr}.sql-definition-panel{max-width:850px;width:100%;justify-self:center;box-sizing:border-box}.sql-story-learning-layout>.sql-story-stage{min-height:350px}.sql-story-learning-layout .sql-story-collection{margin-bottom:20px}.sql-module-page .lesson-content .sql-definition-panel p{font-size:18px!important}}
+@media(prefers-reduced-motion:reduce){.sql-recall-answer{transition:none}}
+
+/* Fit the story to the lesson viewport; only the body scrolls when needed. */
+.sql-basics-roll-inner:has(.sql-story){overflow:hidden!important}.sql-basics-roll-content:has(.sql-story){height:100%;min-height:0}.sql-story:has(.sql-definition-panel){height:100%;min-height:0;padding:20px 28px}.sql-story-header,.sql-story-title,.sql-story-footer{flex-shrink:0}.sql-story-title{margin:12px 0 0}.sql-module-page .lesson-content .sql-story-title h2{font-size:36px!important;margin:8px 0}.sql-module-page .lesson-content .sql-story-title p{font-size:16px!important;line-height:1.5}.sql-story-chapter{padding:5px 12px}.sql-story-learning-layout{min-height:0;overflow-y:auto;overflow-x:hidden;margin-top:18px;padding:3px 8px 10px 3px;scrollbar-width:thin;overscroll-behavior:contain;align-items:start}.sql-story-learning-layout>.sql-story-stage{min-height:440px;align-self:center}.sql-definition-panel{padding:20px}.sql-definition-panel section{margin-top:15px}.sql-module-page .lesson-content .sql-definition-panel .sql-definition-intro{margin-top:10px;font-size:14px!important}.sql-definition-terms{margin:13px 0}.sql-definition-core{padding:15px}.sql-story-footer{padding:12px 16px;margin-top:10px}.sql-definition-modes{display:flex;border-bottom:1px solid #e7dfef;gap:16px;margin:12px 0 0}.sql-definition-modes button{padding:9px 0;color:#a08bb1;background:transparent;border:0;border-bottom:2px solid transparent;font-size:14px!important}.sql-definition-modes button[aria-pressed=true]{color:#7953a2;border-bottom-color:#a17ac4;font-weight:700}.sql-definition-practice-link{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:#f7f2fc;border:1px solid #e4d8ef;border-radius:10px;margin-top:20px;padding:12px;color:#8a62ae;text-align:left;font-size:14px!important}.sql-definition-recall{padding-top:15px}.sql-definition-heading h3{margin:3px 0 0}.sql-story-learning-layout .sql-story-collection{padding-top:50px;padding-bottom:40px}
+@container(max-width:1000px){.sql-story-learning-layout{align-content:start;gap:20px}.sql-story-learning-layout>.sql-story-stage{width:100%;min-height:400px}.sql-story:has(.sql-definition-panel){padding:16px 20px}.sql-story-header{gap:8px}.sql-story-title{margin-top:10px}.sql-story-footer{flex-wrap:nowrap}.sql-story-footer>span{display:none}.sql-story-steps{gap:6px}.sql-story-steps>span{padding:4px 7px}.sql-definition-panel{max-width:850px}}
+@media(max-height:800px){.sql-story-title .sql-story-chapter{display:none}.sql-module-page .lesson-content .sql-story-title h2{font-size:30px!important}.sql-story-title{margin-top:6px}.sql-story-learning-layout{margin-top:10px}.sql-story:has(.sql-definition-panel){padding-top:14px;padding-bottom:14px}}
+
+/* One bite-size reading card at a time: no scrolling in the introduction. */
+.sql-story-learning-layout{overflow:hidden!important;align-items:center;grid-template-columns:minmax(0,1fr) 440px}.sql-definition-panel{align-self:center;padding:18px}.sql-definition-intro{display:none}.sql-definition-panel section{margin-top:12px}.sql-definition-modes{gap:12px;margin-top:8px}.sql-definition-modes button{font-size:13px!important;padding:7px 0}.sql-definition-terms{margin:12px 0 8px}.sql-definition-core{padding:14px}.sql-module-page .lesson-content .sql-definition-panel p{font-size:17px!important;line-height:1.45}.sql-definition-recall{padding-top:10px}.sql-definition-recall button{margin-top:12px;padding:9px 12px}.sql-module-page .lesson-content .sql-recall-answer p{font-size:15px!important;padding:9px;line-height:1.4}.sql-story-learning-layout>.sql-story-stage{min-height:0;height:100%;align-self:stretch;overflow:hidden}.sql-story-learning-layout .sql-story-collection{padding-top:35px;padding-bottom:25px;scale:.85}.sql-story-learning-layout .sql-story-query-scene{gap:10px}.sql-story-learning-layout .sql-story-code{padding-bottom:16px!important;gap:10px}.sql-story-learning-layout .sql-story-query-flow{padding:5px 0}.sql-story-learning-layout .sql-story-results{gap:8px}.sql-story-learning-layout .sql-story-results>div:not(.sql-story-success-seal){min-height:0;padding:10px}.sql-story-learning-layout .sql-story-success-seal{padding:8px}.sql-story-learning-layout .sql-story-table th,.sql-story-learning-layout .sql-story-table td{padding:14px 20px!important}.sql-story-learning-layout .sql-story-table-caption{margin-bottom:10px}.sql-story-learning-layout .sql-story-structure-controls{margin-top:10px}.sql-story-learning-layout .sql-story-question-options{margin:8px 0}.sql-story-title p{max-width:950px!important}.sql-story-world-label{display:none}
+@container(max-width:1400px){.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) 390px;gap:16px}.sql-story-learning-layout .sql-story-collection{scale:.8}.sql-definition-panel{padding:16px}}
+@container(max-width:1000px){.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);gap:12px;align-content:stretch}.sql-story-learning-layout>.sql-story-stage{min-height:0}.sql-definition-panel{max-width:none;padding:12px}.sql-story-learning-layout .sql-story-collection{scale:.7;grid-template-columns:1fr 1fr;padding:0}.sql-story-learning-layout .sql-story-card-stream{grid-template-columns:1fr;grid-row:2;grid-column:1/-1;max-width:280px}.sql-story-learning-layout .sql-story-shop{display:none}.sql-story-learning-layout .sql-story-database{grid-column:1/-1;width:190px;justify-self:center;min-width:0;padding:38px 14px 14px}.sql-story-learning-layout .sql-story-database>svg{width:50px;height:50px}.sql-story-learning-layout .sql-story-database>span,.sql-story-learning-layout .sql-story-db-note{display:none}.sql-story-learning-layout .sql-story-person{padding:9px!important}.sql-story-learning-layout .sql-story-query-scene{gap:7px}.sql-story-code-meaning,.sql-story-question>span,.sql-story-question>svg,.sql-story-query-flow,.sql-story-results>p,.sql-story-execution-status{display:none}.sql-story-learning-layout .sql-story-code{padding:40px 12px 12px!important}.sql-module-page .lesson-content .sql-story-code>code{font-size:18px!important}.sql-story-learning-layout .sql-story-question strong{font-size:17px!important}.sql-story-title>p,.sql-story-chapter,.sql-story-header>span{display:none}.sql-story-header{flex-direction:row;justify-content:center}.sql-story-title{margin-top:5px}.sql-module-page .lesson-content .sql-story-title h2{font-size:24px!important}.sql-definition-heading h3{display:none}.sql-definition-heading{gap:7px}.sql-definition-heading span{font-size:9px!important}.sql-definition-terms{gap:4px;margin:7px 0}.sql-definition-terms button{font-size:12px!important;padding:5px 8px}.sql-definition-modes{gap:8px;flex-wrap:wrap}.sql-definition-modes button{font-size:12px!important;padding:5px 0}.sql-module-page .lesson-content .sql-definition-panel p{font-size:16px!important;line-height:1.4}.sql-definition-core{padding:10px}.sql-definition-interview{padding:10px}.sql-module-page .lesson-content .sql-definition-core h4{font-size:20px!important}.sql-story-footer{padding:8px;margin-top:6px}.sql-story:has(.sql-definition-panel){padding:12px}.sql-story-learning-layout{margin-top:8px}}
+@media(max-height:800px){.sql-story-title>p,.sql-story-chapter{display:none}.sql-story-learning-layout .sql-story-collection{scale:.7}.sql-story-learning-layout .sql-story-code-meaning,.sql-story-learning-layout .sql-story-results>p{display:none}.sql-story-learning-layout .sql-story-query-scene{gap:6px}.sql-story-learning-layout .sql-story-query-flow{padding:0}.sql-story-title{margin-top:4px}.sql-story-footer{padding:8px 12px}.sql-story-learning-layout{margin-top:8px}}
+.sql-module-page .lesson-content:has(.sql-basics-roll.is-open){overflow:clip!important}.sql-story-learning-layout,.sql-story-learning-layout>.sql-story-stage{overflow:clip!important}
+
+/* All reading is visible; no tabs, term switches, or answer reveals. */
+.sql-definition-overview{padding:16px;align-self:center}.sql-definition-overview section{margin-top:12px}.sql-definition-overview .sql-definition-core{padding:12px;background:#faf6ff}.sql-definition-overview dl{margin:9px 0 0;display:grid;gap:10px}.sql-definition-overview dl>div{display:block}.sql-module-page .lesson-content .sql-definition-overview dt{font-size:17px!important;font-weight:750;color:#6b478c;line-height:1.3;margin-bottom:3px}.sql-module-page .lesson-content .sql-definition-overview dd{margin:0;font-size:16px!important;line-height:1.4;color:#534663}.sql-module-page .lesson-content .sql-definition-overview p{font-size:16px!important;line-height:1.4;margin-top:6px}.sql-definition-overview .sql-definition-interview{padding:11px}.sql-definition-overview .sql-definition-recall{padding-top:10px}.sql-definition-overview .sql-definition-heading h3{font-size:18px!important}.sql-definition-overview .sql-definition-heading{gap:8px}.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) 480px}
+@container(max-width:1400px){.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) 440px}.sql-definition-overview{padding:14px}}
+@container(max-width:1000px){.sql-story-learning-layout{grid-template-columns:minmax(0,.7fr) minmax(330px,1fr);gap:10px}.sql-definition-overview{padding:10px}.sql-definition-overview section{margin-top:8px}.sql-definition-overview .sql-definition-core{padding:9px}.sql-definition-overview dl{gap:7px;margin-top:6px}.sql-module-page .lesson-content .sql-definition-overview dd,.sql-module-page .lesson-content .sql-definition-overview p{font-size:15px!important;line-height:1.35}.sql-module-page .lesson-content .sql-definition-overview dt{font-size:16px!important}.sql-definition-overview .sql-definition-interview{padding:8px}.sql-definition-overview .sql-definition-recall{padding-top:8px}}
+.sql-story-learning-layout{grid-template-columns:minmax(0,1fr) 42%}.sql-definition-overview{padding:14px}.sql-definition-overview section{margin-top:9px}.sql-definition-overview .sql-definition-core{padding:10px}.sql-definition-overview dl{gap:8px}.sql-definition-overview dt,.sql-definition-overview dd{display:inline}.sql-definition-overview dt:after{content:". ";}.sql-module-page .lesson-content .sql-definition-overview dd,.sql-module-page .lesson-content .sql-definition-overview p{line-height:1.35}.sql-definition-overview .sql-definition-interview{padding:9px}.sql-definition-overview .sql-definition-recall{padding-top:8px}@container(max-width:1000px){.sql-story-learning-layout{grid-template-columns:minmax(0,.6fr) minmax(330px,1fr)}}
+
+/* Narrow windows get a dedicated reading composition, not squeezed columns. */
+.sql-story-mobile-exit{display:none}
+@media(max-width:900px){
+.sql-basics-roll.is-open{position:fixed;inset:60px 10px 10px;height:auto;max-height:none;z-index:60;filter:none;border:1px solid #e1d5ef;border-radius:18px}
+.sql-story:has(.sql-definition-panel){padding:12px 16px}.sql-story-header{justify-content:space-between;gap:8px}.sql-story-mobile-exit{display:block;background:transparent;border:0;color:#9173ad;font-size:12px!important;padding:4px}.sql-story-title{margin:3px 0}.sql-module-page .lesson-content .sql-story-title h2{font-size:23px!important;margin:5px 0}.sql-story-steps>span{padding:3px 5px}.sql-story-steps small{font-size:9px!important}.sql-story-steps{gap:5px}
+.sql-story-learning-layout{display:grid;grid-template-columns:1fr;grid-template-rows:90px minmax(0,1fr);gap:6px;margin-top:4px;padding:0;align-items:center;align-content:stretch}.sql-story-learning-layout>.sql-story-stage{min-height:0;height:90px;align-self:center}.sql-story-learning-layout .sql-story-collection{scale:1!important;display:flex;justify-content:center;align-items:center;padding:0!important;width:100%;height:100%;gap:0!important}.sql-story-learning-layout .sql-story-shop,.sql-story-learning-layout .sql-story-card-stream,.sql-story-learning-layout .sql-story-network,.sql-story-learning-layout .sql-story-record-flight{display:none}.sql-story-learning-layout .sql-story-database{display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;width:auto;padding:8px 16px;transform:none;box-shadow:3px 4px 0 #88baa930;border-radius:14px}.sql-story-learning-layout .sql-story-db-terminal,.sql-story-learning-layout .sql-story-server-halo,.sql-story-learning-layout .sql-story-orbit,.sql-story-learning-layout .sql-story-database>strong,.sql-story-learning-layout .sql-story-database>span{display:none}.sql-story-learning-layout .sql-story-record-preview{width:auto;margin:0;padding:5px 10px;animation:none}.sql-story-record-preview>span{display:none}.sql-story-learning-layout .sql-story-record-preview dl{display:flex;gap:15px;margin:0}.sql-story-learning-layout .sql-story-record-preview dl>div{display:grid;gap:2px;border:0;padding:0}.sql-story-learning-layout .sql-story-record-preview dl>div:first-child{display:none}.sql-story-learning-layout .sql-story-database>svg{width:42px;height:42px;animation:none}
+.sql-definition-overview{width:100%;align-self:center;padding:12px;box-sizing:border-box}.sql-definition-overview .sql-definition-heading{display:none}.sql-definition-overview section{margin-top:7px}.sql-definition-overview section:first-of-type{margin-top:0}.sql-definition-overview dl{gap:5px;margin-top:4px}.sql-definition-overview .sql-definition-core{padding:8px}.sql-module-page .lesson-content .sql-definition-overview dd,.sql-module-page .lesson-content .sql-definition-overview p{font-size:16px!important;line-height:1.3}.sql-module-page .lesson-content .sql-definition-overview dt{font-size:16px!important}.sql-definition-overview section>span{font-size:9px!important}.sql-definition-overview .sql-definition-interview{padding:8px}.sql-definition-overview .sql-definition-recall{padding-top:7px}.sql-story-footer{padding:7px;margin-top:6px}.sql-story-footer button{padding:8px 11px;font-size:13px!important}
+.sql-story-learning-layout .sql-story-organize{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:10px;width:100%;max-width:none!important}.sql-story-learning-layout .sql-story-table-heading,.sql-story-learning-layout .sql-story-table-caption,.sql-story-learning-layout .sql-story-structure-controls,.sql-story-learning-layout .sql-story-row-picker{display:none}.sql-story-learning-layout .sql-story-table{width:100%;border-radius:8px}.sql-story-learning-layout .sql-story-table tbody tr:not(:first-child){display:none}.sql-story-learning-layout .sql-story-table th,.sql-story-learning-layout .sql-story-table td{padding:5px!important;font-size:12px!important}.sql-story-learning-layout .sql-story-structure-definition{font-size:13px!important;margin:0!important}
+.sql-story-learning-layout .sql-story-query-scene{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;width:100%}.sql-story-learning-layout .sql-story-question,.sql-story-learning-layout .sql-story-query-flow,.sql-story-learning-layout .sql-story-question-options,.sql-story-learning-layout .sql-story-execution-status,.sql-story-learning-layout .sql-story-success-seal,.sql-story-learning-layout .sql-story-results>p{display:none}.sql-story-learning-layout .sql-story-code{padding:10px!important;border-radius:9px}.sql-story-learning-layout .sql-story-terminal-chrome,.sql-story-learning-layout .sql-story-code-label{display:none}.sql-module-page .lesson-content .sql-story-code>code{font-size:15px!important}.sql-story-learning-layout .sql-story-results{display:flex;flex-wrap:wrap;gap:4px}.sql-story-learning-layout .sql-story-results>div:not(.sql-story-success-seal){padding:5px;font-size:11px!important;min-height:0}.sql-story-learning-layout .sql-story-results>div>span{display:none}
+}
+html:has(.sql-basics-roll.is-open),body:has(.sql-basics-roll.is-open){overflow:clip!important}.sql-module-page:has(.sql-basics-roll.is-open) .sql-progress-edge{visibility:hidden}@media(max-width:900px){.sql-story-collection:after{display:none}}
+/* Base responsive changes on the full story width, not the illustration column. */ .sql-story-learning-layout>.sql-story-stage{container-type:normal}.sql-story-learning-layout .sql-story-collection{box-sizing:border-box;max-width:100%;}.sql-story-learning-layout .sql-story-card-stream{min-width:0}@media(min-width:901px){.sql-story-learning-layout .sql-story-collection{grid-template-columns:190px 250px 225px;gap:38px!important;width:100%;scale:.82}.sql-story-learning-layout .sql-story-person{width:250px!important}.sql-story-learning-layout .sql-story-shop{display:grid}.sql-story-learning-layout .sql-story-card-stream{display:grid;grid-column:auto;grid-row:auto;grid-template-columns:1fr}.sql-story-learning-layout .sql-story-database{min-width:210px;padding:50px 20px 22px}.sql-story-learning-layout .sql-story-db-note{display:none}.sql-story-learning-layout .sql-story-city{left:-30px;width:260px}}
+
+/* Shared lesson stories use real topic queries and matching sample results. */
+.sql-topic-story .sql-story-stage{padding:12px;box-sizing:border-box}.sql-topic-inputs,.sql-topic-result,.sql-topic-query{width:min(100%,900px);display:grid;gap:18px}.sql-topic-source-heading{display:flex;align-items:center;justify-content:center;gap:12px;color:#9274b4;font-size:18px}.sql-topic-table{border:1px solid #d8c9e7;border-radius:16px;background:#fffc;box-shadow:0 14px 30px #7c60a518;overflow:clip}.sql-topic-table-label{display:flex;align-items:center;gap:9px;padding:13px 16px;background:#f0e9fa;color:#825ea6}.sql-topic-table-label span{margin-left:auto;color:#9c87af;font-size:12px!important}.sql-topic-table table{width:100%;table-layout:fixed;border-collapse:collapse}.sql-module-page .lesson-content .sql-topic-table th,.sql-module-page .lesson-content .sql-topic-table td{padding:13px 14px;font-size:16px!important;overflow-wrap:anywhere;text-align:left}.sql-topic-table th{color:#8b70a7;background:#f7f2fb}.sql-topic-table td{color:#665870;border-top:1px solid #eee5f5}.sql-topic-table tbody tr{animation:sql-result-arrive 450ms both;animation-delay:calc(var(--card-index)*100ms)}.sql-topic-table td em{font-style:normal;color:#b49bc7}.sql-topic-table.is-result{border-color:#b9dccb}.sql-topic-table.is-result .sql-topic-table-label,.sql-topic-table.is-result th{background:#e8f7ef;color:#528e70}.sql-topic-result-stamp{display:flex;align-items:center;justify-content:center;gap:10px;color:#539d7d;padding:12px;animation:sql-seal-stamp 650ms both}.sql-topic-result>small{text-align:center;color:#8caa9a}.sql-topic-transform{display:grid;grid-template-columns:1fr 45px 1.4fr 45px 1fr;align-items:center;gap:14px;width:100%;position:relative}.sql-topic-lane{display:grid;justify-items:center;gap:16px;text-align:center;color:#9079a8}.sql-topic-node{display:grid;place-items:center;width:100px;height:100px;border:1px solid #ddd0ec;background:linear-gradient(135deg,#fff,#eee1fd);border-radius:24px;box-shadow:6px 7px 0 #c4aed728,0 15px 25px #9272b313}.sql-topic-engine{position:relative;isolation:isolate;color:#765399}.sql-topic-engine .sql-topic-node{width:135px;height:135px;border-color:#b7a0d3;background:linear-gradient(135deg,#f6edff,#d7c0f4);animation:sql-db-breathe 3s ease-in-out infinite}.sql-topic-lane:last-of-type .sql-topic-node{background:linear-gradient(135deg,#fff,#d9f5e6);border-color:#bddfcf;color:#58a482}.sql-topic-lane strong{font-size:18px!important;line-height:1.4}.sql-topic-lane small{color:#aa9cba}.sql-topic-route{display:flex;justify-content:space-between;border-top:1px dashed #c4b4d7}.sql-topic-route i{width:6px;height:6px;background:#b59acb;position:relative;top:-3px;border-radius:50%;animation:sql-query-packet 1300ms infinite}.sql-topic-route i:nth-child(2){animation-delay:300ms}.sql-topic-route i:nth-child(3){animation-delay:600ms}.sql-topic-engine-orbit{position:absolute;top:-20px;width:175px;height:175px;border:1px dashed #c2a9df;border-radius:50%;z-index:-1;animation:sql-orbit 18s linear infinite}.sql-topic-engine-orbit:before{content:'';width:9px;height:9px;border-radius:50%;background:#b492d2;position:absolute;top:20px;left:20px}.sql-topic-transform-note{grid-column:1/-1;text-align:center;color:#9380a8;padding:24px;font-size:17px!important}.sql-topic-story .sql-story-code>code{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:20px!important}.sql-topic-syntax-parts{display:grid;gap:10px;padding:0 12px}.sql-topic-syntax-parts>div{display:flex;gap:18px;align-items:baseline}.sql-topic-syntax-parts code{color:#8c64b3;font-size:14px!important;min-width:150px}.sql-topic-syntax-parts span{color:#8a8498;font-size:15px!important}.sql-topic-running{display:flex;align-items:center;justify-content:center;gap:8px;color:#7b9a91}.sql-topic-running>span{height:6px;width:6px;border-radius:50%;background:#91c4ae;animation:sql-terminal-blink 700ms infinite}.sql-topic-story .sql-story-footer>span{max-width:50%;font-size:13px!important;text-align:center}.sql-topic-story .sql-definition-overview p,.sql-topic-story .sql-definition-overview dd{font-size:16px!important}
+@media(max-height:800px){.sql-topic-inputs,.sql-topic-result,.sql-topic-query{gap:9px}.sql-module-page .lesson-content .sql-topic-table th,.sql-module-page .lesson-content .sql-topic-table td{padding:8px 12px}.sql-topic-table-label{padding:9px 12px}.sql-topic-story .sql-story-code>code{font-size:17px!important;line-height:1.45}.sql-topic-syntax-parts{gap:7px}}
+@media(max-width:900px){.sql-topic-story .sql-story-stage{padding:0}.sql-topic-source-heading,.sql-topic-table-label,.sql-topic-syntax-parts,.sql-topic-transform-note,.sql-topic-result-stamp,.sql-topic-result>small,.sql-topic-running{display:none}.sql-topic-inputs{display:flex;gap:8px}.sql-topic-inputs>.sql-topic-table{flex:1;min-width:0}.sql-module-page .lesson-content .sql-topic-table th,.sql-module-page .lesson-content .sql-topic-table td{padding:3px 5px;font-size:11px!important}.sql-topic-query .sql-story-code{padding:8px!important;border-radius:8px}.sql-topic-story .sql-story-code>code{font-size:12px!important;line-height:1.25}.sql-topic-story .sql-story-terminal-chrome,.sql-topic-story .sql-story-code-label{display:none}.sql-topic-transform{gap:5px;grid-template-columns:1fr 20px 1.2fr 20px 1fr}.sql-topic-node,.sql-topic-engine .sql-topic-node{width:42px;height:42px;border-radius:11px}.sql-topic-node>svg{width:26px;height:26px}.sql-topic-engine-orbit{display:none}.sql-topic-lane{gap:5px}.sql-topic-lane strong{font-size:11px!important}.sql-topic-lane small{display:none}.sql-topic-story .sql-story-steps small{font-size:8px!important}.sql-topic-story .sql-definition-overview dd,.sql-topic-story .sql-definition-overview p{font-size:15px!important;line-height:1.3}.sql-topic-story .sql-story-footer>span{display:none}}
+@media(prefers-reduced-motion:reduce){.sql-topic-table tbody tr,.sql-topic-engine .sql-topic-node,.sql-topic-route i,.sql-topic-engine-orbit,.sql-topic-result-stamp,.sql-topic-running>span{animation:none}}
+
+.sql-module-page .lesson-content .sql-topic-interview-question{font-size:14px!important;font-weight:700;color:#55836b;margin:5px 0}
+@media(max-width:900px){.sql-module-page .lesson-content .sql-topic-table th,.sql-module-page .lesson-content .sql-topic-table td{padding:1px 3px!important;font-size:11px!important;line-height:1.1!important}.sql-topic-table table{margin:0!important}}
+/* Put reading first in the natural left-to-right sequence. */ .sql-story-learning-layout{grid-template-columns:42% minmax(0,1fr)}.sql-story-learning-layout>.sql-definition-panel{grid-column:1;grid-row:1}.sql-story-learning-layout>.sql-story-stage{grid-column:2;grid-row:1}@media(max-width:900px){.sql-story-learning-layout{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 90px}.sql-story-learning-layout>.sql-definition-panel{grid-column:1;grid-row:1}.sql-story-learning-layout>.sql-story-stage{grid-column:1;grid-row:2}}
+
+/* Each concept has its own workshop palette. Reading remains on the left. */
+.sql-topic-story{--topic:#8271e8;--topic-soft:#eee9ff;--topic-glow:#c9b4ff;--topic-result:#38b48d}
+.topic-where,.topic-having{--topic:#ec9270;--topic-soft:#fff0e6;--topic-glow:#ffcca6;--topic-result:#49b898}
+.topic-order-by,.topic-limit{--topic:#549fe0;--topic-soft:#eaf5ff;--topic-glow:#a8dcff;--topic-result:#6dafbe}
+.topic-aggregates,.topic-group-by{--topic:#d99b42;--topic-soft:#fff5d9;--topic-glow:#ffe09c;--topic-result:#64b389}
+.topic-joins,.topic-subqueries-ctes{--topic:#c473bb;--topic-soft:#faeafa;--topic-glow:#eab8e7;--topic-result:#47b6b2}
+.topic-window-functions{--topic:#5599c9;--topic-soft:#e5f4ff;--topic-glow:#a9d7fb;--topic-result:#af86cf}
+.topic-null-case{--topic:#57aaa5;--topic-soft:#e1f8f2;--topic-glow:#a1e3d4;--topic-result:#a48bce}
+.topic-query-execution{--topic:#d58287;--topic-soft:#ffeded;--topic-glow:#f4b8b5;--topic-result:#6b9fca}
+.sql-topic-story{background:radial-gradient(ellipse at 80% 60%,var(--topic-glow),transparent 60%),radial-gradient(ellipse at 10% 80%,#dff4ee,transparent 55%),linear-gradient(130deg,#fffdfc,var(--topic-soft))}.sql-topic-story .sql-story-title h2{background:linear-gradient(110deg,#514063,var(--topic),#408b80);background-clip:text}.sql-topic-story .sql-story-steps>span[aria-current=step]{border-color:var(--topic);color:var(--topic);background:var(--topic-soft)}.sql-topic-story .sql-definition-core{background:linear-gradient(140deg,#fff,var(--topic-soft));border-color:var(--topic-glow);border-left-color:var(--topic)}.sql-topic-story .sql-definition-overview dt{color:var(--topic)!important}.sql-topic-story .sql-story-next{background:linear-gradient(120deg,var(--topic),color-mix(in srgb,var(--topic) 75%,#715ecf));box-shadow:0 7px 18px color-mix(in srgb,var(--topic) 28%,transparent)}
+.sql-topic-scenery{position:absolute;left:12%;right:12%;bottom:55px;height:180px;display:flex;align-items:flex-end;justify-content:center;gap:18px;z-index:-1;opacity:.35;pointer-events:none}.sql-topic-scenery i{width:60px;height:95px;border-radius:12px 12px 0 0;background:repeating-linear-gradient(0deg,transparent 0 16px,#fff9 17px 24px),var(--topic-glow);transform:skewY(-7deg)}.sql-topic-scenery i:nth-child(2){height:135px}.sql-topic-scenery i:nth-child(3){height:170px}.sql-topic-scenery i:nth-child(4){height:110px}.sql-topic-scenery>span{position:absolute;bottom:-28px;letter-spacing:.2em;color:var(--topic);font-size:10px!important}.sql-topic-transform{isolation:isolate;min-height:300px}.sql-topic-transform:after{content:'';position:absolute;bottom:58px;left:5%;right:5%;height:45px;background:color-mix(in srgb,var(--topic) 8%,transparent);border-radius:50%;z-index:-2;filter:blur(4px)}
+.sql-topic-node{border-color:var(--topic-glow);background:linear-gradient(145deg,#fff,var(--topic-soft));box-shadow:7px 8px 0 color-mix(in srgb,var(--topic) 16%,transparent),0 18px 35px color-mix(in srgb,var(--topic) 14%,transparent);rotate:-4deg;animation:sql-topic-float 4s ease-in-out infinite}.sql-topic-engine .sql-topic-node{position:relative;width:150px;height:155px;padding-top:14px;box-sizing:border-box;rotate:3deg;border:2px solid var(--topic);background:linear-gradient(140deg,#fff,var(--topic-glow));color:var(--topic);animation:sql-topic-float 4s -1s ease-in-out infinite}.sql-topic-lane:last-of-type .sql-topic-node{rotate:5deg;animation-delay:-2s}.sql-topic-engine-lights{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:5px;border-bottom:1px solid #fff9;padding-bottom:9px}.sql-topic-engine-lights i{height:6px;width:6px;border-radius:50%;background:var(--topic);animation:sql-terminal-blink 1.8s infinite}.sql-topic-engine-lights i:nth-child(2){animation-delay:300ms}.sql-topic-engine-lights i:nth-child(3){animation-delay:600ms}.sql-topic-engine-badge{font-size:9px!important;position:absolute;bottom:9px;left:8px;right:8px;letter-spacing:.08em;padding:5px;background:#fff9;border-radius:6px}.sql-topic-engine-orbit{border-color:var(--topic);opacity:.5}.sql-topic-engine-orbit:before{background:var(--topic)}.sql-topic-lane strong{color:var(--topic)}.sql-topic-route{position:relative;border-top:2px dashed var(--topic-glow)}.sql-topic-route i{background:var(--topic)}.sql-topic-travel-card{position:absolute;top:-17px;left:0;display:grid;place-items:center;width:29px;height:29px;border:1px solid var(--topic-glow);border-radius:7px;background:white;color:var(--topic);box-shadow:0 4px 10px #816c9b18;animation:sql-topic-delivery 2.8s ease-in-out infinite}.sql-topic-route:nth-of-type(5) .sql-topic-travel-card{animation-delay:1.2s}
+.sql-topic-table-label{background:var(--topic-soft);color:var(--topic)}.sql-topic-table{border-color:var(--topic-glow);box-shadow:5px 6px 0 color-mix(in srgb,var(--topic) 10%,transparent),0 16px 35px color-mix(in srgb,var(--topic) 12%,transparent)}.sql-topic-table tbody tr:nth-child(even){background:color-mix(in srgb,var(--topic-soft) 55%,white)}.sql-topic-table tbody tr:hover{background:var(--topic-soft)}.sql-topic-table.is-result{border-color:color-mix(in srgb,var(--topic-result) 45%,white)}.sql-topic-table.is-result th,.sql-topic-table.is-result .sql-topic-table-label{color:var(--topic-result);background:color-mix(in srgb,var(--topic-result) 12%,white)}.sql-topic-result{position:relative}.sql-topic-result-sparkles{position:absolute;left:50%;top:50%;pointer-events:none}.sql-topic-result-sparkles i{position:absolute;width:5px;height:10px;background:var(--topic);border-radius:2px;animation:sql-topic-spark 1300ms ease-out both;animation-delay:calc(var(--spark)*55ms)}.sql-topic-result-sparkles i:nth-child(even){background:var(--topic-result)}.sql-topic-story .sql-topic-inputs,.sql-topic-story .sql-topic-query{animation:sql-world-arrive 650ms both}
+@keyframes sql-topic-float{50%{translate:0 -8px}}
+@keyframes sql-topic-delivery{0%{opacity:0;translate:-10px 0;rotate:-8deg}20%,70%{opacity:1}100%{opacity:0;translate:48px 0;rotate:8deg}}
+@keyframes sql-topic-spark{from{opacity:1;transform:rotate(calc(var(--spark)*45deg)) translateY(0)}to{opacity:0;transform:rotate(calc(var(--spark)*45deg)) translateY(-120px) rotate(120deg)}}
+@media(max-width:900px){.sql-topic-transform{min-height:0}.sql-topic-scenery,.sql-topic-transform:after,.sql-topic-engine-badge,.sql-topic-engine-lights,.sql-topic-result-sparkles{display:none}.sql-topic-engine .sql-topic-node{height:42px;width:42px;padding:0}.sql-topic-travel-card{width:16px;height:16px;top:-10px}.sql-topic-travel-card svg{width:10px;height:10px}.sql-topic-transform .sql-topic-node{rotate:0deg}.sql-topic-story{background:radial-gradient(ellipse at 80% 75%,var(--topic-glow),transparent 70%),linear-gradient(135deg,#fff,var(--topic-soft))}}
+@media(prefers-reduced-motion:reduce){.sql-topic-node,.sql-topic-engine .sql-topic-node,.sql-topic-engine-lights i,.sql-topic-travel-card,.sql-topic-result-sparkles i,.sql-topic-story .sql-topic-inputs,.sql-topic-story .sql-topic-query{animation:none}.sql-topic-result-sparkles{display:none}}
+.sql-topic-story .sql-definition-overview dt{color:color-mix(in srgb,var(--topic) 55%,#44304f)!important}.sql-topic-lane strong{color:color-mix(in srgb,var(--topic) 55%,#44304f)}.sql-topic-lane small{color:#897b96}.sql-topic-transform-note{color:#82728f}
+
+/* SELECT shows projection, not just a delayed result replacement. */
+.select-execution-strip{border:1px solid #dfd2f1;border-radius:12px;background:linear-gradient(110deg,#faf4ff,#effaf5);padding:11px 15px;margin-bottom:10px}.select-execution-strip>div{display:flex;gap:22px;align-items:center}.select-execution-strip>div>span{display:flex;gap:7px;align-items:center;color:#b2a2c3;font-size:13px!important}.select-execution-strip b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#eee7f5;font-size:11px!important}.select-execution-strip .is-active{color:#8355b8;font-weight:700}.select-execution-strip .is-active b{background:#956acc;color:white;box-shadow:0 0 0 4px #a980d81c}.select-execution-strip .is-complete{color:#54a184}.select-execution-strip .is-complete b{background:#d8f1e4;color:#438b6a}.sql-module-page .lesson-content .select-execution-strip p{margin:7px 0 0;font-size:14px!important;color:#887498}
+.select-source-card td,.select-source-card th{transition:opacity 220ms,background-color 220ms,box-shadow 220ms}.execution-read .select-source-card tr.execution-current td{background:#fff2c6!important;box-shadow:inset 0 2px #eec56f,inset 0 -2px #eec56f}.execution-project .select-source-card td:not(.is-selected),.execution-project .select-source-card th:not(.is-selected),.execution-return .select-source-card td:not(.is-selected),.execution-return .select-source-card th:not(.is-selected){opacity:.22}.execution-project .select-source-card .is-selected,.execution-return .select-source-card .is-selected{background:#e5d1fb!important;box-shadow:inset 2px 0 #b78cdf,inset -2px 0 #b78cdf}.execution-project .select-source-card th.is-selected{animation:select-column-pulse 650ms ease both}.select-result-card tr.execution-pending{opacity:0}.select-result-card tr.execution-arrived{animation:select-row-delivery 350ms ease both}.execution-read .select-result-card{opacity:.55}.execution-project .select-result-card{border-color:#c5a1e7}.execution-return .select-result-card,.execution-complete .select-result-card{border-color:#82cca9;box-shadow:0 0 20px #68b68b12}.select-flow-arrow{position:relative}.select-flow-arrow i{display:none;position:absolute;width:7px;height:7px;border-radius:50%;background:#ad83dd;top:50%;left:0;box-shadow:0 0 8px #a578d844}.execution-project .select-flow-arrow i,.execution-return .select-flow-arrow i{display:block;animation:select-packet-travel 700ms infinite}.select-flow-arrow i:nth-of-type(2){animation-delay:180ms}.select-flow-arrow i:nth-of-type(3){animation-delay:360ms}.select-column-list input:disabled{cursor:wait}
+@keyframes select-column-pulse{50%{background:#cf9df3;box-shadow:inset 0 0 0 2px #a672cd}}
+@keyframes select-row-delivery{from{opacity:0;transform:translateX(-12px);background:#b6edce}to{opacity:1;transform:translateX(0)}}
+@keyframes select-packet-travel{from{opacity:0;translate:-12px -50%}30%{opacity:1}to{opacity:0;translate:27px -50%}}
+@media(max-width:900px){.select-execution-strip>div{gap:10px;flex-wrap:wrap}.select-execution-strip>div>span{font-size:11px!important}.sql-module-page .lesson-content .select-execution-strip p{font-size:12px!important}}
+@media(prefers-reduced-motion:reduce){.select-source-card td,.select-source-card th{transition:none}.execution-project .select-source-card th.is-selected,.select-result-card tr.execution-arrived,.select-flow-arrow i{animation:none}.select-flow-arrow i{display:none!important}}
+
+/* A shared walkthrough observes each lab's actual result; it does not replace its evaluator. */
+.sql-execution-wrapper{min-width:0}.sql-run-visual{position:sticky;top:0;z-index:10;margin-bottom:14px;padding:15px 20px;border:1px solid #d8c9ee;border-radius:16px;background:linear-gradient(120deg,#faf4fffa,#effaf5fa);box-shadow:0 12px 25px #80639a12;backdrop-filter:blur(12px)}.sql-run-visual>header{display:flex;align-items:center;gap:9px;color:#8260a8}.sql-run-visual>header small{margin-left:auto;color:#9f91ae;font-size:11px!important}.sql-run-visual>nav{display:flex;gap:22px;margin-top:12px;color:#b3a5c0}.sql-run-visual>nav>span{display:flex;align-items:center;gap:7px;font-size:13px!important}.sql-run-visual>nav b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#eae1f5;font-size:11px!important}.sql-run-visual>nav .active{color:#865bb1;font-weight:700}.sql-run-visual>nav .active b{background:#a27dcc;color:white;box-shadow:0 0 0 3px #b58adc20}.sql-run-visual>nav .finished{color:#64a188}.sql-module-page .lesson-content .sql-run-message{font-size:14px!important;color:#8f769f;margin:8px 0 12px;line-height:1.4}.sql-run-diagram{display:grid;grid-template-columns:1fr .8fr 1fr;gap:18px;align-items:center}.sql-run-inputs{display:flex;gap:10px}.sql-run-inputs>div{min-width:0;flex:1}.sql-run-inputs strong,.sql-run-output>strong{display:flex;gap:7px;align-items:center;color:#9070ac;font-size:12px!important;margin-bottom:6px}.sql-run-record{display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid #e4d8ed;border-radius:8px;background:#fff9;margin:4px 0;color:#8e7c9e;font-size:12px!important;min-height:28px;box-sizing:border-box}.sql-run-record>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px!important}.sql-run-record.is-reading{background:#fff0c8;border-color:#e7c06e;box-shadow:0 0 0 2px #f6df9b30}.sql-run-inputs small,.sql-run-output small{color:#ac9bb8;font-size:10px!important}.sql-run-operation{display:flex;align-items:center;justify-content:center;gap:12px;color:#ae8dc7;position:relative}.sql-run-operation>span{display:grid;place-items:center;text-align:center;gap:7px;padding:14px;border:1px solid #d2b9e5;border-radius:14px;background:linear-gradient(140deg,#fff,#ead9f8);box-shadow:4px 5px 0 #a783c31c;min-width:100px}.sql-run-operation b{font-size:12px!important;color:#9570b5;line-height:1.3}.sql-run-operation i{position:absolute;width:6px;height:6px;border-radius:50%;background:#ac7bd1;opacity:0}.flow-transform .sql-run-operation i,.flow-return .sql-run-operation i{animation:sql-run-packet 1000ms infinite}.sql-run-operation i:nth-of-type(2){animation-delay:250ms}.sql-run-operation i:nth-of-type(3){animation-delay:500ms}.sql-run-output .sql-run-record{border-color:#c5e1d3;color:#689981;background:#f0faf4}.sql-run-record.is-waiting{opacity:0}.sql-run-record.is-delivered{animation:select-row-delivery 350ms both}.sql-run-awaiting{display:grid;place-items:center;padding:24px;color:#b8a8c4;font-size:12px!important;border:1px dashed #ddcce9;border-radius:10px}.flow-complete .sql-run-diagram{display:none}.flow-complete .sql-run-message{margin-bottom:0!important}.flow-error .sql-run-message{color:#bb6670!important}.flow-read [data-sql-reading=true] td{background:#fff0c7!important;box-shadow:inset 0 2px #e7c678,inset 0 -2px #e7c678}.flow-read [data-sql-flow=result],.flow-transform [data-sql-flow=result]{opacity:.35;transition:opacity 200ms}.flow-return [data-sql-flow=result] tbody tr{animation:select-row-delivery 350ms both;animation-delay:calc(var(--delivery-index,0)*85ms)}.flow-return [data-sql-flow=result] th{background:#dbf4e5!important}.flow-complete [data-sql-flow=result]{box-shadow:0 0 0 2px #b5dfc855}
+@keyframes sql-run-packet{from{opacity:0;translate:-90px 0}25%,75%{opacity:1}to{opacity:0;translate:90px 0}}
+@media(max-width:900px){.sql-run-visual{padding:10px}.sql-run-visual>header small{display:none}.sql-run-visual>nav{gap:10px;flex-wrap:wrap}.sql-run-visual>nav>span{font-size:11px!important}.sql-run-diagram{gap:8px;grid-template-columns:1fr .8fr 1fr}.sql-run-inputs{flex-direction:column}.sql-run-inputs .sql-run-record:nth-of-type(n+3){display:none}.sql-run-operation>span{min-width:0;padding:8px}.sql-run-operation>svg{display:none}.sql-run-inputs strong,.sql-run-output>strong{font-size:10px!important}.sql-run-record>span{font-size:10px!important}.sql-run-record{padding:5px;min-height:23px}.sql-run-operation b{font-size:10px!important}}
+@media(prefers-reduced-motion:reduce){.sql-run-operation i,.sql-run-record.is-delivered,.flow-return [data-sql-flow=result] tbody tr{animation:none}.flow-read [data-sql-flow=result],.flow-transform [data-sql-flow=result]{transition:none}}

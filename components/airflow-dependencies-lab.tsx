@@ -1,8 +1,8 @@
 "use client";
 
-import {useEffect,useMemo,useState} from "react";
+import {useEffect,useMemo,useRef,useState} from "react";
 import {CheckCircle2,Circle,HelpCircle,Lightbulb,LockKeyhole,Network,Pause,Play,RotateCcw,SkipForward} from "lucide-react";
-import {motion,useReducedMotion} from "framer-motion";
+import {useReducedMotion} from "framer-motion";
 import {CodeSync} from "@/components/airflow-lab-primitives";
 import {dagTrace,taskVisualState,visualStateLabels,type VisualTaskState} from "@/lib/airflow-lab-model";
 import type {AirflowLesson} from "@/lib/airflow-lessons";
@@ -36,6 +36,20 @@ function stateIcon(state:VisualTaskState){
 
 export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
   const reduce=useReducedMotion();
+  const graphRef=useRef<HTMLDivElement>(null);
+  const [graphSize,setGraphSize]=useState({width:1000,height:292,nodeWidth:175});
+  useEffect(()=>{
+    const graph=graphRef.current;
+    if(!graph)return;
+    const measure=()=>{
+      const node=graph.querySelector<HTMLElement>(".af-dep-node");
+      setGraphSize({width:graph.clientWidth,height:graph.clientHeight,nodeWidth:node?.offsetWidth??175});
+    };
+    measure();
+    const observer=new ResizeObserver(measure);
+    observer.observe(graph);
+    return ()=>observer.disconnect();
+  },[]);
   const [variant,setVariant]=useState<Variant>("Branch and join");
   const trace=useMemo(()=>dagTrace(lesson,variant),[lesson,variant]);
   const phases=useMemo(()=>phaseFrames(variant,trace.frames.length),[variant,trace.frames.length]);
@@ -121,17 +135,17 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
     </section>
 
     <div className="af-dep-workspace">
-      <div className="af-dep-graph">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <defs><marker id="af-dep-arrow" markerWidth="6" markerHeight="6" refX="5.2" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="currentColor"/></marker></defs>
+      <div className="af-dep-graph" ref={graphRef}>
+        <svg viewBox={`0 0 ${graphSize.width} ${graphSize.height}`} preserveAspectRatio="none" aria-hidden="true">
+          <defs><marker id="af-dep-arrow" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="currentColor"/></marker></defs>
           {trace.edges.map(([from,to])=>{
             const [fx,fy]=positions[from]??[0,0];
             const [tx,ty]=positions[to]??[0,0];
             const fromSuccess=frame.states[from]==="success";
             const targetOpen=states[to]!=="none"&&states[to]!=="upstream_failed";
             const active=fromSuccess&&targetOpen&&frame.states[to]!=="success";
-            const x1=fx+8.75,x2=tx-8.75,y1=fy,y2=ty,mid=(x1+x2)/2;
-            return <motion.path key={from+to} d={"M"+x1+","+y1+" C"+mid+","+y1+" "+mid+","+y2+" "+x2+","+y2} className={"af-dep-edge"+(active?" is-active":fromSuccess?" is-complete":"")} markerEnd="url(#af-dep-arrow)" initial={false} animate={{pathLength:1}} transition={{duration:reduce?0:.3}}/>;
+            const x1=fx/100*graphSize.width+graphSize.nodeWidth/2,x2=tx/100*graphSize.width-graphSize.nodeWidth/2,y1=fy/100*graphSize.height,y2=ty/100*graphSize.height,mid=(x1+x2)/2;
+            return <path key={from+to} d={"M"+x1+","+y1+" C"+mid+","+y1+" "+mid+","+y2+" "+x2+","+y2} className={"af-dep-edge"+(active?" is-active":fromSuccess?" is-complete":"")} markerEnd="url(#af-dep-arrow)"/>;
           })}
         </svg>
 
@@ -140,17 +154,15 @@ export function AirflowDependenciesLab({lesson}:{lesson:AirflowLesson}){
           const [left,top]=positions[node.id]??[50,50];
           const tone=taskTone[node.id]??"violet";
           const isLoad=node.id==="load";
-          return <motion.button
+          return <button
             key={node.id}
             className={"af-dep-node tone-"+tone+" state-"+state+(frame.focus===node.id?" is-focus":"")}
             style={{left:left+"%",top:top+"%"}}
-            initial={false}
-            animate={{scale:frame.focus===node.id&&!reduce?1.025:1}}
           >
             <span className="af-dep-node-icon">{stateIcon(state)}</span>
             <div><strong>{node.id}</strong><small>{visualStateLabels[state]}</small></div>
             {isLoad&&loadParents.length>0&&<div className="af-dep-meter"><span>{"Upstream "+loadComplete+" / "+loadParents.length}</span><i><b style={{width:(loadComplete/loadParents.length*100)+"%"}}/></i></div>}
-          </motion.button>;
+          </button>;
         })}
 
         <div className="af-dep-phase">

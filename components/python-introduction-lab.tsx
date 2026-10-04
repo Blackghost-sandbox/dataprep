@@ -211,6 +211,7 @@ export function PythonIntroductionLab() {
   const [copied, setCopied] = useState(false);
   const [runnerStep, setRunnerStep] = useState(0);
   const [running, setRunning] = useState(false);
+  const [started,setStarted]=useState(false);
   const timers = useRef<number[]>([]);
 
   const clearTimers = () => {
@@ -220,24 +221,17 @@ export function PythonIntroductionLab() {
 
   useEffect(() => () => clearTimers(), []);
 
-  const runExample = () => {
-    clearTimers();
+  const selectExecution=(value:number)=>{clearTimers();setRunning(false);setStarted(true);setRunnerStep(value);setCodeStage((['extract','transform','load'] as StageKey[])[value]);};
+  const runExample=()=>{
+    clearTimers();if(running){setRunning(false);return;}
+    const from=started&&runnerStep<2?runnerStep:0;
+    setStarted(true);setRunnerStep(from);setCodeStage((['extract','transform','load'] as StageKey[])[from]);
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){setRunning(false);return;}
     setRunning(true);
-    setRunnerStep(0);
-    timers.current.push(window.setTimeout(() => setRunnerStep(1), 420));
-    timers.current.push(window.setTimeout(() => setRunnerStep(2), 840));
-    timers.current.push(window.setTimeout(() => {
-      setRunning(false);
-      toast.success("Example completed — sample output is ready.");
-    }, 1180));
+    for(let i=from+1;i<=2;i++)timers.current.push(window.setTimeout(()=>{setRunnerStep(i);setCodeStage((['extract','transform','load'] as StageKey[])[i]);},5000*(i-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(3-from)));
   };
-
-  const resetExample = () => {
-    clearTimers();
-    setRunning(false);
-    setRunnerStep(0);
-  };
-
+  const resetExample=()=>{clearTimers();setRunning(false);setStarted(false);setRunnerStep(0);setCodeStage('extract');};
   const copyCode = async () => {
     try {
       await navigator.clipboard.writeText(codeLines.join("\n"));
@@ -287,7 +281,7 @@ export function PythonIntroductionLab() {
             <div className="py-intro-code-actions">
               <div className="py-intro-code-tabs" role="tablist" aria-label="Highlight pipeline stage">
                 {(["extract", "transform", "load"] as StageKey[]).map((stage) => (
-                  <button key={stage} type="button" role="tab" aria-selected={codeStage === stage} className={codeStage === stage ? "is-active" : ""} onClick={() => setCodeStage(stage)}>
+                  <button key={stage} type="button" role="tab" aria-selected={codeStage === stage} className={codeStage === stage ? "is-active" : ""} onClick={() => selectExecution((["extract","transform","load"] as StageKey[]).indexOf(stage))}>
                     {stage[0].toUpperCase() + stage.slice(1)}
                   </button>
                 ))}
@@ -323,9 +317,10 @@ export function PythonIntroductionLab() {
               );
             })}
           </div>
+          <p className="python-native-explanation" aria-live="polite">Illustrative ETL flow · {["Read the three product records into a DataFrame.","Remove missing values, group records by product, then sum sales in each group.","Serialize the grouped result into the illustrated Parquet output."][runnerStep]} No file is written by this demonstration.</p>
           <div className="py-intro-run-actions">
-            <button type="button" className="py-intro-run-primary" onClick={runExample} disabled={running}><Play size={14} />{running ? "Running…" : "Run Example"}</button>
-            <button type="button" className="py-intro-run-reset" onClick={resetExample}><RotateCcw size={14} />Reset</button>
+            <button type="button" className="py-intro-run-primary" onClick={runExample}><Play size={14} />{running?"Pause":started&&runnerStep<2?"Resume":"Run Example"}</button>
+            <button type="button" onClick={()=>selectExecution(Math.max(0,runnerStep-1))} disabled={runnerStep===0}>Previous step</button><button type="button" onClick={()=>selectExecution(Math.min(2,runnerStep+1))} disabled={runnerStep===2}>Next step</button><button type="button" className="py-intro-run-reset" onClick={resetExample}><RotateCcw size={14} />Reset</button>
           </div>
           <div className="py-intro-output">
             <div className="py-intro-output-title"><Database size={14} /> Sample Output</div>
@@ -339,3 +334,4 @@ export function PythonIntroductionLab() {
     </section>
   );
 }
+

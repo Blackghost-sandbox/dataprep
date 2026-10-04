@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -154,7 +156,7 @@ function RawValuesTable({ activeIndex }: { activeIndex: number | null }) {
     <table className="pyerr-values-table">
       <thead><tr><th/><th>value</th></tr></thead>
       <tbody>
-        {rawValues.map((value,index)=><tr key={value} className={activeIndex===index ? "is-active" : ""}><td>{index}</td><td>{value === "bad" ? <strong>"bad"</strong> : `"${value}"`}</td></tr>)}
+        {rawValues.map((value,index)=><tr key={value} className={activeIndex===index ? "is-active" : ""}><td>{index}</td><td>{value === "bad" ? <strong>&quot;bad&quot;</strong> : `"${value}"`}</td></tr>)}
       </tbody>
     </table>
   );
@@ -168,7 +170,7 @@ function StageOne({ active, activeIndex }: { active: boolean; activeIndex: numbe
         <strong>Raw values (e.g. from file)</strong>
         <RawValuesTable activeIndex={activeIndex}/>
       </div>
-      <p className="pyerr-stage-note">We'll try to convert each value to an integer using <code>int()</code>.</p>
+      <p className="pyerr-stage-note">We&apos;ll try to convert each value to an integer using <code>int()</code>.</p>
       <ArrowRight className="pyerr-stage-arrow" size={23}/>
     </article>
   );
@@ -179,7 +181,7 @@ function StageTwo({ active, complete }: { active: boolean; complete: boolean }) 
     <article className={"pyerr-stage pyerr-stage-red " + (active ? "is-active " : "") + (complete ? "is-complete" : "")}>
       <header><span className="pyerr-stage-number">2</span><div><strong>Catch expected error</strong><p>Handle ValueError only</p></div></header>
       <div className="pyerr-error-box">
-        <code>int(<b>"bad"</b>)</code>
+        <code>int(<b>&quot;bad&quot;</b>)</code>
         <div><ArrowRight size={17}/><strong>ValueError</strong></div>
       </div>
       <div className="pyerr-explain"><span>↳</span><p>The <code>ValueError</code> is caught specifically, so only the <u>bad</u> value is handled.</p></div>
@@ -192,7 +194,7 @@ function StageThree({ active, complete }: { active: boolean; complete: boolean }
   return (
     <article className={"pyerr-stage pyerr-stage-green " + (active ? "is-active " : "") + (complete ? "is-complete" : "")}>
       <header><span className="pyerr-stage-number">3</span><div><strong>Log warning</strong><p>Record what happened</p></div></header>
-      <pre className="pyerr-log-output"><code>2024-01-15 10:00:21  <b>WARNING</b>{"\n"}{"\n"}Could not parse amount: 'bad'{"\n"}(ValueError: invalid literal{"\n"}for int() with base 10:{"\n"}'bad')</code></pre>
+      <pre className="pyerr-log-output"><code>2024-01-15 10:00:21  <b>WARNING</b>{"\n"}{"\n"}Could not parse amount: &apos;bad&apos;{"\n"}(ValueError: invalid literal{"\n"}for int() with base 10:{"\n"}&apos;bad&apos;)</code></pre>
       <div className="pyerr-explain"><span>↓</span><p>We log a warning with details instead of using <code>print()</code>.</p></div>
       <ArrowRight className="pyerr-stage-arrow" size={23}/>
     </article>
@@ -259,7 +261,7 @@ function CodeExample() {
   return (
     <section className="pyerr-code-example">
       <header><strong>Python example · parse_amount with logging</strong><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?"Copied":"Copy"}</button></header>
-      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }
@@ -286,6 +288,7 @@ function ConceptsPanel() {
 export function PythonErrorHandlingConcept() {
   const [step,setStep]=useState<DemoStep>(0);
   const [running,setRunning]=useState(false);
+  const [started,setStarted]=useState(false);
   const timers=useRef<number[]>([]);
 
   const clearTimers=()=>{
@@ -294,39 +297,38 @@ export function PythonErrorHandlingConcept() {
   };
   useEffect(()=>()=>clearTimers(),[]);
 
-  const run=()=>{
-    clearTimers();
+  const play=(from:DemoStep)=>{
+    clearTimers();setStarted(true);setStep(from);
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){setRunning(false);return;}
     setRunning(true);
-    setStep(0);
-    [1,2,3].forEach((next,index)=>timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),650*(index+1))));
-    timers.current.push(window.setTimeout(()=>setRunning(false),2700));
+    for(let next=from+1;next<=3;next++)timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),5000*(next-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(4-from)));
   };
-  const next=()=>{
-    clearTimers();
-    setRunning(false);
-    setStep(value=>Math.min(3,value+1) as DemoStep);
-  };
+  const run=()=>{if(running){clearTimers();setRunning(false);}else play(started&&step<3?step:0);};
+  const next=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.min(3,value+1) as DemoStep);};
+  const previous=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.max(0,value-1) as DemoStep);};
   const reset=()=>{
     clearTimers();
     setRunning(false);
-    setStep(0);
+    setStep(0);setStarted(false);
   };
 
   const activeIndex = step===0 ? 0 : step===1 || step===2 ? 1 : 2;
 
   return (
-    <div className="pyerr-concept">
+    <div className={"pyerr-concept"+(running?" is-running":"")}>
       <header className="pyerr-concept-header">
         <div className="pyerr-playmark"><Play size={22}/></div>
         <div><h2>Error Handling &amp; Logging Simulator</h2><p>See how we catch expected errors, log what happened, and decide whether to continue or raise.</p></div>
         <div className="pyerr-controls">
-          <button type="button" className="pyerr-run" onClick={run} disabled={running}><Play size={15}/>{running?"Running…":"Run"}</button>
-          <button type="button" onClick={next} disabled={step===3||running}><Play size={14}/>Next step</button>
+          <button type="button" className="pyerr-run" onClick={run}><Play size={15}/>{running?"Running…":"Run"}</button>
+          <button type="button" onClick={previous} disabled={step===0}>Previous step</button><button type="button" onClick={next} disabled={step===3}><Play size={14}/>Next step</button>
           <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
           <span>{step+1} / 4 steps</span>
         </div>
       </header>
 
+      <p className="python-native-explanation" aria-live="polite">Illustrative flow � {["Read text values 100, bad and 50.", "int(bad) raises ValueError; the matching handler catches it.", "Record a warning explaining which value could not be parsed.", "Continue with the next value; the handled failure returns None."][step]}</p>
       <div className="pyerr-stage-grid">
         <StageOne active={step===0} activeIndex={activeIndex}/>
         <StageTwo active={step===1} complete={step>1}/>
@@ -334,7 +336,7 @@ export function PythonErrorHandlingConcept() {
         <StageFour active={step===3} complete={step===3}/>
       </div>
 
-      <Timeline step={step} running={running} onStep={setStep}/>
+      <Timeline step={step} running={false} onStep={value=>{clearTimers();setRunning(false);setStarted(true);setStep(value);}}/>
 
       <div className="pyerr-bottom-grid">
         <CodeExample/>

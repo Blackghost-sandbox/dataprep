@@ -1,4 +1,3 @@
-const openNextCloudflarePackage = "@opennextjs/cloudflare";
-const { defineCloudflareConfig } = await import(openNextCloudflarePackage);
+import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 
 export default defineCloudflareConfig();

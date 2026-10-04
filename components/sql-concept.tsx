@@ -7,7 +7,8 @@ import { DarkCodeCard } from "@/components/rdd-dataframe-experience";
 import { SqlFundamentalsVisual } from "@/components/sql-fundamentals-visual";
 import { WhereLearningLab } from "@/components/where-learning-lab";
 import { DistinctLearningLab } from "@/components/distinct-learning-lab";
-import { SqlIntroductionLab } from "@/components/sql-introduction-lab";
+import { SqlExecutionVisual } from "@/components/sql-execution-visual";
+import { SqlBasicsGuide, SqlIntroductionLab } from "@/components/sql-introduction-lab";
 import { SelectLearningLab } from "@/components/select-learning-lab";
 import { OrderByLearningLab } from "@/components/order-by-learning-lab";
 import { LimitLearningLab } from "@/components/limit-learning-lab";
@@ -15,13 +16,15 @@ import { AggregateLearningLab } from "@/components/aggregate-learning-lab";
 import { GroupByLearningLab } from "@/components/group-by-learning-lab";
 import { HavingLearningLab } from "@/components/having-learning-lab";
 import { JoinsLearningLab } from "@/components/joins-learning-lab";
-import { SubqueriesCtesLearningLab } from "@/components/subqueries-ctes-learning-lab";
 import { SubqueriesFlowLearningLab } from "@/components/subqueries-flow-learning-lab";
 import { WindowFunctionsLearningLab } from "@/components/window-functions-learning-lab";
 import { NullCaseLearningLab } from "@/components/null-case-learning-lab";
 import { QueryExecutionLearningLab } from "@/components/query-execution-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
+  return <>{lesson.id!=="introduction"&&<SqlBasicsGuide key={lesson.id} lessonId={lesson.id}/>}{lesson.id==='select'?<SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/>:<SqlExecutionVisual key={lesson.id} lessonId={lesson.id}><SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/></SqlExecutionVisual>}</>;
+}
+function SqlConceptContent({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;
   if(lesson.id==="where")return <WhereLearningLab/>;
   if(lesson.id==="query-execution")return <QueryExecutionLearningLab/>;
@@ -31,7 +34,7 @@ export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(ta
   if(lesson.id==="joins")return <JoinsLearningLab/>;
   if(lesson.id==="having")return <HavingLearningLab/>;
   if(lesson.id==="group-by")return <GroupByLearningLab/>;
-  if(lesson.id==="aggregate-functions")return <AggregateLearningLab/>;
+  if(lesson.id==="aggregates"||lesson.id==="aggregate-functions")return <AggregateLearningLab/>;
   if(lesson.id==="limit")return <LimitLearningLab/>;
   if(lesson.id==="order-by")return <OrderByLearningLab/>;
   if(lesson.id==="distinct")return <DistinctLearningLab/>;

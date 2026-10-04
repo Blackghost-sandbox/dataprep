@@ -16,7 +16,6 @@ import {
   Database,
   FileCode2,
   GitBranch,
-  Github,
   GraduationCap,
   Lightbulb,
   Network,
@@ -267,7 +266,7 @@ export function DbtIntroductionLab() {
           </div>
           <ArrowRight size={21}/>
           <div className="dbti-support dbti-support-blue">
-            <BrandDot tone="dark"><Github size={18}/></BrandDot>
+            <BrandDot tone="dark"><GitBranch size={18}/></BrandDot>
             <div><strong>CI/CD (Optional)</strong><b>GitHub Actions</b><small>Run tests automatically</small></div>
           </div>
           <ArrowRight size={21}/>

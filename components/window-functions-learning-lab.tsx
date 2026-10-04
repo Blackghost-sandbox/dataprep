@@ -134,40 +134,6 @@ export function WindowFunctionsLearningLab({
 
   return (
     <div className="sql-concept-sequence wf-sequence">
-      <section className="sql-concept-intro">
-        <div className="sql-intro-copy">
-          <h3><BookOpen size={19}/> What is Window Functions?</h3>
-          <p><GlossaryText>{lesson.description}</GlossaryText></p>
-          <p className="sql-mental-question"><Lightbulb size={18}/> <span>Think: “{guide.question}”</span></p>
-        </div>
-        <div className="sql-model-panel">
-          <h4>Mental model</h4>
-          <ol className="sql-mental-model" aria-label="Mental model">
-            {guide.model.map((part, index) => {
-              const Icon = [Database, FileCode2, ListChecks][index] || Database;
-              return (
-                <li key={part}>
-                  <span><Icon size={24}/><b>{part}</b></span>
-                  {index < guide.model.length - 1 && <ArrowRight size={15} aria-hidden/>}
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-        <div className="sql-basic-code">
-          <h4>Basic syntax</h4>
-          <DarkCodeCard title="SQL · basic syntax" code={lesson.example.code}/>
-        </div>
-        <div className="sql-parts-panel">
-          <h4>What each part means</h4>
-          <dl className="sql-syntax-parts">
-            {guide.parts.map(([term, meaning]) => (
-              <div key={term}><dt><code>{term}</code></dt><dd>{meaning}</dd></div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
       <section className="wf-lab" aria-label="Window Functions interactive simulation">
         <header className="wf-lab-header">
           <div className="visual-title">
@@ -265,6 +231,40 @@ export function WindowFunctionsLearningLab({
               <article className="wf-compare-window"><span>WINDOW</span><strong>3 rows → 3 rows</strong><p>Keeps detail rows and adds calculated context.</p></article>
             </div>
           </section>
+        </div>
+      </section>
+
+      <section className="sql-concept-intro">
+        <div className="sql-intro-copy">
+          <h3><BookOpen size={19}/> What is Window Functions?</h3>
+          <p><GlossaryText>{lesson.description}</GlossaryText></p>
+          <p className="sql-mental-question"><Lightbulb size={18}/> <span>Think: “{guide.question}”</span></p>
+        </div>
+        <div className="sql-model-panel">
+          <h4>Mental model</h4>
+          <ol className="sql-mental-model" aria-label="Mental model">
+            {guide.model.map((part, index) => {
+              const Icon = [Database, FileCode2, ListChecks][index] || Database;
+              return (
+                <li key={part}>
+                  <span><Icon size={24}/><b>{part}</b></span>
+                  {index < guide.model.length - 1 && <ArrowRight size={15} aria-hidden/>}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+        <div className="sql-basic-code">
+          <h4>Basic syntax</h4>
+          <DarkCodeCard title="SQL · basic syntax" code={lesson.example.code}/>
+        </div>
+        <div className="sql-parts-panel">
+          <h4>What each part means</h4>
+          <dl className="sql-syntax-parts">
+            {guide.parts.map(([term, meaning]) => (
+              <div key={term}><dt><code>{term}</code></dt><dd>{meaning}</dd></div>
+            ))}
+          </dl>
         </div>
       </section>
 

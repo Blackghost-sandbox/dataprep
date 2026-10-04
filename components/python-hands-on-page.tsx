@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   BarChart3,
@@ -9,6 +11,7 @@ import {
   Database,
   FileCode2,
   Layers3,
+  Lightbulb,
   Play,
   RotateCcw,
   ShieldCheck,
@@ -83,9 +86,9 @@ function AppMark() {
     <div className="pyhot-hero-art" aria-hidden="true">
       <div className="pyhot-report-card"><span/><span/><span/><span/></div>
       <div className="pyhot-python-badge">Py</div>
-      <span className="pyhot-spark s1">✦</span>
-      <span className="pyhot-spark s2">✦</span>
-      <span className="pyhot-spark s3">✦</span>
+      <span className="pyhot-spark s1">âœ¦</span>
+      <span className="pyhot-spark s2">âœ¦</span>
+      <span className="pyhot-spark s3">âœ¦</span>
     </div>
   );
 }
@@ -99,9 +102,9 @@ export function PythonHandsOnHero() {
           <h1>Hands-on Task</h1>
           <p>Build a small validation-and-aggregation script in plain Python: clean messy order records and total valid sales by country.</p>
           <div className="pyhot-meta">
-            <span>◷ 40 min</span>
-            <span>◉ Lesson 7/10</span>
-            <span className="pyhot-intermediate">♙ Intermediate</span>
+            <span>â—· 40 min</span>
+            <span>â—‰ Lesson 7/10</span>
+            <span className="pyhot-intermediate">â™™ Intermediate</span>
           </div>
         </div>
       </div>
@@ -167,7 +170,7 @@ function Pipeline({ step, running, onStep }: { step: Step; running:boolean; onSt
         const Icon=icons[index];
         return <button key={title} type="button" disabled={running} onClick={()=>onStep(index as Step)} className={(step===index?"is-active ":"")+(step>=index?"is-complete ":"")+"pipe-"+(index+1)}>
           <span className="pyhot-pipe-number">{index+1}</span><span className="pyhot-pipe-icon"><Icon size={20}/></span><span><strong>{title}</strong><small>{body}</small></span>{step>=index&&<CheckCircle2 className="pyhot-pipe-check" size={14}/>}
-          {index<pipeline.length-1&&<span className="pyhot-pipe-arrow">→</span>}
+          {index<pipeline.length-1&&<span className="pyhot-pipe-arrow">â†’</span>}
         </button>;
       })}</div>
     </section>
@@ -183,7 +186,7 @@ function CodeSolution() {
   return (
     <section className="pyhot-code">
       <header><div><span>&lt;/&gt;</span><strong>Python Solution (Standard Library Only)</strong></div><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?"Copied":"Copy"}</button></header>
-      <pre><code>{solution.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{solution.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }
@@ -192,8 +195,8 @@ function Acceptance() {
   const items = [
     ["violet",Layers3,"Deduplicate before totals","Remove exact duplicates prior to aggregation."],
     ["orange",Target,"Missing country excluded","Exclude records with empty or missing country."],
-    ["red",ShieldCheck,"Refund excluded","Non-positive amounts (≤ 0) are excluded from the positive-sales metric."],
-    ["green",BarChart3,"Expected totals","After cleaning and aggregation, the totals should be:","IN → 120","US → 50"],
+    ["red",ShieldCheck,"Refund excluded","Non-positive amounts (â‰¤ 0) are excluded from the positive-sales metric."],
+    ["green",BarChart3,"Expected totals","After cleaning and aggregation, the totals should be:","IN â†’ 120","US â†’ 50"],
   ] as const;
   return (
     <section className="pyhot-acceptance">
@@ -206,6 +209,7 @@ function Acceptance() {
 export function PythonHandsOnConcept() {
   const [step,setStep]=useState<Step>(0);
   const [running,setRunning]=useState(false);
+  const [started,setStarted]=useState(false);
   const timers=useRef<number[]>([]);
 
   const valid=useMemo(()=>orders.filter(o=>o.country && o.amount>0),[]);
@@ -224,29 +228,34 @@ export function PythonHandsOnConcept() {
 
   const clearTimers=()=>{timers.current.forEach(t=>window.clearTimeout(t));timers.current=[];};
   useEffect(()=>()=>clearTimers(),[]);
-  const run=()=>{
-    clearTimers();setRunning(true);setStep(0);
-    [1,2,3,4].forEach((next,index)=>timers.current.push(window.setTimeout(()=>setStep(next as Step),650*(index+1))));
-    timers.current.push(window.setTimeout(()=>setRunning(false),3350));
+  const play=(from:Step)=>{
+    clearTimers();setStarted(true);setStep(from);
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){setRunning(false);return;}
+    setRunning(true);
+    for(let next=from+1;next<=4;next++)timers.current.push(window.setTimeout(()=>setStep(next as Step),5000*(next-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(5-from)));
   };
-  const next=()=>{clearTimers();setRunning(false);setStep(v=>Math.min(4,v+1) as Step);};
-  const reset=()=>{clearTimers();setRunning(false);setStep(0);};
+  const run=()=>{if(running){clearTimers();setRunning(false);}else play(started&&step<4?step:0);};
+  const next=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.min(4,value+1) as Step);};
+  const previous=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.max(0,value-1) as Step);};
+  const reset=()=>{clearTimers();setRunning(false);setStep(0);setStarted(false);};
 
   return (
-    <div className="pyhot-concept">
+    <div className={"pyhot-concept"+(running?" is-running":"")}>
       <header className="pyhot-concept-header">
         <div className="pyhot-target"><Target size={24}/></div>
         <div><h2>Mini Project: Clean and Aggregate Orders</h2><p>Validate, deduplicate, and aggregate messy order records step by step.</p></div>
         <div className="pyhot-controls">
-          <button type="button" className="pyhot-run" onClick={run} disabled={running}><Play size={15}/>{running?"Running…":"Run"}</button>
-          <button type="button" onClick={next} disabled={running||step===4}>Next step <span>→</span></button>
+          <button type="button" className="pyhot-run" onClick={run}><Play size={15}/>{running?"Runningâ€¦":"Run"}</button>
+          <button type="button" onClick={previous} disabled={step===0}>Previous step</button><button type="button" onClick={next} disabled={step===4}>Next step <span>â†’</span></button>
           <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
           <div className="pyhot-progress"><span>{step+1} / 5 steps</span><i>{[0,1,2,3,4].map(i=><b key={i} className={step>=i?"on":""}/>)}</i></div>
         </div>
       </header>
 
+      <p className="python-native-explanation" aria-live="polite">Illustrative flow · {["Inspect six source records and their data quality issues.", "Exclude the missing country and non-positive amount.", "Remove the identical duplicate before aggregation.", "Add the remaining positive amounts by country: IN 120, US 50.", "Check the results against the existing acceptance criteria."][step]}</p>
       <div className="pyhot-top-grid"><RawOrders step={step}/><Rules step={step}/><Expected step={step} totals={totals}/></div>
-      <Pipeline step={step} running={running} onStep={setStep}/>
+      <Pipeline step={step} running={false} onStep={value=>{clearTimers();setRunning(false);setStarted(true);setStep(value);}}/>
       <div className="pyhot-bottom-grid"><CodeSolution/><Acceptance/></div>
     </div>
   );

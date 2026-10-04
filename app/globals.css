@@ -94,6 +94,11 @@
     "Liberation Mono", "Courier New", monospace;
 }
 
+/* Default app scale; browser zoom remains under the visitor's control. */
+html {
+  zoom: 0.75;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -124,3 +129,12 @@ button { cursor: pointer; }
 .spark-partitioning-density .topic-visual { padding-top: 12px; padding-bottom: 12px; }
 .spark-partitioning-density .topic-visual > h3 { margin-top: 4px; margin-bottom: 4px; }
 .spark-partitioning-density .topic-subtitle { margin-bottom: 10px; }
+
+/* Python console syntax colors; tokens remain inline inside numbered code rows. */
+.python-token{display:inline!important;font-style:normal!important;font-weight:inherit!important;background:none!important}
+.python-token-keyword{color:#c792ea!important}
+.python-token-string{color:#c3e88d!important}
+.python-token-number{color:#f78c6c!important}
+.python-token-function{color:#82aaff!important}
+.python-token-comment{color:#80a597!important}
+.python-token-plain{color:#d6e6f5!important}

@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -13,6 +15,7 @@ import {
   ClipboardCheck,
   Code2,
   Copy,
+  Database,
   FileText,
   Lightbulb,
   List,
@@ -401,7 +404,7 @@ function PracticeQuestion() {
           <p>{question.modelAnswer}</p>
           <div className="pyiq-example">
             <header><div><Code2 size={14}/><strong>{question.exampleTitle}</strong></div><CopyButton text={question.exampleCode}/></header>
-            <pre><code>{question.exampleCode.split("\n").map((line,lineIndex)=><span key={lineIndex}><i>{lineIndex+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>)}</code></pre>
+            <pre><code>{question.exampleCode.split("\n").map((line,lineIndex)=><span key={lineIndex}><i>{lineIndex+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
           </div>
         </section>
       </div>

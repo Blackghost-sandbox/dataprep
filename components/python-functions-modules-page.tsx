@@ -1,5 +1,7 @@
 "use client";
 
+import { PythonCodeLine } from "./python-code-line";
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
@@ -149,7 +151,7 @@ function CodePanel({ lines, tone }: { lines: readonly string[]; tone: string }) 
   return (
     <div className={"pyfm-code pyfm-code-" + tone}>
       <header><span>python</span><Copy size={13}/></header>
-      <pre><code>{lines.map((line, index) => <span key={index}>{line}</span>)}</code></pre>
+      <pre><code>{lines.map((line, index) => <span key={index} style={{animationDelay:`${index*350}ms`}}>{line}</span>)}</code></pre>
     </div>
   );
 }
@@ -180,8 +182,8 @@ function StageCard({ index, step }: { index: number; step: DemoStep }) {
       {index === 2 && (
         <div className="pyfm-pitfall">
           <strong>Multiple calls (unexpected result)</strong>
-          <div><code>add_item("A")</code><ArrowRight size={13}/><b>['A']</b></div>
-          <div><code>add_item("B")</code><ArrowRight size={13}/><b>['A', 'B']</b></div>
+          <div><code>add_item(&quot;A&quot;)</code><ArrowRight size={13}/><b>[&apos;A&apos;]</b></div>
+          <div><code>add_item(&quot;B&quot;)</code><ArrowRight size={13}/><b>[&apos;A&apos;, &apos;B&apos;]</b></div>
         </div>
       )}
       {index === 3 && (
@@ -237,7 +239,7 @@ function ExamplePanel() {
     <section className="pyfm-example">
       <header><strong>Python Example – Functions and Modules Together</strong><button type="button" onClick={copy}>{copied ? <Check size={13}/> : <Copy size={13}/>} {copied ? "Copied" : "Copy"}</button></header>
       <pre><code>{exampleLines.map((line, index) => (
-        <span key={index}><i>{index + 1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}>{line || " "}</b></span>
+        <span key={index}><i>{index + 1}</i><b className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></b></span>
       ))}</code></pre>
     </section>
   );
@@ -264,6 +266,7 @@ export function PythonFunctionsModulesConcept() {
   const [mode, setMode] = useState<ConceptMode>("reusable");
   const [step, setStep] = useState<DemoStep>(0);
   const [running, setRunning] = useState(false);
+  const [started,setStarted]=useState(false);
   const timers = useRef<number[]>([]);
 
   const clearTimers = () => {
@@ -275,36 +278,29 @@ export function PythonFunctionsModulesConcept() {
   const jumpMode = (next: ConceptMode) => {
     clearTimers();
     setRunning(false);
-    setMode(next);
+    setMode(next);setStarted(true);
     setStep(next === "reusable" ? 0 : next === "mutable" ? 2 : 3);
   };
 
-  const run = () => {
-    clearTimers();
+  const play=(from:DemoStep)=>{
+    clearTimers();setStarted(true);setStep(from);
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){setRunning(false);return;}
     setRunning(true);
-    setMode("reusable");
-    setStep(0);
-    [1,2,3].forEach((next, index) => {
-      timers.current.push(window.setTimeout(() => setStep(next as DemoStep), 650 * (index + 1)));
-    });
-    timers.current.push(window.setTimeout(() => setRunning(false), 2700));
+    for(let next=from+1;next<=3;next++)timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),5000*(next-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(4-from)));
   };
-
-  const next = () => {
-    clearTimers();
-    setRunning(false);
-    setStep((value) => Math.min(3, value + 1) as DemoStep);
-  };
-
+  const run=()=>{if(running){clearTimers();setRunning(false);}else play(started&&step<3?step:0);};
+  const next=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.min(3,value+1) as DemoStep);};
+  const previous=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.max(0,value-1) as DemoStep);};
   const reset = () => {
     clearTimers();
     setRunning(false);
     setMode("reusable");
-    setStep(0);
+    setStep(0);setStarted(false);
   };
 
   return (
-    <div className="pyfm-concept">
+    <div className={"pyfm-concept"+(running?" is-running":"")}>
       <header className="pyfm-concept-heading">
         <BookOpen size={23}/>
         <div><h2>Understand Functions &amp; Modules</h2><p>Functions make your code reusable, default arguments can be tricky, and modules help you organize larger pipelines.</p></div>
@@ -317,18 +313,19 @@ export function PythonFunctionsModulesConcept() {
           <button type="button" className={mode === "modules" ? "is-active" : ""} onClick={() => jumpMode("modules")}>Module organization</button>
         </div>
         <div className="pyfm-controls">
-          <button type="button" className="pyfm-run" onClick={run} disabled={running}><Play size={15}/>{running ? "Running…" : "Run"}</button>
-          <button type="button" onClick={next} disabled={step === 3 || running}><Redo2 size={14}/>Next step</button>
+          <button type="button" className="pyfm-run" onClick={run}><Play size={15}/>{running ? "Running…" : "Run"}</button>
+          <button type="button" onClick={previous} disabled={step===0}>Previous step</button><button type="button" onClick={next} disabled={step===3}><Redo2 size={14}/>Next step</button>
           <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
           <span>{step + 1} / 4 steps</span>
         </div>
       </div>
 
+      <p className="python-native-explanation" aria-live="polite">Illustrative flow � {["Define add_tax with price and a default rate of 0.1.", "Call add_tax: 100 becomes 110.0; 250 at rate 0.2 becomes 300.0.", "The default list persists: adding B after A gives [A, B], not a fresh list.", "Organize extraction, transformation and loading in importable Python files."][step]}</p>
       <div className="pyfm-stage-grid">
         {stages.map((_, index) => <StageCard key={index} index={index} step={step}/>)}
       </div>
 
-      <Timeline step={step} onStep={setStep}/>
+      <Timeline step={step} onStep={value=>{clearTimers();setRunning(false);setStarted(true);setStep(value);}}/>
 
       <div className="pyfm-bottom-grid">
         <ExamplePanel/>
@@ -379,3 +376,4 @@ export function PythonFunctionsModulesCompanion() {
     </section>
   );
 }
+

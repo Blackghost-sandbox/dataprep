@@ -11,6 +11,8 @@ import { getGlossaryItem, tokenizeGlossary, type GlossaryItem } from "@/lib/glos
 type GlossaryContextValue = { open: (item: GlossaryItem, trigger?: HTMLElement) => void; drawerOpen: boolean };
 const GlossaryContext = createContext<GlossaryContextValue | null>(null);
 
+export function useGlossary() { return useContext(GlossaryContext); }
+
 function Difficulty({ item }: { item: GlossaryItem }) {
   return <span className="glossary-frequency glossary-frequency-medium">{item.difficulty}</span>;
 }

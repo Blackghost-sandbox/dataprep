@@ -84,6 +84,9 @@ import "./system-design-scaling-bottlenecks.css";
 import "./system-design-serving-consumer.css";
 import "./system-design-observability-security-cost.css";
 import "./system-design-end-to-end-case-study.css";
+import "./sql-visual-polish.css";
+import "./modeling-experience.css";
+import "./python-basics.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {

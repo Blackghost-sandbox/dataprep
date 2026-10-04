@@ -1,9 +1,13 @@
 "use client";
+import { PythonRecordExecution } from "@/components/python-record-execution";
+
+import { PythonCodeLine } from "./python-code-line";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   BarChart3,
+  ArrowRight,
   BookOpen,
   Check,
   CheckCircle2,
@@ -118,11 +122,11 @@ export function PythonPandasHero() {
   );
 }
 
-function DataTable({ rows }: { rows: readonly {date:string;country:string;amount:number}[] }) {
+function DataTable({ rows, evaluate=false }: { rows: readonly {date:string;country:string;amount:number}[];evaluate?:boolean }) {
   return (
     <table className="pypd-table">
       <thead><tr><th>date</th><th>country</th><th>amount</th></tr></thead>
-      <tbody>{rows.map(row=><tr key={row.date}><td>{row.date}</td><td>{row.country}</td><td>{row.amount}</td></tr>)}</tbody>
+      <tbody>{rows.map(row=><tr key={row.date} className={evaluate?(row.amount>50?"row-kept":"row-rejected"):""}><td>{row.date}</td><td>{row.country}</td><td>{row.amount}{evaluate&&<small className="pypd-row-verdict">{row.amount>50?" > 50 · keep":" ≤ 50 · exclude"}</small>}</td></tr>)}</tbody>
     </table>
   );
 }
@@ -137,9 +141,10 @@ function StageCard({ step, index, filtered, grouped }: { step: DemoStep; index:n
         <strong>{index===0?"Load DataFrame":index===1?"Filter rows":index===2?"Group by country":"Aggregate sum"}</strong>
         <p>{index===0?"Read tabular data with typed columns":index===1?"Keep rows where amount > 50":index===2?"Split rows into groups":"Calculate total amount per country"}</p>
       </div></header>
+      <PythonRecordExecution key={step} stage={index} active={active} rows={index<2?sourceRows:filtered}/>
       {index===0 && <><DataTable rows={sourceRows}/><p className="pypd-stage-note">A pandas DataFrame with typed columns (int, string, datetime, etc.).</p></>}
-      {index===1 && <><DataTable rows={filtered}/><code className="pypd-inline-code">df[df['amount'] &gt; 50]</code><p className="pypd-stage-note">Creates a boolean mask and filters rows where amount is greater than 50.</p></>}
-      {index===2 && <><div className="pypd-groups">{grouped.map(group=><div key={group.country}><span>{group.country}</span><p><strong>{group.count} {group.count===1?"row":"rows"}</strong><small>Total amount: {group.total}</small></p></div>)}</div><code className="pypd-inline-code">groupby('country')</code><p className="pypd-stage-note">splits rows into groups for each unique country.</p></>}
+      {index===1 && <><DataTable rows={sourceRows} evaluate={step>=1}/><code className="pypd-inline-code">df[df['amount'] &gt; 50]</code><p className="pypd-stage-note">Creates a boolean mask and filters rows where amount is greater than 50.</p></>}
+      {index===2 && <><div className="pypd-groups">{grouped.map(group=><div key={group.country}><span>{group.country}</span><p><strong>{group.count} {group.count===1?"row":"rows"}</strong><small>{filtered.filter(row=>row.country===group.country).map(row=>row.amount).join(" + ")} = {group.total}</small></p></div>)}</div><code className="pypd-inline-code">groupby('country')</code><p className="pypd-stage-note">splits rows into groups for each unique country.</p></>}
       {index===3 && <><table className="pypd-table pypd-result"><thead><tr><th>country</th><th>total_amount</th></tr></thead><tbody>{grouped.map(group=><tr key={group.country}><td>{group.country}</td><td><strong>{group.total}</strong></td></tr>)}</tbody></table><code className="pypd-inline-code">df.groupby('country')['amount'].sum()</code><p className="pypd-stage-note">Applies sum() within each group and combines the results.</p></>}
       {index<3 && <ArrowRight className="pypd-stage-arrow" size={22}/>}
     </article>
@@ -170,7 +175,7 @@ function CodeExample() {
   return (
     <section className="pypd-code">
       <header><div><span className="pypd-python-badge">Py</span><strong>Python example · pandas filter + groupby</strong></div><button type="button" onClick={copy}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?"Copied":"Copy"}</button></header>
-      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}>{line||" "}</b></span>)}</code></pre>
+      <pre><code>{exampleCode.split("\n").map((line,index)=><span key={index}><i>{index+1}</i><b className={line.trim().startsWith("#")?"is-comment":""}><PythonCodeLine code={line || " "} /></b></span>)}</code></pre>
     </section>
   );
 }
@@ -189,6 +194,7 @@ function KeyConcepts() {
 export function PythonPandasConcept() {
   const [step,setStep]=useState<DemoStep>(0);
   const [running,setRunning]=useState(false);
+  const [started,setStarted]=useState(false);
   const timers=useRef<number[]>([]);
 
   const filtered=useMemo(()=>sourceRows.filter(row=>row.amount>50),[]);
@@ -204,28 +210,36 @@ export function PythonPandasConcept() {
   const clearTimers=()=>{timers.current.forEach(timer=>window.clearTimeout(timer));timers.current=[];};
   useEffect(()=>()=>clearTimers(),[]);
 
-  const run=()=>{
-    clearTimers();setRunning(true);setStep(0);
-    [1,2,3].forEach((next,index)=>timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),650*(index+1))));
-    timers.current.push(window.setTimeout(()=>setRunning(false),2700));
+  const play=(from:DemoStep)=>{
+    clearTimers();setStarted(true);setStep(from);
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){setRunning(false);return;}
+    setRunning(true);
+    for(let next=from+1;next<=3;next++)timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),5000*(next-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(4-from)));
   };
-  const next=()=>{clearTimers();setRunning(false);setStep(value=>Math.min(3,value+1) as DemoStep);};
-  const reset=()=>{clearTimers();setRunning(false);setStep(0);};
-
+  const run=()=>{if(running){clearTimers();setRunning(false);}else play(started&&step<3?step:0);};
+  const next=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.min(3,value+1) as DemoStep);};
+  const reset=()=>{clearTimers();setRunning(false);setStarted(false);setStep(0);};
+  const explanations=[
+    "Start with four records: IN 120, US 80, IN 45 and US 60. Nothing has been filtered yet.",
+    "Test amount > 50 on every record. Keep 120, 80 and 60; exclude 45. Three rows continue.",
+    "Put the three kept rows into country groups: IN has 120; US has 80 and 60.",
+    "Sum each group: IN = 120; US = 80 + 60 = 140. The result contains two country totals."
+  ];
   return (
-    <div className="pypd-concept">
+    <div className={"pypd-concept"+(running?" is-running":"")}>
       <header className="pypd-concept-header">
         <div className="pypd-eye"><Eye size={21}/></div>
-        <div><h2>pandas for Data Wrangling Simulator</h2><p>Watch a DataFrame be loaded, filtered, grouped, and aggregated step by step.</p></div>
+        <div><h2>pandas for Data Wrangling Simulator</h2><p aria-live="polite">{explanations[step]}</p></div>
         <div className="pypd-controls">
-          <button type="button" className="pypd-run" onClick={run} disabled={running}><Play size={15}/>{running?"Running…":"Run"}</button>
-          <button type="button" onClick={next} disabled={running||step===3}><Play size={14}/>Next step</button>
+          <button type="button" className="pypd-run" onClick={run}><Play size={15}/>{running?"Pause":started&&step<3?"Resume":"Run"}</button>
+          <button type="button" onClick={()=>{clearTimers();setRunning(false);setStarted(true);setStep(value=>Math.max(0,value-1) as DemoStep);}} disabled={step===0}>Previous step</button><button type="button" onClick={next} disabled={step===3}><Play size={14}/>Next step</button>
           <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
           <span>{step+1} / 4 steps</span>
         </div>
       </header>
       <div className="pypd-stage-grid">{[0,1,2,3].map(index=><StageCard key={index} step={step} index={index} filtered={filtered} grouped={grouped}/>)}</div>
-      <Timeline step={step} running={running} onStep={setStep}/>
+      <Timeline step={step} running={false} onStep={value=>{clearTimers();setStarted(true);setRunning(false);setStep(value);}}/>
       <div className="pypd-bottom-grid"><CodeExample/><KeyConcepts/></div>
     </div>
   );
@@ -282,3 +296,9 @@ export function PythonPandasCompanion() {
     </section>
   );
 }
+
+
+
+
+
+

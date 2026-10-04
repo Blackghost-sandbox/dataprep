@@ -1,4 +1,7 @@
 "use client";
+import { PythonFlowArtwork } from "@/components/python-flow-artwork";
+
+import { PythonCodeLine } from "./python-code-line";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
@@ -213,7 +216,7 @@ function CodeBox({ title = "Python", code }: { title?: string; code: string }) {
   return (
     <div className="pyff-code">
       <header><span>{title}</span><CopyButton text={code}/></header>
-      <pre><code>{code.split("\n").map((line, index) => <span key={index} className={line.trim().startsWith("#") ? "is-comment" : ""}>{line || " "}</span>)}</code></pre>
+      <pre><code>{code.split("\n").map((line, index) => <span key={index} style={{animationDelay:`${index*300}ms`}} className={line.trim().startsWith("#") ? "is-comment" : ""}><PythonCodeLine code={line || " "} /></span>)}</code></pre>
     </div>
   );
 }
@@ -222,13 +225,13 @@ function InputStage({ active, view, setView }: { active: boolean; view: InputVie
   return (
     <article className={"pyff-stage pyff-stage-blue " + (active ? "is-active" : "")}>
       <header><span className="pyff-stage-number">1</span><div><strong>Input Data</strong><p>Create a sample dataset</p></div></header>
-      <div className="pyff-segment">
+      <PythonFlowArtwork kind="files" stage={0} active={active}/><div className="pyff-segment">
         <button type="button" className={view==="table"?"is-active":""} onClick={()=>setView("table")}>Table</button>
         <button type="button" className={view==="code"?"is-active":""} onClick={()=>setView("code")}>Python Code</button>
       </div>
       <div className="pyff-input-body">{view==="table" ? <TablePreview/> : <CodeBox code={inputCode}/>}</div>
       <div className="pyff-tip"><span><Lightbulb size={16}/></span><p>This is the same data we’ll write to different formats.</p></div>
-      <ArrowRight className="pyff-stage-arrow" size={22}/>
+      <ArrowRight className="pyff-stage-arrow" size={22}/><span className="pyff-flow-packet" aria-hidden="true">record</span>
     </article>
   );
 }
@@ -237,9 +240,9 @@ function WriteStage({ active, completed }: { active: boolean; completed: boolean
   return (
     <article className={"pyff-stage pyff-stage-violet " + (active ? "is-active " : "") + (completed ? "is-complete" : "")}>
       <header><span className="pyff-stage-number">2</span><div><strong>Write to Files</strong><p>Save the data in different formats</p></div></header>
-      <CodeBox code={writeCode}/>
+      <PythonFlowArtwork kind="files" stage={1} active={active}/><CodeBox code={writeCode}/>
       <div className="pyff-stage-status">{completed ? <><Check size={14}/> CSV, JSON and Parquet created</> : "Run step 2 to create the file artifacts."}</div>
-      <ArrowRight className="pyff-stage-arrow" size={22}/>
+      <ArrowRight className="pyff-stage-arrow" size={22}/><span className="pyff-flow-packet" aria-hidden="true">record</span>
     </article>
   );
 }
@@ -248,7 +251,7 @@ function ReadStage({ active, format, setFormat }: { active: boolean; format: Rea
   return (
     <article className={"pyff-stage pyff-stage-orange " + (active ? "is-active" : "")}>
       <header><span className="pyff-stage-number">3</span><div><strong>Read the Files</strong><p>Load and inspect each format</p></div></header>
-      <div className="pyff-segment pyff-read-tabs">
+      <PythonFlowArtwork kind="files" stage={2} active={active}/><div className="pyff-segment pyff-read-tabs">
         {(["csv","json","parquet"] as ReadFormat[]).map((item)=><button key={item} type="button" className={format===item?"is-active":""} onClick={()=>setFormat(item)}>{item === "csv" ? "CSV" : item === "json" ? "JSON" : "Parquet"}</button>)}
       </div>
       <CodeBox code={readCode[format]}/>
@@ -258,7 +261,7 @@ function ReadStage({ active, format, setFormat }: { active: boolean; format: Rea
         {format === "json" && <pre><code>{JSON.stringify(rows, null, 2)}</code></pre>}
         {format === "parquet" && <div className="pyff-parquet-preview"><span>date <b>date/string</b></span><span>hub <b>string</b></span><span>price <b>float64</b></span><span>volume <b>int64</b></span></div>}
       </div>
-      <ArrowRight className="pyff-stage-arrow" size={22}/>
+      <ArrowRight className="pyff-stage-arrow" size={22}/><span className="pyff-flow-packet" aria-hidden="true">record</span>
     </article>
   );
 }
@@ -279,7 +282,7 @@ function CompareStage({
   return (
     <article className={"pyff-stage pyff-stage-green " + (active ? "is-active " : "") + (done ? "is-complete" : "")}>
       <header><span className="pyff-stage-number">4</span><div><strong>Compare Results</strong><p>See structure and file sizes</p></div></header>
-      <div className="pyff-segment">
+      <PythonFlowArtwork kind="files" stage={3} active={active}/><div className="pyff-segment">
         <button type="button" className={view==="files"?"is-active":""} onClick={()=>setView("files")}>File Info</button>
         <button type="button" className={view==="schema"?"is-active":""} onClick={()=>setView("schema")}>Schema</button>
       </div>
@@ -359,6 +362,7 @@ function FileViewer({ file, onClose }: { file: string; onClose: ()=>void }) {
 export function PythonFilesFormatsConcept() {
   const [step, setStep] = useState<DemoStep>(0);
   const [running, setRunning] = useState(false);
+  const [started,setStarted]=useState(false);
   const [inputView, setInputView] = useState<InputView>("table");
   const [readFormat, setReadFormat] = useState<ReadFormat>("csv");
   const [compareView, setCompareView] = useState<CompareView>("files");
@@ -371,31 +375,30 @@ export function PythonFilesFormatsConcept() {
   };
   useEffect(() => () => clearTimers(), []);
 
-  const run = () => {
-    clearTimers();
+  const play=(from:DemoStep)=>{
+    clearTimers();setStarted(true);setStep(from);
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){setRunning(false);return;}
     setRunning(true);
-    setStep(0);
-    [1,2,3].forEach((next,index)=>timers.current.push(window.setTimeout(()=>setStep(next as DemoStep), 650*(index+1))));
-    timers.current.push(window.setTimeout(()=>setRunning(false), 2750));
+    for(let next=from+1;next<=3;next++)timers.current.push(window.setTimeout(()=>setStep(next as DemoStep),5000*(next-from)));
+    timers.current.push(window.setTimeout(()=>setRunning(false),5000*(4-from)));
   };
-
-  const next = () => {
-    clearTimers();
-    setRunning(false);
-    setStep((value)=>Math.min(3,value+1) as DemoStep);
-  };
-
+  const run=()=>{if(running){clearTimers();setRunning(false);}else play(started&&step<3?step:0);};
+  const next=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.min(3,value+1) as DemoStep);};
+  const previous=()=>{clearTimers();setStarted(true);setRunning(false);setStep(value=>Math.max(0,value-1) as DemoStep);};
   const reset = () => {
     clearTimers();
     setRunning(false);
     setStep(0);
+    setStarted(false);
     setInputView("table");
     setReadFormat("csv");
     setCompareView("files");
     setViewer(null);
   };
 
+  const cancelFlow=()=>{clearTimers();setRunning(false);};
   const selectGuide = (key: string) => {
+    cancelFlow();
     if (key === "csv" || key === "json" || key === "parquet") {
       setReadFormat(key);
       setStep(2);
@@ -406,23 +409,24 @@ export function PythonFilesFormatsConcept() {
   };
 
   return (
-    <div className="pyff-concept">
+    <div className={"pyff-concept"+(running?" is-running":"")} data-flow-step={step} onClickCapture={event=>{const button=(event.target as HTMLElement).closest("button");if(button&&!button.closest(".pyff-controls"))cancelFlow();}}>
       <header className="pyff-concept-header">
         <div className="pyff-eye"><Eye size={22}/></div>
         <div><h2>Try it yourself: Read, Inspect, and Write in Different Formats</h2><p>Run the example to see how the same data can be written and read in CSV, JSON and Parquet — and compare their structure and file sizes.</p></div>
         <div className="pyff-controls">
-          <button type="button" className="pyff-run" onClick={run} disabled={running}><Play size={15}/>{running ? "Running…" : "Run"}</button>
-          <button type="button" onClick={next} disabled={step===3 || running}><Play size={14}/>Next step</button>
+          <button type="button" className="pyff-run" onClick={run}><Play size={15}/>{running?"Pause":started&&step<3?"Resume":"Run"}</button>
+          <button type="button" onClick={previous} disabled={step===0}>Previous step</button><button type="button" onClick={next} disabled={step===3}><Play size={14}/>Next step</button>
           <button type="button" onClick={reset}><RotateCcw size={14}/>Reset</button>
           <span>{step+1} / 4 steps</span>
         </div>
       </header>
 
+      <p className="pyff-flow-caption" aria-live="polite">Illustrative file flow · {["Start with the same three records. Their date, hub, price and volume values are the input to every format.","Write the same records three ways: CSV stores rows as text; JSON stores named fields; Parquet stores typed columns.",`Read ${readFormat.toUpperCase()} back. Compare the preview with the original records; the representation and inferred types can differ.`,"Compare the formats: record values stay the same, while structure, types and storage size differ. Shown file sizes are illustrative."][step]} No real files are written.</p>
       <div className="pyff-stage-grid">
-        <InputStage active={step===0} view={inputView} setView={setInputView}/>
+        <InputStage active={step===0} view={inputView} setView={value=>{cancelFlow();setInputView(value);}}/>
         <WriteStage active={step===1} completed={step>1}/>
-        <ReadStage active={step===2} format={readFormat} setFormat={setReadFormat}/>
-        <CompareStage active={step===3} view={compareView} setView={setCompareView} onViewFile={setViewer} done={step===3}/>
+        <ReadStage active={step===2} format={readFormat} setFormat={value=>{cancelFlow();setReadFormat(value);}}/>
+        <CompareStage active={step===3} view={compareView} setView={value=>{cancelFlow();setCompareView(value);}} onViewFile={setViewer} done={step===3}/>
       </div>
 
       <FormatGuide onSelect={selectGuide}/>
@@ -497,3 +501,8 @@ export function PythonFilesFormatsCompanion() {
     </section>
   );
 }
+
+
+
+
+
