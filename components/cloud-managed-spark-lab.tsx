@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -60,6 +61,7 @@ function formatRecords(value:number){
 }
 
 export function CloudManagedSparkLab(){
+ const cloudMotion=useCloudMotion(".ms-stage-grid > .ms-card");
   const [controls,setControls]=useState<SparkControls>(()=>defaultSparkControls());
   const [state,setState]=useState(()=>referenceSparkState());
   const [running,setRunning]=useState(false);
@@ -87,7 +89,7 @@ export function CloudManagedSparkLab(){
     setRunning(false);
   };
 
-  return <section className="ms-lab" aria-label="Managed batch and Spark processing interactive simulation">
+  return <section {...cloudMotion} className="ms-lab" aria-label="Managed batch and Spark processing interactive simulation">
     <header className="ms-toolbar">
       <div className="ms-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how a managed Spark job processes data, scales automatically, and writes the output.</p></div></div>
       <div className="ms-toolbar-actions">

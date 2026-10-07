@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 import { PythonRecordExecution } from "@/components/python-record-execution";
 
 import { PythonCodeLine } from "./python-code-line";
@@ -186,7 +187,7 @@ function KeyConcepts() {
       <h3>Key Concepts</h3>
       <div className="pypd-concept-grid">{concepts.map(({tone,Icon,title,body})=><article key={title} className={"pypd-key-concept pypd-tone-"+tone}><span><Icon size={20}/></span><div><strong>{title}</strong><p>{body}</p></div></article>)}</div>
       <h4>When to use what?</h4>
-      <div className="pypd-decision-grid">{decisions.map(({tone,Icon,question,action,code})=><article key={action} className={"pypd-decision pypd-tone-"+tone}><span><Icon size={14}/></span><div><small>{question}</small><strong>{action}</strong><code>{code}</code></div></article>)}</div>
+      <div className="pypd-decision-grid">{decisions.map(({tone,Icon,question,action,code})=><article key={action} className={"pypd-decision pypd-tone-"+tone}><span><Icon size={14}/></span><div><small>{question}</small><strong>{action}</strong><code><SyntaxText code={code}/></code></div></article>)}</div>
     </section>
   );
 }

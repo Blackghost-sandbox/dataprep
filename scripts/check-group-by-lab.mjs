@@ -6,11 +6,14 @@ import assert from 'node:assert/strict';
 
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url),cache=new Map();
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,'utf8');
@@ -18,7 +21,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)].find(fs.existsSync);
       assert.ok(found,name);return load(found);
     }
     return require(name);
@@ -59,7 +62,7 @@ assert.deepEqual(avgSpend.map(group=>Number(group.aggregate.toFixed(2))),[320,59
 
 const html=renderToString(React.createElement(GroupByLearningLab));
 for(const text of ['Interactive Simulation','Group by city (SUM)','Group by customer','Count orders','Average spend','Source Data (orders)','Grouping (by city)','Grouped Result (SUM amount)','Generated SQL','How it works','What changed?','Key takeaways','Orders (10 rows)','Run Query','Next Scenario','1,280','1,190','1,670']){
-  assert.ok(html.includes(text),text);
+  assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 }
 console.log('PASS: GROUP BY grouping, SUM/COUNT/AVG scenarios, generated SQL and initial server render.');
 console.log('Browser scenario/run timing, Copy SQL, dataset switching and pixel layout still require browser verification.');

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, BookOpen, Code2, X } from "lucide-react";
+import { ArrowRight, Code2, X } from "lucide-react";
 import { PythonStoryGraphics } from "@/components/python-story-graphics";
 import { pythonStories, type PythonStory } from "@/lib/python-stories";
 
@@ -19,15 +19,12 @@ export function PythonBasicsGuide({ lessonId, title }: { lessonId: string; title
   const story = pythonStories[lessonId];
   const [open, setOpen] = useState(false);
   const [scene, setScene] = useState(0);
-  const [hero, setHero] = useState<HTMLElement | null>(null);
   const [workspace, setWorkspace] = useState<HTMLElement | null>(null);
   const guide = useRef<HTMLDivElement>(null);
-  const toggle = useRef<HTMLButtonElement>(null);
   const storageKey = `dataprep-python-basics-${lessonId}-v1`;
   useEffect(() => {
     // Read browser-only saved preferences after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHero(document.querySelector<HTMLElement>('.python-module-page .lesson-hero, .python-module-page main > section[class$="-hero"]'));
     setWorkspace(document.querySelector<HTMLElement>('.python-module-page .lesson-content'));
     try { setOpen(localStorage.getItem(storageKey) !== 'true'); } catch { setOpen(true); }
   }, [storageKey]);
@@ -41,12 +38,9 @@ export function PythonBasicsGuide({ lessonId, title }: { lessonId: string; title
   const close = () => {
     try { localStorage.setItem(storageKey, 'true'); } catch { /* Basics remain usable without storage. */ }
     setOpen(false);
-    toggle.current?.focus({preventScroll:true});
     guide.current?.closest<HTMLElement>('.lesson-content')?.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
   };
-  const control = <button ref={toggle} className="py-basics-review" onClick={() => { if(open)close();else{setScene(0);setOpen(true);} }} aria-expanded={open} aria-controls={`py-basics-guide-${lessonId}`}><BookOpen size={16}/>{open?'Collapse basics':'Review basics'}<ArrowRight size={16}/></button>;
   return <>
-    {hero ? createPortal(control, hero) : control}
     {workspace && createPortal(<div ref={guide} id={`py-basics-guide-${lessonId}`} className={`py-basics-roll ${open?'is-open':''}`} aria-hidden={!open} tabIndex={-1} onKeyDown={event=>{if(event.key==='Escape'){event.preventDefault();close();}}}>
     <section className="py-basics-story" style={{ '--py-accent': story.color } as CSSProperties} aria-labelledby={`py-story-title-${lessonId}`}>
       <header className="py-story-header"><span>PYTHON FOR DATA ENGINEERING <b>· {title}</b></span><button onClick={close} aria-label="Close basics and return to lesson"><X size={18}/><span>Back to lesson</span></button></header>

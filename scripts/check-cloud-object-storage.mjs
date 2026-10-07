@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -84,13 +87,13 @@ for(const text of [
   "Run Simulation","AWS S3","Ingest Data","Object Storage","Data Lake Layout","Analyze Data",
   "E-commerce App","JSON","dataprep-lake","Standard","raw/ecommerce/","Athena","BigQuery","Synapse",
   "Execution Logs","Query Results","Key Takeaways","1,000","$125,430.50","Download"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudObjectStorageHero,{
   description:"Understand why object storage is the foundation of many cloud data lakes.",
   minutes:25,currentLesson:1,total:11,onPrevious:()=>{},onNext:()=>{}
 }));
-for(const text of ["Object Storage &amp; Data Lakes","25 min","Lesson 2/11","Intermediate","Previous","Next"]){
+for(const text of ["Object Storage & Data Lakes","25 min","Lesson 2/11","Intermediate","Previous","Next"]){
   assert.ok(hero.includes(text),text);
 }
 

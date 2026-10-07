@@ -5,11 +5,14 @@ import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url);
 const cache=new Map();
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,'utf8');
@@ -17,7 +20,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)].find(fs.existsSync);
       assert.ok(found,'Module not found: '+name);return load(found);
     }
     return require(name);
@@ -47,6 +50,6 @@ assert.ok(partitionCode(3,'repartition')[2].endsWith('.show()'));
 const {SparkPartitioningConcept}=load(path.join(root,'components/spark-partitioning-concept.tsx'));
 const {GlossaryProvider}=load(path.join(root,'components/glossary.tsx'));
 const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SparkPartitioningConcept)));
-for(const text of ['Partitioning Lab','Run Animation','Step Mode','Data skew','Waiting for records','not a live Spark run'])assert.ok(html.includes(text),text);
+for(const text of ['Partitioning Lab','Run Animation','Step Mode','Data skew','Waiting for records','not a live Spark run'])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 console.log('PASS: '+cases+' partition scenarios preserve records, IDs and source data; coalesce groups whole partitions; lab SSR passes.');
 

@@ -99,7 +99,9 @@ function makeLogs(service:string,metrics:ObservabilityMetrics,scenario:Observabi
     {id:"1",time:"10:24:01",level:"INFO",text:`Producer sent ${metrics.incomingEvents} events`},
     {id:"2",time:"10:24:02",level:"INFO",text:`Events published to ${service}`},
   ];
-  if(scenario==="service-failure-retry" || scenario==="network-timeout" || issue==="timeout"){
+  if(issue==="blocked"){
+    base.push({id:"3",time:"10:24:05",level:"ERROR",text:"Security rule blocked consumer connection"});
+  } else if(scenario==="service-failure-retry" || scenario==="network-timeout" || issue==="timeout"){
     base.push(
       {id:"3",time:"10:24:05",level:"WARN",text:"Network timeout to consumer"},
       {id:"4",time:"10:24:05",level:"INFO",text:"Retrying (1/3)..."},
@@ -107,14 +109,12 @@ function makeLogs(service:string,metrics:ObservabilityMetrics,scenario:Observabi
     );
   } else if(issue==="latency"){
     base.push({id:"3",time:"10:24:05",level:"WARN",text:"Network latency above 500 ms"});
-  } else if(issue==="blocked"){
-    base.push({id:"3",time:"10:24:05",level:"ERROR",text:"Security rule blocked consumer connection"});
   }
   base.push(
     {id:"6",time:"10:24:07",level:"INFO",text:`Processing ${metrics.processedEvents} events...`},
-    {id:"7",time:"10:24:10",level:"INFO",text:"Checkpoint committed (offset: 1250)"},
+    {id:"7",time:"10:24:10",level:issue==="blocked"?"WARN":"INFO",text:issue==="blocked"?"Checkpoint not committed: consumer connection blocked":"Checkpoint committed (offset: 1250)"},
     {id:"8",time:"10:24:11",level:"INFO",text:`Error rate: ${metrics.errorRatePct}%`},
-    {id:"9",time:"10:24:12",level:"INFO",text:"Pipeline healthy ✓"}
+    {id:"9",time:"10:24:12",level:issue==="blocked"||metrics.errorRatePct>5?"ERROR":"INFO",text:issue==="blocked"?"Pipeline blocked: check network access rules":metrics.errorRatePct>5?"Pipeline unhealthy: error threshold exceeded":"Pipeline healthy ✓"}
   );
   return base;
 }

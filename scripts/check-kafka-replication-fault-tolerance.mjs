@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -76,13 +79,14 @@ assert.equal(status.replicationFactor,3);
 
 const {KafkaReplicationFaultToleranceLab}=load(path.join(root,"components/kafka-replication-fault-tolerance-lab.tsx"));
 const html=renderToString(React.createElement(KafkaReplicationFaultToleranceLab));
+fs.writeFileSync(path.join(root,"artifacts/functional-audit/check-kafka-replication-fault-tolerance.mjs.html"),html);
 for(const text of [
   "Interactive Simulation","Run","Reset","Leader Failure","Auto advance",
   "Topic:","Partition P0","Broker 1","Broker 2","Broker 3","P0 · replica 1",
   "P0 · replica 2","P0 · replica 3","Produce Message","Fail Broker 1",
   "Recover Broker 1","Current ISR","Event Log","Partition Status","Message Flow"
 ]){
-  assert.ok(html.includes(text),text);
+  assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 }
 
 console.log("PASS: explicit P0 labels, leader/follower roles, ISR, recovery, acks=all replication, leader failure/election, out-of-sync scenario, status and SSR controls.");

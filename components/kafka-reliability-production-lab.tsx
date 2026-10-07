@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/lib/kafka-reliability-production-simulation";
 
 export function KafkaReliabilityProductionLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createReliabilityState());
   const [inspector,setInspector]=useState<"payload"|"headers"|"error"|"metadata">("payload");
 
@@ -27,7 +29,7 @@ export function KafkaReliabilityProductionLab(){
 
   const reset=()=>{setState(createReliabilityState());setInspector("payload");};
 
-  return <section className="krp-lab" aria-label="Kafka reliability and production patterns interactive simulation">
+  return <section {...kafkaMotion} className="krp-lab" aria-label="Kafka reliability and production patterns interactive simulation">
     <header className="krp-toolbar">
       <div className="krp-heading">
         <span><Play size={19} fill="currentColor"/></span>

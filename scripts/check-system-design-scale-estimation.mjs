@@ -41,7 +41,7 @@ const componentFile=path.join(root,"components/system-design-scale-estimation-ex
 const source=fs.readFileSync(componentFile,"utf8");
 transpile(componentFile);
 for(const phrase of [
-  "Requirements &amp; Scale Estimation",
+  "Requirements & Scale Estimation",
   "Interactive Simulation",
   "Configure Your System",
   "Architecture Flow (Simulated)",
@@ -51,7 +51,7 @@ for(const phrase of [
   "Visual Breakdown",
   "Lesson Progress",
   "Quick Notes",
-]) assert.ok(source.includes(phrase),"Missing UI contract: "+phrase);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(phrase),"Missing UI contract: "+phrase);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("systemScaleEstimationHandsOn"));

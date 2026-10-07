@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -16,6 +17,7 @@ import {
 const versionTone:Record<SchemaVersion,string>={v1:"purple",v2:"orange",v3:"green"};
 
 export function KafkaSerializationSchemaLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createSchemaSimulationState());
   const selected=selectedSchemaMessage(state);
   const read=selected?readMessage(selected,state.reader):null;
@@ -27,7 +29,7 @@ export function KafkaSerializationSchemaLab(){
   const run=()=>setState(s=>produceSchemaMessage(s));
   const reset=()=>setState(createSchemaSimulationState());
 
-  return <section className="kse-lab" aria-label="Kafka serialization and schema evolution interactive simulation">
+  return <section {...kafkaMotion} className="kse-lab" aria-label="Kafka serialization and schema evolution interactive simulation">
     <header className="kse-toolbar">
       <div className="kse-heading">
         <span><Play size={19} fill="currentColor"/></span>

@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -85,6 +86,7 @@ function WarehouseObject({
 }
 
 export function DbtMaterializationsLab(){
+ const dbtMotion=useDbtMotion(".dbtmz-model-card, .dbtmz-materialize-card, .dbtmz-object.is-selected");
   const [datasetId,setDatasetId]=useState<DbtMaterializationDatasetId>("ecommerce");
   const [materialization,setMaterialization]=useState<DbtMaterializationId>("table");
   const [result,setResult]=useState<DbtMaterializationRunResult|null>(null);
@@ -117,7 +119,7 @@ export function DbtMaterializationsLab(){
     setResult(null);
   };
 
-  return <section className="dbtmz-lab" aria-label="dbt materializations interactive simulation">
+  return <section {...dbtMotion} className="dbtmz-lab" aria-label="dbt materializations interactive simulation">
     <section className="dbtmz-explainer">
       <header className="dbtmz-section-head">
         <h2><BookOpen size={21}/>How materializations change the final object</h2>

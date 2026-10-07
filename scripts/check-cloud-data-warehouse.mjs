@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -86,7 +89,7 @@ for(const text of [
   "1,000,000","Medium (4 credits)","Auto Scaling","Max Clusters",
   "12,450","1,250,340","2.4s","124 MB","Warehouse Credits",
   "Storage vs Compute Separation","Execution Logs","Key Takeaways"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudDataWarehouseHero,{
   description:"Compare warehouse execution models, separate storage from compute where relevant, and design for concurrency, partitioning, clustering, and predictable analytics workloads.",

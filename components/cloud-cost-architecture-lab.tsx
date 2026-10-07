@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {BarChart3,Check,CheckCircle2,ChevronLeft,Cloud,Coins,Database,Gauge,GraduationCap,Layers3,Network,Play,RefreshCcw,Search,ServerCog,ShieldCheck,Sparkles,TimerReset,WalletCards,Zap} from "lucide-react";
@@ -54,6 +55,7 @@ function Switch({on,onClick}:{on:boolean;onClick:()=>void}){
 }
 
 export function CloudCostArchitectureLab(){
+ const cloudMotion=useCloudMotion(".ca-stage");
   const [controls,setControls]=useState<CostControls>(()=>defaultCostControls());
   const [state,setState]=useState(()=>referenceCostState());
   const [running,setRunning]=useState(false);
@@ -63,7 +65,7 @@ export function CloudCostArchitectureLab(){
   const reset=()=>{setControls(defaultCostControls());setState(referenceCostState());setRunning(false);};
   const toggleReview=(id:string)=>setState(prev=>({...prev,reviewItems:prev.reviewItems.map(item=>item.id===id?{...item,checked:!item.checked}:item)}));
 
-  return <section className="ca-lab">
+  return <section {...cloudMotion} className="ca-lab">
     <h2 className="ca-understand"><span>▣</span>Understand Cost Optimization &amp; Architecture Review</h2>
 
     <section className="ca-map">

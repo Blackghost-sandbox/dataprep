@@ -6,11 +6,14 @@ import assert from 'node:assert/strict';
 
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url),cache=new Map();
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,'utf8');
@@ -18,7 +21,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)].find(fs.existsSync);
       assert.ok(found,name);return load(found);
     }
     return require(name);
@@ -58,10 +61,10 @@ assert.deepEqual(premium.map(group=>group.key),[101,102]);
 
 const html=renderToString(React.createElement(HavingLearningLab));
 for(const text of ['Interactive Simulation','High-spend cities','Customers with 2+ orders','Average above threshold','Premium customers','Group by column','Aggregate function','Condition','Threshold value','Input table (orders)','After GROUP BY (summary)','After HAVING (filtered groups)','Generated SQL','Visual explanation','WHERE vs HAVING','Orders (10 rows)','Run Query','Next Scenario','1,570']){
-  assert.ok(html.includes(text),text);
+  assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 }
 assert.ok(html.includes('1 group'));
-assert.ok(html.includes('HAVING SUM(amount) &gt; 1000'));
+assert.ok(html.includes('HAVING SUM(amount) > 1000'));
 console.log('PASS: HAVING grouping, aggregate predicates, scenarios, generated SQL and initial server render.');
 console.log('Reference note: SUM(amount) > 1000 correctly excludes the Mumbai group whose total is exactly 1000.');
 console.log('Browser controls, Run Query timing, Copy SQL, dataset switching and pixel layout still require browser verification.');

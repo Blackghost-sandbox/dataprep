@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -19,6 +20,7 @@ function initialPayload(){
 }
 
 export function KafkaBrokersClusterLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createClusterState());
   const [messageKey,setMessageKey]=useState("customer_101");
   const [messageValue,setMessageValue]=useState(initialPayload);
@@ -68,7 +70,7 @@ export function KafkaBrokersClusterLab(){
     setPayloadError("");
   };
 
-  return <section className="kbc-lab" aria-label="Interactive Kafka broker cluster simulation">
+  return <section {...kafkaMotion} className="kbc-lab" aria-label="Interactive Kafka broker cluster simulation">
     <header className="kbc-toolbar">
       <div className="kbc-heading">
         <span><Play size={19} fill="currentColor"/></span>

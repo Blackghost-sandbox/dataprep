@@ -66,12 +66,12 @@ for(const text of [
   "Lesson Progress",
   "Key Takeaways",
   "Reset"
-])assert.ok(source.includes(text),"Missing UI contract: "+text);
+])assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtMaterializationsConcept"));
 assert.ok(app.includes("DbtMaterializationsHero"));
 assert.ok(app.includes("DbtMaterializationsRightRail"));
-assert.ok(app.includes("!dbtMaterializationsConcept&&<NilaCompanion"));
+assert.ok(/!dbtMaterializationsConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt materializations deterministic options/datasets, run outputs, TSX transpile, UI contracts and app integration.");

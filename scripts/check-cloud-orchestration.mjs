@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -89,14 +92,14 @@ for(const text of [
   "DAG Definition (Simplified)","Execution Logs (Live)","Pipeline Metadata",
   "Task Details","DAG Run Info","BigQueryInsertJobOperator","1,000,000",
   "sales.analytics.daily_sales","120 MB","Key Takeaways"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudOrchestrationHero,{
   description:"Coordinate cloud jobs, retries, dependencies, schedules, and managed integrations without turning orchestration into transformation logic.",
   minutes:26,currentLesson:8,total:11,onPrevious:()=>{},onNext:()=>{}
 }));
 for(const text of [
-  "Orchestration &amp; Managed Data Integration","26 min","Lesson 9/11","Intermediate",
+  "Orchestration & Managed Data Integration","26 min","Lesson 9/11","Intermediate",
   "Apache","Airflow","AWS","Step Functions","Azure","Data Factory","Google","Cloud Composer","Previous","Next"
 ])assert.ok(hero.includes(text),text);
 

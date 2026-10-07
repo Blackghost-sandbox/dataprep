@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -103,6 +104,7 @@ function Metric({ icon, label, value, detail, tone }: { icon: React.ReactNode; l
 }
 
 export function SystemScalingBottlenecksLab() {
+  const motion=useSystemDesignMotion("scaling");
   const companion = useCompanion();
   const [scenarioId, setScenarioId] = useState<ScalingScenarioId>("partition-skew");
   const scenario = useMemo(() => getScalingScenario(scenarioId), [scenarioId]);
@@ -136,7 +138,7 @@ export function SystemScalingBottlenecksLab() {
     }, 320);
   };
 
-  return <section className="sdsb-lab">
+  return <section {...motion} className="sdsb-lab">
     <header className="sdsb-sim-header">
       <div className="sdsb-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Adjust load, partitions, and workers to see how throughput changes and where bottlenecks occur.</p></div></div>
       <div className="sdsb-toolbar">

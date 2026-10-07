@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useEffect,useMemo,useRef,useState} from "react";
 import {
@@ -61,6 +62,7 @@ function CodePanel({code,onRun,onReset,running}:{code:string;onRun:()=>void;onRe
 }
 
 export function DbtModelsRefLab(){
+ const dbtMotion=useDbtMotion(".dbtm-dag > button");
   const [scenarioId,setScenarioId]=useState<DbtModelsScenarioId>("ecommerce");
   const [run,setRun]=useState(()=>newDbtModelsRunState());
   const [selectedStage,setSelectedStage]=useState(0);
@@ -87,7 +89,7 @@ export function DbtModelsRefLab(){
   };
 
   const success=run.status==="success";
-  return <section className="dbtm-lab" aria-label="dbt Models and ref interactive simulation">
+  return <section {...dbtMotion} className="dbtm-lab" aria-label="dbt Models and ref interactive simulation">
     <header className="dbtm-lab-head">
       <div><h2><BookOpen size={20}/>Understand Models &amp; ref()</h2><p>See how dbt models are defined in SQL files and how <strong>ref()</strong> creates an ordered dependency graph between them.</p></div>
       <label><span>Scenario</span><select value={scenarioId} onChange={e=>selectScenario(e.target.value as DbtModelsScenarioId)}>{dbtModelsScenarios.map(item=><option value={item.id} key={item.id}>{item.label}</option>)}</select><ChevronDown size={14}/></label>

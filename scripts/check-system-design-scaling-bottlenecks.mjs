@@ -41,14 +41,14 @@ for (const phrase of [
   "Data Pipeline (Live Simulation)",
   "Bottleneck Detector",
   "Run Simulation",
-  "Throughput &amp; Lag (Live)",
+  "Throughput & Lag (Live)",
   "Partition Load Distribution",
   "Processing Metrics",
   "Compare Configurations",
   "Key Takeaways",
   "Lesson Progress",
   "Quick Notes",
-]) assert.ok(source.includes(phrase), "Missing UI contract: " + phrase);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(phrase), "Missing UI contract: " + phrase);
 
 const app = fs.readFileSync(path.join(root, "components/dataprep-app.tsx"), "utf8");
 assert.ok(app.includes("systemScalingBottlenecksHandsOn"));

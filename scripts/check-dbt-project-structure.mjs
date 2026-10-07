@@ -67,12 +67,12 @@ for(const text of [
   "Lesson Progress",
   "Key Takeaways",
   "Quick Notes",
-]) assert.ok(source.includes(text),"Missing UI contract: "+text);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtProjectStructureConcept"));
 assert.ok(app.includes("DbtProjectStructureHero"));
 assert.ok(app.includes("DbtProjectStructureRightRail"));
-assert.ok(app.includes("!dbtProjectStructureConcept&&<NilaCompanion"));
+assert.ok(/!dbtProjectStructureConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt Project Structure scenarios, validation, docs preview, TSX transpile and app integration.");

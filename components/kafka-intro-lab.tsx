@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 import {useEffect,useState} from "react";
 import {motion,useReducedMotion} from "framer-motion";
 import {ArrowRight,BookOpen,Boxes,Check,Lightbulb,Pause,Play,RotateCcw,Send,Store,Trash2,Truck,Warehouse} from "lucide-react";
@@ -14,6 +15,7 @@ function Consumer({reader,state,speed}:{reader:"a"|"b";state:IntroState;speed:In
  return <section className={"ki-consumer ki-consumer-"+reader+(state.active===reader?" ki-active":"")}><header><strong>Consumer {reader.toUpperCase()}<small>{reader==="a"?"Analytics":"Fraud Detection"}</small></strong><span>{state.active===reader?<Play size={12}/>:lag?<Pause size={12}/>:<Check size={12}/>} {lag?speedName[speed]:total?"Caught up":"Ready"}</span></header><div className="ki-reader-metrics"><span>Last read <b>{info.last?`P${info.last.partition} : ${info.last.offset}`:"—"}</b></span><span>Lag <b>{lag}</b></span></div><progress max={Math.max(total,1)} value={read} aria-label={`Consumer ${reader.toUpperCase()} read progress`}/><div className="ki-offsets">{info.next.map((offset,p)=><span key={p}>P{p} next: <b>{offset}</b></span>)}</div><small>{read}/{total} read · independent application</small></section>;
 }
 export function KafkaIntroLab(){
+ const kafkaMotion=useKafkaMotion();
  const [config,setConfig]=useState<IntroConfig>(defaultIntroConfig);
  const [state,setState]=useState(()=>newIntroState());
  const [running,setRunning]=useState(false),[speed,setSpeed]=useState(2);
@@ -24,7 +26,7 @@ export function KafkaIntroLab(){
  useEffect(()=>{if((!running&&!sending)||done)return;const timer=setTimeout(()=>{if(sending){setSending(false);if(!state.pending)return;}setState(s=>advanceIntro(s,config,false,item.trim(),Number(amount)));},speed===1?1200:speed===2?700:350);return()=>clearTimeout(timer);},[running,sending,done,state,config,speed,item,amount]);
  function updateConfig(key:keyof IntroConfig,value:number){setRunning(false);setConfig(c=>({...c,[key]:value}));setState(newIntroState(key==="partitions"?value:config.partitions));}
  const event=state.pending?.event??{order_id:1001+Math.min(state.created,introLimit-1),item:item.trim(),amount:Number(amount),event_type:"order"};
- return <div className="ki-learning">
+ return <div {...kafkaMotion} className="ki-learning">
   <section className="ki-intro"><div><h2><BookOpen size={23}/>See Kafka in action</h2><p>Follow an event from a producer into a partitioned topic, then watch two applications read independently.</p></div><aside><Lightbulb size={23}/><div><strong>Key takeaway</strong><p><GlossaryText>Kafka retains events in topics. Independent consumers can process them at different speeds.</GlossaryText></p></div></aside></section>
   <section className="ki-workspace">
    <div className="ki-grid">

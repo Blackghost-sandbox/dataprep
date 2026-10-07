@@ -1,3 +1,4 @@
+import "./system-design-motion.css";
 import type { Metadata } from "next";
 import "./globals.css";
 import "./glossary.css";
@@ -13,6 +14,7 @@ import "./companion.css";
 import "./data-modeling.css";
 import "./airflow.css";
 import "./kafka.css";
+import "./cloud-motion.css";
 import "./mock-interview.css";
 import "./where-lab.css";
 import "./spark-performance.css";
@@ -87,6 +89,8 @@ import "./system-design-end-to-end-case-study.css";
 import "./sql-visual-polish.css";
 import "./modeling-experience.css";
 import "./python-basics.css";
+import "./application-consistency.css";
+import "./lesson-study-tabs.css";
 import { GlossaryProvider } from "@/components/glossary";
 
 export const metadata: Metadata = {

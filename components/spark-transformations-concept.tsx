@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import {useEffect,useState} from "react";
 import {AnimatePresence,motion,useReducedMotion} from "framer-motion";
@@ -43,7 +44,7 @@ export function SparkTransformationsConcept(){
         <section className="tx-stage"><header><b>1</b><div><h4>Original DataFrame</h4><small>df · 7 rows · unchanged</small></div></header><PreviewTable source rows={transformationRows} stage={stage}/><p className="tx-table-caption">{stage>=1?"Faded rows fail age > 25. Source data stays intact.":"Fixed sample · ages and salaries shown as supplied."}</p></section>
         <ArrowRight className="tx-connector" size={22}/>
         <section className="tx-stage tx-operations"><header><b>2</b><h4>Apply Transformations <small>(Lazy)</small></h4></header>
-          {operations.map(({title,code,Icon},i)=><div key={title}><button className={"tx-operation tx-operation-"+i+(stage===i+1?" tx-active":"")} aria-current={stage===i+1?"step":undefined} onClick={()=>go(i+1)}><Icon size={28}/><span><strong>{title}</strong><code>{code}</code></span>{stage>i+1&&<Check size={14} className="tx-operation-done"/>}</button>{i<2&&<ArrowDown className="tx-down" size={13}/>}</div>)}
+          {operations.map(({title,code,Icon},i)=><div key={title}><button className={"tx-operation tx-operation-"+i+(stage===i+1?" tx-active":"")} aria-current={stage===i+1?"step":undefined} onClick={()=>go(i+1)}><Icon size={28}/><span><strong>{title}</strong><code><SyntaxText code={code}/></code></span>{stage>i+1&&<Check size={14} className="tx-operation-done"/>}</button>{i<2&&<ArrowDown className="tx-down" size={13}/>}</div>)}
         </section>
         <ArrowRight className="tx-connector" size={22}/>
         <section className="tx-stage"><header><b>3</b><div><h4>{stage===4?"Result":"Preview"} <small>(Still Lazy)</small></h4><small>{stage>=3?"transformed_df":"Intermediate preview"} · {rows.length} rows</small></div></header><PreviewTable rows={rows} stage={stage}/><p className="tx-table-caption">Educational preview only · no Spark execution</p></section>

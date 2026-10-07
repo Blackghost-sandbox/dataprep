@@ -1,4 +1,6 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useEffect,useMemo,useState} from "react";
 import {
@@ -58,6 +60,7 @@ function TaskIcon({id}:{id:PipelineTaskId}){
 }
 
 export function CloudOrchestrationLab(){
+ const cloudMotion=useCloudMotion(".oi-task-wrap");
   const [orchestrator,setOrchestrator]=useState<OrchestratorId>("airflow");
   const [state,setState]=useState(()=>referenceOrchestrationState());
   const [autoRun,setAutoRun]=useState(true);
@@ -94,7 +97,7 @@ export function CloudOrchestrationLab(){
     setMetadataTab("task");
   };
 
-  return <section className="oi-lab">
+  return <section {...cloudMotion} className="oi-lab">
     <header className="oi-toolbar">
       <div className="oi-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>Execute a data pipeline and see how an orchestrator manages dependencies, retries, and integrations.</p></div></div>
       <div className="oi-toolbar-actions">
@@ -131,7 +134,7 @@ export function CloudOrchestrationLab(){
     <div className="oi-detail-grid">
       <section className="oi-code">
         <header><h3>DAG Definition (Simplified)</h3><span>✦ Apache Airflow</span></header>
-        <pre><code>{dagDefinition}</code></pre>
+        <pre><code><SyntaxText code={dagDefinition}/></code></pre>
       </section>
 
       <section className="oi-logs">

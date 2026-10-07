@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -94,6 +95,7 @@ function CodeEditor({
 }
 
 export function DbtJinjaMacrosLab(){
+ const dbtMotion=useDbtMotion(".dbtj-flow-card");
   const companion=useCompanion();
   const [datasetId,setDatasetId]=useState<DbtJinjaDatasetId>("ecommerce");
   const [model,setModel]=useState(defaultJinjaModel);
@@ -132,7 +134,7 @@ export function DbtJinjaMacrosLab(){
     setHasRun(false);
   };
 
-  return <section className="dbtj-lab" aria-label="dbt Jinja variables and macros interactive simulation">
+  return <section {...dbtMotion} className="dbtj-lab" aria-label="dbt Jinja variables and macros interactive simulation">
     <section className="dbtj-explainer">
       <header className="dbtj-section-head">
         <h2><BookOpen size={21}/>How Jinja, Variables &amp; Macros fit in the dbt flow</h2>

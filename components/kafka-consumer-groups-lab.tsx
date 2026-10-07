@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -21,6 +22,7 @@ const actions:Array<{id:RebalanceAction;label:string}>=[
 ];
 
 export function KafkaConsumerGroupsLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createConsumerGroupState());
   const [action,setAction]=useState<RebalanceAction>("add");
   const metrics=useMemo(()=>groupMetrics(state),[state]);
@@ -28,7 +30,7 @@ export function KafkaConsumerGroupsLab(){
   const apply=()=>setState(s=>applyConsumerGroupAction(s,action));
   const reset=()=>{setState(createConsumerGroupState());setAction("add");};
 
-  return <section className="kcg-lab" aria-label="Kafka consumer groups interactive simulation">
+  return <section {...kafkaMotion} className="kcg-lab" aria-label="Kafka consumer groups interactive simulation">
     <header className="kcg-toolbar">
       <div className="kcg-heading">
         <span><Play size={19} fill="currentColor"/></span>
@@ -53,7 +55,7 @@ export function KafkaConsumerGroupsLab(){
           {state.partitions.map(partition=>{
             const tone=tones[partition.id%tones.length];
             const owner=ownerForPartition(state,partition.id);
-            return <button key={partition.id} className={"kcg-partition "+tone+(state.selectedPartition===partition.id?" is-selected":"")} onClick={()=>setState(s=>selectConsumerGroupPartition(s,partition.id))}>
+            return <button key={partition.id} data-kafka-owner={owner?.id} className={"kcg-partition "+tone+(state.selectedPartition===partition.id?" is-selected":"")} onClick={()=>setState(s=>selectConsumerGroupPartition(s,partition.id))}>
               <span className="kcg-partition-icon"><Database size={15}/></span>
               <div><strong>Partition {partition.id}</strong><small>{partition.messages} messages</small></div>
               <div className="kcg-record-dots">{Array.from({length:Math.min(6,Math.max(3,Math.ceil(partition.messages/3)))},(_,index)=><i key={index}>{String.fromCharCode(51+index)}</i>)}</div>
@@ -69,7 +71,7 @@ export function KafkaConsumerGroupsLab(){
           {state.consumers.map((consumer,index)=>{
             const tone=tones[index%tones.length];
             const processing=consumer.partitions.reduce((sum,p)=>sum+(state.partitions[p]?.messages??0),0);
-            return <section key={consumer.id} className={"kcg-consumer "+tone}>
+            return <section key={consumer.id} data-kafka-consumer={consumer.id} className={"kcg-consumer "+tone}>
               <span className="kcg-user-icon"><Users size={17}/></span>
               <div><strong>{consumer.label}</strong><p>Partitions: {consumer.partitions.length?consumer.partitions.join(", "):"None"}</p><small>Processing: {processing} msgs</small></div>
               <em><CircleDot size={10}/>Active</em>

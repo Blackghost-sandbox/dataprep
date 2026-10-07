@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useEffect,useMemo,useState} from "react";
 import {
@@ -24,6 +25,7 @@ function MessageJson({record}:{record:StoredProducerRecord|null}) {
 }
 
 export function KafkaProducerConsumerLab(){
+ const kafkaMotion=useKafkaMotion();
   const [dataset,setDataset]=useState<KafkaDatasetId>("orders");
   const [scenario,setScenario]=useState<KafkaScenarioId>("normal");
   const [scenarioIndex,setScenarioIndex]=useState(0);
@@ -54,7 +56,7 @@ export function KafkaProducerConsumerLab(){
 
   const activeConsumers=useMemo(()=>Object.values(state.consumers).filter(c=>c.active).length,[state.consumers]);
 
-  return <section className="kpc-lab" aria-label="Kafka producers consumers and topics interactive simulation">
+  return <section {...kafkaMotion} className="kpc-lab" aria-label="Kafka producers consumers and topics interactive simulation">
     <header className="kpc-toolbar">
       <div className="kpc-title">
         <span className="kpc-title-icon"><Radio size={22}/></span>
@@ -82,7 +84,7 @@ export function KafkaProducerConsumerLab(){
       <article className="kpc-topic">
         <header><span><Database size={18}/></span><div><h3>Kafka Topic</h3><strong>{topic}</strong></div></header>
         <div className="kpc-partitions">
-          {state.logs.map((records,p)=><button key={p} className={"kpc-partition p"+p} onClick={()=>records.length&&setState(s=>({...s,selected:records[records.length-1]}))}>
+          {state.logs.map((records,p)=><button key={p} data-kafka-partition={p} className={"kpc-partition p"+p} onClick={()=>records.length&&setState(s=>({...s,selected:records[records.length-1]}))}>
             <div><strong>Partition {p}</strong><small>({records.length} messages)</small><Activity size={13}/></div>
             <div className="kpc-record-strip">
               {records.slice(-3).map(record=><span key={record.order_id} className={selected?.order_id===record.order_id?"is-selected":""}>{record.order_id}</span>)}
@@ -100,7 +102,7 @@ export function KafkaProducerConsumerLab(){
       <div className="kpc-consumers">
         {(Object.values(state.consumers) as Array<(typeof state.consumers)[ConsumerId]>).map(consumer=>{
           const tone=consumerTone[consumer.id], lag=consumerLag(state,consumer.id);
-          return <article className={"kpc-consumer "+tone} key={consumer.id}>
+          return <article data-kafka-partition={consumer.partition} className={"kpc-consumer "+tone} key={consumer.id}>
             <span className="kpc-consumer-icon"><Users size={18}/></span>
             <div><h3>{consumer.label}</h3><p>Reads from partition {consumer.partition}</p></div>
             <span className="kpc-pbadge">P{consumer.partition}</span>

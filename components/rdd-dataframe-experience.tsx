@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
@@ -143,7 +144,7 @@ function CopyButton({ code, label }: { code: string; label: string }) {
 }
 
 export function DarkCodeCard({ title, code }: { title: string; code: string }) {
-  return <TooltipProvider delayDuration={180}><article className="comparison-code-card"><header><h4><Check size={13}/>{title}</h4><CopyButton code={code} label={title}/></header><div className="comparison-code-scroll" tabIndex={0} role="region" aria-label={title}><code>{code.split("\n").map((line,i)=><div className="comparison-code-line" key={i}><span aria-hidden="true">{i+1}</span><span><CodeLine line={line}/></span></div>)}</code></div></article></TooltipProvider>;
+  return <TooltipProvider delayDuration={180}><article className="comparison-code-card"><header><h4><Check size={13}/>{title}</h4><CopyButton code={code} label={title}/></header><div className="comparison-code-scroll" tabIndex={0} role="region" aria-label={title}><code>{code.split("\n").map((line,i)=><div className="comparison-code-line" key={i}><span aria-hidden="true">{i+1}</span><span><SyntaxText code={line}/></span></div>)}</code></div></article></TooltipProvider>;
 }
 
 export function VisualExecutionComparison() {

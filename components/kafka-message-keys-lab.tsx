@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -14,6 +15,7 @@ import {
 const tones=["blue","orange","pink","green","violet","cyan"] as const;
 
 export function KafkaMessageKeysLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createMessageKeysState());
   const [mode,setMode]=useState<ProducerMode>("single");
   const [messageKey,setMessageKey]=useState("customer_101");
@@ -43,7 +45,7 @@ export function KafkaMessageKeysLab(){
     state.roundRobin
   );
 
-  return <section className="kmk-lab" aria-label="Kafka message keys and partitioning interactive simulation">
+  return <section {...kafkaMotion} className="kmk-lab" aria-label="Kafka message keys and partitioning interactive simulation">
     <header className="kmk-toolbar">
       <div className="kmk-heading">
         <span><Play size={19} fill="currentColor"/></span>
@@ -91,7 +93,7 @@ export function KafkaMessageKeysLab(){
             <h4>Partitions</h4>
             {state.logs.map((rows,partition)=>{
               const tone=tones[partition%tones.length];
-              return <section className={"kmk-partition "+tone} key={partition}>
+              return <section data-motion-selected={state.selected?.partition===partition} className={"kmk-partition "+tone} key={partition}>
                 <header><span><Database size={14}/></span><strong>Partition {partition}</strong></header>
                 <div>{rows.slice(-3).map(message=><button key={message.id} onClick={()=>setState(s=>selectKeyedMessage(s,message.id))}>{message.key??"null"}</button>)}</div>
               </section>;

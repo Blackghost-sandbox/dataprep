@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useEffect,useMemo,useRef,useState} from "react";
 import {
@@ -91,6 +92,7 @@ function YamlPanel({yaml}:{yaml:string}){
 }
 
 export function DbtSourcesSourceLab(){
+ const dbtMotion=useDbtMotion(".dbts-dag > button");
   const [scenarioId,setScenarioId]=useState<DbtSourceScenarioId>("ecommerce");
   const [run,setRun]=useState(()=>newDbtSourceRunState());
   const [activeStep,setActiveStep]=useState(0);
@@ -117,7 +119,7 @@ export function DbtSourcesSourceLab(){
 
   const sourceSnippet="select *\nfrom {{ source('"+scenario.sourceGroup+"',\n    '"+scenario.tableName+"') }}";
 
-  return <section className="dbts-lab" aria-label="dbt Sources and source interactive simulation">
+  return <section {...dbtMotion} className="dbts-lab" aria-label="dbt Sources and source interactive simulation">
     <header className="dbts-lab-head">
       <div><h2><BookOpen size={20}/>How source() works <span>(End-to-End Flow)</span></h2><p>A source represents a table loaded outside dbt (e.g., by an ingestion pipeline). You query it using source() in your models.</p></div>
       <label><span>Scenario</span><select value={scenarioId} onChange={e=>changeScenario(e.target.value as DbtSourceScenarioId)}>{dbtSourceScenarios.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}</select><ChevronDown size={14}/></label>

@@ -8,7 +8,7 @@ import { SqlFundamentalsVisual } from "@/components/sql-fundamentals-visual";
 import { WhereLearningLab } from "@/components/where-learning-lab";
 import { DistinctLearningLab } from "@/components/distinct-learning-lab";
 import { SqlExecutionVisual } from "@/components/sql-execution-visual";
-import { SqlBasicsGuide, SqlIntroductionLab } from "@/components/sql-introduction-lab";
+import { SqlIntroductionLab } from "@/components/sql-introduction-lab";
 import { SelectLearningLab } from "@/components/select-learning-lab";
 import { OrderByLearningLab } from "@/components/order-by-learning-lab";
 import { LimitLearningLab } from "@/components/limit-learning-lab";
@@ -22,7 +22,7 @@ import { NullCaseLearningLab } from "@/components/null-case-learning-lab";
 import { QueryExecutionLearningLab } from "@/components/query-execution-learning-lab";
 
 export function SqlConcept({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
-  return <>{lesson.id!=="introduction"&&<SqlBasicsGuide key={lesson.id} lessonId={lesson.id}/>}{lesson.id==='select'?<SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/>:<SqlExecutionVisual key={lesson.id} lessonId={lesson.id}><SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/></SqlExecutionVisual>}</>;
+  return <>{lesson.id==='select'?<SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/>:<SqlExecutionVisual key={lesson.id} lessonId={lesson.id}><SqlConceptContent lesson={lesson} onTab={onTab} onLesson={onLesson}/></SqlExecutionVisual>}</>;
 }
 function SqlConceptContent({lesson,onTab,onLesson}:{lesson:SparkLesson;onTab:(tab:string)=>void;onLesson:(id:string)=>void}){
   if(lesson.id==="introduction")return <SqlIntroductionLab/>;

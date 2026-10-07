@@ -1,0 +1,188 @@
+/* Cloud activity uses scans, provisioning halos, task traces and storage layers. */
+[data-cloud-stage]{position:relative;isolation:isolate;transition:box-shadow 220ms}
+[data-cloud-stage=working]::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;background:linear-gradient(115deg,transparent 20%,#7bbce82b 45%,#c4e9f066 50%,transparent 65%);background-size:250% 100%;animation:cloud-service-scan 650ms ease both}
+[data-cloud-stage=settling]{animation:cloud-service-settle 650ms ease both}
+/* Storage: a page-sized upload sweep and layered object outlines. */
+:is(.os-lab,.lh-lab) [data-cloud-stage=working]::after{background:repeating-linear-gradient(0deg,transparent 0 15px,#8bcfb333 16px 18px),linear-gradient(0deg,transparent,#b7ecd655,transparent);background-size:100% 230%;animation:cloud-object-upload 650ms ease both}
+/* Compute: a provisioning halo grows around each resource, without moving the card. */
+:is(.cc-lab,.ms-lab) [data-cloud-stage=working]{animation:cloud-resource-provision 650ms ease both}
+:is(.cc-lab,.ms-lab) [data-cloud-stage=working]::after{background:radial-gradient(ellipse at center,#b9a8ec33,transparent 65%);animation:cloud-resource-light 650ms ease both}
+/* Security: inspect the policy rather than imply that permission was granted. */
+.sec-lab [data-cloud-stage=working]::after{background:linear-gradient(180deg,transparent 42%,#ccb5f044 48%,#a981d999 50%,transparent 54%);background-size:100% 230%;animation:cloud-policy-scan 650ms linear both}
+/* Monitoring: a radar sweep inside the service card. */
+.no-lab [data-cloud-stage=working]::after{background:conic-gradient(from 0deg at 50% 50%,transparent 0 70%,#89c8ec44 95%,transparent);animation:cloud-radar-sweep 650ms linear both;clip-path:inset(0 round 12px)}
+/* Orchestration: a travelling border highlights task order. */
+.oi-lab [data-cloud-stage=working]{box-shadow:inset 0 0 0 2px #8ea5e0,0 0 18px #8ea5e022}
+.oi-lab [data-cloud-stage=working]::after{background:linear-gradient(90deg,transparent,#b9c7f044,transparent)}
+.sm-lab [data-cloud-stage=working]::after{background:repeating-linear-gradient(90deg,transparent 0 16px,#94cff344 17px 19px);background-size:200% 100%}
+.ca-lab [data-cloud-stage=working]::after{background:linear-gradient(0deg,#efcd9733,transparent);animation:cloud-cost-rise 650ms ease both;transform-origin:bottom}
+@keyframes cloud-service-scan{from{background-position:100% 0;opacity:0}30%{opacity:1}to{background-position:0 0;opacity:0}}
+@keyframes cloud-service-settle{40%{box-shadow:inset 0 0 0 1px #a6c9e6,0 0 16px #a6c9e61a}}
+@keyframes cloud-object-upload{from{background-position:0 100%;opacity:0}30%{opacity:1}to{background-position:0 0;opacity:0}}
+@keyframes cloud-resource-provision{50%{box-shadow:0 0 0 5px #a59bdc20,0 0 24px #a59bdc22}}
+@keyframes cloud-resource-light{from{opacity:0}50%{opacity:1}to{opacity:0}}
+@keyframes cloud-policy-scan{from{background-position:0 100%}to{background-position:0 0}}
+@keyframes cloud-radar-sweep{from{opacity:0;rotate:0deg}30%{opacity:1}to{opacity:0;rotate:180deg}}
+@keyframes cloud-cost-rise{from{scale:1 .1;opacity:0}50%{opacity:1}to{scale:1 1;opacity:0}}
+@media(prefers-reduced-motion:reduce){[data-cloud-stage],[data-cloud-stage]::after{animation:none!important;transition:none!important}}
+
+.cloud-action-caption{position:absolute;left:8px;right:8px;bottom:8px;z-index:6;padding:9px 12px;border:1px solid #d3e0ee;border-radius:10px;background:#ffffffed;box-shadow:0 4px 14px #344d751a;pointer-events:none;backdrop-filter:blur(8px)}
+.cloud-action-caption small{display:block;font:600 9px system-ui;color:#6a88aa;letter-spacing:.06em;margin-bottom:3px}
+.cloud-action-caption span{display:block;font:500 12px/1.4 system-ui;color:#334b67}
+.cc-flow-row .cloud-action-caption{bottom:0;left:0;right:0}
+
+[data-cloud-motion]{position:relative;isolation:isolate}
+.cloud-flow-node{position:relative}
+.cloud-flow-art{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:7}
+.cloud-transfer-path{fill:none;stroke:#91b9d3;stroke-width:2;stroke-dasharray:4 6;opacity:.65}
+.cloud-transfer-payload{filter:drop-shadow(0 3px 5px #315b8033)}
+.cloud-transfer-payload>rect{fill:#f7fcff;stroke:#66a5c9;stroke-width:1.5}
+.cloud-transfer-payload path{fill:none;stroke:#6b98b5;stroke-width:2;stroke-linecap:round}
+.cloud-transfer-payload .cloud-transfer-cell{fill:#76b8c5;stroke:none}
+.cloud-transfer-payload text{font:600 9px system-ui;fill:#456881}
+.cloud-transfer-payload .cloud-transfer-label{font:500 9px system-ui;paint-order:stroke;stroke:white;stroke-width:3px}
+@media(prefers-reduced-motion:reduce){.cloud-flow-art{display:none}}
+
+/* A stack of files assembles into an extruded row block during processing. */
+.cloud-transfer-payload:has(.cloud-morph-block)>rect{fill:none;stroke:none}
+.cloud-morph-paper{fill:#fffcf5;stroke:#d6b98b;stroke-width:1.2}
+.cloud-morph-files path{stroke:#b49b77}
+.cloud-morph-front{fill:#e7f7f5;stroke:#6cb6b1;stroke-width:1.2}
+.cloud-transfer-payload .cloud-morph-top{fill:#c9eae6;stroke:#6cb6b1;stroke-width:1}
+.cloud-transfer-payload .cloud-morph-side{fill:#a9d8d3;stroke:#6cb6b1;stroke-width:1}
+.cloud-morph-block .cloud-transfer-cell{fill:#67aaa4;opacity:.65}
+.cloud-transfer-path{stroke:#92b7c8;stroke-dasharray:2 8;stroke-linecap:round}
+
+.cloud-service-explainer{margin:0 0 18px;padding:15px;border:1px solid #dce7ef;border-radius:15px;background:linear-gradient(120deg,#f5faff,#faf8ff)}
+.cloud-service-explainer>header{display:flex;justify-content:space-between;gap:12px;margin-bottom:12px;color:#34536c}.cloud-service-explainer>header small{font-size:11px;color:#7e92a5}
+.cloud-service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.cloud-service-grid>article{padding:12px;border:1px solid #e1e8ef;border-radius:12px;background:white;min-width:0}.cloud-service-grid h3{display:flex;gap:7px;align-items:center;font-size:15px;margin:0 0 7px;color:#365773}.cloud-service-grid p{font-size:13px;line-height:1.5;margin:6px 0;color:#61768b}
+.cloud-service-scene{display:flex;flex-wrap:wrap;align-items:center;gap:7px;min-height:88px;padding:10px 0}.cloud-service-scene small{flex-basis:100%;font-size:10px;color:#8b99a5}.cloud-example-chip{display:inline-block;border:1px solid #d8e4ee;border-radius:7px;padding:6px;background:#f7fafc;font-size:10px;color:#627b91;transition:background 350ms,border-color 350ms,box-shadow 350ms}.cloud-example-chip.is-active{background:#e0f2ee;border-color:#78bcb0;box-shadow:0 0 0 2px #9ed4c420;color:#367268}.cloud-example-arrow{font-size:9px;color:#809bb2}.cloud-example-bucket{border:2px solid #93b2cf;border-radius:7px 7px 18px 18px;padding:8px;display:grid;gap:5px;background:#edf5fc}.cloud-example-bucket b,.cloud-example-log b{font-size:10px;color:#4d7494}.cloud-example-workers,.cloud-example-policy{display:grid;gap:4px}.cloud-example-table{display:grid;min-width:55px;border:1px solid #d9e5ed;border-radius:6px;overflow:hidden;text-align:center;font-size:11px}.cloud-example-table b{background:#e2edf5}.cloud-example-table span{padding:3px;border-top:1px solid #e2edf5}.cloud-example-log{display:flex;gap:4px;flex-wrap:wrap;max-width:180px}.cloud-example-log b{width:100%}.cloud-service-remember{border-left:2px solid #b5c9db;padding-left:8px;font-size:11px!important;color:#74889a!important}.cloud-example-cost{min-width:130px;flex:1}.cloud-example-cost div{margin:5px 0}.cloud-example-cost b{font-size:9px;color:#7290a6}.cloud-example-cost i{display:block;height:6px;background:linear-gradient(90deg,#9bbbea,#72c9b6);border-radius:5px;transition:width 600ms}.cloud-service-scene.step-1 .cloud-example-arrow,.cloud-service-scene.step-2 .cloud-example-arrow{animation:cloud-guide-arrow 800ms ease-in-out 2}
+@keyframes cloud-guide-arrow{50%{color:#477eac;opacity:.55}}
+@media(max-width:800px){.cloud-service-explainer>header{display:block}.cloud-service-explainer>header small{display:block;margin-top:4px}}
+@media(prefers-reduced-motion:reduce){.cloud-service-scene *, .cloud-example-chip{animation:none!important;transition:none!important}}
+
+/* Definitions belong to their service node, beside its live controls and data. */
+.cloud-inline-service{margin:10px 12px;min-width:0}
+.cloud-inline-meaning{border-left:3px solid #9b87f5;padding:8px 10px;background:linear-gradient(120deg,#f6f2ff,#effaf9);border-radius:0 9px 9px 0;color:#475569}
+.cloud-inline-definition{display:flex;align-items:flex-start;gap:7px}
+.cloud-inline-definition svg{flex:none;margin-top:3px;color:#7955c7}
+.cloud-inline-definition p{margin:0;font-size:12px;line-height:1.55}
+.cloud-inline-definition strong{color:#574085}
+.cloud-inline-operation{display:flex;gap:7px;align-items:flex-start;margin:7px 0 5px!important;font-size:11px!important;line-height:1.5!important;color:#24746c}
+.cloud-inline-signal{width:6px;height:6px;flex:none;margin-top:5px;border-radius:50%;background:#40b6a4}
+.cloud-inline-meaning small{display:block;font-size:10px;line-height:1.5;color:#64748b}
+.cloud-inline-meaning.is-running .cloud-inline-signal{animation:cloud-service-signal 1.5s ease-out 4}
+@keyframes cloud-service-signal{0%{box-shadow:0 0 0 0 #40b6a477}100%{box-shadow:0 0 0 7px #40b6a400}}
+@media(prefers-reduced-motion:reduce){.cloud-inline-meaning.is-running .cloud-inline-signal{animation:none}}
+
+/* Arrival briefly brings the receiving service forward without changing layout. */
+.cloud-card-arrival{position:relative;z-index:6;animation:cloud-card-arrive 2100ms cubic-bezier(.2,.75,.25,1) both}
+.cloud-arrival-note{position:absolute;left:10px;right:10px;bottom:10px;padding:12px 14px;border:1px solid #c5b9ee;border-radius:12px;background:#fbf9fff5;color:#513a80;font-size:13px;line-height:1.5;box-shadow:0 8px 24px #30234a20;pointer-events:none;animation:cloud-arrival-explain 2100ms ease both}
+@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1)}18%,78%{transform:translateY(-7px) scale(1.025);box-shadow:0 16px 34px #584b7c30}}
+@keyframes cloud-arrival-explain{0%,100%{opacity:0;transform:translateY(8px)}18%,78%{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.cloud-card-arrival{animation:none}.cloud-arrival-note{animation:none}}
+
+.cloud-card-arrival{animation:cloud-card-arrive 3200ms cubic-bezier(.16,1,.3,1) both;z-index:15}
+.cloud-arrival-note{bottom:12px;padding:8px 12px 12px;background:linear-gradient(145deg,#fffffffa,#eee8fffa);backdrop-filter:blur(10px);animation:cloud-arrival-explain 3200ms ease both;transform-origin:bottom center}
+.cloud-arrival-note p{margin:4px 0 0!important;font-size:12px!important;line-height:1.5!important}
+.cloud-arrival-graphic{height:122px;overflow:hidden}
+.cloud-arrival-machine{display:block;width:100%;height:100%;overflow:visible}
+.machine-front{fill:#ede6ff;stroke:#9674d9;stroke-width:2}.machine-top{fill:#d7c8f3;stroke:#9674d9}.machine-side{fill:#bda3e6;stroke:#9674d9}
+.machine-tray{fill:#c1e8df;stroke:#4baa98;animation:machine-tray-fill 3200ms ease both}
+.machine-worker{fill:#c8b5ec;stroke:#8564c0;animation:machine-work 900ms ease-in-out 3}.machine-bit{fill:#7655aa}
+.machine-shield{fill:#c8eee4;stroke:#369e86;stroke-width:2}.machine-check{fill:none;stroke:#298c76;stroke-width:4;stroke-dasharray:35;animation:machine-check-draw 3200ms ease both}
+.machine-link{stroke:#7655aa;stroke-width:2}.machine-file{fill:#fff;stroke:#9d82ce;stroke-width:2}.machine-file-lines{stroke:#9d82ce;stroke-width:2}
+.machine-result{fill:#9ddfc9;stroke:#39a282;stroke-width:1.5}.machine-label{fill:#70509d;font-size:9px;font-weight:700;letter-spacing:1px}
+.machine-input{animation:machine-enter 2600ms cubic-bezier(.3,.1,.2,1) both}.machine-output{animation:machine-exit 2600ms cubic-bezier(.3,.1,.2,1) both}
+@keyframes machine-enter{0%,12%{opacity:0;transform:translateX(-18px)}22%{opacity:1}55%,100%{opacity:0;transform:translateX(100px) scale(.85)}}
+@keyframes machine-exit{0%,48%{opacity:0;transform:translateX(-60px)}65%,88%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(18px)}}
+@keyframes machine-work{50%{fill:#68d1b5;filter:drop-shadow(0 0 3px #68d1b5)}}
+@keyframes machine-tray-fill{0%,25%{opacity:.25}55%,100%{opacity:1}}
+@keyframes machine-check-draw{0%,35%{stroke-dashoffset:35}65%,100%{stroke-dashoffset:0}}
+@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1)}14%,82%{transform:translateY(-14px) scale(1.055);box-shadow:0 22px 50px #584b7c40}}
+@keyframes cloud-arrival-explain{0%,100%{opacity:0;transform:perspective(700px) rotateX(-22deg) translateY(16px) scale(.9)}14%,82%{opacity:1;transform:perspective(700px) rotateX(0) translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.cloud-card-arrival,.cloud-arrival-note,.cloud-arrival-graphic *{animation:none!important}}
+
+/* Grow the active card and its illustration together, without reflowing the pipeline. */
+.cloud-card-arrival{transform-origin:center center;animation:cloud-card-arrive 3200ms cubic-bezier(.16,1,.3,1) both;z-index:20}
+.cloud-card-arrival .cloud-arrival-note{left:6px;right:6px;bottom:8px;padding:12px 14px 16px;box-shadow:0 18px 46px #49356b38}
+.cloud-card-arrival .cloud-arrival-graphic{height:160px}
+.cloud-card-arrival .cloud-arrival-note p{font-size:13px!important;line-height:1.55!important}
+@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1);box-shadow:0 0 0 transparent}16%,80%{transform:translateY(-24px) scale(1.15);box-shadow:0 30px 65px #584b7c50}}
+@media(max-width:900px){.cloud-card-arrival .cloud-arrival-graphic{height:135px}@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1)}16%,80%{transform:translateY(-14px) scale(1.07);box-shadow:0 20px 42px #584b7c40}}}
+@media(prefers-reduced-motion:reduce){.cloud-card-arrival{animation:none!important}}
+
+.cloud-card-arrival{animation-duration:5200ms}
+.cloud-card-arrival .cloud-arrival-note{animation-duration:5200ms;left:-14px;right:-14px;padding:16px 18px 20px}
+.cloud-card-arrival .cloud-arrival-graphic{height:195px}
+.cloud-arrival-detail{display:block;margin-top:9px;padding-top:9px;border-top:1px solid #cbbde9;color:#685b7c;font-size:12px;line-height:1.6}
+@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1);box-shadow:0 0 0 transparent}12%,88%{transform:translateY(-28px) scale(1.24);box-shadow:0 36px 75px #584b7c55}}
+@media(max-width:900px){.cloud-card-arrival .cloud-arrival-note{left:4px;right:4px}.cloud-card-arrival .cloud-arrival-graphic{height:140px}@keyframes cloud-card-arrive{0%,100%{transform:translateY(0) scale(1)}12%,88%{transform:translateY(-12px) scale(1.06);box-shadow:0 20px 42px #584b7c40}}}
+@media(prefers-reduced-motion:reduce){.cloud-card-arrival,.cloud-card-arrival .cloud-arrival-note{animation:none!important}}
+
+/* A broad service-coloured cutaway, rather than a tall caption column. */
+.cloud-card-arrival{overflow:visible!important}
+.cloud-card-arrival .cloud-arrival-note{right:auto;display:grid;grid-template-columns:minmax(120px,.8fr) minmax(0,1.2fr);align-items:center;gap:14px;background:var(--arrival-bg,#f9f7ff);border:2px solid var(--arrival-accent,#c5b9ee);border-radius:18px;padding:18px;color:#334155}
+.cloud-card-arrival .cloud-arrival-graphic{height:165px}
+.cloud-arrival-copy{min-width:0}
+.cloud-arrival-title{display:block;font-size:15px;line-height:1.35;margin-bottom:8px;color:#25354b}
+.cloud-card-arrival .cloud-arrival-note p{font-size:12px!important;line-height:1.55!important}
+.cloud-card-arrival .cloud-arrival-detail{font-size:11px;line-height:1.6;border-top-color:var(--arrival-accent,#cbbde9);color:#526177}
+.cloud-arrival-machine .machine-front{fill:var(--arrival-bg,#ede6ff);stroke:var(--arrival-accent,#9674d9)}
+.cloud-arrival-machine .machine-top,.cloud-arrival-machine .machine-side{fill:var(--arrival-accent,#bda3e6);stroke:var(--arrival-accent,#9674d9)}
+@media(max-width:650px){.cloud-card-arrival .cloud-arrival-note{grid-template-columns:100px minmax(0,1fr);gap:8px;padding:12px}.cloud-card-arrival .cloud-arrival-graphic{height:120px}}
+
+/* Give the operation illustration equal weight to the explanation. */
+.cloud-card-arrival .cloud-arrival-note{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.cloud-card-arrival .cloud-arrival-graphic{height:205px}
+.cloud-card-arrival .cloud-arrival-machine{transform:scale(1.4);transform-origin:50% 50%}
+@media(max-width:650px){.cloud-card-arrival .cloud-arrival-note{grid-template-columns:minmax(95px,.8fr) minmax(0,1.2fr)}.cloud-card-arrival .cloud-arrival-graphic{height:150px}.cloud-card-arrival .cloud-arrival-machine{transform:scale(1.2)}}
+
+/* One service unfolds into its cutaway; the original content does not show behind it. */
+.cloud-card-arrival{background:transparent!important;border-color:transparent!important;animation:cloud-card-unfold 5200ms cubic-bezier(.22,1,.36,1) both!important}
+.cloud-card-arrival > :not(.cloud-arrival-note){animation:cloud-original-retreat 5200ms ease both;pointer-events:none}
+.cloud-card-arrival .cloud-arrival-note{background:var(--arrival-bg,#f9f7ff)!important;backdrop-filter:none;animation:cloud-scene-unfold 5200ms cubic-bezier(.22,1,.36,1) both!important;transform-origin:center center;will-change:transform,opacity}
+@keyframes cloud-original-retreat{0%,100%{opacity:1;filter:blur(0);transform:scale(1)}10%,90%{opacity:0;filter:blur(3px);transform:scale(.94)}}
+@keyframes cloud-card-unfold{0%,100%{transform:translateY(0) scale(1);box-shadow:none}16%,82%{transform:translateY(-28px) scale(1.24);box-shadow:none}}
+@keyframes cloud-scene-unfold{0%{opacity:0;transform:perspective(1000px) rotateX(12deg) scale(.65,.9);border-radius:28px}16%,82%{opacity:1;transform:perspective(1000px) rotateX(0) scale(1);border-radius:18px}100%{opacity:0;transform:perspective(1000px) rotateX(-8deg) scale(.65,.9);border-radius:28px}}
+@media(max-width:900px){@keyframes cloud-card-unfold{0%,100%{transform:translateY(0) scale(1)}16%,82%{transform:translateY(-12px) scale(1.06)}}}
+@media(prefers-reduced-motion:reduce){.cloud-card-arrival,.cloud-card-arrival .cloud-arrival-note,.cloud-card-arrival > :not(.cloud-arrival-note){animation:none!important}.cloud-card-arrival > :not(.cloud-arrival-note){opacity:0}}
+
+/* Introduction: a continuous lift, unfold and return with staggered inner reveals. */
+.cloud-sim .cloud-card-arrival{animation:cloud-intro-lift 5200ms cubic-bezier(.19,1,.22,1) both!important}
+.cloud-sim .cloud-card-arrival .cloud-arrival-note{animation:cloud-intro-open 5200ms cubic-bezier(.19,1,.22,1) both!important;box-shadow:0 22px 56px #324d7426,0 4px 12px #324d7414;backface-visibility:hidden}
+.cloud-sim .cloud-card-arrival .cloud-arrival-graphic{animation:cloud-intro-illustration 5200ms cubic-bezier(.22,1,.36,1) both}
+.cloud-sim .cloud-card-arrival .cloud-arrival-copy{animation:cloud-intro-copy 5200ms cubic-bezier(.22,1,.36,1) both}
+.cloud-sim .cloud-card-arrival > :not(.cloud-arrival-note){animation:cloud-intro-original 5200ms ease both}
+@keyframes cloud-intro-lift{0%,100%{transform:translate3d(0,0,0) scale(1)}18%,78%{transform:translate3d(0,-28px,0) scale(1.24)}}
+@keyframes cloud-intro-open{0%{opacity:0;transform:perspective(1200px) translate3d(0,20px,0) rotateX(7deg) scale(.72,.92)}18%,78%{opacity:1;transform:perspective(1200px) translate3d(0,0,0) rotateX(0) scale(1)}100%{opacity:0;transform:perspective(1200px) translate3d(0,12px,0) rotateX(-4deg) scale(.76,.94)}}
+@keyframes cloud-intro-illustration{0%,7%{opacity:0;transform:translate3d(-14px,6px,0) scale(.92)}23%,77%{opacity:1;transform:translate3d(0,0,0) scale(1)}94%,100%{opacity:0;transform:translate3d(-7px,4px,0) scale(.96)}}
+@keyframes cloud-intro-copy{0%,11%{opacity:0;transform:translate3d(12px,6px,0)}27%,76%{opacity:1;transform:translate3d(0,0,0)}90%,100%{opacity:0;transform:translate3d(6px,4px,0)}}
+@keyframes cloud-intro-original{0%,100%{opacity:1;transform:scale(1);filter:blur(0)}12%,85%{opacity:0;transform:scale(.96);filter:blur(2px)}}
+@media(max-width:900px){@keyframes cloud-intro-lift{0%,100%{transform:translate3d(0,0,0) scale(1)}18%,78%{transform:translate3d(0,-12px,0) scale(1.06)}}}
+@media(prefers-reduced-motion:reduce){.cloud-sim .cloud-card-arrival,.cloud-sim .cloud-card-arrival .cloud-arrival-note,.cloud-sim .cloud-card-arrival .cloud-arrival-graphic,.cloud-sim .cloud-card-arrival .cloud-arrival-copy,.cloud-sim .cloud-card-arrival > :not(.cloud-arrival-note){animation:none!important}}
+
+/* Pop outward from the service footprint and close back into that same footprint. */
+.cloud-sim .cloud-card-arrival{animation:cloud-intro-pop-position 5200ms cubic-bezier(.22,1,.36,1) both!important}
+.cloud-sim .cloud-card-arrival .cloud-arrival-note{transform-origin:var(--arrival-origin-x,50%) var(--arrival-origin-y,50%);animation:cloud-intro-pop-mechanism 5200ms both!important}
+@keyframes cloud-intro-pop-position{0%,100%{transform:translate3d(0,0,0) scale(1)}20%,76%{transform:translate3d(0,-28px,0) scale(1.24)}}
+@keyframes cloud-intro-pop-mechanism{0%{opacity:0;transform:scale(var(--arrival-start-x,.65),var(--arrival-start-y,.85));animation-timing-function:cubic-bezier(.16,1,.3,1)}5%{opacity:1;animation-timing-function:cubic-bezier(.16,1,.3,1)}22%,76%{opacity:1;transform:scale(1);animation-timing-function:cubic-bezier(.65,0,.35,1)}97%{opacity:1;transform:scale(var(--arrival-start-x,.65),var(--arrival-start-y,.85));animation-timing-function:ease-out}100%{opacity:0;transform:scale(var(--arrival-start-x,.65),var(--arrival-start-y,.85))}}
+@media(max-width:900px){@keyframes cloud-intro-pop-position{0%,100%{transform:translate3d(0,0,0) scale(1)}20%,76%{transform:translate3d(0,-12px,0) scale(1.06)}}}
+@media(prefers-reduced-motion:reduce){.cloud-sim .cloud-card-arrival,.cloud-sim .cloud-card-arrival .cloud-arrival-note{animation:none!important}}
+
+/* The illustration is a still diagram while the learner reads. */
+.cloud-arrival-graphic .machine-input{animation:none!important;opacity:1;transform:translateX(15px)}
+.cloud-arrival-graphic .machine-output{animation:none!important;opacity:1;transform:none}
+.cloud-arrival-graphic .machine-worker,.cloud-arrival-graphic .machine-tray,.cloud-arrival-graphic .machine-check{animation:none!important;opacity:1;stroke-dashoffset:0}
+.cloud-reading-continue{pointer-events:auto;margin-top:12px;border:1px solid var(--arrival-accent,#bba6e3);border-radius:9px;background:#ffffff;color:#334155;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.cloud-reading-continue:hover{background:#f1f5f9}.cloud-reading-continue:focus-visible{outline:2px solid #6555cc;outline-offset:3px}
+
+.cloud-study{padding:20px;background:#f8fafc;border-radius:18px;color:#334155}.cloud-study-head{margin-bottom:18px}.cloud-study-head>span,.cloud-study-number{font-size:12px;font-weight:700;color:#6f55bd}.cloud-study-head h2{margin:8px 0;font-size:24px;color:#13243c}.cloud-study p,.cloud-study li{font-size:14px;line-height:1.7}.cloud-study h3{font-size:18px;color:#20344e;margin:0 0 12px}.cloud-study h4{font-size:13px;color:#526789;margin:16px 0 6px}.cloud-study-columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.cloud-study-card{min-width:0;background:white;border:1px solid #dce4ef;border-radius:16px;padding:20px}.cloud-study-stack{display:grid;gap:16px}.cloud-study pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.7;background:#f0f4fa;padding:14px;border-radius:10px}.cloud-study-flow{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}.cloud-study-flow>div{flex:1;min-width:110px;padding:14px;background:#eaf4ff;border:1px solid #c7e0f8;border-radius:12px}.cloud-study-flow small{display:block;color:#498bd0;margin-bottom:6px}.cloud-study-flow strong{font-size:13px}.cloud-study textarea{width:100%;min-height:230px;resize:vertical;margin:10px 0;border:1px solid #cbd5e1;border-radius:10px;padding:14px;line-height:1.7;background:#fbfdff;color:#334155;box-sizing:border-box}.cloud-study small{font-size:12px;line-height:1.6}.cloud-study details{padding:14px 0;border-bottom:1px solid #e2e8f0}.cloud-study summary{cursor:pointer;font-weight:700}.cloud-study-wrong,.cloud-study-right,.cloud-study-recall{padding:14px;border-radius:12px;background:#fff3ed}.cloud-study-right{background:#eefaF3}.cloud-study-recall{background:#f2edff}.cloud-study-option{display:flex;gap:10px;padding:12px;margin:7px 0;background:#f5f7fc;border-radius:9px;cursor:pointer}.cloud-study legend{font-weight:700;padding:0 6px}.cloud-study button{margin-top:18px;padding:12px 18px;border:0;border-radius:10px;background:#7054df;color:white;cursor:pointer}.cloud-study button:disabled{opacity:.5;cursor:default}.cloud-study :focus-visible{outline:2px solid #7054df;outline-offset:3px}
+@media(max-width:900px){.cloud-study-columns{grid-template-columns:1fr}.cloud-study{padding:12px}.cloud-study-head h2{font-size:20px}}
+
+.cloud-arrival-note{pointer-events:auto}
+.cloud-scenario{margin-bottom:18px;border-color:#b9d8ee;background:linear-gradient(120deg,#f3f9ff,#fff)}
+.cloud-scenario label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+.cloud-scenario select,.cloud-scenario input{width:100%;box-sizing:border-box;border:1px solid #c6d4e3;border-radius:9px;padding:10px;background:white;color:#334155}
+.cloud-scenario [role=status]{margin-top:16px}.cloud-scenario small{display:block;margin-top:10px}

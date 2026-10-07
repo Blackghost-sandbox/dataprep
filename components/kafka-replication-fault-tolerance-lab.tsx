@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -15,6 +16,7 @@ import {
 const brokerTone=["red","green","blue"] as const;
 
 export function KafkaReplicationFaultToleranceLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createReplicationState());
   const status=useMemo(()=>partitionStatus(state),[state]);
   const isr=currentIsr(state);
@@ -22,7 +24,7 @@ export function KafkaReplicationFaultToleranceLab(){
   const run=()=>setState(s=>runReplicationScenario(s));
   const reset=()=>setState(createReplicationState());
 
-  return <section className="krf-lab" aria-label="Kafka replication and fault tolerance interactive simulation">
+  return <section {...kafkaMotion} className="krf-lab" aria-label="Kafka replication and fault tolerance interactive simulation">
     <header className="krf-toolbar">
       <div className="krf-heading">
         <span><Play size={19} fill="currentColor"/></span>

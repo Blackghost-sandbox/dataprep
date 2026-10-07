@@ -1,4 +1,5 @@
 "use client";
+import {CodeEditor} from "@/components/syntax-editor";
 
 import { useMemo, useState } from "react";
 import {
@@ -189,7 +190,7 @@ export function WindowFunctionsLearningLab({
             <div className="wf-panel-title"><span className="wf-dot wf-pink"/> <div><strong>2. Window expression</strong><small>Edit the lesson SQL, then run it.</small></div></div>
             <div className="wf-editor-shell">
               <div className="wf-editor-bar"><span>SQL</span><button type="button" onClick={copySql}><Copy size={14}/>{copied ? "Copied" : "Copy"}</button></div>
-              <textarea aria-label="Window function SQL" spellCheck={false} value={query} onChange={(event) => { setQuery(event.target.value); setStatus("ready"); setError(""); }}/>
+              <CodeEditor aria-label="Window function SQL" spellCheck={false} value={query} onChange={(event) => { setQuery(event.target.value); setStatus("ready"); setError(""); }}/>
             </div>
             <div className="wf-partition-visual">
               <strong>Window partitions</strong>

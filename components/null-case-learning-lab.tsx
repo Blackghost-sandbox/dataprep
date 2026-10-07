@@ -1,4 +1,5 @@
 "use client";
+import {CodeEditor} from "@/components/syntax-editor";
 
 import { useMemo, useState } from "react";
 import { CheckCircle2, Copy, Database, Lightbulb, Play, RotateCcw, Sparkles, TriangleAlert } from "lucide-react";
@@ -91,7 +92,7 @@ export function NullCaseLearningLab(){
         <section className="null-editor-panel">
           <div className="null-code-shell">
             <div className="null-code-bar"><span><Sparkles size={14}/> SQL Editor</span><button type="button" onClick={copy}><Copy size={14}/>{copied?"Copied":"Copy"}</button></div>
-            <textarea aria-label="NULL and CASE WHEN SQL editor" spellCheck={false} value={query} onChange={event=>{setQuery(event.target.value);setRunState("ready");}}/>
+            <CodeEditor aria-label="NULL and CASE WHEN SQL editor" spellCheck={false} value={query} onChange={event=>{setQuery(event.target.value);setRunState("ready");}}/>
           </div>
           <div className="null-scenario-label">Try different queries</div>
           <div className="null-scenarios">{nullCaseScenarios.map(item=><button type="button" key={item.id} aria-pressed={scenarioId===item.id} onClick={()=>chooseScenario(item.id)}>{item.label}</button>)}</div>

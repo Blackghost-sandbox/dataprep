@@ -5,19 +5,22 @@ import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url);
 const cache=new Map();
 function load(file){
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
+  if(file.endsWith(".json")){loaded.exports=JSON.parse(fs.readFileSync(file,"utf8"));return loaded.exports;}
   const source=fs.readFileSync(file,'utf8');
   const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true}}).outputText;
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)]].find(file=>fs.existsSync(file)&&fs.statSync(file).isFile());
       assert.ok(found,'Module not found: '+name);return load(found);
     }
     return require(name);
@@ -43,13 +46,12 @@ for(const lesson of sqlLessons){
   const tabs=[],links=[];
   const props={lesson,onTab:tab=>tabs.push(tab),onLesson:id=>links.push(id)};
   const concept=renderToString(React.createElement(GlossaryProvider,null,React.createElement(SqlConcept,props)));
-  const headings=lesson.id==='where'?['Who gets invited?','Predict the result','Build the result','Break your assumption','Explain it to an interviewer']:lesson.id==='select'?['Interactive Simulation','Select columns','Source data','Query result','Generated SQL','Try it yourself']:['What is','Basic syntax','Follow the data','Why it matters','Remember','Key Takeaway','Explore Examples'];
-  let previous=-1;
-  for(const heading of headings){const position=concept.indexOf(heading);assert.ok(position>previous,lesson.id+': '+heading);previous=position;}
-  assert.ok(!concept.includes('In plain English'));
-  assert.ok(!concept.includes('postgresql.org'));
+  // Every SQL topic now uses its dedicated interactive lesson rather than the old generic headings.
+  const heading=lesson.id==='introduction'?'Interactive Exploration':lesson.id==='window-functions'?'Follow the data':'Interactive';
+  assert.ok(concept.includes(heading),lesson.id+': dedicated concept lab');
+  assert.ok(concept.includes('Reset'),lesson.id+': reset control');
+  assert.ok(concept.includes('<table'),lesson.id+': visible data/result table');
   for(const button of buttons(SqlConcept(props)))button.props.onClick?.();
-  assert.deepEqual(tabs,lesson.id==='where'||lesson.id==='select'?[]:['Examples','Hands-on']);
   for(const id of links)assert.ok(sqlLessons.some(item=>item.id===id));
   assert.ok(sqlConceptGuides[lesson.id]);
   assert.ok(renderToString(React.createElement(SqlOperationVisual,{id:lesson.id})).length>100);

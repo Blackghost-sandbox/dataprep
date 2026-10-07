@@ -1,4 +1,6 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -68,6 +70,7 @@ function money(value:number){
 }
 
 export function CloudObjectStorageLab(){
+ const cloudMotion=useCloudMotion(".os-stage");
   const [provider,setProvider]=useState<ObjectStorageProviderId>("aws");
   const [dataSource,setDataSource]=useState<ObjectStorageDataSourceId>("ecommerce");
   const [format,setFormat]=useState<ObjectStorageFormatId>("json");
@@ -124,7 +127,7 @@ export function CloudObjectStorageLab(){
     const a=document.createElement("a");a.href=url;a.download="object-storage-query-results.csv";a.click();URL.revokeObjectURL(url);
   };
 
-  return <section className="os-lab" aria-label="Object storage and data lakes interactive simulation">
+  return <section {...cloudMotion} className="os-lab" aria-label="Object storage and data lakes interactive simulation">
     <header className="os-toolbar">
       <div className="os-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how data is ingested, stored and organized in a data lake using object storage (S3, GCS, Azure Blob).</p></div></div>
       <div className="os-toolbar-actions">
@@ -165,7 +168,7 @@ export function CloudObjectStorageLab(){
       <article className="os-stage analyze">
         <h3><span><BarChart3 size={15}/></span>Analyze Data</h3><p>Query the stored data using different tools.</p>
         <div className="os-engine-tabs" role="tablist">{(Object.keys(queryEngines) as QueryEngineId[]).map(id=><button key={id} role="tab" aria-selected={engine===id} className={engine===id?"is-active":""} onClick={()=>setEngine(id)}>{queryEngines[id].label}</button>)}</div>
-        <pre className="os-query"><code>{query}</code></pre>
+        <pre className="os-query"><code><SyntaxText code={query}/></code></pre>
         <button className="os-query-run" onClick={runQuery}><Play size={13} fill="currentColor"/>Run Query</button>
       </article>
     </div>

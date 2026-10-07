@@ -31,7 +31,7 @@ assert.equal(model.ingestionScenarios.length,3);
 const componentFile=path.join(root,"components/system-design-ingestion-experience.tsx");
 const source=fs.readFileSync(componentFile,"utf8");
 transpile(componentFile);
-for(const phrase of ["Interactive Simulation","Choose Data Sources","Ingestion Pipeline (Live Simulation)","Run Simulation","Simulation Results","Event Log (Live)","Data Preview (Landing Zone)","Lesson Progress","Quick Notes"]) assert.ok(source.includes(phrase),"Missing UI contract: "+phrase);
+for(const phrase of ["Interactive Simulation","Choose Data Sources","Ingestion Pipeline (Live Simulation)","Run Simulation","Simulation Results","Event Log (Live)","Data Preview (Landing Zone)","Lesson Progress","Quick Notes"]) assert.ok(source.replace(/&amp;/g,"&").includes(phrase),"Missing UI contract: "+phrase);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("systemIngestionHandsOn"));

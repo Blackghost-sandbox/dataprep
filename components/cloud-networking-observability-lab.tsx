@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -60,6 +61,7 @@ function Toggle({on,onClick}:{on:boolean;onClick:()=>void}){
 }
 
 export function CloudNetworkingObservabilityLab(){
+ const cloudMotion=useCloudMotion(".no-stage-grid > .no-card");
   const [controls,setControls]=useState<ObservabilityControls>(()=>defaultObservabilityControls());
   const [state,setState]=useState(()=>referenceObservabilityState());
   const [running,setRunning]=useState(false);
@@ -90,7 +92,7 @@ export function CloudNetworkingObservabilityLab(){
 
   const visibleLogs=state.logs.filter(log=>logFilter==="all"||log.level.toLowerCase()===logFilter);
 
-  return <section className="no-lab" aria-label="Networking reliability and observability interactive simulation">
+  return <section {...cloudMotion} className="no-lab" aria-label="Networking reliability and observability interactive simulation">
     <header className="no-toolbar">
       <div className="no-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how networking, reliability, and observability work together in a data pipeline. Introduce failures and watch the system recover.</p></div></div>
       <div className="no-toolbar-actions">

@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -126,6 +127,7 @@ function ValidationSummary({validation}:{validation:DbtProjectValidation|null}){
 }
 
 export function DbtProjectStructureLab(){
+ const dbtMotion=useDbtMotion(".dbtp-sim-grid > .dbtp-panel");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<DbtProjectScenarioId>("healthy");
   const [selectedId,setSelectedId]=useState("project");
@@ -157,7 +159,7 @@ export function DbtProjectStructureLab(){
     },420);
   };
 
-  return <section className="dbtp-lab" aria-label="dbt project structure and documentation interactive lesson">
+  return <section {...dbtMotion} className="dbtp-lab" aria-label="dbt project structure and documentation interactive lesson">
     <section className="dbtp-explainer">
       <header className="dbtp-section-head">
         <h2><BookOpen size={21}/>How a dbt project is structured</h2>

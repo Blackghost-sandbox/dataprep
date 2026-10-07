@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -15,6 +16,7 @@ import {
 const partitionTone=["blue","orange","pink"] as const;
 
 export function KafkaPartitionsOffsetsLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createOffsetLabState(3));
   const [scenario,setScenario]=useState<OffsetScenarioId>("normal");
   const [messageValue,setMessageValue]=useState("OrderCreated");
@@ -30,7 +32,7 @@ export function KafkaPartitionsOffsetsLab(){
   const send=()=>setState(s=>produceOffsetMessage(s,messageValue,messageKey));
   const consume=()=>setState(s=>consumeOffsetMessages(s));
 
-  return <section className="kpo-lab" aria-label="Kafka partitions and offsets interactive simulation">
+  return <section {...kafkaMotion} className="kpo-lab" aria-label="Kafka partitions and offsets interactive simulation">
     <header className="kpo-toolbar">
       <div className="kpo-heading">
         <span><Play size={19} fill="currentColor"/></span>

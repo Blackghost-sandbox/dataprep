@@ -1,4 +1,5 @@
 "use client";
+import {CodeEditor} from "@/components/syntax-editor";
 
 import { useMemo, useState } from "react";
 import {
@@ -135,7 +136,7 @@ export function QueryExecutionLearningLab(){
           <h3><Sparkles size={16}/> SQL Editor</h3>
           <div className="qe-code-shell">
             <div className="qe-code-bar"><span>SQL</span><button type="button" onClick={copy}><Copy size={14}/>{copied?"Copied":"Copy"}</button></div>
-            <textarea aria-label="Query execution SQL editor" spellCheck={false} value={query} onChange={event=>{setQuery(event.target.value);setRunState("ready");setStepMode(false);}}/>
+            <CodeEditor aria-label="Query execution SQL editor" spellCheck={false} value={query} onChange={event=>{setQuery(event.target.value);setRunState("ready");setStepMode(false);}}/>
           </div>
           <div className="qe-try-label">Try different queries</div>
           <div className="qe-variations">

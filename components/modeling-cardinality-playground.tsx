@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -454,7 +455,7 @@ export function ModelingCardinalityPlayground() {
         </nav>
         {bottomView === "data" && <div className="mcard-data-grid"><TableView rows={leftRows} title={`${config.leftLabel.toLowerCase()}s`}/><TableView rows={rightRows} title={`${config.rightLabel.toLowerCase()}s`}/>{kind === "many-many" && <TableView rows={relationRows} title="enrollment"/>}</div>}
         {bottomView === "rows" && <div className="mcard-rows-view"><div><h3>{config.notation} relationships</h3><p>{config.description}</p></div><TableView rows={relationRows} title={kind === "many-many" ? "Enrollment bridge" : "Relationship rows"}/></div>}
-        {bottomView === "sql" && <div className="mcard-sql-view"><header><strong>SQL representation</strong><button type="button" onClick={copySql}>{copied ? <CheckCircle2 size={13}/> : <Copy size={13}/>} {copied ? "Copied" : "Copy"}</button></header><pre><code>{sql}</code></pre></div>}
+        {bottomView === "sql" && <div className="mcard-sql-view"><header><strong>SQL representation</strong><button type="button" onClick={copySql}>{copied ? <CheckCircle2 size={13}/> : <Copy size={13}/>} {copied ? "Copied" : "Copy"}</button></header><pre><code><SyntaxText code={sql}/></code></pre></div>}
       </section>
 
       <span className="mcard-sim-status" role="status">{status === "running" ? `Simulation step ${Math.max(1, step + 1)} of 4` : status === "idle" ? "Changes pending — run the simulation to apply and inspect the relationship." : valid ? "Simulation complete — relationship satisfies the selected cardinality." : "Simulation complete — the selected counts violate this cardinality."}</span>

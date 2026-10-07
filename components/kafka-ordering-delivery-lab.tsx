@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/lib/kafka-ordering-delivery-simulation";
 
 export function KafkaOrderingDeliveryLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createDeliveryState());
   const p0Records=useMemo(()=>state.records.filter(record=>record.partition===0).slice(-5),[state.records]);
   const mode=deliveryModes.find(item=>item.id===state.mode)!;
@@ -19,7 +21,7 @@ export function KafkaOrderingDeliveryLab(){
   const reset=()=>setState(createDeliveryState());
   const run=()=>setState(s=>runDeliverySimulation({...s,running:true}));
 
-  return <section className="kod-lab" aria-label="Kafka ordering and delivery semantics interactive simulation">
+  return <section {...kafkaMotion} className="kod-lab" aria-label="Kafka ordering and delivery semantics interactive simulation">
     <header className="kod-toolbar">
       <div className="kod-heading">
         <span><Play size={19} fill="currentColor"/></span>

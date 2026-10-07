@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -16,6 +17,7 @@ const stageTone:Record<string,string>={
 };
 
 export function KafkaStreamsLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createKafkaStreamsState());
   const [region,setRegion]=useState("IN");
   const [amount,setAmount]=useState("125");
@@ -56,7 +58,7 @@ export function KafkaStreamsLab(){
     {id:"sink",title:"Sink",main:"sales_by_region",sub:"Write to output topic",rate:"4 events/s",icon:<Database size={17}/>},
   ];
 
-  return <section className="ksp-lab" aria-label="Kafka Streams and stream processing interactive simulation">
+  return <section {...kafkaMotion} className="ksp-lab" aria-label="Kafka Streams and stream processing interactive simulation">
     <header className="ksp-toolbar">
       <div className="ksp-heading">
         <span><Play size={19} fill="currentColor"/></span>

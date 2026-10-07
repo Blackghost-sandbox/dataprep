@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import {useEffect,useState} from "react";
 import {
@@ -146,7 +147,7 @@ def write_orders(order_id: int, amount: float):
     <div className="af-prod-bottom">
       <section className="af-prod-code">
         <header><strong>Python / configuration · idempotent write pattern</strong><button onClick={()=>{navigator.clipboard?.writeText(code);setCopied(true);window.setTimeout(()=>setCopied(false),1200)}}><Copy size={15}/>{copied?"Copied":"Copy"}</button></header>
-        <pre><code>{code}</code></pre>
+        <pre><code><SyntaxText code={code}/></code></pre>
       </section>
       <section className="af-prod-concepts">
         <h3>Key Concepts</h3>

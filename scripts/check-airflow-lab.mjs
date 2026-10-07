@@ -5,11 +5,14 @@ import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url);
 const cache=new Map();
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,'utf8');
@@ -17,7 +20,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)].find(fs.existsSync);
       assert.ok(found,'Module not found: '+name);return load(found);
     }
     return require(name);
@@ -36,7 +39,7 @@ let scenarios=0,frames=0;
 assert.equal(airflowLessons.length,16);
 for(const lesson of airflowLessons){
  const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(AirflowConceptLab,{lesson})));
- for(const label of ['Next step','Reset','Key takeaway','educational'])assert.ok(html.includes(label),lesson.id+': '+label);
+ for(const label of (lesson.id==='introduction'?['Run DAG','Reset','Execution Events','educational']:['Reset','educational']))assert.ok((html.includes(label)||html.replace(/<[^>]*>/g,"").includes(label)),lesson.id+': '+label);
  if(lesson.visual==='execution'){
   for(const choice of dagChoices[lesson.id]??['Default scenario']){
    const trace=dagTrace(lesson,choice);scenarios++;

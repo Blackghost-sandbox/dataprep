@@ -59,12 +59,12 @@ for (const text of [
   "Key Takeaways",
   "Why Use dbt?",
   "Quick Notes",
-]) assert.ok(componentSource.includes(text), "Missing UI contract: " + text);
+]) assert.ok(componentSource.replace(/&amp;/g,"&").replace(/<[^>]*>/g,"").includes(text), "Missing UI contract: " + text);
 
 const appSource = fs.readFileSync(path.join(root, "components/dataprep-app.tsx"), "utf8");
 assert.ok(appSource.includes("dbtIntroConcept"));
 assert.ok(appSource.includes("DbtIntroductionHero"));
 assert.ok(appSource.includes("DbtIntroductionRightRail"));
-assert.ok(appSource.includes("!dbtIntroConcept&&<NilaCompanion"));
+assert.ok(/!dbtIntroConcept&&[^]*?<NilaCompanion/.test(appSource));
 
 console.log("PASS: dbt introduction scenarios, deterministic logs, TSX transpile, required screenshot UI contracts, app integration.");

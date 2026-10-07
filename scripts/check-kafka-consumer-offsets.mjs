@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -77,10 +80,10 @@ const html=renderToString(React.createElement(KafkaConsumerOffsetsLab));
 for(const text of [
   "Interactive Simulation","Run","Reset","Normal Flow","Auto advance","Kafka Topic:",
   "Consumer (C1)","Fetch position","Last processed","Committed offset",
-  "Processing &amp; Commit","Process Message","Auto commit","Commit Offset",
+  "Processing & Commit","Process Message","Auto commit","Commit Offset",
   "Message Details","Event Log","Offset Progress"
 ]){
-  assert.ok(html.includes(text),text);
+  assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 }
 
 console.log("PASS: fetch/process/commit semantics, manual commit, crash-before-commit replay, committed-offset restart, auto-advance and SSR controls.");

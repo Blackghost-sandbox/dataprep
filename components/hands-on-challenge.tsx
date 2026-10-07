@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 import { useState } from "react";
 import { SimpleExplanation } from "@/components/simple-explanation";
 import { useCompanion, useCompanionExercise } from "@/components/companion-context";
@@ -48,9 +49,9 @@ export function HandsOnChallenge() {
     <div className="challenge-steps">{steps.map((step, index) => <details key={step.title} open className="challenge-step">
       <summary><span className="challenge-number">{index + 1}</span><h3>{step.title}</h3><span className="challenge-chevron" aria-hidden="true">⌄</span></summary>
       <div className="challenge-body"><p>{step.instruction}</p><div className="challenge-terms">What does it mean? {step.terms.map(term => <SimpleExplanation key={term} label={term}/>)}</div>
-        <h4>Starter code</h4><pre tabIndex={0} aria-label={`Starter code for step ${index + 1}`}><code>{step.starter}</code></pre>
+        <h4>Starter code</h4><pre tabIndex={0} aria-label={`Starter code for step ${index + 1}`}><code><SyntaxText code={step.starter}/></code></pre>
         <details className="challenge-help"><summary>Need a hint?</summary><p>{step.hint}</p></details>
-        <details className="challenge-help"><summary>Show solution</summary><pre tabIndex={0} aria-label={`Solution for step ${index + 1}`}><code>{step.solution}</code></pre></details>
+        <details className="challenge-help"><summary>Show solution</summary><pre tabIndex={0} aria-label={`Solution for step ${index + 1}`}><code><SyntaxText code={step.solution}/></code></pre></details>
         <h4>Expected result</h4><pre className="challenge-result" tabIndex={0}><code>{step.expected}</code></pre><p className="challenge-note">{step.explanation}</p>
         <label className="challenge-completion"><input type="checkbox" checked={completed[index]} onChange={event => setCompleted(previous => previous.map((value, i) => i === index ? event.target.checked : value))}/>I completed this step</label>
       </div>

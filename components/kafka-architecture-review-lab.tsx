@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -44,6 +45,7 @@ const designPatterns=[
 ];
 
 export function KafkaArchitectureReviewLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createArchitectureReviewState());
 
   const activeStep=state.events[state.currentStep]?.step;
@@ -52,7 +54,7 @@ export function KafkaArchitectureReviewLab(){
     return broker?.id??null;
   },[state.brokers]);
 
-  return <section className="kar-lab" aria-label="Kafka architecture and interview review">
+  return <section {...kafkaMotion} className="kar-lab" aria-label="Kafka architecture and interview review">
     <header className="kar-section-heading">
       <div>
         <BookOpen size={24}/>

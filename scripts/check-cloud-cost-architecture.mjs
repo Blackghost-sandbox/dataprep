@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -88,8 +91,8 @@ assert.ok(weak.recommendations.some(item=>item.includes("cross-region")));
 const {CloudCostArchitectureLab,CloudCostArchitectureHero}=load(path.join(root,"components/cloud-cost-architecture-lab.tsx"));
 const html=renderToString(React.createElement(CloudCostArchitectureLab));
 for(const text of [
-  "Understand Cost Optimization &amp; Architecture Review","MAP THE ARCHITECTURE",
-  "1. Ingest","2. Store","3. Process","4. Serve","5. Observe &amp; Optimize",
+  "Understand Cost Optimization & Architecture Review","MAP THE ARCHITECTURE",
+  "1. Ingest","2. Store","3. Process","4. Serve","5. Observe & Optimize",
   "Optimize input","Optimize storage","Optimize compute","Optimize serving","Optimize continuously",
   "Scenario","Hourly analytics","Run Simulation","Daily Data","500 GB/day","90 days",
   "Standard","Serverless / managed","Cloud warehouse","Est. Monthly Cost",
@@ -97,14 +100,14 @@ for(const text of [
   "Right-size compute","Optimize storage","Minimize data movement","Manage operational cost",
   "Architecture Review Checklist","Workload shape and SLA requirements",
   "Estimated monthly cost and cost per TB/query","Simulation Recommendations"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudCostArchitectureHero,{
   description:"Design a complete cloud data pipeline and reason about cost using workload shape, data scanned, compute time, storage tiers, network movement, and operational effort.",
   minutes:35,currentLesson:10,total:11,onPrevious:()=>{}
 }));
 for(const text of [
-  "Cost Optimization &amp; Architecture Review","35 min","Lesson 11/11","Intermediate",
+  "Cost Optimization & Architecture Review","35 min","Lesson 11/11","Intermediate",
   "Cost","Performance","Reliability","Scalability"
 ])assert.ok(hero.includes(text),text);
 

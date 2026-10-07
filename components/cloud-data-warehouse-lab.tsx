@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -57,6 +58,7 @@ function currency(value:number){
 }
 
 export function CloudDataWarehouseLab(){
+ const cloudMotion=useCloudMotion(".dw-stage-grid > .dw-card");
   const [controls,setControls]=useState<WarehouseControls>(()=>defaultWarehouseControls());
   const [state,setState]=useState(()=>referenceWarehouseState());
   const [running,setRunning]=useState(false);
@@ -102,7 +104,7 @@ export function CloudDataWarehouseLab(){
     }
   };
 
-  return <section className="dw-lab" aria-label="Cloud data warehouses interactive simulation">
+  return <section {...cloudMotion} className="dw-lab" aria-label="Cloud data warehouses interactive simulation">
     <header className="dw-toolbar">
       <div className="dw-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how a cloud data warehouse separates storage and compute, scales for concurrency, and runs analytical queries.</p></div></div>
       <div className="dw-toolbar-actions">

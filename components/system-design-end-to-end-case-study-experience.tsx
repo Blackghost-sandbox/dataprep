@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import {useMemo,useState} from "react";
@@ -24,6 +25,7 @@ function LineChart({values}:{values:number[]}) {
 }
 
 export function SystemEndToEndCaseStudyLab() {
+  const motion=useSystemDesignMotion("journey");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<EndToEndScenarioId>("marketplace");
   const scenario=useMemo(()=>getEndToEndScenario(scenarioId),[scenarioId]);
@@ -38,7 +40,7 @@ export function SystemEndToEndCaseStudyLab() {
   const fmt=(n:number)=>n>=1000?Math.round(n/1000)+"K":String(n);
   const mix=(key:keyof typeof mixes,v:number)=>setMixes(c=>({...c,[key]:v}));
 
-  return <section className="sde2e-lab">
+  return <section {...motion} className="sde2e-lab">
     <header className="sde2e-sim-header"><div className="sde2e-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive End-to-End Simulation</h2><p>Explore the complete data journey. Adjust parameters, run the simulation, and see how data flows, metrics, and trade-offs change.</p></div></div><div className="sde2e-toolbar"><button className="sde2e-reset" onClick={reset}><RefreshCcw size={15}/>Reset</button><button className="sde2e-run" onClick={run} disabled={running}><Play size={15} fill="currentColor"/>{running?"Running…":"Run Simulation"}</button><label className="sde2e-scenario"><span>{scenario.label}</span><select value={scenarioId} onChange={e=>chooseScenario(e.target.value as EndToEndScenarioId)}>{endToEndScenarios.map(x=><option key={x.id} value={x.id}>{x.label}</option>)}</select><ChevronDown size={14}/></label></div></header>
 
     <section className="sde2e-architecture"><h3>1. End-to-End Architecture (Interactive)</h3><p>Click on each component to see details and configure parameters.</p><div className="sde2e-arch-flow">

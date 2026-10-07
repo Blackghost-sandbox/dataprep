@@ -29,7 +29,7 @@ assert.equal(result.batchOrders, 600000);
 assert.equal(result.batchLatencyMinutes, 60);
 assert.equal(result.batchFreshnessMinutes, 60);
 assert.equal(result.streamingOrders, 35420);
-assert.equal(result.streamLatencySeconds, 2.4);
+assert.equal(result.streamLatencySeconds, 2.7); // Default late/out-of-order handling adds 0.27s before rounding.
 assert.equal(model.batchStreamingScenarios.length, 3);
 
 const componentFile = path.join(root, "components/system-design-batch-streaming-experience.tsx");
@@ -47,7 +47,7 @@ for (const phrase of [
   "Compare Results",
   "Lesson Progress",
   "Quick Notes",
-]) assert.ok(source.includes(phrase), "Missing UI contract: " + phrase);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(phrase), "Missing UI contract: " + phrase);
 
 const app = fs.readFileSync(path.join(root, "components/dataprep-app.tsx"), "utf8");
 assert.ok(app.includes("systemBatchStreamingHandsOn"));

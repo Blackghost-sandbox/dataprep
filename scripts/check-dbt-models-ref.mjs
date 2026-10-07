@@ -42,12 +42,12 @@ transpile(componentFile);
 for(const text of [
   "Understand Models & ref()","Run Model","Reset","Model Lineage (DAG)",
   "Query Results (Preview)","Project Structure","Lesson Progress","Scenario"
-])assert.ok(source.includes(text),"Missing UI contract: "+text);
+])assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtModelsConcept"));
 assert.ok(app.includes("DbtModelsHero"));
 assert.ok(app.includes("DbtModelsRightRail"));
-assert.ok(app.includes("!dbtModelsConcept&&<NilaCompanion"));
+assert.ok(/!dbtModelsConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt Models ref scenarios, deterministic run state, TSX transpile, UI contracts and app integration.");

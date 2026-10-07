@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -142,6 +143,7 @@ function IncrementalFlow({
 }
 
 export function DbtIncrementalModelsLab(){
+ const dbtMotion=useDbtMotion(".dbti-change-card, .dbti-incremental-card, .dbti-final-card");
   const companion=useCompanion();
   const [datasetId,setDatasetId]=useState<DbtIncrementalDatasetId>("ecommerce");
   const dataset=useMemo(()=>getDbtIncrementalDataset(datasetId),[datasetId]);
@@ -176,7 +178,7 @@ export function DbtIncrementalModelsLab(){
     },460);
   };
 
-  return <section className="dbti-lab" aria-label="dbt incremental models interactive simulation">
+  return <section {...dbtMotion} className="dbti-lab" aria-label="dbt incremental models interactive simulation">
     <IncrementalFlow dataset={dataset}/>
 
     <section className="dbti-simulation">

@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useRef,useState} from "react";
 import {
@@ -57,6 +58,7 @@ function FileIcon({file}:{file:LakehouseFile}){
 }
 
 export function CloudLakehouseLab(){
+ const cloudMotion=useCloudMotion(".lh-stage-grid > .lh-card");
   const [format,setFormat]=useState<TableFormatId>("delta");
   const [state,setState]=useState(()=>referenceLakehouseState());
   const [operations,setOperations]=useState(()=>defaultLakehouseOperations());
@@ -101,7 +103,7 @@ export function CloudLakehouseLab(){
     setOperations(prev=>({...prev,[id]:!prev[id]}));
   };
 
-  return <section className="lh-lab" aria-label="Lakehouse and open table formats interactive simulation">
+  return <section {...cloudMotion} className="lh-lab" aria-label="Lakehouse and open table formats interactive simulation">
     <header className="lh-toolbar">
       <div className="lh-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how a table format adds transactions, schema evolution, and consistent reads on top of object storage.</p></div></div>
       <div className="lh-toolbar-actions">

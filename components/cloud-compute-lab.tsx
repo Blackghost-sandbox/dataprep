@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -53,6 +54,7 @@ function CardHeader({kind,title,subtitle}:{kind:"vm"|"container"|"serverless";ti
 function formatCost(cost:number){return "$"+cost.toFixed(3);}
 
 export function CloudComputeLab(){
+ const cloudMotion=useCloudMotion(".cc-flow-row > div");
   const [scenario,setScenario]=useState<ComputeScenarioId>("daily-sales");
   const [controls,setControls]=useState<ComputeControls>(()=>defaultComputeControls());
   const [result,setResult]=useState(()=>simulateCompute(defaultComputeControls(),"daily-sales"));
@@ -81,7 +83,7 @@ export function CloudComputeLab(){
     setRunning(false);
   };
 
-  return <section className="cc-lab" aria-label="Compute VMs containers and serverless interactive simulation">
+  return <section {...cloudMotion} className="cc-lab" aria-label="Compute VMs containers and serverless interactive simulation">
     <header className="cc-toolbar">
       <div className="cc-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>Compare VMs, Containers, and Serverless for the same data processing workload and see how they behave.</p></div></div>
       <div className="cc-toolbar-actions">

@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import {useMemo,useState} from "react";
@@ -71,6 +72,7 @@ const previewRows=[
 ];
 
 export function SystemIngestionLab(){
+  const motion=useSystemDesignMotion("ingestion");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<IngestionScenarioId>("ecommerce");
   const scenario=useMemo(()=>getIngestionScenario(scenarioId),[scenarioId]);
@@ -86,7 +88,7 @@ export function SystemIngestionLab(){
   const run=()=>{setRunning(true);setTimeout(()=>{const next=runIngestionSimulation(scenario,{enabled,mode});setResult(next);setRunning(false);companion?.emit({type:"exercise_correct",lesson:"Ingestion: Batch, CDC & Events",source:"runner"});},320);};
   const filteredLogs=logFilter==="errors"?result.logLines.filter(x=>x.includes("[DQ]")):result.logLines;
 
-  return <section className="sdi-lab">
+  return <section {...motion} className="sdi-lab">
     <header className="sdi-sim-header">
       <div className="sdi-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>See how batch, CDC, and event ingestion bring data from source systems into a data platform.</p></div></div>
       <div className="sdi-toolbar"><button type="button" className="sdi-reset" onClick={reset}><RefreshCcw size={15}/>Reset</button><button type="button" className="sdi-run" onClick={run} disabled={running}><Play size={15} fill="currentColor"/>{running?"Running…":"Run Simulation"}</button><label className="sdi-scenario"><span>{scenario.label}</span><select value={scenarioId} onChange={e=>setScenarioId(e.target.value as IngestionScenarioId)}>{ingestionScenarios.map(x=><option key={x.id} value={x.id}>{x.label}</option>)}</select><ChevronDown size={14}/></label></div>

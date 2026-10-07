@@ -1,7 +1,7 @@
 "use client";
+import {CodeEditor} from "@/components/syntax-editor";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { SqlTopicStory } from "@/components/sql-topic-story";
 import {
   ArrowRight,
@@ -231,7 +231,7 @@ export function SqlIntroductionLab() {
 
   const lines = Math.max(2, query.split("\n").length);
 
-  return <><SqlBasicsGuide/><section id="sql-first-exploration" className="sql-intro-lab" aria-label="Interactive SQL introduction">
+  return <><section id="sql-first-exploration" className="sql-intro-lab" aria-label="Interactive SQL introduction">
     <header className="sql-intro-lab-header">
       <div className="sql-intro-lab-title">
         <span className="sql-intro-lab-icon"><Box size={24}/></span>
@@ -258,7 +258,7 @@ export function SqlIntroductionLab() {
           <div className="sql-intro-editor">
             <div className="sql-intro-line-numbers" aria-hidden="true">{Array.from({ length: lines }, (_, index) => <span key={index}>{index + 1}</span>)}</div>
             <pre aria-hidden="true"><code><SqlHighlight value={query}/></code></pre>
-            <textarea
+            <CodeEditor
               aria-label="SQL query editor"
               spellCheck={false}
               value={query}
@@ -366,25 +366,19 @@ export function SqlBasicsGuide({lessonId="introduction"}:{lessonId?:string}){
   const storageKey=lessonId==="introduction"?SQL_BASICS_KEY:`dataprep-sql-story-${lessonId}-read-v1`;
   const guideId=`sql-basics-guide-${lessonId}`;
   const [open,setOpen]=useState(false);
-  const [hero,setHero]=useState<HTMLElement|null>(null);
   const guide=useRef<HTMLDivElement>(null);
-  const toggle=useRef<HTMLButtonElement>(null);
   useEffect(()=>{
     // The saved preference and header destination are available after hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHero(document.querySelector<HTMLElement>('.sql-module-page .lesson-hero'));
     try{setOpen(localStorage.getItem(storageKey)!=='true');}catch{setOpen(true);}
   },[storageKey]);
   useEffect(()=>{if(guide.current)guide.current.inert=!open;},[open]);
   const collapse=()=>{
     try{localStorage.setItem(storageKey,'true');}catch{}
-    toggle.current?.focus();
     setOpen(false);
     guide.current?.closest<HTMLElement>('.lesson-content')?.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
   };
-  const control=<button ref={toggle} className="sql-basics-header-toggle" aria-expanded={open} aria-controls={guideId} onClick={()=>open?collapse():setOpen(true)}><FileCode2 size={16} aria-hidden="true"/>{open?'Collapse basics':'Review basics'}<ArrowRight size={16} aria-hidden="true"/></button>;
   return <>
-    {hero?createPortal(control,hero):control}
     <div className={`sql-basics-roll ${open?'is-open':''}`} id={guideId} aria-hidden={!open}>
       <div ref={guide} className="sql-basics-roll-inner"><div className="sql-basics-roll-content">{lessonId==="introduction"?<SqlBeginnerIntroduction key={open ? "active" : "inactive"} onStart={collapse}/>:<SqlTopicStory key={`${lessonId}-${open}`} lessonId={lessonId} onStart={collapse}/>}</div></div>
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SimpleExplanation } from "@/components/simple-explanation";
@@ -65,7 +66,7 @@ export function CommonMistakes() {
           <div className="mistake-terms"><span>Hover or focus to explain:</span>{item.terms.map(term => <SimpleExplanation key={term} label={term}/>)}</div>
           <div className="mistake-code-pair">
             {[["Before · the pitfall", item.before], ["After · a better approach", item.after]].map(([label, code]) =>
-              <section key={label}><h4>{label}</h4><pre tabIndex={0} aria-label={label + " PySpark example"}><code>{code}</code></pre></section>
+              <section key={label}><h4>{label}</h4><pre tabIndex={0} aria-label={label + " PySpark example"}><code><SyntaxText code={code}/></code></pre></section>
             )}
           </div>
           <p className="mistake-caption">PySpark examples assume an existing Spark session named spark. Code is illustrative and is not run on this page.</p>

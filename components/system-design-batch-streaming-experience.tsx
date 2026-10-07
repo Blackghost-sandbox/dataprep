@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -98,6 +99,7 @@ function MiniMetric({ icon, label, value, detail, tone }: { icon: React.ReactNod
 }
 
 export function SystemBatchStreamingLab() {
+  const motion=useSystemDesignMotion("batch");
   const companion = useCompanion();
   const [scenarioId, setScenarioId] = useState<BatchStreamingScenarioId>("ecommerce-orders");
   const scenario = useMemo(() => getBatchStreamingScenario(scenarioId), [scenarioId]);
@@ -132,7 +134,7 @@ export function SystemBatchStreamingLab() {
     logFilter === "all" ? true : logFilter === "stream" ? !line.includes("[BATCH]") : line.includes("[BATCH]"),
   );
 
-  return <section className="sdbs-lab">
+  return <section {...motion} className="sdbs-lab">
     <header className="sdbs-sim-header">
       <div className="sdbs-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Run and compare batch vs streaming for the same use case. Adjust parameters and see how data flows, latency, and results differ.</p></div></div>
       <div className="sdbs-toolbar">

@@ -5,11 +5,14 @@ import {createRequire} from 'node:module';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 const root=path.resolve(import.meta.dirname,'..');
 const require=createRequire(import.meta.url);
 const cache=new Map();
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,'utf8');
@@ -17,7 +20,7 @@ function load(file){
   const localRequire=name=>{
     if(name.startsWith('@/')||name.startsWith('.')){
       const base=name.startsWith('@/')?path.join(root,name.slice(2)):path.resolve(path.dirname(file),name);
-      const found=['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext).find(fs.existsSync);
+      const found=[base,...['.tsx','.ts','/index.tsx','/index.ts'].map(ext=>base+ext)].find(fs.existsSync);
       assert.ok(found,'Module not found: '+name);return load(found);
     }
     return require(name);
@@ -41,5 +44,5 @@ for(let partitions=1;partitions<=4;partitions++)for(let producer=1;producer<=3;p
 const {KafkaIntroLab}=load(path.join(root,'components/kafka-intro-lab.tsx'));
 const {GlossaryProvider}=load(path.join(root,'components/glossary.tsx'));
 const html=renderToString(React.createElement(GlossaryProvider,null,React.createElement(KafkaIntroLab)));
-for(const text of ['See Kafka in action','Send Event','Consumer A','Consumer B','Auto Run','Event Log'])assert.ok(html.includes(text),text);
+for(const text of ['See Kafka in action','Send Event','Consumer A','Consumer B','Auto Run','Event Log'])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 console.log('PASS: 108 speed/partition scenarios, immutable state, retained records, offsets, bounded log, finite completion and SSR.');

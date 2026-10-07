@@ -1,4 +1,6 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -62,6 +64,7 @@ function ResourceIcon({id}:{id:SecurityResourceId}){
 }
 
 export function CloudIdentitySecurityLab(){
+ const cloudMotion=useCloudMotion(".sec-stage");
   const [scenario,setScenario]=useState<SecurityScenarioId>("least-privilege");
   const [identityType,setIdentityType]=useState<SecurityIdentityType>("iam-user");
   const [user,setUser]=useState("data-analyst");
@@ -111,7 +114,7 @@ export function CloudIdentitySecurityLab(){
     reason:result.reason,
   },null,2);
 
-  return <section className="sec-lab" aria-label="Identity security and secrets interactive simulation">
+  return <section {...cloudMotion} className="sec-lab" aria-label="Identity security and secrets interactive simulation">
     <header className="sec-toolbar">
       <div className="sec-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how identity, permissions, and secrets control access to a cloud data pipeline.</p></div></div>
       <div className="sec-toolbar-actions">
@@ -155,7 +158,7 @@ export function CloudIdentitySecurityLab(){
           {result.effect==="Allow"?<CheckCircle2 size={34}/>:<XCircle size={34}/>}
           <div><strong>{result.effect==="Allow"?"Access Allowed":"Access Denied"}</strong><p>User '{identityLabel}' {result.effect==="Allow"?"can":"cannot"} perform the requested action.</p></div>
         </div>
-        <pre className="sec-result-json"><code>{resultJson}</code></pre>
+        <pre className="sec-result-json"><code><SyntaxText code={resultJson}/></code></pre>
       </article>
 
       <article className="sec-stage audit-stage">
@@ -170,7 +173,7 @@ export function CloudIdentitySecurityLab(){
     <div className="sec-lower-grid">
       <section className="sec-policy-document">
         <header><h3><FileCode2 size={16}/>Policy Document</h3><button onClick={()=>setFullPolicy(v=>!v)}>{fullPolicy?"Compact View":"View Full Policy"}</button></header>
-        <pre className={fullPolicy?"is-full":""}><code>{policy}</code></pre>
+        <pre className={fullPolicy?"is-full":""}><code><SyntaxText code={policy}/></code></pre>
       </section>
 
       <section className="sec-secrets">
@@ -182,7 +185,7 @@ export function CloudIdentitySecurityLab(){
             <label>Value {showSecret?"(revealed)":"(hidden)"}<span className="sec-secret-input"><input value={showSecret?secretValue:"••••••••••••••"} readOnly/><button onClick={()=>setShowSecret(v=>!v)} aria-label={showSecret?"Hide secret":"Show secret"}>{showSecret?<EyeOff size={14}/>:<Eye size={14}/>}</button></span></label>
             <button className="sec-retrieve" onClick={retrieveSecret}><KeyRound size={14}/>{secretRetrieved?"Secret Retrieved":"Retrieve Secret"}</button>
           </div>
-          <pre className="sec-secret-json"><code>{secretInfo}</code></pre>
+          <pre className="sec-secret-json"><code><SyntaxText code={secretInfo}/></code></pre>
         </div>
       </section>
 

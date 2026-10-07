@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/lib/kafka-consumer-offsets-simulation";
 
 export function KafkaConsumerOffsetsLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createConsumerOffsetsState());
   const record=currentOffsetRecord(state);
   const progress=useMemo(()=>offsetProgress(state),[state]);
@@ -19,7 +21,7 @@ export function KafkaConsumerOffsetsLab(){
   const run=()=>setState(s=>runConsumerOffsetsScenario(s));
   const reset=()=>setState(createConsumerOffsetsState());
 
-  return <section className="kco-lab" aria-label="Kafka consumer offsets interactive simulation">
+  return <section {...kafkaMotion} className="kco-lab" aria-label="Kafka consumer offsets interactive simulation">
     <header className="kco-toolbar">
       <div className="kco-heading">
         <span><Play size={19} fill="currentColor"/></span>

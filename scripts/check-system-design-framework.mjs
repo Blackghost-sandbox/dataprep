@@ -48,10 +48,10 @@ for(const phrase of [
   "Next Scenario",
   "Simulation Results",
   "Event Logs",
-  "Analysis &amp; Takeaways",
+  "Analysis & Takeaways",
   "Lesson Progress",
   "Quick Notes",
-]) assert.ok(source.includes(phrase),"Missing UI contract: "+phrase);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(phrase),"Missing UI contract: "+phrase);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("systemDesignFrameworkConcept"));

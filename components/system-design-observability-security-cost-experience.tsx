@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import {useMemo,useState} from "react";
@@ -41,6 +42,7 @@ function Metric({icon,label,value,detail,tone}:{icon:React.ReactNode;label:strin
 }
 
 export function SystemObservabilitySecurityCostLab() {
+  const motion=useSystemDesignMotion("operations");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<OpsScenarioId>("ecommerce");
   const scenario=useMemo(()=>getOpsScenario(scenarioId),[scenarioId]);
@@ -78,7 +80,7 @@ export function SystemObservabilitySecurityCostLab() {
   const logs=result.logs.filter(line=>logFilter==="all"||line.includes("["+logFilter.toUpperCase()+"]"));
   const totalDisplay=costView==="daily"?result.dailyCost:result.dailyCost*30;
 
-  return <section className="sdoc-lab">
+  return <section {...motion} className="sdoc-lab">
     <header className="sdoc-sim-header">
       <div className="sdoc-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Explore how observability, security, and cost controls work together. Adjust parameters and see real-time impact on metrics, cost, and alerts.</p></div></div>
       <div className="sdoc-toolbar"><button type="button" className="sdoc-reset" onClick={reset}><RefreshCcw size={15}/>Reset</button><button type="button" className="sdoc-run" onClick={run} disabled={running}><Play size={15} fill="currentColor"/>{running?"Running…":"Run Simulation"}</button><label className="sdoc-scenario"><span>{scenario.label}</span><select value={scenarioId} onChange={e=>chooseScenario(e.target.value as OpsScenarioId)}>{opsScenarios.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}</select><ChevronDown size={14}/></label></div>

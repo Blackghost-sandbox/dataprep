@@ -160,7 +160,7 @@ export function buildRecommendations(controls:CostControls,metrics:CostMetrics){
   if(!controls.autoScaling) recommendations.push("Enable autoscaling or serverless compute to reduce idle capacity.");
   if(!controls.lifecyclePolicy) recommendations.push("Add storage lifecycle rules so colder data moves to lower-cost tiers.");
   if(!controls.pruneScans) recommendations.push("Partition, cluster, or filter earlier to reduce scanned data.");
-  if(controls.crossRegion) recommendations.push("Keep related data and compute in the same region unless DR or compliance requires otherwise.");
+  if(controls.crossRegion) recommendations.push("Avoid unnecessary cross-region transfers; keep related data and compute in the same region unless DR or compliance requires otherwise.");
   if(!controls.cacheServing) recommendations.push("Cache repeated serving-layer queries where freshness requirements allow it.");
   if(!controls.managedServices) recommendations.push("Compare managed-service premium against operational effort and on-call cost.");
   if(metrics.optimizationScore>=85) recommendations.push("Architecture is already well optimized; focus on measurement and workload-specific tuning.");

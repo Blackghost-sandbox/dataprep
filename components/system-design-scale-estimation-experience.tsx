@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import {useMemo,useState} from "react";
@@ -66,6 +67,7 @@ function ResultCard({icon,label,value,detail,tone,trend}:{icon:React.ReactNode;l
 }
 
 export function SystemScaleEstimationLab(){
+  const motion=useSystemDesignMotion("capacity");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<ScaleScenarioId>("video-streaming");
   const scenario=useMemo(()=>getScaleScenario(scenarioId),[scenarioId]);
@@ -101,7 +103,7 @@ export function SystemScaleEstimationLab(){
     return `${colors[index]} ${start}% ${end}%`;
   }).join(",");
 
-  return <section className="sdse-lab" aria-label="Requirements and scale estimation interactive simulation">
+  return <section {...motion} className="sdse-lab" aria-label="Requirements and scale estimation interactive simulation">
     <header className="sdse-sim-header">
       <div className="sdse-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Configure your system and see how traffic, storage, and concurrency numbers are estimated step by step.</p></div></div>
       <div className="sdse-toolbar">

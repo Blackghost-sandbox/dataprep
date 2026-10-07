@@ -212,7 +212,6 @@ export function SelectLearningLab() {
       </aside>
 
       <div className="select-lab-stage">
-        {phase!=='idle'&&<div className="select-execution-strip" role="status"><div>{[['read','Read records'],['project','Choose columns'],['return','Build result']].map(([step,label],index)=><span key={step} className={phase===step?'is-active':phase==='complete'||(['read','project','return'].indexOf(phase)>index)?'is-complete':''}><b>{index+1}</b>{label}</span>)}</div><p>{phase==='read'?`Reading row ${scanRow+1} of ${dataset.rows.length} from ${dataset.table}.`:phase==='project'?`Keeping ${selected.join(', ')}. Other columns stay in the source table.`:phase==='return'?`Copying the selected values into the result: ${visibleRows} of ${dataset.rows.length} rows.`:`Complete: ${dataset.rows.length} rows × ${executed.length} columns. Source data unchanged.`}</p></div>}
         <div className="select-data-flow">
           <section className="select-source-card">
             <header><h3><Database size={16}/> Source data ({dataset.table})</h3><button type="button" onClick={() => setShowFullData(value => !value)}><ExternalLink size={14}/>{showFullData ? "Close full data" : "View full data"}</button></header>

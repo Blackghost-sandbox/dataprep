@@ -1,4 +1,5 @@
 "use client";
+import {useKafkaMotion} from "@/components/kafka-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/lib/kafka-connect-simulation";
 
 export function KafkaConnectLab(){
+ const kafkaMotion=useKafkaMotion();
   const [state,setState]=useState(()=>createKafkaConnectState());
   const [inspectorTab,setInspectorTab]=useState<"original"|"transformed">("transformed");
 
@@ -21,7 +23,7 @@ export function KafkaConnectLab(){
   const run=()=>setState(s=>runKafkaConnectSimulation(s));
   const reset=()=>{setState(createKafkaConnectState());setInspectorTab("transformed");};
 
-  return <section className="kcn-lab" aria-label="Kafka Connect interactive simulation">
+  return <section {...kafkaMotion} className="kcn-lab" aria-label="Kafka Connect interactive simulation">
     <header className="kcn-toolbar">
       <div className="kcn-heading">
         <span><Play size={19} fill="currentColor"/></span>

@@ -80,12 +80,12 @@ for(const text of [
   "Quick Notes",
   "Lesson Progress",
   "Key Takeaways",
-]) assert.ok(source.includes(text),"Missing UI contract: "+text);
+]) assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtIncrementalConcept"));
 assert.ok(app.includes("DbtIncrementalHero"));
 assert.ok(app.includes("DbtIncrementalRightRail"));
-assert.ok(app.includes("!dbtIncrementalConcept&&<NilaCompanion"));
+assert.ok(/!dbtIncrementalConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt Incremental Models merge logic, editable-input behavior, SQL generation, TSX transpile and app integration.");

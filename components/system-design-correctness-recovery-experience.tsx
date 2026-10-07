@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -115,6 +116,7 @@ const previewRows = [
 ];
 
 export function SystemCorrectnessRecoveryLab() {
+  const motion=useSystemDesignMotion("recovery");
   const companion = useCompanion();
   const [scenarioId, setScenarioId] = useState<CorrectnessScenarioId>("worker-retry");
   const scenario = useMemo(() => getCorrectnessScenario(scenarioId), [scenarioId]);
@@ -154,7 +156,7 @@ export function SystemCorrectnessRecoveryLab() {
   );
 
   return (
-    <section className="sdcr-lab">
+    <section {...motion} className="sdcr-lab">
       <header className="sdcr-sim-header">
         <div className="sdcr-sim-heading">
           <span><Play size={20} fill="currentColor"/></span>

@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}}; cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -95,13 +98,13 @@ for(const text of [
   "Cluster Details (Live)","4 / 10","16","64 GB","Execution Logs",
   "Job Metrics","12.5 M","1 min 11 sec","176K records/sec","820 MB","$0.042",
   "Key Takeaways"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudManagedSparkHero,{
   description:"Understand when to use managed distributed processing services and how storage, cluster lifecycle, scaling, and job boundaries affect batch pipelines.",
   minutes:28,currentLesson:4,total:11,onPrevious:()=>{},onNext:()=>{}
 }));
-for(const text of ["Managed Batch &amp; Spark Processing","28 min","Lesson 5/11","Intermediate","Previous","Next"]){
+for(const text of ["Managed Batch & Spark Processing","28 min","Lesson 5/11","Intermediate","Previous","Next"]){
   assert.ok(hero.includes(text),text);
 }
 

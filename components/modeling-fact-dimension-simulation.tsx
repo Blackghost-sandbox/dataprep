@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -173,7 +174,7 @@ function PreviewCode({
         {copied === copyId ? <Check size={13}/> : <Copy size={13}/>}
         <span>{copied === copyId ? "Copied" : "Copy"}</span>
       </button>
-      <pre tabIndex={0}><code>{code}</code></pre>
+      <pre tabIndex={0}><code><SyntaxText code={code}/></code></pre>
     </div>
   );
 }

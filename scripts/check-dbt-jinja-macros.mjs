@@ -34,7 +34,7 @@ const compiled=model.compileDbtJinja({
 });
 assert.equal(compiled.startDate,"2024-01-01");
 assert.equal(compiled.region,"US");
-assert.ok(compiled.compiledSql.includes("analytics.raw_orders"));
+assert.ok(compiled.compiledSql.includes(ecommerce.relation));
 assert.ok(compiled.compiledSql.includes("where order_date >= '2024-01-01'"));
 assert.ok(!compiled.compiledSql.includes("{%"));
 assert.ok(!compiled.compiledSql.includes("{{"));
@@ -88,12 +88,12 @@ for(const text of [
   "Quick Notes",
   "Lesson Progress",
   "Key Takeaways"
-])assert.ok(source.includes(text),"Missing UI contract: "+text);
+])assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtJinjaConcept"));
 assert.ok(app.includes("DbtJinjaHero"));
 assert.ok(app.includes("DbtJinjaRightRail"));
-assert.ok(app.includes("!dbtJinjaConcept&&<NilaCompanion"));
+assert.ok(/!dbtJinjaConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt Jinja variables/macros compile logic, variable changes, macro expansion, TSX transpile and app integration.");

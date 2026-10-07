@@ -28,19 +28,22 @@ export const cloudLessons: SparkLesson[] = [
       "Consumers"
     ],
     "example": {
-      "code": "Responsibility      AWS examples        Google Cloud examples   Azure examples\nStorage             S3                  Cloud Storage            ADLS / Blob Storage\nWarehouse           Redshift            BigQuery                 Fabric Warehouse / Synapse\nStreaming           Kinesis             Pub/Sub                  Event Hubs\nOrchestration       MWAA / Step Fn       Cloud Composer           Data Factory",
-      "output": "Mental model: map each service to a responsibility before comparing product details.",
+      "code": "Orders → ingestion → raw storage → processing → analytics → dashboard\n\norder_id, amount, status\n101, 20, paid\n102, 30, paid\n103, 10, cancelled\n\nProcessing: filter paid orders → SUM(amount)\nResult: paid_orders = 2, revenue = 50",
+      "output": "The dashboard receives revenue 50. All three original records remain in raw storage.",
       "walkthrough": [
-        "Identify what the system must do: store, process, secure, schedule, and serve data.",
-        "Map provider services only after the responsibility is clear.",
-        "Expect overlap: a provider can offer several valid services for the same responsibility."
+        "The application creates three orders. Ingestion delivers the records without deciding which orders count as revenue.",
+        "Object storage keeps the original file and its metadata. Uploading does not filter the cancelled order.",
+        "Processing code uses compute resources to keep paid orders and calculate 20 + 30 = 50.",
+        "The analytical layer exposes the result for SQL consumers; the dashboard reads the published result.",
+        "Scheduling, permissions and monitoring coordinate the work separately from the movement of records.",
+        "Validate both technical execution and business output: three raw records, two paid orders, revenue 50."
       ]
     },
     "practice": {
-      "task": "A team needs durable raw storage, daily batch transformations, a SQL analytics layer, and scheduled execution. Name the four responsibilities before choosing any cloud products.",
-      "hint": "Think storage, compute/processing, analytics serving, and orchestration.",
-      "solution": "1. Durable object storage / data lake\n2. Batch compute or managed transformation engine\n3. Cloud warehouse or lakehouse query layer\n4. Orchestration / scheduling",
-      "output": "A valid design starts from responsibilities; provider products can be selected afterward."
+      "task": "Design a daily pipeline for the three orders in the example. Preserve the original input, publish paid revenue 50, and describe how you detect a processing failure and avoid duplicate output on retry.",
+      "hint": "Separate storage, compute, analytics and orchestration. Validate counts and revenue, not only the job status.",
+      "solution": "1. Ingest all three orders into raw object storage.\n2. Schedule processing with scoped input access.\n3. Filter paid orders and calculate revenue 50.\n4. Validate two paid records and total 50 before publishing.\n5. Alert on failure; inspect logs instead of publishing a failed run as a fresh result.\n6. Use a deliberate retry/write strategy to avoid duplicate daily output.\n7. Let the dashboard read the validated analytical result.",
+      "output": "Raw records: 3. Paid orders: 2. Revenue: 50. Raw input remains available."
     },
     "interview": [
       {
@@ -52,6 +55,31 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Managed service versus self-managed software?",
         "answer": "A managed service can reduce operational work and provide integrated scaling or reliability features, while self-managed software can offer more control and portability. The choice depends on team skills, compliance, cost, performance, and platform constraints.",
         "followup": "What operational work disappears—and what new dependencies appear—with a managed service?"
+      },
+      {
+        "question": "Explain what happens to a file as it moves through a cloud data pipeline.",
+        "answer": "Ingestion delivers the file to durable storage. Processing code reads it and applies business rules using compute. The result is published to an analytical layer for consumers. Scheduling, permissions and monitoring govern the work. Three raw orders, for example, become two paid orders with revenue 50 while the original file stays stored.",
+        "followup": "How would you distinguish successful execution from correct output, and prevent duplicate output after a retry?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Raw records: 3. Paid orders: 2. Revenue: 50. Raw input remains available. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Paid revenue from three orders: which choice would you make and why?",
+        "answer": "Paid amounts 20 and 30; cancelled amount 10. I would choose Filter paid and sum. Two paid orders; revenue 50. All three raw records remain stored. Storage preserves input; processing applies business rules.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Sum every order?",
+        "answer": "Revenue 60: the cancelled amount 10 was incorrectly included. The key principle is: Storage preserves input; processing applies business rules.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Source systems and Consumers.",
+        "answer": "The dashboard receives revenue 50. All three original records remain in raw storage. A cloud data platform still needs storage, compute, identity, networking, orchestration, observability, and cost controls. Provider product names differ, but these responsibilities remain recognizable.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -68,6 +96,13 @@ export const cloudLessons: SparkLesson[] = [
         "better": "Compare responsibility and behavior, not marketing categories.",
         "before": "Service A = Service B in every way",
         "after": "Compare storage semantics, execution model, limits, integrations, and cost."
+      },
+      {
+        "title": "Expecting storage to transform records",
+        "why": "Uploading a file persists its content; it does not apply a paid-order filter or calculate revenue.",
+        "better": "Assign the transformation to processing code and validate the output.",
+        "before": "Upload orders.csv → assume revenue is ready.",
+        "after": "Store original file → filter paid orders → sum 20 + 30 → publish revenue 50."
       }
     ],
     "quiz": [
@@ -100,6 +135,101 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Products overlap in purpose but can differ substantially in execution and operational behavior."
+      },
+      {
+        "question": "After uploading the three-order file, what has happened?",
+        "options": [
+          "All three records are stored; processing is still needed.",
+          "The cancelled order has automatically been removed.",
+          "Revenue 50 has automatically been calculated."
+        ],
+        "correct": 0,
+        "explanation": "Storage keeps the original file. Filtering and aggregation require processing code or a query engine."
+      },
+      {
+        "question": "The job reports success but revenue is 60. What should you investigate?",
+        "options": [
+          "Whether the provider logo is correct.",
+          "Whether cancelled orders were included and result validation was missing.",
+          "Only whether storage is online."
+        ],
+        "correct": 1,
+        "explanation": "Successful execution does not prove business correctness. Including the cancelled amount 10 would produce 60."
+      },
+      {
+        "question": "Paid revenue from three orders: which design meets the stated requirement?",
+        "options": [
+          "Store only",
+          "Filter paid and sum",
+          "Sum every order"
+        ],
+        "correct": 1,
+        "explanation": "Storage preserves input; processing applies business rules.",
+        "optionExplanations": [
+          "Three raw orders stored; revenue has not been calculated.",
+          "Two paid orders; revenue 50. All three raw records remain stored.",
+          "Revenue 60: the cancelled amount 10 was incorrectly included."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "Three raw orders stored; revenue has not been calculated.",
+          "Two paid orders; revenue 50. All three raw records remain stored.",
+          "Revenue 60: the cancelled amount 10 was incorrectly included."
+        ],
+        "correct": 1,
+        "explanation": "Storage preserves input; processing applies business rules.",
+        "optionExplanations": [
+          "This describes the consequence of Store only.",
+          "This describes the consequence of Filter paid and sum.",
+          "This describes the consequence of Sum every order."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -153,6 +283,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "How do you choose partition columns in a data lake?",
         "answer": "Use columns frequently used for pruning that have suitable cardinality and distribution. Avoid partitions so fine-grained that they create many tiny directories or files.",
         "followup": "Would you partition a billion-row table by customer_id?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Reasoning: date and country can support pruning; customer_id would usually create excessive partition cardinality. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Read a daily partition: which choice would you make and why?",
+        "answer": "Three equally sized date partitions; the request needs one date. I would choose Required date only. Only the requested date is read; other stored objects remain available. Pruning input reduces unnecessary reading; it does not delete other partitions.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose No objects?",
+        "answer": "No records can be returned because no input files are read. The key principle is: Pruning input reduces unnecessary reading; it does not delete other partitions.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Landing zone and Query engines.",
+        "answer": "The URI syntax changes by provider; the design idea is the same: durable objects organized for downstream processing. Services such as Amazon S3, Google Cloud Storage, and Azure Data Lake Storage/Blob Storage store objects rather than traditional database pages. They are commonly used for raw, staged, and curated data zones.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -201,6 +351,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Useful partitions enable pruning without exploding the file layout."
+      },
+      {
+        "question": "Read a daily partition: which design meets the stated requirement?",
+        "options": [
+          "All dates",
+          "Required date only",
+          "No objects"
+        ],
+        "correct": 1,
+        "explanation": "Pruning input reduces unnecessary reading; it does not delete other partitions.",
+        "optionExplanations": [
+          "More files are scanned than the requested date needs.",
+          "Only the requested date is read; other stored objects remain available.",
+          "No records can be returned because no input files are read."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "More files are scanned than the requested date needs.",
+          "Only the requested date is read; other stored objects remain available.",
+          "No records can be returned because no input files are read."
+        ],
+        "correct": 1,
+        "explanation": "Pruning input reduces unnecessary reading; it does not delete other partitions.",
+        "optionExplanations": [
+          "This describes the consequence of All dates.",
+          "This describes the consequence of Required date only.",
+          "This describes the consequence of No objects."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -254,6 +479,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Encryption versus access control?",
         "answer": "Encryption protects data confidentiality at rest or in transit, while access control determines who or what can use the resource. Strong systems use both rather than treating one as a replacement for the other.",
         "followup": "Why can an encrypted bucket still be insecure?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Do not grant account-wide storage admin or secret-admin permissions to the job. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Read raw orders safely: which choice would you make and why?",
+        "answer": "A processing job needs to read raw/orders.csv; deletion is not required. I would choose Scoped read permission. The job can read the required input without delete permission. Grant only the actions needed on the required resources.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Read and delete permission?",
+        "answer": "The job can read but also has unnecessary destructive permission. The key principle is: Grant only the actions needed on the required resources.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Workload identity and Audit trail.",
+        "answer": "Least-privilege result: the job can perform its required data path without broad account-wide permissions. Cloud permissions are usually attached to users, roles, service identities, groups, or workload identities. Data jobs should receive only the actions and resources they require.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -302,6 +547,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Encryption and access control protect different aspects of the system."
+      },
+      {
+        "question": "Read raw orders safely: which design meets the stated requirement?",
+        "options": [
+          "No read permission",
+          "Scoped read permission",
+          "Read and delete permission"
+        ],
+        "correct": 1,
+        "explanation": "Grant only the actions needed on the required resources.",
+        "optionExplanations": [
+          "The read request is denied.",
+          "The job can read the required input without delete permission.",
+          "The job can read but also has unnecessary destructive permission."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "The read request is denied.",
+          "The job can read the required input without delete permission.",
+          "The job can read but also has unnecessary destructive permission."
+        ],
+        "correct": 1,
+        "explanation": "Grant only the actions needed on the required resources.",
+        "optionExplanations": [
+          "This describes the consequence of No read permission.",
+          "This describes the consequence of Scoped read permission.",
+          "This describes the consequence of Read and delete permission."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -355,6 +675,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Containers versus VMs?",
         "answer": "Containers package an application and dependencies consistently while sharing a host kernel; VMs virtualize a fuller machine boundary. Managed container platforms reduce infrastructure work, while VMs offer lower-level control.",
         "followup": "Which operational concerns remain even with managed containers?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: The exact cloud product can vary; the execution-model reasoning is the important part. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Choose execution for a long job: which choice would you make and why?",
+        "answer": "A batch transformation takes 40 minutes; the proposed function limit is 15 minutes in this exercise. I would choose Container job sized for the workload. The job can run if its resources and job limits support the workload. Execution duration, resources and operational requirements determine fit.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Storage bucket alone?",
+        "answer": "Files can be stored, but no processing code runs. The key principle is: Execution duration, resources and operational requirements determine fit.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Workload shape and Result.",
+        "answer": "Choose by workload behavior, not by assuming one compute model is always cheaper or simpler. VM-based workloads can customize operating systems, runtimes, and local resources, but the team owns more patching, sizing, scaling, and lifecycle management.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -403,6 +743,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Execution limits, state, concurrency, and startup characteristics matter."
+      },
+      {
+        "question": "Choose execution for a long job: which design meets the stated requirement?",
+        "options": [
+          "Function with 15-minute configured limit",
+          "Container job sized for the workload",
+          "Storage bucket alone"
+        ],
+        "correct": 1,
+        "explanation": "Execution duration, resources and operational requirements determine fit.",
+        "optionExplanations": [
+          "The 40-minute workload exceeds this configured execution limit.",
+          "The job can run if its resources and job limits support the workload.",
+          "Files can be stored, but no processing code runs."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "The 40-minute workload exceeds this configured execution limit.",
+          "The job can run if its resources and job limits support the workload.",
+          "Files can be stored, but no processing code runs."
+        ],
+        "correct": 1,
+        "explanation": "Execution duration, resources and operational requirements determine fit.",
+        "optionExplanations": [
+          "This describes the consequence of Function with 15-minute configured limit.",
+          "This describes the consequence of Container job sized for the workload.",
+          "This describes the consequence of Storage bucket alone."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -456,6 +871,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Ephemeral versus long-lived clusters?",
         "answer": "Ephemeral clusters improve isolation and can reduce idle cost, but add startup time. Long-lived clusters can improve interactive latency but require stronger lifecycle, patching, concurrency, and cost controls.",
         "followup": "Which would you choose for a predictable nightly batch?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Goal: reduce idle compute while preserving reproducible dependencies and logs. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Distribute twelve records: which choice would you make and why?",
+        "answer": "Twelve independent records and three available workers. I would choose Three tasks of four records. Three tasks each receive four records; twelve assigned records in total. Partition tasks divide work; adding workers does not automatically fix skew.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Every worker processes all twelve?",
+        "answer": "Each worker repeats the full input; combining outputs can duplicate results. The key principle is: Partition tasks divide work; adding workers does not automatically fix skew.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Object storage and Curated output.",
+        "answer": "Durable data survives independently of the compute environment. Services such as Amazon EMR, Google Cloud Dataproc, and managed Spark platforms reduce infrastructure work, but you still choose job sizing, storage layout, autoscaling, dependency packaging, and failure behavior.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -504,6 +939,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "File size, partitioning, shuffle, dependencies, and job design still matter."
+      },
+      {
+        "question": "Distribute twelve records: which design meets the stated requirement?",
+        "options": [
+          "One task for all records",
+          "Three tasks of four records",
+          "Every worker processes all twelve"
+        ],
+        "correct": 1,
+        "explanation": "Partition tasks divide work; adding workers does not automatically fix skew.",
+        "optionExplanations": [
+          "All twelve records are handled by one task; no task-level parallelism in this example.",
+          "Three tasks each receive four records; twelve assigned records in total.",
+          "Each worker repeats the full input; combining outputs can duplicate results."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "All twelve records are handled by one task; no task-level parallelism in this example.",
+          "Three tasks each receive four records; twelve assigned records in total.",
+          "Each worker repeats the full input; combining outputs can duplicate results."
+        ],
+        "correct": 1,
+        "explanation": "Partition tasks divide work; adding workers does not automatically fix skew.",
+        "optionExplanations": [
+          "This describes the consequence of One task for all records.",
+          "This describes the consequence of Three tasks of four records.",
+          "This describes the consequence of Every worker processes all twelve."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -557,6 +1067,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "How would you reduce warehouse query cost?",
         "answer": "Reduce unnecessary scans and computation: select needed columns, filter effectively, use platform-appropriate partitioning/clustering, precompute repeated expensive logic when justified, and manage concurrency/capacity based on workload.",
         "followup": "When can materialized aggregates help?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Then inspect query plans, clustering/sort strategy, concurrency, materialization, and workload-specific platform controls. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Calculate total amount: which choice would you make and why?",
+        "answer": "A stored table contains amount values 20 and 30. I would choose SUM(amount). The two amounts sum to 50. SQL operations determine the result; read-only queries preserve the table.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose COUNT(*)?",
+        "answer": "The count is 2, not the total amount. The key principle is: SQL operations determine the result; read-only queries preserve the table.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Curated data and BI / analysts.",
+        "answer": "The SQL pattern is portable; physical execution, storage layout, and billing behavior depend on the warehouse. Cloud warehouses are designed for scans, joins, aggregations, and concurrent analytical queries, with managed storage/compute patterns that differ by product.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -605,6 +1135,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Reading less data is often a direct path to lower analytical cost."
+      },
+      {
+        "question": "Calculate total amount: which design meets the stated requirement?",
+        "options": [
+          "SUM(amount)",
+          "COUNT(*)",
+          "Read rows only"
+        ],
+        "correct": 0,
+        "explanation": "SQL operations determine the result; read-only queries preserve the table.",
+        "optionExplanations": [
+          "The two amounts sum to 50.",
+          "The count is 2, not the total amount.",
+          "The query returns 20 and 30 without calculating their sum."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "The two amounts sum to 50.",
+          "The count is 2, not the total amount.",
+          "The query returns 20 and 30 without calculating their sum."
+        ],
+        "correct": 0,
+        "explanation": "SQL operations determine the result; read-only queries preserve the table.",
+        "optionExplanations": [
+          "This describes the consequence of SUM(amount).",
+          "This describes the consequence of COUNT(*).",
+          "This describes the consequence of Read rows only."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -658,6 +1263,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Does an open table format guarantee full multi-engine compatibility?",
         "answer": "No. Engines can support different subsets or protocol versions. Verify read/write support for the features you depend on before assuming interchangeability.",
         "followup": "Which advanced features are most likely to expose compatibility gaps?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Key idea: manage the dataset through the table protocol, not arbitrary file operations. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Read snapshot version one: which choice would you make and why?",
+        "answer": "Snapshot one references A+B; snapshot two references A+C. I would choose Files A and B from snapshot one. The reader uses the requested snapshot file set A and B. Metadata identifies the files belonging to the selected table version.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Every object A, B and C?",
+        "answer": "The read ignores snapshot membership and may mix versions. The key principle is: Metadata identifies the files belonging to the selected table version.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Object files and Consistent table view.",
+        "answer": "Readers use table metadata to understand which files belong to a consistent table snapshot. A directory of Parquet files can hold analytics data, but concurrent writes, schema evolution, snapshots, deletes, and reliable table state need additional metadata and coordination.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -706,6 +1331,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Engine/version support still needs verification."
+      },
+      {
+        "question": "Read snapshot version one: which design meets the stated requirement?",
+        "options": [
+          "Files A and B from snapshot one",
+          "Every object A, B and C",
+          "Latest snapshot A and C"
+        ],
+        "correct": 0,
+        "explanation": "Metadata identifies the files belonging to the selected table version.",
+        "optionExplanations": [
+          "The reader uses the requested snapshot file set A and B.",
+          "The read ignores snapshot membership and may mix versions.",
+          "The read uses a different table version from the requested one."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "The reader uses the requested snapshot file set A and B.",
+          "The read ignores snapshot membership and may mix versions.",
+          "The read uses a different table version from the requested one."
+        ],
+        "correct": 0,
+        "explanation": "Metadata identifies the files belonging to the selected table version.",
+        "optionExplanations": [
+          "This describes the consequence of Files A and B from snapshot one.",
+          "This describes the consequence of Every object A, B and C.",
+          "This describes the consequence of Latest snapshot A and C."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -760,6 +1460,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "How do you handle duplicate events?",
         "answer": "Design idempotent processing using stable event keys, deduplication state, conditional writes, or transactional mechanisms supported by the stack. Treat retry behavior as part of normal operation.",
         "followup": "Where should deduplication state live?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Retries remain safe even under at-least-once delivery. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Track two consumer groups: which choice would you make and why?",
+        "answer": "Group A is at offset 3 and group B at offset 1 in the same partition. I would choose Separate group positions. Each group can progress independently through retained events. Offsets are partition positions; consumer groups track independent progress.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose One shared position for all groups?",
+        "answer": "Independent groups lose their separate progress tracking in this design. The key principle is: Offsets are partition positions; consumer groups track independent progress.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Producers and Sink.",
+        "answer": "Partition/key design balances per-key ordering needs with throughput. Managed services such as Amazon Kinesis, Google Cloud Pub/Sub, and Azure Event Hubs buffer event streams so producers and consumers can scale or fail independently within service limits.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -808,6 +1528,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Ordering is typically defined within a partition, key, or service-specific domain."
+      },
+      {
+        "question": "Track two consumer groups: which design meets the stated requirement?",
+        "options": [
+          "Separate group positions",
+          "One shared position for all groups",
+          "Delete each event immediately after reading"
+        ],
+        "correct": 0,
+        "explanation": "Offsets are partition positions; consumer groups track independent progress.",
+        "optionExplanations": [
+          "Each group can progress independently through retained events.",
+          "Independent groups lose their separate progress tracking in this design.",
+          "Other readers or replay may lose required retained events."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "Each group can progress independently through retained events.",
+          "Independent groups lose their separate progress tracking in this design.",
+          "Other readers or replay may lose required retained events."
+        ],
+        "correct": 0,
+        "explanation": "Offsets are partition positions; consumer groups track independent progress.",
+        "optionExplanations": [
+          "This describes the consequence of Separate group positions.",
+          "This describes the consequence of One shared position for all groups.",
+          "This describes the consequence of Delete each event immediately after reading."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -862,6 +1657,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "When are managed data-integration services useful?",
         "answer": "They can reduce custom connector, scheduling, and infrastructure work for common sources/sinks. Evaluate schema handling, throughput, incremental behavior, retry semantics, network connectivity, and pricing before relying on them.",
         "followup": "When would you build a custom connector instead?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: Keep data movement through systems designed for data, not through the orchestrator's metadata channel. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Recover a failed transform: which choice would you make and why?",
+        "answer": "Extract succeeds; transform fails; load depends on transform success. I would choose Block load and investigate. The failed prerequisite prevents load; investigate and retry safely. Dependencies gate tasks; retries require deliberate limits and safe effects.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Retry forever without checks?",
+        "answer": "Repeated attempts can waste resources or repeat unsafe side effects. The key principle is: Dependencies gate tasks; retries require deliberate limits and safe effects.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Schedule/event and Publish.",
+        "answer": "The orchestrator coordinates task state; each data engine owns its transformation logic. Managed Airflow services, workflow engines, and data-integration services can schedule tasks, express dependencies, retry failures, and record run state.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -910,6 +1725,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Repeated execution must not accidentally duplicate business effects."
+      },
+      {
+        "question": "Recover a failed transform: which design meets the stated requirement?",
+        "options": [
+          "Load anyway",
+          "Block load and investigate",
+          "Retry forever without checks"
+        ],
+        "correct": 1,
+        "explanation": "Dependencies gate tasks; retries require deliberate limits and safe effects.",
+        "optionExplanations": [
+          "Load can publish missing or invalid transformation output.",
+          "The failed prerequisite prevents load; investigate and retry safely.",
+          "Repeated attempts can waste resources or repeat unsafe side effects."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "Load can publish missing or invalid transformation output.",
+          "The failed prerequisite prevents load; investigate and retry safely.",
+          "Repeated attempts can waste resources or repeat unsafe side effects."
+        ],
+        "correct": 1,
+        "explanation": "Dependencies gate tasks; retries require deliberate limits and safe effects.",
+        "optionExplanations": [
+          "This describes the consequence of Load anyway.",
+          "This describes the consequence of Block load and investigate.",
+          "This describes the consequence of Retry forever without checks."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -964,6 +1854,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "What would you monitor in a data platform?",
         "answer": "Task failures and duration, resource/throughput limits, stream lag, storage/warehouse errors, data freshness, volume, schema and quality checks, cost, and end-to-end SLA indicators.",
         "followup": "Which signals would page someone immediately versus create a ticket?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: System availability does not guarantee correct or fresh data. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Diagnose a denied request: which choice would you make and why?",
+        "answer": "A request reaches the service but receives an access-denied response. I would choose Check route and IAM separately. Separate connectivity evidence from access-policy evidence to locate the failure. Reachability and authorisation are different checks.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Change network route only?",
+        "answer": "A working route does not fix denied authorisation. The key principle is: Reachability and authorisation are different checks.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Private network and Recovery action.",
+        "answer": "Operational health + data health together provide a more complete picture. Private subnets/VPCs/VNets, routing, firewalls/security groups, private endpoints, DNS, and egress controls determine which data services can communicate.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -1012,6 +1922,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "Data freshness and correctness need their own signals."
+      },
+      {
+        "question": "Diagnose a denied request: which design meets the stated requirement?",
+        "options": [
+          "Check route and IAM separately",
+          "Change network route only",
+          "Treat every error as an outage"
+        ],
+        "correct": 0,
+        "explanation": "Reachability and authorisation are different checks.",
+        "optionExplanations": [
+          "Separate connectivity evidence from access-policy evidence to locate the failure.",
+          "A working route does not fix denied authorisation.",
+          "The diagnosis skips evidence and can miss a permissions issue."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "Separate connectivity evidence from access-policy evidence to locate the failure.",
+          "A working route does not fix denied authorisation.",
+          "The diagnosis skips evidence and can miss a permissions issue."
+        ],
+        "correct": 0,
+        "explanation": "Reachability and authorisation are different checks.",
+        "optionExplanations": [
+          "This describes the consequence of Check route and IAM separately.",
+          "This describes the consequence of Change network route only.",
+          "This describes the consequence of Treat every error as an outage."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   },
@@ -1066,6 +2051,26 @@ export const cloudLessons: SparkLesson[] = [
         "question": "Design a cloud data platform for analytics.",
         "answer": "Start with requirements: sources, daily volume, freshness, consumers, SLA, security, recovery, and team skills. Then choose durable landing storage, processing, curated serving, orchestration, identity/networking, quality/observability, and cost controls. Explain failure and replay paths.",
         "followup": "How would the design change for sub-second operational analytics?"
+      },
+      {
+        "question": "How would you verify this design and investigate a failed run?",
+        "answer": "Start from the required outcome: A strong answer ties each component to the workload's freshness, replay, access, and cost requirements. Check evidence at each boundary: input availability, access permissions, task or query status, and output correctness. Use relevant logs and metrics to locate the failing operation. Before retrying, establish whether the previous attempt wrote partial or duplicate output.",
+        "followup": "What evidence would distinguish missing input, denied access, failed processing and incorrect business output?"
+      },
+      {
+        "question": "Reduce avoidable scanning: which choice would you make and why?",
+        "answer": "A query needs one of ten equally sized date partitions; history must be retained. I would choose Read required partition. Read less unnecessary data while retaining required records. Optimise unnecessary work while preserving required correctness and retention.",
+        "followup": "What evidence would you collect to prove this result rather than merely seeing a successful job status?"
+      },
+      {
+        "question": "What goes wrong if you choose Delete required historical data?",
+        "answer": "Lower storage use comes at the cost of losing required data. The key principle is: Optimise unnecessary work while preserving required correctness and retention.",
+        "followup": "Which requirement is violated, and how would you correct it without introducing a new failure?"
+      },
+      {
+        "question": "Explain the boundary between Ingest and Observe & optimize.",
+        "answer": "Review every arrow for scale, latency, security, retry behavior, recovery, and cost. Major cost drivers can include compute duration/capacity, bytes scanned or processed, storage volume/tier, requests, streaming throughput, data transfer, managed-service premiums, and idle resources.",
+        "followup": "Name what enters, the operation, the output and the evidence you would inspect."
       }
     ],
     "mistakes": [
@@ -1114,6 +2119,81 @@ export const cloudLessons: SparkLesson[] = [
         ],
         "correct": 0,
         "explanation": "A good architecture connects choices to the workload and its operational constraints."
+      },
+      {
+        "question": "Reduce avoidable scanning: which design meets the stated requirement?",
+        "options": [
+          "Read required partition",
+          "Delete required historical data",
+          "Add compute without checking the scan"
+        ],
+        "correct": 0,
+        "explanation": "Optimise unnecessary work while preserving required correctness and retention.",
+        "optionExplanations": [
+          "Read less unnecessary data while retaining required records.",
+          "Lower storage use comes at the cost of losing required data.",
+          "More compute may increase cost without addressing unnecessary input scans."
+        ]
+      },
+      {
+        "question": "What is the expected outcome of the correct choice?",
+        "options": [
+          "Read less unnecessary data while retaining required records.",
+          "Lower storage use comes at the cost of losing required data.",
+          "More compute may increase cost without addressing unnecessary input scans."
+        ],
+        "correct": 0,
+        "explanation": "Optimise unnecessary work while preserving required correctness and retention.",
+        "optionExplanations": [
+          "This describes the consequence of Read required partition.",
+          "This describes the consequence of Delete required historical data.",
+          "This describes the consequence of Add compute without checking the scan."
+        ]
+      },
+      {
+        "question": "What should you inspect before choosing a service for this exercise?",
+        "options": [
+          "The stated input, required operation and expected outcome",
+          "Only the provider logo",
+          "Only the number of products offered"
+        ],
+        "correct": 0,
+        "explanation": "Requirements and behaviour determine service fit.",
+        "optionExplanations": [
+          "The workload defines success.",
+          "A logo does not establish behaviour.",
+          "Catalog size does not establish fit."
+        ]
+      },
+      {
+        "question": "A run completes successfully. What else must be checked?",
+        "options": [
+          "Nothing: successful status proves all business requirements",
+          "The output against the scenario requirements",
+          "Only whether the interface looks correct"
+        ],
+        "correct": 1,
+        "explanation": "Execution success and correct output are different.",
+        "optionExplanations": [
+          "A completed task can still produce incorrect output.",
+          "Validate the expected outcome against actual output.",
+          "Appearance does not validate processing correctness."
+        ]
+      },
+      {
+        "question": "Which statement best preserves correctness when troubleshooting?",
+        "options": [
+          "Remove validation to make the run appear successful",
+          "Change several unrelated settings at once",
+          "Locate the failed boundary using evidence before changing the design"
+        ],
+        "correct": 2,
+        "explanation": "Diagnose from evidence and validate the fix.",
+        "optionExplanations": [
+          "Removing checks hides failures.",
+          "Multiple unrelated changes obscure cause and effect.",
+          "Boundary evidence helps isolate the failing operation."
+        ]
       }
     ]
   }

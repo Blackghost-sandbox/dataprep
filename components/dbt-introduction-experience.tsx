@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -175,6 +176,7 @@ function CodeView({ code }: { code: string }) {
 }
 
 export function DbtIntroductionLab() {
+ const dbtMotion=useDbtMotion(".dbti-architecture-flow > .dbti-architecture-card");
   const [scenarioId, setScenarioId] = useState<DbtIntroScenarioId>("ecommerce");
   const [runState, setRunState] = useState<"idle" | "running" | "success">("idle");
   const [visibleLogs, setVisibleLogs] = useState(0);
@@ -217,7 +219,7 @@ export function DbtIntroductionLab() {
   };
 
   return (
-    <div className="dbti-experience">
+    <div {...dbtMotion} className="dbti-experience">
       <section className="dbti-architecture-panel">
         <div className="dbti-section-head">
           <div>

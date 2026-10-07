@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -113,22 +116,22 @@ assert.ok(pubsub.logs.some(log=>log.text.includes("Pub/Sub")));
 const {CloudNetworkingObservabilityLab,CloudNetworkingObservabilityHero}=load(path.join(root,"components/cloud-networking-observability-lab.tsx"));
 const html=renderToString(React.createElement(CloudNetworkingObservabilityLab));
 for(const text of [
-  "Run Simulation","Service failure &amp; auto-retry","1. Data Source","Events/sec","100","us-east-1",
+  "Run Simulation","Service failure & auto-retry","1. Data Source","Events/sec","100","us-east-1",
   "2. Network Layer","No issue","Inject selected issue","3. Data Service","Amazon Kinesis","24 hours",
-  "4. Consumer","Worker count","Processing time (sec)","5. Monitoring &amp; Alerts",
-  "Show metrics","Show logs","Show traces","Enable alert (error &gt; 5%)",
+  "4. Consumer","Worker count","Processing time (sec)","5. Monitoring & Alerts",
+  "Show metrics","Show logs","Show traces","Enable alert (error > 5%)",
   "Live Metrics","Incoming Events","Processed Events","Error Rate","850","Retries","Consumer Lag",
   "Logs (Live)","Network timeout to consumer","Retrying (1/3)","Traces (Sample Event)",
   "Producer (application)","Network (VPC → Kinesis)","Kinesis (ingest)","Consumer (process)",
   "Write to destination","Key Takeaways"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudNetworkingObservabilityHero,{
   description:"Connect private data services safely, design for failure domains, and monitor pipelines with metrics, logs, traces, lineage, and data-quality signals.",
   minutes:30,currentLesson:9,total:11,onPrevious:()=>{},onNext:()=>{}
 }));
 for(const text of [
-  "Networking, Reliability &amp; Observability","30 min","Lesson 10/11","Intermediate",
+  "Networking, Reliability & Observability","30 min","Lesson 10/11","Intermediate",
   "Data","Sources","VPC / Private","Network","Data Services","Metrics","Logs","Traces","Alerts","Previous","Next"
 ])assert.ok(hero.includes(text),text);
 

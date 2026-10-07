@@ -46,12 +46,12 @@ for(const text of [
   "Use source() in model","Downstream Models","Run Model","Reset",
   "Query Results (Preview)","schema.yml definition (Source)","Model Lineage (DAG)",
   "Key Takeaways","Lesson Progress"
-])assert.ok(source.includes(text),"Missing UI contract: "+text);
+])assert.ok(source.replace(/&amp;/g,"&").includes(text),"Missing UI contract: "+text);
 
 const app=fs.readFileSync(path.join(root,"components/dataprep-app.tsx"),"utf8");
 assert.ok(app.includes("dbtSourcesConcept"));
 assert.ok(app.includes("DbtSourcesHero"));
 assert.ok(app.includes("DbtSourcesRightRail"));
-assert.ok(app.includes("!dbtSourcesConcept&&<NilaCompanion"));
+assert.ok(/!dbtSourcesConcept&&[^]*?<NilaCompanion/.test(app));
 
 console.log("PASS: dbt Sources source scenarios, deterministic run state, TSX transpile, screenshot UI contracts and app integration.");

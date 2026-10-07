@@ -2,3 +2,81 @@
 @media(max-width:1200px){.kafka-event-layout,.kafka-two{grid-template-columns:1fr}.kafka-explanation p{min-height:0}.kafka-members{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.kafka-module-page .dataprep-sidebar{display:none}.kafka-module-page .dataprep-main{margin-left:0!important}.kafka-module-page .lesson-layout{grid-template-columns:minmax(0,1fr)}.kafka-module-page .sql-module-picker{display:flex;flex-wrap:wrap}.kafka-module-page .sql-module-picker label,.kafka-module-page .sql-module-picker select{min-width:0;max-width:100%}.kafka-module-page main{padding:12px}.kafka-module-page .spark-lesson{padding:16px}.kafka-three,.kafka-members{grid-template-columns:1fr}.kafka-module-page .spark-concepts{grid-template-columns:1fr}.kafka-module-page .spark-code pre{max-width:100%;overflow:auto}.kafka-module-page .lesson-tabs{overflow-x:auto}.kafka-step-description{min-height:120px}}
 @media(prefers-reduced-motion:reduce){.kafka-records>span,.kafka-records>button{transition:none}}
+
+/* Execution accents stay inside the existing Kafka diagrams. */
+[data-kafka-motion]{--km-violet:#8b5cf6;--km-mint:#34d399}
+[data-kafka-motion] :is(.kpc-publish,.kpc-consumer-links,.kse-arrow,.kco-loop-arrow,.krp-arrow,.kar-arrow,.kbc-flow,.kcn-arrow,.ksp-arrow,.kod-arrow,.kmk-arrow,.kpo-arrow,.krf-replication-link,.kafka-flow>div){position:relative}
+[data-kafka-motion]:not([data-kafka-motion=idle]) :is(.kpc-publish,.kpc-consumer-links,.kse-arrow,.kco-loop-arrow,.krp-arrow,.kar-arrow,.kbc-flow,.kcn-arrow,.ksp-arrow,.kod-arrow,.kmk-arrow,.kpo-arrow,.krf-replication-link)::after{content:"";position:absolute;pointer-events:none;width:9px;height:9px;border-radius:3px;background:linear-gradient(135deg,#c4b5fd,#8b5cf6);box-shadow:0 0 12px #a78bfa88;top:50%;left:5%;animation:kafka-packet-flight 800ms ease-in-out infinite}
+[data-kafka-motion=signal] :is(.kpc-producer,.kar-producer,.ki-producer-card,.kmk-producer,.kse-producer,.kbc-producer,.kpo-producer,.kod-producer,.kcn-source-system,.ksp-input){animation:kafka-source-pulse 350ms ease-out both}
+[data-kafka-motion=processing] :is(.kpc-partition,.kar-broker,.kbc-broker,.krf-broker,.kpo-partition,.kmk-partition,.kcg-partition,.kse-topic-message,.ksp-topology){animation:kafka-broker-pulse 550ms ease-out both}
+[data-kafka-motion=output] :is(.kpc-consumer,.kar-consumer,.kco-consumer,.kcn-sink-connector,.ksp-output,.kod-consumers,.krp-consumer,.kbc-consumer,.kpo-consumer,.kcg-consumer,.ki-consumer,.kse-reader-output,.kar-consumers){animation:kafka-consumer-receive 650ms ease-out both}
+[data-kafka-motion=output] :is(.kpc-timeline,.kpo-event-log,.kcg-event-log,.kse-event-log,.kco-event-log,.kmk-event-log,.kod-event-log,.krp-event-log,.ki-log,.krf-event-log,.kcn-event-log,.ksp-event-log,.kar-event-flow) li:last-child{animation:kafka-record-arrive 450ms ease-out both}
+:is(.kpc-record-strip,.kpo-records,.kmk-records,.kse-topic-messages)>:last-child{animation:kafka-record-arrive 400ms ease-out both}
+[data-kafka-motion] :is(.kar-broker,.kpc-consumer,.kpc-partition,.kbc-broker,.krf-broker,.kcg-partition){transition:box-shadow 220ms,border-color 220ms,background-color 220ms}
+@keyframes kafka-packet-flight{0%{transform:translateX(0) rotate(-15deg);opacity:0}20%{opacity:1}80%{opacity:1}100%{left:85%;transform:translateX(-100%) rotate(15deg);opacity:0}}
+@keyframes kafka-source-pulse{50%{box-shadow:inset 0 0 0 2px #a78bfa,0 0 24px #a78bfa22}}
+@keyframes kafka-broker-pulse{40%{box-shadow:inset 0 0 0 2px #a78bfa,0 0 20px #8b5cf633;background-color:#f5f0ff}}
+@keyframes kafka-consumer-receive{40%{box-shadow:inset 0 0 0 2px #34d399,0 0 24px #34d39922;background-color:#f0fdf7}}
+@keyframes kafka-record-arrive{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){[data-kafka-motion] *,[data-kafka-motion] *::after{animation:none!important;transition:none!important}}
+
+/* Curved record flights are positioned over the existing nodes, with no layout footprint. */
+[data-kafka-motion]{position:relative;isolation:isolate}
+.kafka-motion-art{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:5}
+.kafka-motion-route{fill:none;stroke:#a78bfa;stroke-width:2;stroke-dasharray:5 7;opacity:0;animation:kafka-route-reveal 1.4s ease both}
+.kafka-motion-envelope{filter:drop-shadow(0 4px 6px #7955af44)}
+.kafka-motion-envelope rect{fill:#fff;stroke:#9561e8;stroke-width:2}
+.kafka-motion-fold{fill:none;stroke:#9561e8;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.kafka-motion-arrival{fill:none;stroke:#5acdab;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;animation:kafka-arrival-ring 700ms ease-out both}
+@keyframes kafka-route-reveal{0%{opacity:0;stroke-dashoffset:80}20%,75%{opacity:.65}100%{opacity:0;stroke-dashoffset:0}}
+@keyframes kafka-arrival-ring{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(2)}}
+/* Replace the earlier repeating dot effect with the finite record flights. */
+[data-kafka-motion]:not([data-kafka-motion=idle]) :is(.kpc-publish,.kpc-consumer-links,.kse-arrow,.kco-loop-arrow,.krp-arrow,.kar-arrow,.kbc-flow,.kcn-arrow,.ksp-arrow,.kod-arrow,.kmk-arrow,.kpo-arrow,.krf-replication-link)::after{display:none}
+@media(prefers-reduced-motion:reduce){.kafka-motion-art{display:none}}
+
+.kafka-motion-trail{fill:#b08ae9;filter:drop-shadow(0 0 3px #b08ae9)}
+
+[data-kafka-motion=processing] :is(.kpc-partition,.kar-broker,.kbc-broker,.krf-broker,.kpo-partition,.kmk-partition,.kcg-partition,.kse-topic-message,.ksp-topology){animation:none}
+[data-kafka-receiving=true]{animation:kafka-broker-pulse 650ms ease-out both!important}
+@media(prefers-reduced-motion:reduce){[data-kafka-receiving=true]{animation:none!important}}
+
+/* A soft scanner beam, layered record capsule, and a short docking burst. */
+.kafka-motion-beam{fill:none;stroke-width:4;stroke-linecap:round;filter:drop-shadow(0 0 4px #a78bfa66)}
+.kafka-motion-envelope rect{stroke:var(--packet-tone,#9561e8)}
+.kafka-motion-envelope .kafka-motion-sheet{fill:#ede7ff;opacity:.8;stroke-width:1}
+.kafka-motion-envelope .kafka-motion-fold{stroke:var(--packet-tone,#9561e8)}
+.kafka-motion-seal{fill:var(--packet-tone,#9561e8)}
+.kafka-motion-port{fill:white;stroke-width:2;opacity:0;animation:kafka-port-wake 1.1s ease both}
+.kafka-motion-dock{opacity:0;stroke-width:2;stroke-linecap:round;animation:kafka-dock-flash 500ms ease both}
+@keyframes kafka-port-wake{0%{opacity:0}15%,80%{opacity:.85}100%{opacity:0}}
+@keyframes kafka-dock-flash{0%{opacity:0}25%{opacity:.9}100%{opacity:0}}
+
+/* Small orbital launch stations and docking gates make each hop distinct. */
+.kafka-motion-orbit,.kafka-motion-gate{opacity:0;pointer-events:none}
+.kafka-motion-orbit{animation:kafka-orbit-launch 1.05s ease both}
+.kafka-motion-orbit-ring{fill:none;stroke-width:1;opacity:.55}
+.kafka-motion-orbit-rotor{transform-box:fill-box;transform-origin:center;animation:kafka-orbit-spin 1.6s linear infinite}
+.kafka-motion-gate{animation:kafka-gate-dock 800ms ease both}
+.kafka-motion-gate-rotor{transform-box:fill-box;transform-origin:center;animation:kafka-gate-spin 1.5s linear infinite}
+.kafka-motion-capsule-aura{fill:var(--packet-tone);opacity:.12;filter:blur(4px)}
+.kafka-motion-capsule-shine{fill:none;stroke:white;stroke-width:2;stroke-linecap:round;opacity:.85}
+.kafka-motion-beam{stroke-width:5;opacity:.5}
+@keyframes kafka-orbit-launch{0%{opacity:0}20%,70%{opacity:.85}100%{opacity:0}}
+@keyframes kafka-gate-dock{0%{opacity:0}30%,60%{opacity:.75}100%{opacity:0}}
+@keyframes kafka-orbit-spin{to{rotate:360deg}}
+@keyframes kafka-gate-spin{to{rotate:-180deg}}
+@media(prefers-reduced-motion:reduce){.kafka-motion-orbit,.kafka-motion-gate{display:none}}
+
+.kafka-motion-payload-glyph{font:700 12px ui-monospace,monospace;fill:var(--packet-tone);letter-spacing:-2px}
+.kafka-motion-destination{font:600 7px system-ui,sans-serif;fill:#625078}
+.kafka-motion-envelope .kafka-motion-payload-bit{fill:var(--packet-tone);stroke:none;opacity:.5}
+.kafka-motion-envelope .kafka-motion-sheet{transform:translate(4px,-3px);opacity:.55}
+.kafka-motion-capsule-aura{rx:37;ry:25}
+
+
+/* dbt reuses finite model journeys, with a warm compiler-to-warehouse palette. */
+[data-pipeline-theme=dbt] .kafka-motion-envelope{filter:drop-shadow(0 4px 7px #d98e5b33)}
+[data-pipeline-theme=dbt] .kafka-motion-arrival{stroke:#d9a077}
+[data-pipeline-theme=dbt] [data-kafka-receiving=true]{animation:dbt-model-receive 650ms ease both!important}
+@keyframes dbt-model-receive{45%{box-shadow:inset 0 0 0 2px #e6aa82,0 0 20px #e6aa821c}}
+@media(prefers-reduced-motion:reduce){[data-pipeline-theme=dbt] [data-kafka-receiving=true]{animation:none!important}}

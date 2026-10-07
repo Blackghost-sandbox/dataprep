@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -45,6 +46,7 @@ function EventJson({events}:{events:ReturnType<typeof referenceStreamingState>["
 }
 
 export function CloudStreamingLab(){
+ const cloudMotion=useCloudMotion(".sm-stage-grid > .sm-card");
   const [controls,setControls]=useState<StreamingControls>(()=>defaultStreamingControls());
   const [state,setState]=useState(()=>referenceStreamingState());
   const [running,setRunning]=useState(false);
@@ -73,7 +75,7 @@ export function CloudStreamingLab(){
     setState(prev=>({...prev,partitions:next.partitions,status:`Key ${testKey} routed to partition ${next.target}; same key preserves the same ordering scope.`}));
   };
 
-  return <section className="sm-lab">
+  return <section {...cloudMotion} className="sm-lab">
     <header className="sm-toolbar">
       <div className="sm-sim-title"><span><Play size={20} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>Send events from multiple producers through a streaming platform and see how partitions, consumers, and delivery semantics work.</p></div></div>
       <div className="sm-toolbar-actions">

@@ -1,4 +1,5 @@
 "use client";
+import {SyntaxText} from "@/components/syntax-editor";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -256,7 +257,7 @@ function CodePanel({
   return (
     <div className="molap-code">
       <button type="button" onClick={() => onCopy(side, code)} aria-label={`Copy ${side.toUpperCase()} SQL`}><Copy size={13}/><span>{copied === side ? "Copied" : "Copy"}</span></button>
-      <pre tabIndex={0}><code>{code}</code></pre>
+      <pre tabIndex={0}><code><SyntaxText code={code}/></code></pre>
     </div>
   );
 }

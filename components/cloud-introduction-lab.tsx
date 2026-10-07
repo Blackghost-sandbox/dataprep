@@ -1,4 +1,5 @@
 "use client";
+import {useCloudMotion} from "@/components/cloud-motion";
 
 import {useEffect,useMemo,useState} from "react";
 import {
@@ -55,7 +56,7 @@ function CloudStageCard({stage,scenarioId,completed,active,selected,onSelect,onP
   const meta=cloudStages.find(item=>item.id===stage)!;
   const Icon=stageIcons[stage];
   const items=stageItems(stage,scenarioId);
-  return <article className={`cloud-stage-card tone-${stageTone[stage]} ${completed?"is-complete":""} ${active?"is-active":""} ${selected?"is-selected":""}`}>
+  return <article className={`cloud-stage-card tone-${stageTone[stage]} ${completed?"is-complete":""} ${selected?"is-selected":""}`}>
     <button className="cloud-stage-heading" onClick={onSelect} aria-pressed={selected}>
       <span><Icon size={15}/>{meta.label}</span>
       {active?<LoaderCircle className="cloud-stage-spinner" size={14}/>:completed?<CheckCircle2 size={14}/>:<CircleDot size={13}/>}
@@ -98,6 +99,7 @@ export function CloudIntroductionHero({description,minutes,currentLesson,total,o
 }
 
 export function CloudIntroductionLab(){
+ const cloudMotion=useCloudMotion(".cloud-pipeline-slot");
   const [scenario,setScenario]=useState<CloudScenarioId>("retail");
   const [provider,setProvider]=useState<CloudProviderId>("aws");
   const [selectedStage,setSelectedStage]=useState<Exclude<CloudStageId,"sources"|"consumers">>("storage");
@@ -122,7 +124,7 @@ export function CloudIntroductionLab(){
   const selectStage=(stage:CloudStageId)=>{if(stage!=="sources"&&stage!=="consumers")setSelectedStage(stage);};
   const clearLogs=()=>setState(previous=>({...previous,logs:[]}));
 
-  return <section className="cloud-sim" aria-label="Cloud platforms for data engineering interactive simulation">
+  return <section {...cloudMotion} className="cloud-sim" aria-label="Cloud platforms for data engineering interactive simulation">
     <header className="cloud-sim-toolbar">
       <div className="cloud-sim-title"><span><Play size={21} fill="currentColor"/></span><div><h2>Run Simulation</h2><p>See how a typical data pipeline maps to core cloud services across AWS, Google Cloud, and Azure.</p></div></div>
       <div className="cloud-sim-actions">

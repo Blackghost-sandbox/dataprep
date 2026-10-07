@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -88,16 +91,16 @@ for(const text of [
   "Start Producing","Partition 0","12 events","Partition 1","9 events","Partition 2","11 events",
   "Consumers","order-processor","Consumer 1","8 events/sec","Lag: 2","Consumer 2","7 events/sec","Lag: 3",
   "Output (Processed Events)","Events","Metrics","Delivery Semantics Comparison",
-  "At Most Once","At Least Once","Exactly Once","Partitioning &amp; Ordering",
+  "At Most Once","At Least Once","Exactly Once","Partitioning & Ordering",
   "user_1001","Send Event","Key Takeaways"
-])assert.ok(html.includes(text),text);
+])assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 
 const hero=renderToString(React.createElement(CloudStreamingHero,{
   description:"Design cloud event pipelines around partitions, ordering scope, retention, consumer scaling, delivery semantics, and recovery.",
   minutes:28,currentLesson:7,total:11,onPrevious:()=>{},onNext:()=>{}
 }));
 for(const text of [
-  "Streaming &amp; Messaging","28 min","Lesson 8/11","Intermediate",
+  "Streaming & Messaging","28 min","Lesson 8/11","Intermediate",
   "Producers","Streaming Platform","Consumers","Previous","Next"
 ])assert.ok(hero.includes(text),text);
 

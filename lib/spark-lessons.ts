@@ -7,7 +7,7 @@ export interface SparkLesson {
   practice: {task: string; hint: string; solution: string; output: string};
   interview: {question: string; answer: string; followup: string}[];
   mistakes: {title: string; why: string; better: string; before: string; after: string}[];
-  quiz: {question: string; options: string[]; correct: number; explanation: string}[];
+  quiz: {question: string; options: string[]; correct: number; explanation: string; optionExplanations?:string[]}[];
 }
 
 export const sparkLessons: SparkLesson[] = [
@@ -112,32 +112,102 @@ export const sparkLessons: SparkLesson[] = [
       }
     ]
   },
-  {
-    "id": "rdd-vs-dataframe",
-    "title": "RDD vs DataFrame",
-    "minutes": 20,
-    "description": "Understand Spark’s two core abstractions, when to use each, and how their execution models shape real-world performance.",
-    "concepts": [],
-    "flow": [],
-    "example": {
-      "code": "numbers = spark.range(1, 6)\nselected = numbers.filter(\"id >= 3\")\nselected.orderBy(\"id\").show()",
-      "output": "id\n3\n4\n5",
-      "walkthrough": [
-        "range creates the values 1 through 5; its upper bound is excluded.",
-        "filter describes which rows to keep. It does not change numbers.",
-        "show requests a result; orderBy makes the displayed order explicit."
-      ]
-    },
-    "practice": {
-      "task": "Create the numbers 1 through 10, keep the even numbers, and count them.",
-      "hint": "Use range(1, 11), the remainder operator %, and count().",
-      "solution": "numbers = spark.range(1, 11)\neven = numbers.filter(\"id % 2 = 0\")\nprint(even.count())",
-      "output": "5"
-    },
-    "interview": [],
-    "mistakes": [],
-    "quiz": []
+{
+  "id": "rdd-vs-dataframe",
+  "title": "RDD vs DataFrame",
+  "minutes": 20,
+  "description": "Compare low-level functions with structured column expressions and verify equivalent results.",
+  "concepts": [
+    [
+      "RDD",
+      "A distributed collection whose records can be processed with custom functions. Arbitrary function logic is not exposed to the SQL optimizer like a column expression."
+    ],
+    [
+      "DataFrame",
+      "A distributed dataset with named columns and a schema. Structured expressions let Spark plan and optimize relational work."
+    ],
+    [
+      "Choose from the work",
+      "Use DataFrames first for structured transformations. Consider an RDD for custom record algorithms or partition-level control that is difficult to express with structured APIs."
+    ]
+  ],
+  "flow": [
+    "Input",
+    "Equivalent transformations",
+    "Action",
+    "Compare results"
+  ],
+  "example": {
+    "code": "from pyspark.sql import functions as F\n\n# Classic Spark session; tiny fixture only.\nrdd = spark.sparkContext.parallelize([1, 2, 3, 4, 5])\nrdd_result = sorted(rdd.filter(lambda x: x >= 3).map(lambda x: x * 2).collect())\n\ndf = spark.range(1, 6)\ndf_result = [row.value for row in df.filter(F.col(\"id\") >= 3)\n    .select((F.col(\"id\") * 2).alias(\"value\"))\n    .orderBy(\"value\").collect()]\nprint(rdd_result)\nprint(df_result)",
+    "output": "[6, 8, 10]\n[6, 8, 10]",
+    "walkthrough": [
+      "Both inputs contain integers 1 through 5. Spark range excludes its upper boundary.",
+      "Both transformations keep 3, 4, and 5 and double them. The RDD uses functions; the DataFrame uses column expressions.",
+      "collect triggers work and is safe only for this bounded fixture. Explicit sorting gives comparable display order."
+    ]
   },
+  "practice": {
+    "task": "Using both an RDD and a DataFrame, keep even integers from 1 through 10 and sum them. Verify that both produce 30.",
+    "hint": "Use a remainder test. Use an RDD sum action and a DataFrame sum aggregation.",
+    "solution": "from pyspark.sql import functions as F\nrdd = spark.sparkContext.parallelize(range(1, 11))\nprint(rdd.filter(lambda x: x % 2 == 0).sum())\ndf = spark.range(1, 11)\ndf.filter(F.col(\"id\") % 2 == 0).agg(F.sum(\"id\").alias(\"total\")).show()",
+    "output": "RDD total: 30\nDataFrame total column: 30"
+  },
+  "interview": [
+    {
+      "question": "When would you consider an RDD instead of a DataFrame?",
+      "answer": "Start with DataFrames for structured work. Consider an RDD when a custom algorithm or partition operation cannot be expressed conveniently with column expressions. The extra control also reduces what the structured optimizer can infer.",
+      "followup": "Does reading an unstructured text file alone require choosing RDDs?"
+    },
+    {
+      "question": "Why can a DataFrame query outperform equivalent custom RDD code?",
+      "answer": "Named columns and expressions expose query structure. Spark can select plans and eliminate or push eligible work. This is a potential optimization benefit, not a guarantee for every workload.",
+      "followup": "How would you inspect whether a filter was pushed into the source?"
+    },
+    {
+      "question": "How would you compare implementations fairly?",
+      "answer": "Use equivalent logic and representative inputs, verify equal outputs, trigger equivalent actions, and control cache state and resources. Repeat measurements and examine plans and task metrics.",
+      "followup": "Why is timing only map or select misleading?"
+    }
+  ],
+  "mistakes": [
+    {
+      "title": "Collecting a large dataset to compare implementations",
+      "why": "collect moves every result record into driver memory. Large inputs can exceed that memory.",
+      "better": "Use bounded fixtures for exact comparisons and distributed reconciliation for large outputs.",
+      "before": "rows = large_df.collect()\nprint(len(rows))",
+      "after": "print(large_df.count())\nlarge_df.orderBy(\"id\").show(5)"
+    },
+    {
+      "title": "Assuming DataFrames are always faster",
+      "why": "The result depends on expressions, data, resources, and plans. A claim without execution evidence can hide different work.",
+      "better": "Verify equivalent output, trigger execution, and measure repeated runs.",
+      "before": "# Time only constructing a lazy transformation\nresult = df.select(\"id\")",
+      "after": "# Trigger comparable work and inspect its plan\nresult = df.select(\"id\")\nresult.explain()\nprint(result.count())"
+    }
+  ],
+  "quiz": [
+    {
+      "question": "Which operation triggers evaluation of the necessary Spark work?",
+      "options": [
+        "Selecting columns to create a new DataFrame",
+        "Calling count on the result",
+        "Defining an RDD map transformation"
+      ],
+      "correct": 1,
+      "explanation": "An action requests a result. Most transformations define work lazily."
+    },
+    {
+      "question": "Does a DataFrame filter mutate its original DataFrame?",
+      "options": [
+        "Yes, it removes records in place",
+        "Only if the filter uses SQL",
+        "No, it returns a new DataFrame description"
+      ],
+      "correct": 2,
+      "explanation": "Assign or chain the returned DataFrame to use the transformed result."
+    }
+  ]
+} ,
   {
     "id": "spark-sql",
     "title": "Spark SQL",

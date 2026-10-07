@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -112,6 +113,7 @@ function Metric({icon,label,value,detail,tone}:{icon:React.ReactNode;label:strin
 }
 
 export function SystemServingConsumerLab() {
+  const motion=useSystemDesignMotion("serving");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<ServingScenarioId>("multi-consumer");
   const scenario=useMemo(()=>getServingScenario(scenarioId),[scenarioId]);
@@ -152,7 +154,7 @@ export function SystemServingConsumerLab() {
         ? "SELECT feature_vector, label\nFROM feature_store.training_set\nWHERE snapshot_date = CURRENT_DATE"
         : "CREATE DATA SHARE partner_orders\nFILTER region = 'approved'";
 
-  return <section className="sdsc-lab">
+  return <section {...motion} className="sdsc-lab">
     <header className="sdsc-sim-header">
       <div className="sdsc-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Configure different consumers and see how a serving layer design handles their needs. Compare patterns and observe trade-offs.</p></div></div>
       <div className="sdsc-toolbar"><button type="button" className="sdsc-reset" onClick={reset}><RefreshCcw size={15}/>Reset</button><button type="button" className="sdsc-run" onClick={run} disabled={running}><Play size={15} fill="currentColor"/>{running?"Running…":"Run Simulation"}</button><label className="sdsc-scenario"><span>{scenario.label}</span><select value={scenarioId} onChange={e=>chooseScenario(e.target.value as ServingScenarioId)}>{servingScenarios.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}</select><ChevronDown size={14}/></label></div>

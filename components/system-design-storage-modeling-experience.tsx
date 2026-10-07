@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -155,6 +156,7 @@ const queryResults = [
 ];
 
 export function SystemStorageModelingLab() {
+  const motion=useSystemDesignMotion("storage");
   const companion = useCompanion();
   const [scenarioId, setScenarioId] = useState<StorageScenarioId>("ecommerce");
   const scenario = useMemo(() => getStorageScenario(scenarioId), [scenarioId]);
@@ -196,7 +198,7 @@ export function SystemStorageModelingLab() {
     : result.logs;
 
   return (
-    <section className="sdsm-lab">
+    <section {...motion} className="sdsm-lab">
       <header className="sdsm-sim-header">
         <div className="sdsm-sim-heading">
           <span><Play size={20} fill="currentColor"/></span>

@@ -1,4 +1,5 @@
 "use client";
+import {useSystemDesignMotion} from "@/components/system-design-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -88,6 +89,7 @@ function Metric({icon,label,value,detail}:{icon:React.ReactNode;label:string;val
 }
 
 export function SystemDesignFrameworkLab(){
+  const motion=useSystemDesignMotion("framework");
   const companion=useCompanion();
   const [scenarioId,setScenarioId]=useState<SystemScenarioId>("video-streaming");
   const scenario=useMemo(()=>getSystemScenario(scenarioId),[scenarioId]);
@@ -127,7 +129,7 @@ export function SystemDesignFrameworkLab(){
 
   const logs=result?.logs.slice(0,visibleLogCount)??["Ready. Configure the scenario, then run the simulation."];
 
-  return <section className="sdf-lab" aria-label="Interactive system design simulation">
+  return <section {...motion} className="sdf-lab" aria-label="Interactive system design simulation">
     <header className="sdf-sim-header">
       <div className="sdf-sim-heading"><span><Play size={20} fill="currentColor"/></span><div><h2>Interactive Simulation</h2><p>Design and test a real-world system step by step. Modify inputs, run the simulation, and watch data flow through the architecture.</p></div></div>
       <div className="sdf-toolbar">

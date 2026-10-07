@@ -5,13 +5,16 @@ import {createRequire} from "node:module";
 import assert from "node:assert/strict";
 import ts from "typescript";
 import React from "react";
-import {renderToString} from "react-dom/server";
+import {renderToString as renderRawToString} from "react-dom/server";
+// React can split visible text with hydration comments and escape entities.
+const renderToString=(node)=>renderRawToString(node).replace(/<!--[^]*?-->/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&quot;/g,'"').replace(/&#x27;|&#39;/g,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n)));
 
 const root=path.resolve(import.meta.dirname,"..");
 const require=createRequire(import.meta.url);
 const cache=new Map();
 
 function load(file){
+  if(file.endsWith(".json"))return JSON.parse(fs.readFileSync(file,"utf8"));
   if(cache.has(file))return cache.get(file).exports;
   const loaded={exports:{}};cache.set(file,loaded);
   const source=fs.readFileSync(file,"utf8");
@@ -56,7 +59,7 @@ assert.ok(azure.logs.some(entry=>entry.text.includes("Azure Synapse Analytics"))
 const {CloudIntroductionLab,CloudIntroductionHero}=load(path.join(root,"components/cloud-introduction-lab.tsx"));
 const html=renderToString(React.createElement(CloudIntroductionLab));
 for(const text of ["Run Simulation","Retail Analytics Pipeline","Data Sources","Ingestion","Storage (Data Lake)","Processing","Analytics","BI & Consumers","Execution Logs","Service Details","Key Takeaways","Amazon S3","BigQuery","Azure"]){
-  assert.ok(html.includes(text),text);
+  assert.ok((html.includes(text)||html.replace(/<[^>]*>/g,"").includes(text)),text);
 }
 const hero=renderToString(React.createElement(CloudIntroductionHero,{description:"Vendor-neutral cloud data systems",minutes:20,currentLesson:0,total:11,onPrevious:()=>{},onNext:()=>{}}));
 for(const text of ["Cloud Platforms for Data Engineering","20 min","Lesson 1/11","Beginner","Data Engineering","Next"]){

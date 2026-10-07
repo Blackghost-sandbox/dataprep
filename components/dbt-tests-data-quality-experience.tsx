@@ -1,4 +1,5 @@
 "use client";
+import {useDbtMotion} from "@/components/dbt-motion";
 
 import {useMemo,useState} from "react";
 import {
@@ -115,6 +116,7 @@ function TestResults({failures}:{failures:DbtTestFailure[]}){
 }
 
 export function DbtTestsDataQualityLab(){
+ const dbtMotion=useDbtMotion(".dbtt-pipe-node");
   const [datasetId,setDatasetId]=useState<DbtTestDatasetId>("ecommerce");
   const [rows,setRows]=useState<DbtTestRow[]>(()=>cloneDataset("ecommerce"));
   const [editing,setEditing]=useState(false);
@@ -143,7 +145,7 @@ export function DbtTestsDataQualityLab(){
     window.setTimeout(()=>{setRan(true);setRunning(false);},500);
   };
 
-  return <section className="dbtt-lab" aria-label="dbt tests and data quality interactive simulation">
+  return <section {...dbtMotion} className="dbtt-lab" aria-label="dbt tests and data quality interactive simulation">
     <section className="dbtt-flow-section">
       <header className="dbtt-section-head"><div><h2><BookOpen size={20}/>Where tests fit in the dbt flow</h2><p>dbt tests run after models are built and validate assumptions about your data. They catch issues like nulls, duplicates, and invalid values early.</p></div></header>
       <div className="dbtt-pipeline">
