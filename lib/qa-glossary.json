@@ -1,0 +1,610 @@
+{
+  "structured query language": {
+    "meaning": "The language used to ask relational databases for data and to manage it.",
+    "example": "SELECT name FROM customers returns a column without changing the table."
+  },
+  "sql": {
+    "meaning": "The language used to ask relational databases for data and to manage it.",
+    "example": "SELECT name FROM customers returns a column without changing the table."
+  },
+  "relational database": {
+    "meaning": "A database that organizes data into tables with defined columns and relationships.",
+    "example": "A customer ID links customers to their orders."
+  },
+  "declarative": {
+    "meaning": "You describe the result you need rather than every step used to compute it.",
+    "example": "SQL specifies matching rows; the optimizer chooses how to find them."
+  },
+  "execution plan": {
+    "meaning": "The engine's chosen sequence of scans, joins and other operations.",
+    "example": "EXPLAIN reveals whether a query scans a table or uses an index."
+  },
+  "select": {
+    "meaning": "Chooses columns or expressions for the query result.",
+    "example": "SELECT name returns names rather than every customer field."
+  },
+  "insert": {
+    "meaning": "Adds new rows to a table.",
+    "example": "INSERT creates a record; SELECT only reads it."
+  },
+  "where": {
+    "meaning": "Keeps input rows whose condition is true, before grouping.",
+    "example": "WHERE amount > 100 excludes smaller orders before totals are computed."
+  },
+  "having": {
+    "meaning": "Filters groups after aggregation.",
+    "example": "HAVING SUM(amount) > 500 keeps customers with qualifying totals."
+  },
+  "group by": {
+    "meaning": "Combines rows with matching grouping values for aggregation.",
+    "example": "Group orders by customer_id to calculate one total per customer."
+  },
+  "order by": {
+    "meaning": "Sorts results using the specified expressions and direction.",
+    "example": "Add a unique ID after a score to break ties deterministically."
+  },
+  "distinct": {
+    "meaning": "Removes duplicate selected combinations from a result.",
+    "example": "DISTINCT city, age returns unique pairs, not independently unique columns."
+  },
+  "count": {
+    "meaning": "Counts rows or non-NULL values, depending on its argument.",
+    "example": "COUNT(*) counts every row; COUNT(city) ignores NULL cities."
+  },
+  "avg": {
+    "meaning": "Calculates an arithmetic mean of non-NULL input values.",
+    "example": "AVG(salary) excludes missing salaries rather than treating them as zero."
+  },
+  "sum": {
+    "meaning": "Adds non-NULL numeric values.",
+    "example": "SUM(amount) calculates a total for each selected group."
+  },
+  "null": {
+    "meaning": "Represents an unknown or absent SQL value.",
+    "example": "Use IS NULL to find missing values; equality to NULL does not work."
+  },
+  "coalesce": {
+    "meaning": "Returns the first non-NULL expression in its argument list.",
+    "example": "COALESCE(city, 'Unknown') supplies an intentional display fallback."
+  },
+  "nullif": {
+    "meaning": "Returns NULL when its two expressions are equal.",
+    "example": "NULLIF(denominator, 0) prevents division by zero."
+  },
+  "case": {
+    "meaning": "Chooses a result from conditional branches.",
+    "example": "CASE WHEN amount > 100 THEN 'Large' ELSE 'Small' END labels rows."
+  },
+  "not exists": {
+    "meaning": "Tests that a subquery finds no matching row.",
+    "example": "Find customers with no orders using a customer-level absence check."
+  },
+  "not in": {
+    "meaning": "Checks exclusion from a list, with SQL NULL semantics.",
+    "example": "A NULL in the list can make the predicate unknown; consider NOT EXISTS."
+  },
+  "inner join": {
+    "meaning": "Returns pairs that satisfy the join condition.",
+    "example": "Only customers with matching orders appear."
+  },
+  "left join": {
+    "meaning": "Keeps every left-side row, including unmatched ones.",
+    "example": "A customer without an order remains, with NULL order fields."
+  },
+  "right join": {
+    "meaning": "Keeps every right-side row, including unmatched ones.",
+    "example": "It reverses which input is preserved compared with a left join."
+  },
+  "full join": {
+    "meaning": "Keeps matching pairs and unmatched rows from both inputs.",
+    "example": "Useful for comparing two systems where either side may lack a record."
+  },
+  "dense_rank": {
+    "meaning": "Ranks ordered values, sharing ranks for ties without gaps.",
+    "example": "Scores 100, 90, 90, 80 receive ranks 1, 2, 2, 3."
+  },
+  "row_number": {
+    "meaning": "Assigns a different sequence number to every row in a window.",
+    "example": "Use a stable tie-breaker when selecting one latest row per customer."
+  },
+  "rank": {
+    "meaning": "Shares rank for ties and leaves gaps after them.",
+    "example": "Scores 100, 90, 90, 80 receive ranks 1, 2, 2, 4."
+  },
+  "lag": {
+    "meaning": "Reads an earlier row's value within an ordered window.",
+    "example": "Compare the current order amount with the previous order amount."
+  },
+  "cte": {
+    "meaning": "A named query available within one SQL statement.",
+    "example": "WITH ranked AS (...) lets an outer query filter computed ranks."
+  },
+  "common table expression": {
+    "meaning": "A named query available within one SQL statement.",
+    "example": "WITH ranked AS (...) lets an outer query filter computed ranks."
+  },
+  "window function": {
+    "meaning": "Calculates across related rows while keeping row detail.",
+    "example": "A running sum can appear beside each individual order."
+  },
+  "grain": {
+    "meaning": "What exactly one row in a dataset represents.",
+    "example": "One row per order differs from one row per order line."
+  },
+  "cardinality": {
+    "meaning": "The number of values or relationship matches in a context.",
+    "example": "A one-to-many join can multiply rows before aggregation."
+  },
+  "indexes": {
+    "meaning": "Lookup structures that can speed selected database access patterns.",
+    "example": "An index can help selective reads but adds maintenance work to writes."
+  },
+  "partition pruning": {
+    "meaning": "Skipping storage partitions ruled out by a query filter.",
+    "example": "A date filter may avoid scanning unrelated daily partitions."
+  },
+  "python": {
+    "meaning": "A programming language used for extraction, validation and orchestration.",
+    "example": "A Python client can read an API and validate records before loading them."
+  },
+  "generator": {
+    "meaning": "Produces values on demand rather than storing them all at once.",
+    "example": "Yield CSV records one by one to limit intermediate memory."
+  },
+  "iterator": {
+    "meaning": "An object that provides the next item until exhausted.",
+    "example": "Iterating a file reads successive lines without loading the whole file."
+  },
+  "dictionary": {
+    "meaning": "A Python mapping from hashable keys to values.",
+    "example": "Look up a customer name using a customer ID key."
+  },
+  "tuple": {
+    "meaning": "An immutable Python sequence.",
+    "example": "A tuple can represent a fixed pair such as customer ID and name."
+  },
+  "gil": {
+    "meaning": "A lock in conventional CPython builds that limits parallel Python bytecode threads.",
+    "example": "I/O threads may overlap waiting; CPU parallelism often uses processes."
+  },
+  "async i/o": {
+    "meaning": "Overlaps waiting tasks using an event loop.",
+    "example": "Await several API requests without blocking the whole event loop."
+  },
+  "threads": {
+    "meaning": "Concurrent execution units within a shared process.",
+    "example": "Useful for overlapping network waits; shared state requires coordination."
+  },
+  "processes": {
+    "meaning": "Separate running programs with distinct memory spaces.",
+    "example": "CPU work can run in parallel, with data-transfer overhead."
+  },
+  "context manager": {
+    "meaning": "Manages setup and cleanup around a block of Python code.",
+    "example": "with open(...) closes the file even when the block raises an exception."
+  },
+  "exception": {
+    "meaning": "A signal that normal execution cannot continue as expected.",
+    "example": "Catch specific request errors and decide whether a retry is safe."
+  },
+  "pandas": {
+    "meaning": "A Python library for tabular data analysis.",
+    "example": "A DataFrame groups product rows to calculate sales totals."
+  },
+  "dataframe": {
+    "meaning": "A named-column tabular abstraction; execution differs by library.",
+    "example": "pandas commonly runs locally; Spark distributes DataFrame processing."
+  },
+  "csv": {
+    "meaning": "A text format representing records as delimited fields.",
+    "example": "Parsing requires the correct delimiter, quoting and encoding."
+  },
+  "json": {
+    "meaning": "A structured text format supporting objects, arrays and scalar values.",
+    "example": "An API response may contain nested JSON records."
+  },
+  "parquet": {
+    "meaning": "A columnar file format with types, encoding and storage statistics.",
+    "example": "An analytical query can read selected columns and skip some row groups."
+  },
+  "base64": {
+    "meaning": "A text encoding for binary bytes, not encryption.",
+    "example": "Decode an API's base64 ZIP payload before parsing the contained CSV."
+  },
+  "zipfile": {
+    "meaning": "Python's module for reading and writing ZIP archives.",
+    "example": "Read an expected entry with size limits rather than extracting untrusted paths."
+  },
+  "validation": {
+    "meaning": "Checking data against explicit rules before relying on it.",
+    "example": "Verify key uniqueness, types and source-to-result totals."
+  },
+  "surrogate key": {
+    "meaning": "An artificial identifier independent of business attributes.",
+    "example": "Each historical customer version can have its own surrogate key."
+  },
+  "natural key": {
+    "meaning": "An identifier that comes from the business domain.",
+    "example": "A product code may identify a product but can change over time."
+  },
+  "primary key": {
+    "meaning": "The declared unique, non-NULL identifier of a table row.",
+    "example": "A composite primary key can include multiple columns."
+  },
+  "foreign key": {
+    "meaning": "A constraint linking a value to a referenced key.",
+    "example": "An order's customer ID references an existing customer."
+  },
+  "scd type 2": {
+    "meaning": "Preserves dimension changes as separate versions with validity periods.",
+    "example": "A sale joins to the customer's region at the time of purchase."
+  },
+  "normalization": {
+    "meaning": "Organizes relational data to reduce problematic duplication and dependencies.",
+    "example": "Store a department's attributes separately from employee records."
+  },
+  "denormalization": {
+    "meaning": "Deliberately combines or repeats data for access needs.",
+    "example": "A reporting model may trade additional storage for simpler joins."
+  },
+  "star schema": {
+    "meaning": "A dimensional layout with facts connected to descriptive dimensions.",
+    "example": "Order-line facts join directly to customer, product and date dimensions."
+  },
+  "snowflake schema": {
+    "meaning": "A dimensional layout with some dimensions normalized into related tables.",
+    "example": "Product may link to a separate category dimension."
+  },
+  "oltp": {
+    "meaning": "Transaction processing optimized for operational reads and writes.",
+    "example": "Recording a customer's payment is an OLTP workload."
+  },
+  "olap": {
+    "meaning": "Analytical processing over many records and historical periods.",
+    "example": "Comparing monthly sales across regions is an OLAP workload."
+  },
+  "facts": {
+    "meaning": "Measurements or events stored at a declared grain.",
+    "example": "An order-line fact contains quantities and realized sales amounts."
+  },
+  "dimensions": {
+    "meaning": "Descriptive attributes used to interpret and group facts.",
+    "example": "Customer region and product category provide reporting context."
+  },
+  "spark": {
+    "meaning": "A distributed engine for processing data across worker machines.",
+    "example": "Spark runs partitioned transformations and SQL across a cluster."
+  },
+  "rdd": {
+    "meaning": "Spark's lower-level distributed collection abstraction.",
+    "example": "Custom record functions offer control but fewer relational optimizations."
+  },
+  "catalyst": {
+    "meaning": "Spark SQL's query-analysis and optimization framework.",
+    "example": "It can push filters and choose alternative relational plans."
+  },
+  "shuffle": {
+    "meaning": "Moving records between partitions to align related keys.",
+    "example": "A group-by often redistributes records with the same key."
+  },
+  "broadcast join": {
+    "meaning": "Copies a sufficiently small join input to workers.",
+    "example": "A tiny country lookup can avoid shuffling a large events table."
+  },
+  "partition": {
+    "meaning": "A division of data whose meaning depends on context: a SQL window group, Spark task input, storage segment or Kafka log.",
+    "example": "SQL PARTITION BY customer_id calculates separate windows for each customer."
+  },
+  "partitions": {
+    "meaning": "A division of data whose meaning depends on context: a SQL window group, Spark task input, storage segment or Kafka log.",
+    "example": "SQL PARTITION BY customer_id calculates separate windows for each customer."
+  },
+  "skew": {
+    "meaning": "An uneven distribution of work or records.",
+    "example": "A popular key may leave one task processing far more data than others."
+  },
+  "checkpoint": {
+    "meaning": "Saved progress or state used for recovery.",
+    "example": "Streaming checkpoints can record offsets and state needed to restart."
+  },
+  "lazy evaluation": {
+    "meaning": "Defers processing until a result is requested.",
+    "example": "Spark constructs a plan until an action triggers execution."
+  },
+  "transformations": {
+    "meaning": "Operations that describe how data should change.",
+    "example": "Spark filter and map create derived datasets without immediately running them."
+  },
+  "actions": {
+    "meaning": "Operations that request results or perform output.",
+    "example": "Spark count, collect and writes trigger execution."
+  },
+  "cache": {
+    "meaning": "Keeps reusable data or results to avoid recomputation.",
+    "example": "Caching has a memory cost and helps only when reuse justifies it."
+  },
+  "executor": {
+    "meaning": "A Spark worker process that runs tasks and stores partition data.",
+    "example": "Executor memory limits affect caching and shuffle behavior."
+  },
+  "driver": {
+    "meaning": "The Spark process that coordinates the application.",
+    "example": "Collecting too much data can exhaust driver memory."
+  },
+  "aqe": {
+    "meaning": "Adaptive Query Execution adjusts eligible Spark plans using runtime statistics.",
+    "example": "It can change join strategies or handle some skewed joins."
+  },
+  "airflow": {
+    "meaning": "An orchestrator for scheduling and coordinating workflows.",
+    "example": "It starts tasks and tracks dependencies rather than processing all data itself."
+  },
+  "dag": {
+    "meaning": "A directed graph of tasks with no dependency cycles.",
+    "example": "Load depends on transform, which depends on extract."
+  },
+  "taskflow": {
+    "meaning": "Airflow's API for defining tasks through Python functions.",
+    "example": "Decorated task outputs can establish dependencies between tasks."
+  },
+  "xcom": {
+    "meaning": "Airflow's mechanism for small task-to-task messages.",
+    "example": "Pass a file location instead of transferring a huge dataset in XCom."
+  },
+  "data interval": {
+    "meaning": "The time period a scheduled run is intended to process.",
+    "example": "An older backfill should use its interval rather than today's clock."
+  },
+  "catchup": {
+    "meaning": "Creating scheduled runs for missed intervals when enabled.",
+    "example": "A daily DAG may create historical intervals after being enabled."
+  },
+  "backfill": {
+    "meaning": "Explicitly processing historical intervals.",
+    "example": "Rebuild last month's partitions after fixing a transformation."
+  },
+  "retries": {
+    "meaning": "Additional attempts after a failure, bounded by a policy.",
+    "example": "Use delays and safe sink writes so a retry does not duplicate results."
+  },
+  "idempotent": {
+    "meaning": "Repeating an operation with the same input has the same intended effect.",
+    "example": "Merge by stable key rather than blindly appending on every retry."
+  },
+  "idempotency": {
+    "meaning": "Repeating an operation with the same input has the same intended effect.",
+    "example": "Merge by stable key rather than blindly appending on every retry."
+  },
+  "trigger rule": {
+    "meaning": "An Airflow condition deciding whether upstream task states allow execution.",
+    "example": "A join after branching may need a rule that tolerates skipped branches."
+  },
+  "sensor": {
+    "meaning": "A task that waits for an external condition.",
+    "example": "Wait for a file to arrive before starting processing."
+  },
+  "deferrable": {
+    "meaning": "An Airflow waiting approach that releases the worker while a trigger waits.",
+    "example": "A supported deferrable sensor avoids occupying a worker slot while idle."
+  },
+  "dynamic task mapping": {
+    "meaning": "Creates task instances from runtime input items.",
+    "example": "Generate one processing task per discovered file."
+  },
+  "scheduler": {
+    "meaning": "Coordinates when eligible Airflow tasks should be dispatched.",
+    "example": "It checks schedules and dependencies; workers execute the tasks."
+  },
+  "kafka": {
+    "meaning": "A distributed event-log platform.",
+    "example": "Producers append records; consumers independently read them."
+  },
+  "topic": {
+    "meaning": "A named Kafka stream divided into partitions.",
+    "example": "An orders topic groups order events for consumers."
+  },
+  "offset": {
+    "meaning": "A record's position within one Kafka partition.",
+    "example": "Committed offsets tell a consumer where to resume."
+  },
+  "consumer group": {
+    "meaning": "Consumers cooperating to divide topic partitions.",
+    "example": "A partition is assigned to at most one group member at a time."
+  },
+  "broker": {
+    "meaning": "A Kafka server that hosts partitions.",
+    "example": "Partition leaders accept reads and writes under the configured protocol."
+  },
+  "replication": {
+    "meaning": "Keeping multiple copies of data for resilience.",
+    "example": "Kafka followers replicate partition logs from a leader."
+  },
+  "acks": {
+    "meaning": "Kafka producer configuration for required acknowledgments.",
+    "example": "acks=all waits for the in-sync replica requirement, alongside other settings."
+  },
+  "isr": {
+    "meaning": "Kafka's set of in-sync replicas for a partition.",
+    "example": "min.insync.replicas works with acknowledgments to enforce write requirements."
+  },
+  "retention": {
+    "meaning": "A policy controlling how long data remains available.",
+    "example": "Kafka may remove records by time or size even if some consumers lag."
+  },
+  "compaction": {
+    "meaning": "Combines or removes redundant stored data; behavior depends on the system.",
+    "example": "Kafka log compaction retains recent values per key; file compaction merges small files."
+  },
+  "at-least-once": {
+    "meaning": "Processing may repeat a record after recovery.",
+    "example": "The sink needs deduplication or idempotency to avoid duplicate effects."
+  },
+  "exactly-once": {
+    "meaning": "A guarantee within a specified transactional or processing boundary.",
+    "example": "External side effects need their own coordination; the label is not universal."
+  },
+  "schema evolution": {
+    "meaning": "Changing data structure while managing reader compatibility.",
+    "example": "Add a compatible optional field before removing a field old consumers need."
+  },
+  "dbt": {
+    "meaning": "A tool for building, testing and documenting data transformations.",
+    "example": "It compiles models and executes them in the configured data platform."
+  },
+  "ref": {
+    "meaning": "dbt's function for referencing another model and recording dependency lineage.",
+    "example": "ref('orders') resolves the environment-specific relation name."
+  },
+  "source": {
+    "meaning": "The upstream origin of data. In dbt, source() references a declared input relation.",
+    "example": "An operational orders table can be the source of a reporting model."
+  },
+  "materialization": {
+    "meaning": "Persisting a computed result rather than only keeping its query definition; behavior depends on the engine.",
+    "example": "A SQL engine may store a CTE result temporarily; dbt materializations create views, tables or incremental outputs."
+  },
+  "incremental": {
+    "meaning": "Processing a subset of new or changed data rather than rebuilding everything.",
+    "example": "Late updates may need a lookback window and a merge strategy."
+  },
+  "unique_key": {
+    "meaning": "dbt configuration identifying records for supported incremental strategies.",
+    "example": "It is not automatically a uniqueness constraint; test the key separately."
+  },
+  "snapshot": {
+    "meaning": "A preserved version or state at a point in time.",
+    "example": "dbt snapshots track changes; lakehouse snapshots identify table versions."
+  },
+  "lineage": {
+    "meaning": "The chain of dependencies from inputs to derived datasets.",
+    "example": "It helps identify downstream impact when an upstream model changes."
+  },
+  "jinja": {
+    "meaning": "A template language used by dbt and Airflow in supported fields.",
+    "example": "A template compiles to SQL before the database executes it."
+  },
+  "macro": {
+    "meaning": "A reusable template function in dbt.",
+    "example": "Share repeated SQL generation without copying it across models."
+  },
+  "data tests": {
+    "meaning": "Queries or checks validating data properties.",
+    "example": "A uniqueness test identifies duplicate modeled keys."
+  },
+  "s3": {
+    "meaning": "Amazon's object-storage service.",
+    "example": "A bucket contains objects addressed by keys, rather than SQL table rows."
+  },
+  "object storage": {
+    "meaning": "Stores objects consisting of bytes and metadata under keys.",
+    "example": "An engine must interpret stored Parquet files to query their rows."
+  },
+  "bucket": {
+    "meaning": "A named object-storage container.",
+    "example": "Objects have keys inside the bucket; a prefix resembles a folder but is not one."
+  },
+  "iam": {
+    "meaning": "Identity and Access Management for cloud principals and permissions.",
+    "example": "A job role receives permission to read only the required objects."
+  },
+  "least privilege": {
+    "meaning": "Granting only the permissions necessary for a task.",
+    "example": "A reporting job should not receive unrestricted administrative credentials."
+  },
+  "encryption": {
+    "meaning": "Protecting data by encoding it with cryptographic keys.",
+    "example": "Encryption at rest and in transit cover different exposures."
+  },
+  "serverless": {
+    "meaning": "Managed execution that abstracts server provisioning.",
+    "example": "Capacity limits, concurrency and cost still need planning."
+  },
+  "data lake": {
+    "meaning": "A storage architecture retaining data for multiple processing uses.",
+    "example": "Raw objects need cataloging, governance and processing to become useful."
+  },
+  "lakehouse": {
+    "meaning": "Adds managed table semantics to lake-oriented storage.",
+    "example": "Table formats can provide snapshots and atomic commits over object files."
+  },
+  "warehouse": {
+    "meaning": "A platform optimized for managed analytical queries.",
+    "example": "Historical reporting commonly uses warehouse SQL and governed models."
+  },
+  "cdc": {
+    "meaning": "Change Data Capture records source inserts, updates and deletes.",
+    "example": "Log-based capture reads database changes instead of repeatedly scanning all rows."
+  },
+  "watermark": {
+    "meaning": "An event-time progress estimate used to bound state or lateness handling.",
+    "example": "Events older than the configured lateness policy may need a repair path."
+  },
+  "late events": {
+    "meaning": "Records arriving after their expected event-time window.",
+    "example": "A lookback or correction process can update already published totals."
+  },
+  "latency": {
+    "meaning": "Time between an event or request and its usable result.",
+    "example": "A freshness requirement of minutes differs from a response requirement of milliseconds."
+  },
+  "throughput": {
+    "meaning": "Amount of work completed per time unit.",
+    "example": "Measure events per second separately from individual request latency."
+  },
+  "observability": {
+    "meaning": "Signals that explain a system's state and failures.",
+    "example": "Combine freshness, lag, errors, traces and reconciliation metrics."
+  },
+  "dead-letter": {
+    "meaning": "A destination for records that cannot be processed under the normal policy.",
+    "example": "Retain the error reason and original record for diagnosis and repair."
+  },
+  "rpo": {
+    "meaning": "Recovery Point Objective: the maximum acceptable data loss measured in time.",
+    "example": "An RPO of five minutes requires a recovery plan that protects recent changes."
+  },
+  "rto": {
+    "meaning": "Recovery Time Objective: the target time to restore service.",
+    "example": "A tested restore procedure must fit the required recovery duration."
+  },
+  "sla": {
+    "meaning": "A defined service commitment with measurable expectations.",
+    "example": "State the freshness target, measurement method and ownership."
+  },
+  "union all": {
+    "meaning": "Combines compatible query outputs without removing duplicates.",
+    "example": "Keep both sources' rows when repeated values are meaningful."
+  },
+  "union": {
+    "meaning": "Combines compatible outputs and removes duplicate selected tuples.",
+    "example": "Business-key deduplication may still require a separate rule."
+  },
+  "rollup": {
+    "meaning": "Produces aggregate totals at multiple grouping levels.",
+    "example": "Region-product, region subtotal and grand total can appear together."
+  },
+  "acid": {
+    "meaning": "Atomicity, Consistency, Isolation and Durability describe transaction properties.",
+    "example": "Isolation guarantees depend on the configured level and engine."
+  },
+  "lookback": {
+    "meaning": "Reprocessing a recent time range to catch late changes.",
+    "example": "A three-day lookback misses older corrections unless a repair path exists."
+  },
+  "like": {
+    "meaning": "SQL pattern matching using percent for any-length text and underscore for a single character.",
+    "example": "name LIKE 'Ann%' matches names beginning with Ann."
+  },
+  "atomicity": {
+    "meaning": "A transaction completes as a whole or its changes are rolled back.",
+    "example": "Both the debit and credit occur, or neither occurs."
+  },
+  "isolation": {
+    "meaning": "Controls how concurrent transactions can observe and affect each other.",
+    "example": "The isolation level determines whether a repeated read can see newly committed changes."
+  },
+  "durability": {
+    "meaning": "Committed changes survive failures covered by the database guarantees.",
+    "example": "A successful commit is preserved through the supported crash-recovery procedure."
+  }
+}

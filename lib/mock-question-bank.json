@@ -1,0 +1,2719 @@
+{
+  "researchedAt": "2026-10-07",
+  "sources": {
+    "cargill": {
+      "title": "Candidate report · Cargill, 5 years experience",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1p7zbeq/cargill_data_engineer_5_years_interview_experience/",
+      "kind": "candidate",
+      "note": "Employer and questions are self-reported, not independently confirmed.",
+      "checkedAt": "2026-10-07"
+    },
+    "amazon3": {
+      "title": "Candidate report · Amazon, 3 years experience",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1oezpqu/data_engineer_interview_experience_3_yoe_pyspark/",
+      "kind": "candidate",
+      "note": "The report lists topics; prompts are adapted, not verbatim questions.",
+      "checkedAt": "2026-10-07"
+    },
+    "amazon5": {
+      "title": "Candidate report · Amazon DE II",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1rkcago/amazon_data_engineer_ii_l5_interview_experience/",
+      "kind": "candidate",
+      "note": "Employer and questions are self-reported, not independently confirmed.",
+      "checkedAt": "2026-10-07"
+    },
+    "ibm": {
+      "title": "Candidate comment · IBM interview experience",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1j0d57o/interview_experience_data_engineer/",
+      "kind": "candidate",
+      "note": "Questions attributed to IBM by a commenter; not independently confirmed.",
+      "checkedAt": "2026-10-07"
+    },
+    "senior": {
+      "title": "Candidate report · senior data engineer interviews",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1qtcbai/my_last_6_months_senior_de_interview_experience/",
+      "kind": "candidate",
+      "note": "Some topics span several interviews; no company attribution unless specified by the report.",
+      "checkedAt": "2026-10-07"
+    },
+    "blinkit": {
+      "title": "Candidate report · Blinkit senior DE",
+      "url": "https://www.reddit.com/r/dataengineersindia/comments/1u8cubu/recently_interviewed_for_a_senior_data_engineer/",
+      "kind": "candidate",
+      "note": "Employer and questions are self-reported, not independently confirmed.",
+      "checkedAt": "2026-10-07"
+    },
+    "consulting": {
+      "title": "Candidate report · consulting live coding",
+      "url": "https://www.reddit.com/r/dataengineeringjobs/comments/1up2rcj/i_was_chump_checked_in_a_de_interview_for_a_large/",
+      "kind": "candidate",
+      "note": "Employer unnamed. API/ZIP exercise reported by the candidate.",
+      "checkedAt": "2026-10-07"
+    },
+    "dbt-report": {
+      "title": "Ganesh Nangalot · dbt/Snowflake interview report",
+      "url": "https://www.linkedin.com/posts/ganesh-nangalot-758476150_dataengineering-snowflake-dbt-activity-7397451892471099393-Otyb",
+      "kind": "candidate",
+      "note": "Employer unnamed. Questions reported by the author; answers below are independently authored.",
+      "checkedAt": "2026-10-07"
+    },
+    "startup": {
+      "title": "Candidate report · startup DE interview",
+      "url": "https://www.reddit.com/r/dataengineeringjobs/comments/1tbcma5/interview_experience_data_engineer/",
+      "kind": "candidate",
+      "note": "Employer unnamed. Reported topics are adapted into prompts.",
+      "checkedAt": "2026-10-07"
+    },
+    "sql-dc": {
+      "title": "DataCamp · SQL interview questions",
+      "url": "https://www.datacamp.com/blog/top-sql-interview-questions-and-answers-for-beginners-and-intermediate-practitioners",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "joins-dc": {
+      "title": "DataCamp · SQL joins interview questions",
+      "url": "https://www.datacamp.com/blog/top-sql-joins-interview-questions",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "python-dc": {
+      "title": "DataCamp · Python interview questions",
+      "url": "https://www.datacamp.com/blog/top-python-interview-questions-and-answers",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "pandas-dc": {
+      "title": "DataCamp · pandas interview questions",
+      "url": "https://www.datacamp.com/blog/top-python-pandas-interview-questions-and-answers",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "modeling-ds": {
+      "title": "DataSlope · data modeling interview questions",
+      "url": "https://dataslope.com/interview-prep/data-engineer/data-modeling",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "dbms-dc": {
+      "title": "DataCamp · DBMS interview questions",
+      "url": "https://www.datacamp.com/blog/dbms-interview-questions",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "airflow-dc": {
+      "title": "DataCamp · Airflow interview questions",
+      "url": "https://www.datacamp.com/blog/top-airflow-interview-questions",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "airflow-jp": {
+      "title": "Javapedia · Airflow interview questions",
+      "url": "https://www.javapedia.net/apache-airflow-interview-questions",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "kafka-gfg": {
+      "title": "GeeksforGeeks · Kafka interview questions",
+      "url": "https://www.geeksforgeeks.org/apache-kafka/kafka-interview-questions/",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "dbt-dc": {
+      "title": "DataCamp · dbt interview questions",
+      "url": "https://www.datacamp.com/blog/dbt-interview-questions",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "system-lx": {
+      "title": "Learnixo · data engineering system design questions",
+      "url": "https://learnixo.io/blog/de-interview-system-design",
+      "kind": "published",
+      "note": "",
+      "checkedAt": "2026-10-07"
+    },
+    "python-gh": {
+      "title": "OBenner · python interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/python.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "spark-gh": {
+      "title": "OBenner · spark interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/spark.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "airflow-gh": {
+      "title": "OBenner · airflow interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/airflow.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "aws-gh": {
+      "title": "OBenner · aws interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/aws.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "azure-gh": {
+      "title": "OBenner · azure interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/azure.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "gcp-gh": {
+      "title": "OBenner · gcp interview collection",
+      "url": "https://github.com/OBenner/data-engineering-interview-questions/blob/master/content/gcp.md",
+      "kind": "published",
+      "note": "Community practice collection; not evidence of a particular employer asking the question.",
+      "checkedAt": "2026-10-07"
+    },
+    "de-dc": {
+      "title": "DataCamp - data engineering interview questions",
+      "url": "https://www.datacamp.com/blog/top-21-data-engineering-interview-questions-and-answers",
+      "kind": "published",
+      "note": "Published interview practice; not evidence of a question asked by a specific employer.",
+      "checkedAt": "2026-10-10"
+    },
+    "ryz": {
+      "title": "Ryz Labs - senior data engineer question bank",
+      "url": "https://www.ryzlabs.com/interview-questions/data-engineer",
+      "kind": "published",
+      "note": "Publisher-authored hiring practice questions. Model answers independently written for this application.",
+      "checkedAt": "2026-10-10"
+    }
+  },
+  "questions": [
+    {
+      "id": "sql-001",
+      "module": "sql",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does SQL do in a relational database?",
+      "answer": "SQL is a declarative language for querying and managing relational data. You describe the result you want, such as customer names from a table; the database optimizer chooses an execution plan. SQL is a language, while PostgreSQL or SQL Server is a database system that implements a dialect of it."
+    },
+    {
+      "id": "sql-002",
+      "module": "sql",
+      "lessonIds": [
+        "introduction",
+        "select"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do SELECT and INSERT differ?",
+      "answer": "SELECT retrieves rows or computed expressions. INSERT writes new rows. For example, SELECT name FROM customers reads names without modifying customers; INSERT INTO customers (...) VALUES (...) adds a record. Permissions, transaction handling and side effects differ, so identify whether the task is a read or a write."
+    },
+    {
+      "id": "sql-003",
+      "module": "sql",
+      "lessonIds": [
+        "where"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do WHERE and HAVING differ?",
+      "answer": "WHERE filters individual input rows before grouping. HAVING filters groups after aggregation. To retain orders above 100 and customers whose retained order total exceeds 500, use WHERE amount > 100, GROUP BY customer_id, then HAVING SUM(amount) > 500. Filtering first changes the totals being tested."
+    },
+    {
+      "id": "sql-004",
+      "module": "sql",
+      "lessonIds": [
+        "order-by",
+        "limit"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you return a deterministic top three?",
+      "answer": "Sort by the business metric and a unique tie-breaker, then limit to three rows: ORDER BY total_spend DESC, id ASC LIMIT 3. Without ORDER BY, the subset is not guaranteed. Clarify whether the requirement is exactly three customers or everyone tied at the third distinct spending level."
+    },
+    {
+      "id": "sql-005",
+      "module": "sql",
+      "lessonIds": [
+        "distinct"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does DISTINCT remove?",
+      "answer": "DISTINCT removes duplicate selected tuples. SELECT DISTINCT city, age returns unique city-and-age combinations; it does not independently deduplicate city and age. It leaves the source unchanged. When a join unexpectedly duplicates revenue, inspect join cardinality rather than assuming DISTINCT fixes the business logic."
+    },
+    {
+      "id": "sql-006",
+      "module": "sql",
+      "lessonIds": [
+        "aggregates"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do COUNT(*) and COUNT(column) differ?",
+      "answer": "COUNT(*) counts rows; COUNT(column) counts non-NULL values of that expression. For four rows with two NULL cities, the results are four and two. COUNT(DISTINCT city) counts different non-NULL cities. An empty input has count zero, whereas SUM on an empty input normally returns NULL."
+    },
+    {
+      "id": "sql-007",
+      "module": "sql",
+      "lessonIds": [
+        "group-by"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Calculate average salary for each department.",
+      "answer": "Group employee rows by department_id and calculate AVG(salary). AVG ignores NULL salaries, so clarify whether missing salaries should be excluded or treated differently. Grouping by a stable department key avoids combining departments that happen to share a name. The result grain is one row per represented department.",
+      "language": "sql",
+      "code": "SELECT department_id, AVG(salary) AS avg_salary\nFROM employees\nGROUP BY department_id;"
+    },
+    {
+      "id": "sql-008",
+      "module": "sql",
+      "lessonIds": [
+        "having",
+        "group-by"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Find customers with more than five orders.",
+      "answer": "Group orders by customer_id and retain groups using HAVING COUNT(*) > 5. The output contains one row per qualifying customer. If the input joins order lines, first restore order grain or count distinct order IDs; otherwise line multiplicity can inflate the count.",
+      "language": "sql",
+      "code": "SELECT customer_id, COUNT(*) AS order_count\nFROM orders\nGROUP BY customer_id\nHAVING COUNT(*) > 5;"
+    },
+    {
+      "id": "sql-009",
+      "module": "sql",
+      "lessonIds": [
+        "joins"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Explain inner, left, right and full joins.",
+      "answer": "INNER JOIN returns matching pairs. LEFT JOIN also retains unmatched left rows with NULLs on the right; RIGHT JOIN does the reverse. FULL JOIN retains unmatched rows from both sides. A one-to-many match produces multiple rows, so inspect key uniqueness before aggregating amounts. SQL dialect support for full joins varies."
+    },
+    {
+      "id": "sql-010",
+      "module": "sql",
+      "lessonIds": [
+        "joins"
+      ],
+      "sourceId": "joins-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you find customers without orders?",
+      "answer": "Use a correlated NOT EXISTS subquery matching orders.customer_id to customers.id. A LEFT JOIN followed by WHERE orders.id IS NULL also works if orders.id is non-NULL for every matched order. NOT IN can behave unexpectedly if the subquery contains NULL; NOT EXISTS expresses the absence check directly.",
+      "language": "sql",
+      "code": "SELECT c.id, c.name\nFROM customers AS c\nWHERE NOT EXISTS (\n  SELECT 1 FROM orders AS o WHERE o.customer_id = c.id\n);"
+    },
+    {
+      "id": "sql-011",
+      "module": "sql",
+      "lessonIds": [
+        "joins",
+        "where"
+      ],
+      "sourceId": "joins-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Can a WHERE condition change a left join's behavior?",
+      "answer": "Yes. WHERE o.status = 'paid' removes the NULL-extended rows for customers without paid orders, effectively requiring a matching paid order. To preserve every customer, put that condition in the ON clause. The location matters because ON determines matches and WHERE filters the resulting joined rows."
+    },
+    {
+      "id": "sql-012",
+      "module": "sql",
+      "lessonIds": [
+        "joins",
+        "query-execution"
+      ],
+      "sourceId": "joins-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why does a join multiply rows?",
+      "answer": "Each left row pairs with every right row satisfying the join condition. If a key appears twice on each side, that key produces four pairs. Confirm the intended grain and uniqueness, then pre-aggregate or deduplicate using an explicit business rule. Do not hide a many-to-many error by adding DISTINCT after summing."
+    },
+    {
+      "id": "sql-013",
+      "module": "sql",
+      "lessonIds": [
+        "subqueries-ctes"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What is a CTE, and is it always materialized?",
+      "answer": "A common table expression names a query within a statement. It improves organization but is not automatically a permanent table or cache. PostgreSQL can fold eligible CTEs into the parent query; materialization depends on the query and directives. Other databases differ. Inspect EXPLAIN rather than promising a performance improvement."
+    },
+    {
+      "id": "sql-014",
+      "module": "sql",
+      "lessonIds": [
+        "subqueries-ctes"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What makes a subquery correlated?",
+      "answer": "It references a value from the outer query. For example, a customer-level EXISTS check searches for orders belonging to that current customer. Its meaning is evaluated relative to the outer row, although the optimizer may rewrite execution. A scalar subquery must return at most one row where a scalar value is required."
+    },
+    {
+      "id": "sql-015",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions",
+        "limit"
+      ],
+      "sourceId": "ibm",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Return the second-highest distinct salary per department.",
+      "answer": "Use DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) in a CTE, excluding NULL salaries, and filter rank = 2 outside it. All employees tied at the second distinct salary are returned. ROW_NUMBER would select a particular row instead, and departments with one salary level have no result.",
+      "language": "sql",
+      "code": "WITH ranked AS (\n  SELECT employee_id, department_id, salary,\n    DENSE_RANK() OVER (\n      PARTITION BY department_id ORDER BY salary DESC\n    ) AS salary_rank\n  FROM employees\n  WHERE salary IS NOT NULL\n)\nSELECT employee_id, department_id, salary\nFROM ranked\nWHERE salary_rank = 2;"
+    },
+    {
+      "id": "sql-016",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Find orders whose sales exceed the previous order.",
+      "answer": "Use LAG(sales) over the required partition and ORDER BY order_date, order_id. Compute the previous sales in a CTE, then filter sales > previous_sales in the outer query. Clarify whether comparison is global or per customer. The first order has no predecessor and normally does not qualify.",
+      "language": "sql",
+      "code": "WITH compared AS (\n  SELECT order_id, sales,\n    LAG(sales) OVER (ORDER BY order_date, order_id) AS previous_sales\n  FROM orders\n)\nSELECT order_id, sales, previous_sales\nFROM compared\nWHERE sales > previous_sales;"
+    },
+    {
+      "id": "sql-017",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions",
+        "order-by"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do ROW_NUMBER, RANK and DENSE_RANK handle ties?",
+      "answer": "ROW_NUMBER assigns a different number to every row; add a unique ordering key for determinism. RANK gives ties the same position and leaves gaps afterward. DENSE_RANK gives ties the same position without gaps. Choose based on whether the business asks for a fixed row count, competition rank or distinct value levels."
+    },
+    {
+      "id": "sql-018",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you identify user sessions from events?",
+      "answer": "Sort events per user by event_time and a tie-breaker. Use LAG to find the previous timestamp, flag a new session when the gap exceeds the agreed inactivity threshold, then cumulatively sum the flags per user. Clarify boundary equality, late events and time zones. Session IDs can change if earlier events arrive later."
+    },
+    {
+      "id": "sql-019",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions",
+        "aggregates"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Calculate a running sales total.",
+      "answer": "Use SUM(amount) OVER (ORDER BY sale_date, sale_id ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW). Partition by account or customer if totals are separate. An explicit ROWS frame avoids peer-group surprises with tied timestamps. Decide how NULL amounts and cancellations contribute to the business total.",
+      "language": "sql",
+      "code": "SELECT sale_id, sale_date, amount,\n  SUM(amount) OVER (\n    ORDER BY sale_date, sale_id\n    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW\n  ) AS running_total\nFROM sales;"
+    },
+    {
+      "id": "sql-020",
+      "module": "sql",
+      "lessonIds": [
+        "null-case"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "How do you handle missing values and division by zero?",
+      "answer": "Use IS NULL for missing-value predicates, CASE for conditional logic and COALESCE for an intentional fallback. Protect a denominator with NULLIF(denominator, 0) before division. Returning NULL for an undefined ratio is often more accurate than reporting zero. Use decimal arithmetic when integer division would truncate the result.",
+      "language": "sql",
+      "code": "SELECT numerator * 1.0 / NULLIF(denominator, 0) AS ratio\nFROM metrics;"
+    },
+    {
+      "id": "sql-021",
+      "module": "sql",
+      "lessonIds": [
+        "null-case"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why does column = NULL not find missing values?",
+      "answer": "NULL denotes an unknown or absent value. Comparisons such as = NULL produce unknown, and WHERE keeps only true predicates. Use IS NULL or IS NOT NULL. NULL is not an empty string or zero, and NOT IN with a NULL-bearing list needs particular care."
+    },
+    {
+      "id": "sql-022",
+      "module": "sql",
+      "lessonIds": [
+        "query-execution"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "How would you optimize a slow SQL query?",
+      "answer": "Check correctness and the intended grain first. Inspect the actual execution plan, row estimates, scanned bytes, joins, sorts and spills. Filter and project appropriately, maintain statistics and evaluate useful indexes or partition pruning for that engine. Measure before and after on representative data; an index can improve reads while adding write cost."
+    },
+    {
+      "id": "sql-023",
+      "module": "sql",
+      "lessonIds": [
+        "query-execution",
+        "select"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you optimize a billion-row analytical table?",
+      "answer": "Start with query patterns, refresh latency and update behavior. Reduce scanned columns and partitions; use columnar storage, clustering or distribution where supported. Pre-aggregate repeated expensive queries at a documented grain. Inspect skew and join plans. A transactional row-store index strategy and a warehouse scan strategy solve different workload problems."
+    },
+    {
+      "id": "python-001",
+      "module": "python",
+      "lessonIds": [
+        "py-introduction"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why is Python useful in data engineering?",
+      "answer": "Python combines readable code with libraries for files, APIs, databases, orchestration and distributed engines. It commonly coordinates extraction, validates records and expresses transformations. Heavy processing may run inside SQL, native libraries or Spark rather than a Python loop. Choose the execution engine from volume, latency and operational constraints."
+    },
+    {
+      "id": "python-002",
+      "module": "python",
+      "lessonIds": [
+        "py-data-structures"
+      ],
+      "sourceId": "python-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "When would you choose a list, tuple, set or dictionary?",
+      "answer": "A list is an ordered mutable sequence; a tuple is an ordered immutable sequence whose elements can still reference mutable objects. A set keeps unique hashable values. A dictionary maps hashable keys to values. Use a dictionary for lookup by business key, but decide explicitly what duplicate keys mean."
+    },
+    {
+      "id": "python-003",
+      "module": "python",
+      "lessonIds": [
+        "py-data-structures",
+        "py-hands-on-task",
+        "py-interview-questions"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Join two lists of key-value tuples by their common keys.",
+      "answer": "For unique keys, build a dictionary from the second list and scan the first, returning (key, (left_value, right_value)) when the key exists. For [(1,'a'),(2,'b')] and [(2,'e')], return [(2,('b','e'))]. Expected work is linear in input size. Duplicate keys require lists of values and explicit join multiplicity.",
+      "language": "python",
+      "code": "def join_unique_keys(left, right):\n    right_by_key = dict(right)\n    return [(key, (value, right_by_key[key]))\n            for key, value in left if key in right_by_key]\n\n# Assumption: keys are unique in both inputs.\nprint(join_unique_keys([(1, 'a'), (2, 'b')], [(2, 'e')]))\n# [(2, ('b', 'e'))]"
+    },
+    {
+      "id": "python-004",
+      "module": "python",
+      "lessonIds": [
+        "py-functions-modules"
+      ],
+      "sourceId": "python-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do modules and packages help organize Python code?",
+      "answer": "A module groups definitions in an importable unit; a package organizes modules under a namespace. Separate extraction clients, pure transformations, loading and configuration so they can be tested independently. Keep network calls out of import-time execution. Expose a small entry point and use explicit imports to make dependencies understandable."
+    },
+    {
+      "id": "python-005",
+      "module": "python",
+      "lessonIds": [
+        "py-functions-modules"
+      ],
+      "sourceId": "python-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do shallow and deep copies differ?",
+      "answer": "A shallow copy creates a new outer container but shares referenced nested objects. A deep copy recursively copies nested objects, subject to their copy behavior. If copied records share a nested list, mutating it can change the original. Prefer explicit transformations that construct the fields you need when copying a large dataset would be expensive."
+    },
+    {
+      "id": "python-006",
+      "module": "python",
+      "lessonIds": [
+        "py-functions-modules"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How would you structure a Python pipeline project?",
+      "answer": "Separate source connectors, transformations, destination writers and orchestration. Keep configuration outside business logic, declare dependencies and put tests beside stable transformation contracts. Pure transformation functions accept data and return data without hidden network calls. Define one repeatable command for a run and include structured logging and failure reporting."
+    },
+    {
+      "id": "python-007",
+      "module": "python",
+      "lessonIds": [
+        "py-files-formats"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you process a CSV larger than memory?",
+      "answer": "Stream with csv.DictReader or read bounded chunks with pandas.read_csv(chunksize=...). Specify types and validate each batch. Persist incremental outputs rather than collecting all chunks into one list. Global operations such as sorting, joins or exact deduplication may still require external state or a distributed engine."
+    },
+    {
+      "id": "python-008",
+      "module": "python",
+      "lessonIds": [
+        "py-files-formats"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How would you read Parquet efficiently?",
+      "answer": "Read only needed columns and use supported predicate filters and partition pruning. Arrow-based readers can process batches without loading the whole dataset. Preserve an explicit schema and measure row-group and file sizes. Parquet is columnar and typed; it is not automatically small or fast when files are tiny or filters cannot prune data."
+    },
+    {
+      "id": "python-009",
+      "module": "python",
+      "lessonIds": [
+        "py-files-formats",
+        "py-hands-on-task"
+      ],
+      "sourceId": "consulting",
+      "evidence": "reported",
+      "relevance": "Role-specific",
+      "question": "Decode an API's base64 ZIP payload into CSV records.",
+      "answer": "Call the API with a bounded timeout, check its status and validate the response schema. Decode base64 with validation, open the bytes with zipfile.ZipFile, select the expected CSV entry and parse it with csv.DictReader using the correct encoding. Bound decoded and uncompressed sizes; avoid blindly extracting archive paths. Validate rows before loading."
+    },
+    {
+      "id": "python-010",
+      "module": "python",
+      "lessonIds": [
+        "py-error-handling"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How should retries use exponential backoff?",
+      "answer": "Retry transient failures with a maximum attempt count and an increasing delay plus jitter. Honor a service's Retry-After response. Do not retry invalid credentials or malformed input indefinitely. Make writes idempotent before retrying them, otherwise a timeout after a successful write can create duplicates. Log final failure with useful context."
+    },
+    {
+      "id": "python-011",
+      "module": "python",
+      "lessonIds": [
+        "py-error-handling"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What should pipeline logs contain?",
+      "answer": "Record run ID, stage, source interval, row counts, elapsed time and exception context with consistent levels. Use structured fields so related events can be searched. Avoid credentials and sensitive payloads. A successful task log should include output validation, because completing a function does not prove that its data is correct."
+    },
+    {
+      "id": "python-012",
+      "module": "python",
+      "lessonIds": [
+        "py-error-handling"
+      ],
+      "sourceId": "python-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you handle a missing dictionary key?",
+      "answer": "Direct indexing raises KeyError if the key is absent. Use get with an intentional default when absence is valid, or catch KeyError and quarantine or reject an invalid record when the field is mandatory. Distinguish a missing key from a key whose value is None; both can carry different business meanings."
+    },
+    {
+      "id": "python-013",
+      "module": "python",
+      "lessonIds": [
+        "py-pandas-basics"
+      ],
+      "sourceId": "pandas-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do merge, join and concat differ in pandas?",
+      "answer": "merge matches rows using keys or indexes with SQL-like join options. join is convenient for index-based alignment, although it can also use a key. concat stacks objects along an axis and aligns the other axis. Validate uniqueness with merge's validate argument where appropriate; duplicate join keys can multiply rows."
+    },
+    {
+      "id": "python-014",
+      "module": "python",
+      "lessonIds": [
+        "py-pandas-basics"
+      ],
+      "sourceId": "pandas-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How would you handle missing DataFrame values?",
+      "answer": "Inspect missingness and decide by column semantics. Use isna to detect it, dropna only where exclusion is justified, or fillna with a documented value or statistic. Do not fill missing revenue with zero by habit. Track affected counts and preserve a way to distinguish imputed values from source values."
+    },
+    {
+      "id": "python-015",
+      "module": "python",
+      "lessonIds": [
+        "py-pandas-basics"
+      ],
+      "sourceId": "pandas-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How does groupby aggregate a DataFrame?",
+      "answer": "groupby divides rows by keys and aggregates each group. For sales per product, group by product and sum amount after parsing and validating amount. Confirm missing-key handling and use a minimum valid-count policy if an all-missing sum should stay missing. The resulting grain is one row per included product group."
+    },
+    {
+      "id": "python-016",
+      "module": "python",
+      "lessonIds": [
+        "py-pandas-basics"
+      ],
+      "sourceId": "pandas-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How would you remove duplicate records?",
+      "answer": "Identify the business key and the desired survivor rule first. Sort by version timestamp and a tie-breaker, then use drop_duplicates on that key with the chosen keep policy. Removing identical whole rows and retaining the latest record per order are different requirements. Reconcile the retained and rejected counts."
+    },
+    {
+      "id": "python-017",
+      "module": "python",
+      "lessonIds": [
+        "py-summary",
+        "py-quiz"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you test a data transformation?",
+      "answer": "Use small known inputs with explicit expected outputs. Cover normal records, missing fields, malformed types, duplicate keys, empty inputs and boundary values. Assert schema, keys, row counts and totals, not only that execution succeeds. Include a repeat-run test for idempotent loading and verify that rejected rows have an observable path."
+    },
+    {
+      "id": "python-018",
+      "module": "python",
+      "lessonIds": [
+        "py-interview-questions",
+        "py-data-structures"
+      ],
+      "sourceId": "ibm",
+      "evidence": "reported",
+      "relevance": "Role-specific",
+      "question": "Find the longest common prefix of a list of strings.",
+      "answer": "Start with the first string as the candidate prefix and shorten it until each other string starts with it. An empty input returns an empty string. Stop early when the prefix becomes empty. Compare characters directly for a linear bound in total characters inspected; state whether comparison is case-sensitive and how Unicode is handled.",
+      "language": "python",
+      "code": "def longest_common_prefix(values):\n    if not values:\n        return ''\n    prefix = values[0]\n    for value in values[1:]:\n        while not value.startswith(prefix):\n            prefix = prefix[:-1]\n        if not prefix:\n            break\n    return prefix"
+    },
+    {
+      "id": "python-019",
+      "module": "python",
+      "lessonIds": [
+        "py-introduction",
+        "py-summary"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Compare threads, processes and async I/O for pipelines.",
+      "answer": "Threads and async I/O help overlap waiting on network or disk. Separate processes can parallelize CPU-bound Python work but add serialization and memory costs. In a conventional GIL-enabled CPython build, Python bytecode threads do not execute in parallel; native extensions or free-threaded builds can differ. Benchmark the actual workload."
+    },
+    {
+      "id": "python-020",
+      "module": "python",
+      "lessonIds": [
+        "py-functions-modules",
+        "py-quiz"
+      ],
+      "sourceId": "python-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why use generators for large inputs?",
+      "answer": "A generator produces values lazily using yield, so a consumer can process records without first constructing a full list. This bounds memory when downstream processing is also incremental. A generator is normally consumed once and exceptions can arise during iteration. Sorting or collecting its output still materializes data and can exhaust memory."
+    },
+    {
+      "id": "modeling-001",
+      "module": "modeling",
+      "lessonIds": [
+        "introduction",
+        "entities",
+        "cardinality",
+        "er-modeling",
+        "analytics"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Design a retail model for product, vendor and location sales.",
+      "answer": "Clarify whether a row represents an order or an order line, then choose the lowest useful grain. An order-line fact can reference product, customer, date and location dimensions; vendor relationships need an explicit policy if products have multiple vendors. Represent entities and cardinalities in an ER diagram. Store line-level measures and aggregate them into month or year reports without double-counting."
+    },
+    {
+      "id": "modeling-002",
+      "module": "modeling",
+      "lessonIds": [
+        "keys"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why use surrogate keys instead of natural keys?",
+      "answer": "A surrogate key identifies a modeled row independently of upstream business identifiers. It can remain stable when an email or product code changes. In SCD Type 2, each historical version needs its own surrogate key while retaining the business key. Surrogate keys do not replace uniqueness checks on the intended business identity."
+    },
+    {
+      "id": "modeling-003",
+      "module": "modeling",
+      "lessonIds": [
+        "normalization"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Explain first, second and third normal forms.",
+      "answer": "First normal form uses atomic values under the chosen domains and eliminates repeating groups. Second normal form removes partial dependencies of non-prime attributes on candidate keys. Third normal form removes problematic transitive dependencies: for every nontrivial dependency, the determinant is a superkey or the dependent attribute is prime. A customer address repeated on orders can create update anomalies."
+    },
+    {
+      "id": "modeling-004",
+      "module": "modeling",
+      "lessonIds": [
+        "normalization",
+        "denormalization"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What trade-off does denormalization introduce?",
+      "answer": "Denormalization intentionally duplicates or precomputes data to simplify a measured read workload. It can reduce joins but increases storage, update work and the risk of inconsistent copies. Normalize transactional sources for integrity, then denormalize analytical models where useful. Define which process owns updates and how stale derived data is detected."
+    },
+    {
+      "id": "modeling-005",
+      "module": "modeling",
+      "lessonIds": [
+        "oltp-olap"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do OLTP and OLAP workloads differ?",
+      "answer": "OLTP handles short transactions and frequent writes with integrity and concurrency requirements. OLAP scans and aggregates large datasets for analysis. Normalized row-oriented designs often suit transactions; dimensional and columnar designs often suit analytics. These are workload patterns rather than absolute rules: select storage and indexing from real access patterns."
+    },
+    {
+      "id": "modeling-006",
+      "module": "modeling",
+      "lessonIds": [
+        "facts-dimensions"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What belongs in facts versus dimensions?",
+      "answer": "Facts represent events or snapshots at a declared grain and contain measures and dimension keys. Dimensions provide descriptive context such as customer segment or product category. An order-line fact might contain quantity and realized revenue. Not every numeric field is a measure: a postal code is descriptive, and a ratio should not be summed blindly."
+    },
+    {
+      "id": "modeling-007",
+      "module": "modeling",
+      "lessonIds": [
+        "facts-dimensions"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why define a fact table's grain first?",
+      "answer": "The grain states exactly what one row represents. Every key and measure must be valid at that grain. Mixing order totals with order lines can repeat totals and inflate revenue. Decide the business process and grain before selecting dimensions; validate uniqueness at that grain and reconcile measures against source events."
+    },
+    {
+      "id": "modeling-008",
+      "module": "modeling",
+      "lessonIds": [
+        "facts-dimensions"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Compare transaction, periodic and accumulating snapshot facts.",
+      "answer": "A transaction fact records individual events such as purchases. A periodic snapshot records state at regular intervals, such as each account's month-end balance. An accumulating snapshot tracks one process instance as milestones occur, such as a loan application. Updates, missing events and time aggregation differ, so choose from the business question."
+    },
+    {
+      "id": "modeling-009",
+      "module": "modeling",
+      "lessonIds": [
+        "star-schema",
+        "snowflake-schema"
+      ],
+      "sourceId": "amazon3",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "When would you choose star versus snowflake schemas?",
+      "answer": "A star joins a central fact directly to relatively denormalized dimensions. A snowflake further normalizes dimensions, such as product to category to department. Stars simplify common analytical queries; snowflakes reduce some duplicated dimension attributes but introduce joins and modeling complexity. Choose based on reuse, governance and measured query costs."
+    },
+    {
+      "id": "modeling-010",
+      "module": "modeling",
+      "lessonIds": [
+        "scd"
+      ],
+      "sourceId": "amazon3",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Choose SCD Type 1 or Type 2 for customer changes.",
+      "answer": "Type 1 overwrites an attribute and loses that attribute's earlier value. Type 2 creates a new version with effective dates and a distinct surrogate key. Use Type 2 when reports must show what was true at event time. Resolve late facts to the correct historical interval and prevent overlapping versions for a business key."
+    },
+    {
+      "id": "modeling-011",
+      "module": "modeling",
+      "lessonIds": [
+        "analytics"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Which measures can be added across time?",
+      "answer": "Additive measures, such as sales revenue, can be summed across applicable dimensions. Semi-additive measures, such as account balances, should not normally be summed across time. Non-additive measures, such as percentages, need numerator and denominator aggregation before recalculation. Declare these rules so a dashboard does not produce plausible but incorrect totals."
+    },
+    {
+      "id": "modeling-012",
+      "module": "modeling",
+      "lessonIds": [
+        "analytics",
+        "facts-dimensions"
+      ],
+      "sourceId": "modeling-ds",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Why use a conformed dimension across marts?",
+      "answer": "A conformed dimension has consistent business definitions and compatible values across facts or marts. Shared customer or date dimensions allow sales and support metrics to be compared reliably. Reusing a column name alone is not conformance; align identity, attribute history and rollup semantics. Keep different fact grains separate when combining results."
+    },
+    {
+      "id": "modeling-013",
+      "module": "modeling",
+      "lessonIds": [
+        "entities",
+        "cardinality",
+        "er-modeling"
+      ],
+      "sourceId": "amazon3",
+      "evidence": "topic",
+      "relevance": "Role-specific",
+      "question": "Model a library's lending records.",
+      "answer": "Separate book titles, physical copies, members and loans. One title can have many copies; a copy can have many loans over time but normally one active loan. A loan references its copy and member and records checkout and return times. Enforce the active-loan constraint and preserve historical loans rather than overwriting the latest borrower."
+    },
+    {
+      "id": "modeling-014",
+      "module": "modeling",
+      "lessonIds": [
+        "keys",
+        "normalization"
+      ],
+      "sourceId": "dbms-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do primary and foreign keys preserve integrity?",
+      "answer": "A primary key identifies a row uniquely and disallows NULL values. A foreign key restricts a referencing value to an existing referenced key, subject to the database's NULL and match rules. It does not make the relationship one-to-one: many orders can reference one customer. Pair constraints with the intended deletion and update policy."
+    },
+    {
+      "id": "modeling-015",
+      "module": "modeling",
+      "lessonIds": [
+        "interview-review",
+        "analytics"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you model customer retention?",
+      "answer": "Define a cohort, the qualifying activity and retention interval before choosing tables. Use an event or transaction fact at stable grain, a customer dimension and a date dimension. Compute activity per customer-period and join it to cohort membership. Distinguish new, returning and reactivated customers, and account for incomplete observation periods."
+    },
+    {
+      "id": "modeling-016",
+      "module": "modeling",
+      "lessonIds": [
+        "interview-review",
+        "scd",
+        "star-schema"
+      ],
+      "sourceId": "amazon3",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "Defend a schema and history strategy for your pipeline.",
+      "answer": "Start from the questions the business must answer, then state grain, keys and relationships. Explain why a star, normalized schema or another layout serves that workload. Choose attribute-specific history rules rather than saying every dimension is Type 2. Demonstrate how one event joins to one appropriate dimension version and how quality checks prevent inflated metrics."
+    },
+    {
+      "id": "spark-001",
+      "module": "spark",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What do the driver, workers and executors do?",
+      "answer": "The driver runs the application, plans jobs and coordinates task scheduling. A cluster manager allocates resources; executors run tasks and hold cached or shuffle data. Worker machines host these processes, depending on deployment mode. The driver is not synonymous with the cluster's master, and one worker can host multiple executors."
+    },
+    {
+      "id": "spark-002",
+      "module": "spark",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What happens after spark-submit starts an application?",
+      "answer": "The submission selects a cluster manager and deployment mode, starts or locates the driver, and obtains executors. The driver builds execution plans; actions trigger jobs divided into stages and tasks. Executors compute partitions and report progress. Describe client versus cluster driver placement and how application dependencies and credentials reach the runtime."
+    },
+    {
+      "id": "spark-003",
+      "module": "spark",
+      "lessonIds": [
+        "rdd-vs-dataframe"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do RDDs and DataFrames differ?",
+      "answer": "An RDD is a distributed collection with explicit functional transformations. A DataFrame has a schema and relational expressions that Spark can optimize using its SQL engine. Prefer DataFrames for structured transformations to expose optimization opportunities. An RDD can be useful for low-level control, but arbitrary functions limit what the optimizer can infer."
+    },
+    {
+      "id": "spark-004",
+      "module": "spark",
+      "lessonIds": [
+        "spark-sql"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What are logical, optimized and physical plans?",
+      "answer": "A logical plan expresses relational operations. Analysis resolves columns and types; optimization rewrites eligible operations. A physical plan chooses execution strategies, such as broadcast hash or sort-merge joins. Inspect explain output and runtime metrics: a clean SQL statement can still trigger expensive shuffles or a different adaptive execution strategy."
+    },
+    {
+      "id": "spark-005",
+      "module": "spark",
+      "lessonIds": [
+        "transformations"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "How do narrow and wide transformations differ?",
+      "answer": "A narrow dependency lets an output partition depend on a limited set of input partitions without all-to-all redistribution. Wide dependencies, such as grouping by a new key, require data from multiple input partitions and normally cause a shuffle. Shuffles add network, disk and serialization work and create stage boundaries."
+    },
+    {
+      "id": "spark-006",
+      "module": "spark",
+      "lessonIds": [
+        "transformations"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "How do map and flatMap differ?",
+      "answer": "map produces one output element for each input element, although that element itself may be a collection. flatMap produces zero or more output elements and flattens the returned iterable by one level. Splitting each sentence into words with map gives collections of words; flatMap gives the word elements directly."
+    },
+    {
+      "id": "spark-007",
+      "module": "spark",
+      "lessonIds": [
+        "transformations"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why does Spark evaluate transformations lazily?",
+      "answer": "Transformations describe a computation instead of immediately calculating every result. An action, such as count or a write, triggers execution of the required plan. Laziness lets Spark optimize and combine operations. Repeated actions can recompute shared work unless it is persisted appropriately; defining a DataFrame is not proof that its data has been processed."
+    },
+    {
+      "id": "spark-008",
+      "module": "spark",
+      "lessonIds": [
+        "partitioning"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do repartition and coalesce differ?",
+      "answer": "repartition redistributes data with a shuffle and can increase or decrease partitions. coalesce commonly reduces partitions without a full shuffle, but can preserve imbalance and reduce parallelism. Choose based on data size, skew and the next operation. coalesce(1) is not a universal output fix; it can make one task a bottleneck."
+    },
+    {
+      "id": "spark-009",
+      "module": "spark",
+      "lessonIds": [
+        "performance"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "When is a broadcast join appropriate?",
+      "answer": "When one relation is small enough for executors to hold safely, broadcasting it can avoid shuffling the large side for a compatible join. Size after filtering matters, as do executor memory and concurrent tasks. A hint cannot make an oversized relation safe. Validate the chosen physical plan, memory use and broadcast timeout behavior."
+    },
+    {
+      "id": "spark-010",
+      "module": "spark",
+      "lessonIds": [
+        "performance",
+        "interview-questions"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "Advanced",
+      "question": "A ten-minute job now takes three hours. What do you inspect?",
+      "answer": "Compare recent plans, configuration, cluster resources and input characteristics. Use Spark UI to locate the slow stage and inspect task skew, shuffle bytes, spills, retries, garbage collection and I/O. Check upstream storage and competing workloads even if row count is unchanged. Fix the measured bottleneck and verify correctness and runtime on comparable runs."
+    },
+    {
+      "id": "spark-011",
+      "module": "spark",
+      "lessonIds": [
+        "performance",
+        "partitioning"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you handle skewed join keys?",
+      "answer": "Confirm skew from task sizes and duration. Filter irrelevant data, broadcast a genuinely small side, or use supported adaptive skew handling. If necessary, salt hot keys and expand the other side carefully, then remove the salt after joining. Preserve match multiplicity and aggregation correctness; adding executors alone does not split one hot key automatically."
+    },
+    {
+      "id": "spark-012",
+      "module": "spark",
+      "lessonIds": [
+        "performance"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do cache and persist differ?",
+      "answer": "Both retain computed data for reuse; cache uses the API's default storage level, while persist lets you choose a supported storage level. Materialization still needs execution. Cache only reused, sufficiently expensive data and unpersist it when no longer needed. The default storage level differs by API and version, so avoid treating it as universal."
+    },
+    {
+      "id": "spark-013",
+      "module": "spark",
+      "lessonIds": [
+        "performance"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How does lineage support fault recovery?",
+      "answer": "Spark tracks the transformations needed to compute partitions. If an executor loses derived data, eligible partitions can be recomputed from lineage and available inputs. This does not make an external side effect exactly once. Reliable input storage, retry-safe writes and driver recovery are separate concerns."
+    },
+    {
+      "id": "spark-014",
+      "module": "spark",
+      "lessonIds": [
+        "performance",
+        "summary"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "What is checkpointing, and how does it differ from caching?",
+      "answer": "Caching keeps computed data for reuse but retains lineage for recomputation. A reliable batch checkpoint stores data durably and truncates the lineage after materialization. Structured Streaming checkpoints additionally track progress and state; they are a different mechanism. Use durable locations and assess which changes are compatible with restarting a streaming query."
+    },
+    {
+      "id": "spark-015",
+      "module": "spark",
+      "lessonIds": [
+        "spark-sql",
+        "hands-on-task"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Which Spark operations trigger shuffles?",
+      "answer": "Grouping, repartitioning and many joins require records with matching keys to move between partitions. A product-level sales aggregation generally shuffles by product_id unless an applicable layout avoids it. Filter and project first when valid, inspect the physical plan and task metrics, and choose partition counts from measured sizes. A broadcast join can avoid shuffling the large input when its build side fits safely."
+    },
+    {
+      "id": "spark-016",
+      "module": "spark",
+      "lessonIds": [
+        "spark-sql"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Why is Parquet useful for analytical processing?",
+      "answer": "Parquet stores typed columns with encodings, compression and row-group metadata. Reading only needed columns and pushing compatible filters can reduce I/O. Good file and partition sizes matter; many tiny files create metadata and scheduling overhead. It is a file format, not by itself a transactional table or query engine."
+    },
+    {
+      "id": "spark-017",
+      "module": "spark",
+      "lessonIds": [
+        "introduction",
+        "summary"
+      ],
+      "sourceId": "cargill",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Why use Spark when SQL databases already exist?",
+      "answer": "Spark is an execution engine suited to distributed processing across files and multiple sources, using SQL and other APIs. A database may already handle a workload more simply and efficiently. Choose Spark for requirements such as large distributed transformations or integrated streaming, not because SQL cannot scale or because all data fits in memory."
+    },
+    {
+      "id": "spark-018",
+      "module": "spark",
+      "lessonIds": [
+        "partitioning",
+        "quiz"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What is a partition, task and stage?",
+      "answer": "A partition is a logical unit of distributed data. A task processes a partition for a stage. A stage groups work that can run without an intervening shuffle dependency. Partition count affects parallelism and overhead; executors provide task slots. Do not equate one partition with one executor or one physical file in every operation."
+    },
+    {
+      "id": "spark-019",
+      "module": "spark",
+      "lessonIds": [
+        "performance"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do you monitor a Spark application?",
+      "answer": "Use Spark UI and persisted event logs to inspect jobs, stages, tasks, SQL plans and executor metrics. Compare task distribution, shuffle, spill, memory and retries, then correlate with source and sink metrics. A long duration identifies a symptom; measurements distinguish skew, resource contention, poor plans and slow external I/O."
+    },
+    {
+      "id": "spark-020",
+      "module": "spark",
+      "lessonIds": [
+        "interview-questions",
+        "quiz",
+        "summary"
+      ],
+      "sourceId": "spark-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What makes collecting a large result to the driver risky?",
+      "answer": "collect transfers all returned rows to driver memory, potentially exhausting it even when executors process the input successfully. Use bounded inspection such as take or limit for debugging, and distributed writes for large outputs. Limiting displayed rows does not necessarily remove the cost of upstream joins or aggregations."
+    },
+    {
+      "id": "airflow-001",
+      "module": "airflow",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "airflow-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What problem does Airflow solve?",
+      "answer": "Airflow defines and orchestrates workflows as DAGs: scheduling runs, managing task dependencies and recording execution state. It coordinates work performed by operators or external systems rather than serving as a general data-processing engine. It is suitable for bounded workflows and can integrate event-driven scheduling; a continuous message broker or stream processor serves a different role."
+    },
+    {
+      "id": "airflow-002",
+      "module": "airflow",
+      "lessonIds": [
+        "dags-dependencies"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you express sequential task dependencies?",
+      "answer": "Declare a directed acyclic graph and set dependencies such as extract >> transform >> load. A task can run only when its dependency and trigger conditions permit. A cycle is invalid. With TaskFlow, passing one task's returned XCom reference into another can establish a dependency without calling the underlying computation during DAG parsing."
+    },
+    {
+      "id": "airflow-003",
+      "module": "airflow",
+      "lessonIds": [
+        "architecture"
+      ],
+      "sourceId": "airflow-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What are Airflow's main runtime components?",
+      "answer": "In Airflow 3, DAG processing parses definitions, the scheduler decides runnable work, an executor dispatches tasks, and workers execute them. The metadata database stores state. The API server serves the UI/API and task communication; a triggerer handles deferred waits. Airflow 2 deployments commonly call their UI component the webserver, so state the version."
+    },
+    {
+      "id": "airflow-004",
+      "module": "airflow",
+      "lessonIds": [
+        "architecture",
+        "production"
+      ],
+      "sourceId": "airflow-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How would you choose Local, Celery or Kubernetes execution?",
+      "answer": "Local execution uses processes on the scheduler host and suits simpler deployments. Celery distributes work to managed workers through a broker. Kubernetes execution can provide pod-level isolation and resources per task, with startup and cluster-management overhead. Choose from concurrency, dependencies, isolation and operating capacity rather than naming one executor as universally best."
+    },
+    {
+      "id": "airflow-005",
+      "module": "airflow",
+      "lessonIds": [
+        "scheduling"
+      ],
+      "sourceId": "startup",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Schedule a daily workflow with cron.",
+      "answer": "A five-field expression such as 0 2 * * * describes 02:00 daily in the schedule's time zone. For a data-interval timetable, scheduled processing commonly runs after an interval ends, and its logical date identifies the interval rather than actual execution time. Specify timezone and daylight-saving behavior. Use data_interval_start and data_interval_end to select the intended input."
+    },
+    {
+      "id": "airflow-006",
+      "module": "airflow",
+      "lessonIds": [
+        "scheduling",
+        "catchup-backfill"
+      ],
+      "sourceId": "airflow-jp",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do catchup and backfill differ?",
+      "answer": "Catchup lets the scheduler create eligible missed scheduled intervals according to the DAG and scheduler configuration. Backfill explicitly requests historical intervals and has its own reprocessing policy. Neither repairs data correctness automatically. Use interval-based reads, retry-safe writes and concurrency limits; test overlapping historical and current processing."
+    },
+    {
+      "id": "airflow-007",
+      "module": "airflow",
+      "lessonIds": [
+        "catchup-backfill",
+        "production"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why must Airflow tasks be idempotent?",
+      "answer": "A task can retry or be rerun after an uncertain outcome. For the same input interval, repetition should produce the intended result without duplicate side effects. Use stable business keys, upserts or atomic interval replacement. Airflow records execution state but cannot make an arbitrary API call or database insert idempotent on its own."
+    },
+    {
+      "id": "airflow-008",
+      "module": "airflow",
+      "lessonIds": [
+        "taskflow"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does TaskFlow change compared with PythonOperator?",
+      "answer": "TaskFlow decorators turn Python functions into task definitions and connect returned XCom references to downstream arguments. PythonOperator executes a specified callable with configured arguments. Both still create task instances and run through the executor. TaskFlow does not turn large Python objects into a free distributed transport or execute functions at dependency-definition time."
+    },
+    {
+      "id": "airflow-009",
+      "module": "airflow",
+      "lessonIds": [
+        "task-lifecycle"
+      ],
+      "sourceId": "airflow-jp",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What do queued, running and up_for_retry mean?",
+      "answer": "Queued work has been submitted for execution but is not yet running; running means the task is executing. up_for_retry means a failed attempt is waiting for its configured retry eligibility. Use these states to inspect the right subsystem: capacity or executor for queued work, task logs for running failures, and retry configuration for repeated failures."
+    },
+    {
+      "id": "airflow-010",
+      "module": "airflow",
+      "lessonIds": [
+        "retries"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you handle a failing DAG task?",
+      "answer": "Inspect the failing task's logs, inputs and downstream impact. Retry transient failures with bounded delay; fail fast for invalid configuration or corrupt inputs. Repair the cause, then clear the appropriate task instances only after considering side effects and dependencies. Validate output data after recovery and communicate freshness or completeness impact."
+    },
+    {
+      "id": "airflow-011",
+      "module": "airflow",
+      "lessonIds": [
+        "trigger-rules"
+      ],
+      "sourceId": "airflow-jp",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What do all_success and all_done mean?",
+      "answer": "all_success requires upstream tasks to succeed. all_done waits for all upstream tasks to finish regardless of outcome and is useful for cleanup. A successful cleanup leaf must not accidentally hide a failed business path in DAG-run status. After branching, consider a join rule such as none_failed_min_one_success when skipped branches are expected."
+    },
+    {
+      "id": "airflow-012",
+      "module": "airflow",
+      "lessonIds": [
+        "xcom"
+      ],
+      "sourceId": "airflow-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What should you pass through XCom?",
+      "answer": "Pass small control values or references, such as a row count, file URI or batch identifier. The default backend is not intended for transporting whole large datasets. Store data in durable external storage and pass its location. TaskFlow uses XCom references too, so returning a huge DataFrame does not remove backend and serialization limits."
+    },
+    {
+      "id": "airflow-013",
+      "module": "airflow",
+      "lessonIds": [
+        "xcom",
+        "configuration"
+      ],
+      "sourceId": "airflow-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do Jinja templates use runtime values?",
+      "answer": "Airflow renders supported templated operator fields with execution context, such as interval dates and task-instance information. A template can access an XCom where the operator supports rendering. Inspect rendered values and avoid injecting untrusted text into SQL; prefer parameters for values. Jinja rendering is distinct from Python code that runs while parsing the DAG."
+    },
+    {
+      "id": "airflow-014",
+      "module": "airflow",
+      "lessonIds": [
+        "sensors"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do sensors avoid occupying worker slots all day?",
+      "answer": "A sensor waits for a condition. Poke mode holds its worker slot while waiting; reschedule mode releases it between checks. Supported deferrable operators hand waiting to the triggerer, then resume work when triggered. Choose timeouts and polling intervals deliberately and confirm that the provider supports deferral for the actual operator."
+    },
+    {
+      "id": "airflow-015",
+      "module": "airflow",
+      "lessonIds": [
+        "configuration"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Where should connection credentials live?",
+      "answer": "Use Connections and a configured secrets backend rather than embedding secrets in DAG files or logs. Refer to connections through IDs and provider hooks/operators. Apply least privilege and rotate credentials centrally. Variables and Params have different purposes and should not automatically become secret storage just because they are available in the UI."
+    },
+    {
+      "id": "airflow-016",
+      "module": "airflow",
+      "lessonIds": [
+        "dynamic-mapping"
+      ],
+      "sourceId": "airflow-jp",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does dynamic task mapping do?",
+      "answer": "It expands task instances at runtime from an upstream list or compatible collection, using APIs such as expand. This differs from constructing a fixed task list while parsing a DAG. Cap expansion and concurrency, handle zero-length input, and keep mapped results small. It is useful when each run discovers a different set of files or partitions."
+    },
+    {
+      "id": "airflow-017",
+      "module": "airflow",
+      "lessonIds": [
+        "monitoring"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How would you test a DAG before deployment?",
+      "answer": "Check import errors, DAG structure, task parameters and dependency rules. Test pure callables with fixtures, then run representative workflows in an isolated environment. Exercise failures, retries and historical intervals as well as success. Assert destination schema, counts and quality; a green UI state alone is insufficient evidence of correct data."
+    },
+    {
+      "id": "airflow-018",
+      "module": "airflow",
+      "lessonIds": [
+        "production",
+        "monitoring"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How do pools protect production dependencies?",
+      "answer": "Assign tasks that hit a limited resource to a pool and size its slots from safe capacity. Combine this with DAG and task concurrency and active-run limits. Pools prevent a backfill from overwhelming an API or database even if workers have spare CPU. A queued task can be correctly waiting on a pool rather than suffering a worker failure."
+    },
+    {
+      "id": "airflow-019",
+      "module": "airflow",
+      "lessonIds": [
+        "etl-review"
+      ],
+      "sourceId": "consulting",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "How would you orchestrate API extraction, dbt and warehouse loading?",
+      "answer": "Separate extraction, durable raw storage, schema validation, loading and dbt transformation into explicit stages. Store API credentials in a secret backend and pass object references rather than payloads through XCom. Use interval-based, idempotent writes, then quality checks before publishing. Bound retries and concurrency and make rejected records and failed freshness visible."
+    },
+    {
+      "id": "airflow-020",
+      "module": "airflow",
+      "lessonIds": [
+        "dags-dependencies"
+      ],
+      "sourceId": "airflow-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do TaskGroups differ from separate DAGs?",
+      "answer": "TaskGroups organize related tasks within one DAG and help express and display dependencies. They do not create an independent schedule or a separate DAG run. Separate DAGs have their own lifecycle and need an explicit coordination approach, such as asset-based scheduling where supported. Choose based on ownership, reuse and execution boundaries."
+    },
+    {
+      "id": "airflow-021",
+      "module": "airflow",
+      "lessonIds": [
+        "monitoring",
+        "production"
+      ],
+      "sourceId": "airflow-jp",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How do you diagnose tasks stuck in queued?",
+      "answer": "Check whether workers or pods are available, executor and broker health, pool slots, global parallelism, active-task limits and task routing. Review scheduler/executor logs and whether the environment can start the task. Do not simply clear every queued task: first determine whether it is waiting legitimately or stranded, and protect duplicate execution."
+    },
+    {
+      "id": "kafka-001",
+      "module": "kafka",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What is Kafka used for?",
+      "answer": "Kafka is a distributed event log used to publish, retain and consume streams of records. Producers append events; consumers read independently using offsets. Retention and replay decouple applications in time. Kafka is not a database that validates every business field, and reading a record does not normally delete it."
+    },
+    {
+      "id": "kafka-002",
+      "module": "kafka",
+      "lessonIds": [
+        "producers-consumers-topics"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Distinguish producers, consumers, topics and brokers.",
+      "answer": "A producer publishes records to a topic. A topic is divided into partitions stored on brokers. A consumer fetches records and tracks progress per partition. A broker serves partition data and participates in replication. Multiple independent consumer groups can read the same retained events without competing for a single global cursor."
+    },
+    {
+      "id": "kafka-003",
+      "module": "kafka",
+      "lessonIds": [
+        "partitions-offsets"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What do partitions and offsets represent?",
+      "answer": "A partition is an ordered log. An offset identifies a position within that partition, not a globally unique topic-wide sequence. Parallel consumption scales across partitions, while ordering is scoped to each partition. If a business requires per-account order, route that account's events consistently and consider producer retries and partition-count changes."
+    },
+    {
+      "id": "kafka-004",
+      "module": "kafka",
+      "lessonIds": [
+        "brokers-cluster"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does KRaft manage?",
+      "answer": "KRaft uses a controller quorum to manage Kafka cluster metadata and control-plane decisions such as partition leadership. Brokers store and serve event records; controller quorum replication is distinct from topic-data replication. Kafka 4 removed ZooKeeper support, so explain ZooKeeper only as a historical architecture rather than a new-deployment requirement."
+    },
+    {
+      "id": "kafka-005",
+      "module": "kafka",
+      "lessonIds": [
+        "message-keys"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why attach a key to records?",
+      "answer": "A stable key can route related events to the same partition and support per-key processing and compaction. A hot key can create skew, and increasing partition count can change the key-to-partition mapping. Specify the partitioner and ordering boundary rather than promising topic-wide order or saying all null keys have one fixed routing rule."
+    },
+    {
+      "id": "kafka-006",
+      "module": "kafka",
+      "lessonIds": [
+        "consumer-groups"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do consumer groups divide work?",
+      "answer": "Within a conventional subscribing group, each assigned partition has one active consuming member at a time. More members than partitions leave some members idle for that topic. Different groups track independent progress and each can read the whole topic. Rebalances transfer assignment; sinks must still tolerate replay after failures."
+    },
+    {
+      "id": "kafka-007",
+      "module": "kafka",
+      "lessonIds": [
+        "consumer-offsets"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Where are committed consumer offsets stored?",
+      "answer": "Kafka stores group offset commits in the internal __consumer_offsets topic. A commit normally records the next offset to process, not proof that an external sink was written. Consumers also have an in-memory fetch position. Commit after safely processing the intended range and define restart behavior for missing or expired offsets."
+    },
+    {
+      "id": "kafka-008",
+      "module": "kafka",
+      "lessonIds": [
+        "consumer-offsets"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does auto.offset.reset control?",
+      "answer": "It determines what to do when there is no valid committed offset for a partition, such as starting from the earliest or latest available record, or failing. It does not rewind a valid existing group automatically. To replay known history, use an intentional offset reset or a separate group and ensure retention still contains it."
+    },
+    {
+      "id": "kafka-009",
+      "module": "kafka",
+      "lessonIds": [
+        "consumer-groups"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What happens during a rebalance?",
+      "answer": "Membership or subscription changes cause partition assignment to be reconsidered. Some partitions move between consumers; behavior depends on the group protocol and assignment strategy. Finish or cancel in-flight work safely and prevent stale consumers from committing inappropriate progress. Monitor rebalance frequency, processing duration and poll configuration rather than assuming all rebalances are failures."
+    },
+    {
+      "id": "kafka-010",
+      "module": "kafka",
+      "lessonIds": [
+        "replication"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do replication factor and ISR differ?",
+      "answer": "Replication factor is the intended number of copies of a partition. ISR is the currently in-sync replica set. A factor of three does not mean three healthy synchronized copies at every moment. Leadership and durability behavior depend on replica health and election settings, so monitor under-replicated partitions and ISR changes."
+    },
+    {
+      "id": "kafka-011",
+      "module": "kafka",
+      "lessonIds": [
+        "replication",
+        "delivery-semantics"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do acks and min.insync.replicas work together?",
+      "answer": "acks=all waits for the required acknowledgments from in-sync replicas. min.insync.replicas sets the minimum ISR size needed to accept that kind of write. If the requirement cannot be met, the write fails rather than silently accepting weaker durability. acks=1 acknowledges leader receipt and can lose acknowledged records if that leader fails before replication."
+    },
+    {
+      "id": "kafka-012",
+      "module": "kafka",
+      "lessonIds": [
+        "replication"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What if a broker holding partition leaders fails?",
+      "answer": "The controller arranges leadership changes to eligible replicas, and clients refresh metadata. Availability depends on healthy replicas and election configuration. Promoting an out-of-sync replica can restore availability at the cost of data loss; disabling unclean election avoids that trade-off but can leave a partition unavailable. Test failures rather than assuming replication eliminates downtime."
+    },
+    {
+      "id": "kafka-013",
+      "module": "kafka",
+      "lessonIds": [
+        "delivery-semantics"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does an idempotent producer guarantee?",
+      "answer": "It prevents duplicate log appends caused by eligible producer retries using producer identity and sequence information. It does not automatically remove two application events with the same business ID or make an external database write exactly once. Transactions can extend guarantees across Kafka partitions and offset commits within their supported boundary."
+    },
+    {
+      "id": "kafka-014",
+      "module": "kafka",
+      "lessonIds": [
+        "delivery-semantics",
+        "production-patterns"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How would you prevent duplicate sink writes?",
+      "answer": "A failure after writing to a sink but before committing the offset can replay records. Use a stable event key and an idempotent upsert or a transactional mechanism that includes progress and the sink effect. Commit only completed work. Producer idempotence by itself cannot make an unrelated external sink exactly once."
+    },
+    {
+      "id": "kafka-015",
+      "module": "kafka",
+      "lessonIds": [
+        "serialization-schema"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Where are schemas and compatibility enforced?",
+      "answer": "Kafka stores key and value bytes. Applications serialize them using a format such as Avro, Protobuf or JSON. A schema registry can manage definitions and enforce configured compatibility; it is a separate service, not automatic broker validation of every field. Coordinate producer and consumer upgrades and test old records against new readers."
+    },
+    {
+      "id": "kafka-016",
+      "module": "kafka",
+      "lessonIds": [
+        "kafka-connect"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does Kafka Connect provide?",
+      "answer": "Connect runs source connectors that move external data into Kafka and sink connectors that move Kafka data to external systems. Distributed mode manages connector tasks and operational state. Delivery guarantees depend on the connector and destination, so verify retry and offset behavior. Configure authentication, error handling and schema conversion deliberately."
+    },
+    {
+      "id": "kafka-017",
+      "module": "kafka",
+      "lessonIds": [
+        "stream-processing"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do Kafka Streams and a consumer differ?",
+      "answer": "A consumer API fetches records and leaves processing logic to the application. Kafka Streams adds topology, state stores, joins, windows and fault-recovery mechanisms as a client library. It still runs in your application's processes. Choose it when Kafka-centered stateful processing fits; an external streaming engine has a different execution and operational model."
+    },
+    {
+      "id": "kafka-018",
+      "module": "kafka",
+      "lessonIds": [
+        "stream-processing"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Compare KStream and KTable semantics.",
+      "answer": "A KStream models individual events; each record is a new event even if its key repeats. A KTable models changes to the latest value for each key. A null value can represent deletion in table semantics. Joining or aggregating them requires attention to timestamps, updates and the intended result, not merely matching identical keys."
+    },
+    {
+      "id": "kafka-019",
+      "module": "kafka",
+      "lessonIds": [
+        "production-patterns"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you investigate consumer lag?",
+      "answer": "Inspect lag per partition and distinguish fetched, processed and committed progress. Check production rate, sink latency, slow records, rebalances and whether partitions are skewed. Increase consumers only when assignments and sink capacity allow useful parallelism. A low committed lag does not prove correctness if offsets were committed before processing."
+    },
+    {
+      "id": "kafka-020",
+      "module": "kafka",
+      "lessonIds": [
+        "production-patterns"
+      ],
+      "sourceId": "kafka-gfg",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How does log compaction differ from retention?",
+      "answer": "Time or size retention removes old log segments. Compaction retains the latest available value for each key while older versions are cleaned asynchronously; duplicates can remain before cleaning. Tombstones represent deletes and have their own retention considerations. Compaction does not mean every consumer sees only one record per key at all times."
+    },
+    {
+      "id": "kafka-021",
+      "module": "kafka",
+      "lessonIds": [
+        "architecture-review"
+      ],
+      "sourceId": "amazon3",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Explain Kafka's role in a batch or streaming architecture.",
+      "answer": "Kafka provides a replayable event boundary between publishers and independently consuming services. Explain key and partition choices, retention, replication and consumer progress, then name the processor and destination that actually transform and serve the data. Justify latency and replay requirements; a small nightly file transfer may not need a persistent streaming broker."
+    },
+    {
+      "id": "kafka-022",
+      "module": "kafka",
+      "lessonIds": [
+        "architecture-review",
+        "delivery-semantics"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you choose batch versus streaming ingestion?",
+      "answer": "Choose from freshness requirements, event volume, source interfaces and operational cost. Batch can simplify bounded reconciliation and reruns; streaming lowers latency but needs progress tracking, replay-safe effects and handling for late or out-of-order events. Document when results become final. A queue or log alone does not guarantee the destination's correctness."
+    },
+    {
+      "id": "dbt-001",
+      "module": "dbt",
+      "lessonIds": [
+        "dbt-introduction"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Where does dbt fit in ELT?",
+      "answer": "dbt manages transformation logic, dependencies, tests and documentation after source data is available to its execution platform. It does not ordinarily extract API data or ingest files simply because you declare a source. In a warehouse-centered ELT pipeline, separate ingestion ownership from dbt model building and publish only validated outputs."
+    },
+    {
+      "id": "dbt-002",
+      "module": "dbt",
+      "lessonIds": [
+        "models-ref"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What does ref() do?",
+      "answer": "ref resolves a project model to its target relation and records a dependency in dbt's graph. It makes model naming and environment resolution manageable without hardcoding physical schema names. It does not execute the upstream model by itself. Compile and inspect the graph, then use an appropriate selection that builds required dependencies."
+    },
+    {
+      "id": "dbt-003",
+      "module": "dbt",
+      "lessonIds": [
+        "sources"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "What do source declarations and source() provide?",
+      "answer": "A source declaration documents an externally loaded relation and its database, schema and table mapping. source() resolves that declared relation and establishes source lineage. Declaring a source does not create or refresh its data. Configure and run supported freshness checks separately from ingestion, and confirm the loaded-at meaning for your platform."
+    },
+    {
+      "id": "dbt-004",
+      "module": "dbt",
+      "lessonIds": [
+        "sources"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "Why might source() fail to resolve a table?",
+      "answer": "First check that the logical source and table names match the YAML declaration and that the project discovers the file. Then inspect compiled relation names, target configuration, actual database/schema/table existence and permissions. An undefined source is a project resolution error; a missing physical table is a different warehouse-side problem."
+    },
+    {
+      "id": "dbt-005",
+      "module": "dbt",
+      "lessonIds": [
+        "lineage"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How does dbt track dependencies between models?",
+      "answer": "References create graph edges that dbt uses to determine dependency-aware execution and selection. Lineage helps identify downstream models affected by changes, but external dashboards and hand-written queries may require additional catalog information. A model rename or grain change needs consumer review and tests, not just a successful local compile."
+    },
+    {
+      "id": "dbt-006",
+      "module": "dbt",
+      "lessonIds": [
+        "tests"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "How do you validate data quality with dbt?",
+      "answer": "Use data tests for key uniqueness, non-null requirements, allowed values and relationships where they match the model contract. Add singular or custom generic tests for business rules, and check freshness and completeness separately. Inspect failing rows and severity configuration. Passing a narrow test suite does not prove every business metric is correct."
+    },
+    {
+      "id": "dbt-007",
+      "module": "dbt",
+      "lessonIds": [
+        "tests"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do singular and generic data tests differ?",
+      "answer": "A singular test is a specific query whose returned rows represent violations. A generic test is a reusable parameterized test applied to models or columns. For example, a negative-order-amount query is singular, while unique or not_null can be reusable generic tests. dbt also has unit tests, so these are not the only kinds of testing available."
+    },
+    {
+      "id": "dbt-008",
+      "module": "dbt",
+      "lessonIds": [
+        "materializations"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "When would you choose a view rather than a table?",
+      "answer": "A view keeps query logic and generally computes it when queried; a table stores the built result and requires rebuilding or updating to stay fresh. Choose using transformation expense, reuse, freshness and storage cost. Views can move substantial repeated cost onto readers. Exact capabilities, grants and behavior depend on the adapter and platform."
+    },
+    {
+      "id": "dbt-009",
+      "module": "dbt",
+      "lessonIds": [
+        "materializations"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What is an ephemeral model?",
+      "answer": "An ephemeral model is normally compiled into consumers as a CTE rather than built as a separately queryable relation. It helps organize lightweight intermediate logic. Reused expensive ephemeral logic can be repeated in multiple downstream queries. It is not a persistent cache, and support for specific features or references can differ by adapter."
+    },
+    {
+      "id": "dbt-010",
+      "module": "dbt",
+      "lessonIds": [
+        "jinja-macros"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does Jinja do in a dbt model?",
+      "answer": "Jinja renders templates into SQL, substituting expressions, loops and reusable macros before the warehouse executes the generated statement. It is not a Python function applied independently to every data row. Inspect compiled SQL to debug the actual query, and avoid embedding untrusted input as arbitrary SQL syntax."
+    },
+    {
+      "id": "dbt-011",
+      "module": "dbt",
+      "lessonIds": [
+        "jinja-macros"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do you design a reusable macro?",
+      "answer": "Give the macro a narrow purpose, explicit arguments and predictable generated SQL. Test representative inputs and adapters, document quoting and null behavior, and inspect compiled results. A macro may generate an expression inside a model; suitable macros can also run through dbt run-operation. Avoid hiding complex business semantics in a generic helper."
+    },
+    {
+      "id": "dbt-012",
+      "module": "dbt",
+      "lessonIds": [
+        "incremental"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "High",
+      "question": "How do incremental models handle new and changed data?",
+      "answer": "An incremental model selects a subset of source data for subsequent builds and applies an adapter-supported strategy. Define a reliable input window and a key when updates require matching existing rows. unique_key does not automatically filter late records or enforce uniqueness. Test the first build, repeat runs, changed keys, late arrivals and a full refresh comparison."
+    },
+    {
+      "id": "dbt-013",
+      "module": "dbt",
+      "lessonIds": [
+        "incremental",
+        "real-world-review"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "Advanced",
+      "question": "How would you preserve SCD Type 2 history?",
+      "answer": "Use a snapshot or explicitly designed historical model to detect changes, expire the old version and create a new effective interval. Match on a stable business identity and define change tracking, deletion and late-change policy. An incremental upsert that overwrites the same business key is not automatically Type 2 history."
+    },
+    {
+      "id": "dbt-014",
+      "module": "dbt",
+      "lessonIds": [
+        "project-structure"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "Role-specific",
+      "question": "How would you select and schedule groups of models?",
+      "answer": "Organize models by responsibility, such as staging and marts. Use tags and selectors to express intended execution sets and include needed ancestors or descendants deliberately. A scheduler can invoke those selections after ingestion. Verify compiled selection, dependency completeness and test behavior instead of assuming folder names alone guarantee the right execution order."
+    },
+    {
+      "id": "dbt-015",
+      "module": "dbt",
+      "lessonIds": [
+        "project-structure",
+        "real-world-review"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you manage development and production environments?",
+      "answer": "Use separate targets and appropriately isolated schemas or databases with least-privilege credentials. Keep code versioned and validate changes in CI before promoting them. Do not assume a YAML folder named prod switches targets automatically. Review compiled relation names, environment-specific sources and deployment selection to prevent development from overwriting production."
+    },
+    {
+      "id": "dbt-016",
+      "module": "dbt",
+      "lessonIds": [
+        "real-world-review"
+      ],
+      "sourceId": "dbt-dc",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How would you optimize a slow dbt project?",
+      "answer": "Find expensive model queries and dependency bottlenecks using run artifacts and warehouse query profiles. Reduce scans, improve physical design and select suitable materializations. Use incremental builds only with a correct update and late-data policy. Tune concurrency to warehouse capacity and measure both build cost and downstream query cost."
+    },
+    {
+      "id": "dbt-017",
+      "module": "dbt",
+      "lessonIds": [
+        "real-world-review"
+      ],
+      "sourceId": "dbt-report",
+      "evidence": "reported",
+      "relevance": "Role-specific",
+      "question": "What are pre-hooks and post-hooks useful for?",
+      "answer": "Hooks run configured SQL around a resource build. They can support controlled setup or operational steps, but transaction behavior depends on the adapter and hook configuration. Avoid assuming a post-hook and model are atomic everywhere. Prefer native grant/configuration features when they fit and make hooks safe for failures and repeated builds."
+    },
+    {
+      "id": "cloud-001",
+      "module": "cloud",
+      "lessonIds": [
+        "cloud-introduction"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Compare IaaS, PaaS and SaaS responsibilities.",
+      "answer": "With IaaS, you manage more of the operating system and runtime on rented infrastructure. PaaS manages more of the execution platform; SaaS delivers an application. These categories describe responsibility boundaries, not permission to ignore security. A managed service can operate infrastructure while you remain responsible for data, access policies and workload configuration."
+    },
+    {
+      "id": "cloud-002",
+      "module": "cloud",
+      "lessonIds": [
+        "object-storage"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What is Amazon S3, and what does it store?",
+      "answer": "Amazon S3 is object storage. A bucket contains objects identified by keys; an object consists of data and metadata. It is useful for raw files, logs and analytical datasets. Storing a CSV does not clean its rows or make it a relational table. A query engine or processing job must interpret and transform the files."
+    },
+    {
+      "id": "cloud-003",
+      "module": "cloud",
+      "lessonIds": [
+        "object-storage"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do you choose S3 storage classes?",
+      "answer": "Choose from access frequency, retrieval latency, minimum storage durations, request charges and recovery requirements. Frequently accessed analytics and long-term archives have different needs. Use lifecycle rules when a known retention policy supports transitions. Compare total access and retrieval cost, not only the price per stored gigabyte."
+    },
+    {
+      "id": "cloud-004",
+      "module": "cloud",
+      "lessonIds": [
+        "object-storage"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How does Cloud Storage fit into a pipeline?",
+      "answer": "Cloud Storage provides durable object storage for files and artifacts. A pipeline can land raw data there, then let a batch or query engine read it. Define object naming, retention, permissions and how complete batches are published. A bucket alone does not supply table transactions, schema enforcement or deduplication."
+    },
+    {
+      "id": "cloud-005",
+      "module": "cloud",
+      "lessonIds": [
+        "object-storage"
+      ],
+      "sourceId": "azure-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What distinguishes block blobs from page blobs?",
+      "answer": "Block blobs organize uploaded content into blocks and are suited to objects such as logs, documents and analytical files. Page blobs support random-access updates over page ranges and are used for workloads such as virtual disks. Choose from access patterns and service capabilities; neither automatically transforms file contents into business records."
+    },
+    {
+      "id": "cloud-006",
+      "module": "cloud",
+      "lessonIds": [
+        "identity-security"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What is IAM's role in a data platform?",
+      "answer": "Identity and access management defines who or what can perform actions on resources. Prefer short-lived workload credentials and roles with the minimum actions and resource scope required. Separate raw, curated and administrative access, audit changes and rotate secrets. Encryption does not replace authorization, and a network boundary alone is not sufficient access control."
+    },
+    {
+      "id": "cloud-007",
+      "module": "cloud",
+      "lessonIds": [
+        "identity-security"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How would you secure data access on Google Cloud?",
+      "answer": "Use workload service accounts and resource-scoped IAM roles; grant only needed operations and avoid broad project-wide permissions by default. Apply appropriate table, column or row controls where supported, protect secrets and audit access. Test denied cases as well as successful access. A managed service does not remove your responsibility for permissions."
+    },
+    {
+      "id": "cloud-008",
+      "module": "cloud",
+      "lessonIds": [
+        "compute-serverless"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "When would you use EC2 for data processing?",
+      "answer": "EC2 supplies virtual machines with control over instance type, operating system and installed software. It suits workloads requiring that control, but you manage patching, scaling and process reliability unless additional services do it. Compare with managed batch or serverless options using runtime duration, dependencies, resource needs and operational effort."
+    },
+    {
+      "id": "cloud-009",
+      "module": "cloud",
+      "lessonIds": [
+        "compute-serverless"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Where does Cloud Run fit in data engineering?",
+      "answer": "Cloud Run runs containerized workloads with managed infrastructure. It can host APIs or jobs where its resource and execution limits fit. Keep durable state outside instances and design retries safely. A container service does not automatically parallelize a large transformation like a distributed engine; match workload shape to supported service modes."
+    },
+    {
+      "id": "cloud-010",
+      "module": "cloud",
+      "lessonIds": [
+        "managed-batch"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "When would you choose Dataproc?",
+      "answer": "Dataproc provides managed execution for supported distributed processing ecosystems such as Spark. It reduces some infrastructure operations while leaving job design, resource sizing, dependencies and data correctness to you. Choose based on existing Spark workloads, startup latency, scale and cost. Compare provisioned clusters with supported serverless modes for the actual job."
+    },
+    {
+      "id": "cloud-011",
+      "module": "cloud",
+      "lessonIds": [
+        "managed-batch",
+        "streaming"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does Dataflow do differently from storage?",
+      "answer": "Dataflow executes data-processing pipelines, commonly expressed with Apache Beam, for batch or streaming workloads. Storage services hold input and output; Dataflow performs transformations, windowing and aggregation. Explain event time, late data, retries and destination behavior for a streaming design. Do not confuse storing events with calculating a result."
+    },
+    {
+      "id": "cloud-012",
+      "module": "cloud",
+      "lessonIds": [
+        "cloud-warehouses"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What kind of service is BigQuery?",
+      "answer": "BigQuery is a managed analytical data warehouse with separated storage and compute concerns. It runs SQL over large datasets and supports controlled data access. Query scans, partitioning, clustering and workload configuration affect cost and performance. It is not a drop-in replacement for a high-frequency transactional application database."
+    },
+    {
+      "id": "cloud-013",
+      "module": "cloud",
+      "lessonIds": [
+        "cloud-warehouses",
+        "cost-architecture-review"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "How would you justify choosing a cloud warehouse?",
+      "answer": "Start with latency, concurrency, ingestion pattern, scale, governance and team skills. Evaluate query performance, elasticity, platform integrations and full operating cost on representative workloads. Explain why one platform fits those constraints and what it sacrifices. Vendor names alone do not establish that a system is economical or correct."
+    },
+    {
+      "id": "cloud-014",
+      "module": "cloud",
+      "lessonIds": [
+        "lakehouse"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What do bronze, silver and gold layers achieve?",
+      "answer": "Bronze retains raw input with lineage metadata; silver holds validated, cleaned and conformed data; gold serves business-oriented outputs. The layers help manage contracts and recovery but are not a requirement for every small pipeline. A transactional table format can add capabilities beyond bare files. Streaming can also use these layers; they are not inherently batch-only."
+    },
+    {
+      "id": "cloud-015",
+      "module": "cloud",
+      "lessonIds": [
+        "orchestration-integration"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does Cloud Composer orchestrate?",
+      "answer": "Cloud Composer is a managed Apache Airflow environment for scheduling and coordinating workflows. It can invoke ingestion, processing and warehouse jobs; those services perform the actual computation. Managed hosting does not eliminate DAG correctness, secrets, retries, quotas or dependency management. Make tasks idempotent and monitor data freshness as well as execution state."
+    },
+    {
+      "id": "cloud-016",
+      "module": "cloud",
+      "lessonIds": [
+        "networking-reliability"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What does a VPC control?",
+      "answer": "A virtual private cloud defines a logically isolated network with subnets, routes and security controls. It shapes connectivity between compute, private services and external endpoints. A private subnet needs appropriate routes or endpoints to reach required services. Network isolation complements IAM and encryption; it does not automatically authorize data access."
+    },
+    {
+      "id": "cloud-017",
+      "module": "cloud",
+      "lessonIds": [
+        "networking-reliability"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do regions and availability zones differ?",
+      "answer": "A region is a geographic deployment area; availability zones are separate fault domains within a region. Distribute replicas and execution where needed to tolerate a zone failure. Cross-region recovery adds distance, replication and cost considerations. A service's advertised durability or multi-zone implementation does not by itself define your pipeline's recovery plan."
+    },
+    {
+      "id": "cloud-018",
+      "module": "cloud",
+      "lessonIds": [
+        "networking-reliability"
+      ],
+      "sourceId": "aws-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What do RPO and RTO mean?",
+      "answer": "Recovery point objective is the maximum acceptable data loss measured in time; recovery time objective is the target time to restore service. A five-minute RPO and one-hour RTO require a tested replication, backup and recovery design. Define objectives with business owners and rehearse recovery; successful backups alone do not prove restore time."
+    },
+    {
+      "id": "cloud-019",
+      "module": "cloud",
+      "lessonIds": [
+        "cost-architecture-review"
+      ],
+      "sourceId": "gcp-gh",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you control cloud data-platform cost?",
+      "answer": "Attribute spend to pipelines, storage and query workloads, then measure cost per useful unit such as batch or processed terabyte. Reduce needless scans, idle compute, tiny files and unnecessary data movement. Use budgets and alerts, evaluate commitments only for predictable usage, and preserve reliability and freshness targets while optimizing."
+    },
+    {
+      "id": "cloud-020",
+      "module": "cloud",
+      "lessonIds": [
+        "cloud-introduction",
+        "identity-security"
+      ],
+      "sourceId": "azure-gh",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do public and private clouds differ?",
+      "answer": "Public cloud offers provider-operated shared infrastructure with logically isolated tenants. A private cloud is dedicated to one organization and may be operated internally or externally. Both require explicit security, capacity and operational design. For data engineering, consider governance, connectivity, services and staffing rather than assuming private automatically means more secure."
+    },
+    {
+      "id": "system-001",
+      "module": "system",
+      "lessonIds": [
+        "design-framework",
+        "case-study"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Design a real-time clickstream analytics pipeline.",
+      "answer": "Clarify peak rate, event size, allowed loss, ordering, latency and retention. Separate durable ingestion, stream processing, low-latency serving and historical storage. Partition with explicit ordering and skew trade-offs; make sink updates replay-safe. Allocate the end-to-end latency budget and explain failures, late events and how dashboards signal incomplete results."
+    },
+    {
+      "id": "system-002",
+      "module": "system",
+      "lessonIds": [
+        "scale-estimation",
+        "scaling-bottlenecks"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Estimate capacity for 100,000 events per second.",
+      "answer": "At an assumed 500 bytes per event, raw ingress is 50 MB/s and approximately 4.32 TB/day in decimal units if sustained. Peak and average rates differ. Add replication, indexes, retained state and overhead, then separately estimate compression. Benchmark throughput per partition or worker rather than choosing a fixed cluster count from arithmetic alone."
+    },
+    {
+      "id": "system-003",
+      "module": "system",
+      "lessonIds": [
+        "ingestion-design"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Design a database change-data-capture pipeline.",
+      "answer": "Take a consistent initial snapshot associated with a log position, then consume changes from that boundary without a gap. Preserve primary key, operation and ordering/version metadata. Apply inserts, updates and deletes idempotently and track durable progress. Plan for schema changes, source log retention and resnapshotting when a consumer falls too far behind."
+    },
+    {
+      "id": "system-004",
+      "module": "system",
+      "lessonIds": [
+        "storage-modeling"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Design an e-commerce warehouse.",
+      "answer": "Choose order-line grain for product sales, with customer, product and date dimensions and realized measures at sale time. Model returns and payments separately if their grains differ. Preserve required historical context with suitable dimension versions. Avoid using today's product price to recompute historical revenue; reconcile source totals and define attribution rules before publishing metrics."
+    },
+    {
+      "id": "system-005",
+      "module": "system",
+      "lessonIds": [
+        "batch-streaming"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "When should a pipeline use batch instead of streaming?",
+      "answer": "Use the freshness requirement and source capabilities to decide. Batch offers simpler bounded processing and reconciliation when hourly or daily results suffice. Streaming is useful for low latency but introduces state, progress, late-data and replay concerns. Compare total operational cost and business value; a hybrid raw store and streaming serving path can fit mixed requirements."
+    },
+    {
+      "id": "system-006",
+      "module": "system",
+      "lessonIds": [
+        "correctness-reliability"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Design an idempotent nightly warehouse load.",
+      "answer": "Identify an immutable input interval or snapshot and a stable destination key. Stage and validate the batch, then publish through an atomic merge or partition replacement supported by the platform. Record completion only after publication. Rerunning the same input must not duplicate effects; handle concurrent runs, deleted records and conflicting source versions explicitly."
+    },
+    {
+      "id": "system-007",
+      "module": "system",
+      "lessonIds": [
+        "correctness-reliability"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How would you handle late sales corrections?",
+      "answer": "Keep enough raw history to recompute affected business intervals. Upsert authoritative records by identity/version, then recompute totals from the complete corrected interval or apply verified deltas. Summing only newly arrived corrections and replacing the whole day's total is wrong. Define finalization windows and how consumers learn that earlier results changed."
+    },
+    {
+      "id": "system-008",
+      "module": "system",
+      "lessonIds": [
+        "correctness-reliability",
+        "case-study"
+      ],
+      "sourceId": "blinkit",
+      "evidence": "reported",
+      "relevance": "Advanced",
+      "question": "Repair historical facts without stopping ingestion or queries.",
+      "answer": "Determine affected keys or partitions and a consistency boundary. Build and validate corrected data separately while capturing continuing changes. Replay changes after that boundary, reconcile counts and measures, then publish atomically using the platform's supported snapshot or partition swap. Prevent an old backfill from overwriting newer versions and keep a rollback and audit trail."
+    },
+    {
+      "id": "system-009",
+      "module": "system",
+      "lessonIds": [
+        "ingestion-design",
+        "correctness-reliability",
+        "case-study"
+      ],
+      "sourceId": "blinkit",
+      "evidence": "reported",
+      "relevance": "Advanced",
+      "question": "Migrate a live dataset with zero planned downtime.",
+      "answer": "Snapshot at a known position and replicate subsequent changes into the new system. Validate schemas, row counts, key samples and business totals while users remain on the original system. Catch up lag and establish a consistent cutover boundary, then switch reads with an explicit rollback plan. Resolve writes, deletes and ordering; uncontrolled dual writes can diverge."
+    },
+    {
+      "id": "system-010",
+      "module": "system",
+      "lessonIds": [
+        "scaling-bottlenecks",
+        "scale-estimation"
+      ],
+      "sourceId": "amazon5",
+      "evidence": "topic",
+      "relevance": "Advanced",
+      "question": "Optimize a daily 100 GB data load.",
+      "answer": "Measure extraction, transfer, transformation and destination loading separately. Use bounded parallel reads, efficient files, bulk load and pruning where supported. Protect the source and sink with concurrency limits. Evaluate incremental extraction from reliable change metadata. Reconcile output and rerun safety before accepting a speedup; bytes alone do not define the right architecture."
+    },
+    {
+      "id": "system-011",
+      "module": "system",
+      "lessonIds": [
+        "serving-layer"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Design online and offline feature serving.",
+      "answer": "Store historical feature values for training separately from low-latency current feature serving. Define entity keys, feature versions, freshness and backfill behavior. Use point-in-time-correct joins so training sees only information available at prediction time. Coordinate publication and quality checks to avoid inconsistent feature logic or untracked stale online values."
+    },
+    {
+      "id": "system-012",
+      "module": "system",
+      "lessonIds": [
+        "operations-security-cost"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Handle a source column rename in production.",
+      "answer": "Detect the contract change and distinguish it from a newly added optional column. Quarantine or pause the affected publishing path rather than silently shifting meanings. Coordinate mapping and consumer updates, test representative records, then replay retained data if needed. Preserve raw input and alert on freshness impact; automatic schema evolution cannot infer every business rename."
+    },
+    {
+      "id": "system-013",
+      "module": "system",
+      "lessonIds": [
+        "operations-security-cost"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Reduce warehouse cost without harming query latency.",
+      "answer": "Break spend down by workload, idle time, scanned data and repeated computation. Right-size and isolate workloads, suspend eligible idle compute, improve pruning and precompute useful repeated aggregates. Measure cold and warm query latency, queueing and freshness under representative concurrency. Include refresh and maintenance cost; a requested savings target is not a guaranteed result."
+    },
+    {
+      "id": "system-014",
+      "module": "system",
+      "lessonIds": [
+        "operations-security-cost"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "Design a platform's metadata and lineage system.",
+      "answer": "Collect datasets, schemas, ownership, runs and transformation dependencies with stable identifiers. Capture declared and observed lineage, including external consumers where possible. Use it for impact analysis and incident investigation, and control access to sensitive metadata. Missing edges are a limitation to surface, not proof that no consumer is affected."
+    },
+    {
+      "id": "system-015",
+      "module": "system",
+      "lessonIds": [
+        "correctness-reliability",
+        "scaling-bottlenecks"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Backfill five years without disrupting daily workloads.",
+      "answer": "Partition the work into bounded intervals and isolate or cap backfill resources. Use idempotent outputs and explicit version or cutover rules when backfill overlaps current writes. Checkpoint completed intervals, validate counts and totals, and throttle against sink latency and production freshness. Do not launch every historical interval at once without capacity control."
+    },
+    {
+      "id": "system-016",
+      "module": "system",
+      "lessonIds": [
+        "operations-security-cost",
+        "serving-layer"
+      ],
+      "sourceId": "system-lx",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Protect data in a multi-tenant platform.",
+      "answer": "Define tenant identity and enforce authorization at ingestion, storage and serving boundaries. Test cross-tenant denial and isolate quotas and workloads to limit noisy-neighbor impact. Mask or tokenize sensitive values where appropriate, audit access and define deletion and retention workflows. Separate technical controls from legal compliance claims and validate the actual threat model."
+    },
+    {
+      "id": "system-017",
+      "module": "system",
+      "lessonIds": [
+        "design-framework",
+        "case-study"
+      ],
+      "sourceId": "senior",
+      "evidence": "topic",
+      "relevance": "High",
+      "question": "Explain the trade-offs behind your batch architecture.",
+      "answer": "State requirements, actual scale and freshness first. Trace source extraction, durable staging, transformation, validation and serving, and explain why each component fits. Compare a credible alternative on latency, reliability, cost and operational effort. Use concrete failure and backfill examples; listing tools without connecting them to requirements does not defend the design."
+    },
+    {
+      "id": "sql-024",
+      "module": "sql",
+      "lessonIds": [
+        "introduction"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why do SQL dialects matter when moving a query?",
+      "answer": "A dialect is an engine's implementation of SQL. Basic SELECT and joins are broadly portable, but date arithmetic, pagination, identifier quoting and available functions can differ. Verify the target engine's behavior for NULL ordering, integer division and transactions instead of treating a successful source query as proof of portability."
+    },
+    {
+      "id": "sql-025",
+      "module": "sql",
+      "lessonIds": [
+        "select"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What is the purpose of a column alias?",
+      "answer": "An alias gives an expression or relation a readable name for the current statement. SELECT SUM(amount) AS revenue labels the output; it does not rename the stored column. Alias visibility depends on the clause and engine, so use a CTE when a computed value must be filtered safely in an outer query."
+    },
+    {
+      "id": "sql-026",
+      "module": "sql",
+      "lessonIds": [
+        "where"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do percent and underscore behave in LIKE?",
+      "answer": "In LIKE patterns, percent matches a sequence of zero or more characters and underscore matches one character. A prefix pattern such as 'Ann%' matches names starting with Ann. Escape literal wildcard characters using the engine's supported escape syntax, and check collation before assuming case-insensitive matching."
+    },
+    {
+      "id": "sql-027",
+      "module": "sql",
+      "lessonIds": [
+        "distinct"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "When should you choose UNION ALL rather than UNION?",
+      "answer": "UNION ALL concatenates compatible query results and keeps duplicates. UNION removes duplicate selected tuples, which can add sorting or hashing work. Use UNION ALL when both sources' records should survive, and perform any business-key deduplication separately with an explicit rule for which record wins."
+    },
+    {
+      "id": "sql-028",
+      "module": "sql",
+      "lessonIds": [
+        "aggregates",
+        "group-by"
+      ],
+      "sourceId": "de-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How can a report include subtotals and a grand total?",
+      "answer": "GROUP BY ROLLUP can produce detailed groups, higher-level subtotals and a grand total in supported engines. For region and product, the levels are region-product, region and overall. Use GROUPING to distinguish a subtotal placeholder from an actual NULL region rather than labeling all NULLs as totals."
+    },
+    {
+      "id": "sql-029",
+      "module": "sql",
+      "lessonIds": [
+        "query-execution"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does ACID promise for a transaction?",
+      "answer": "Atomicity makes a transaction succeed or fail as a unit. Consistency preserves the enforced rules. Isolation controls how concurrent transactions interact, with guarantees depending on the isolation level. Durability preserves committed changes under the system's documented failure model. ACID does not replace application-level business validation."
+    },
+    {
+      "id": "sql-030",
+      "module": "sql",
+      "lessonIds": [
+        "query-execution"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do DELETE, TRUNCATE and DROP differ?",
+      "answer": "DELETE removes matching rows and supports a WHERE predicate. TRUNCATE empties a table through an engine-specific operation with different locking and identity behavior. DROP removes the table definition itself. Transaction rollback support, triggers and foreign-key restrictions vary by engine; confirm them before choosing a destructive command."
+    },
+    {
+      "id": "sql-031",
+      "module": "sql",
+      "lessonIds": [
+        "window-functions"
+      ],
+      "sourceId": "sql-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How does a window calculation preserve row detail?",
+      "answer": "A window function computes a value over related rows while retaining each input row in the output. SUM(amount) OVER (PARTITION BY customer_id) repeats that customer's total beside each order. GROUP BY instead produces a grouped result grain. Do not sum the repeated window totals again without accounting for duplication."
+    },
+    {
+      "id": "python-021",
+      "module": "python",
+      "lessonIds": [
+        "py-files-formats"
+      ],
+      "sourceId": "de-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How can you process a file larger than available RAM?",
+      "answer": "Read bounded chunks or stream records with a generator, validate each batch, and write intermediate results rather than keeping all rows. Chunk-level sums can be combined, but global sorting and exact deduplication require shared state or an external engine. Measure peak memory and use Spark or another out-of-core approach when the workload demands it."
+    },
+    {
+      "id": "python-022",
+      "module": "python",
+      "lessonIds": [
+        "py-error-handling"
+      ],
+      "sourceId": "de-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "What should an API client do after HTTP 429?",
+      "answer": "Respect Retry-After when present, otherwise use bounded exponential backoff with jitter. Apply request timeouts and a retry limit, preserve the pagination cursor, and record failure without leaking credentials. Retry only operations whose side effects are safe; pagination controls response size but does not itself remove a rate limit."
+    },
+    {
+      "id": "python-023",
+      "module": "python",
+      "lessonIds": [
+        "py-functions-modules"
+      ],
+      "sourceId": "de-dc",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do you locate a Python pipeline's performance bottleneck?",
+      "answer": "Measure time and memory on representative inputs before changing code. Profile CPU-heavy work, distinguish network waiting from computation, and examine repeated parsing or allocation. Replace proven hot loops with suitable vectorized operations or a better algorithm. Compare outputs as well as speed so an optimization does not silently change correctness."
+    },
+    {
+      "id": "modeling-017",
+      "module": "modeling",
+      "lessonIds": [
+        "facts-dimensions",
+        "analytics"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why can joining order shipping fees to order lines inflate totals?",
+      "answer": "An order fee has order grain while the lines have order-line grain. Joining repeats the fee once per line, so summing it multiplies the amount. Aggregate line measures to order grain before combining, keep fees in a separate fact, or allocate them using a documented rule. Test reconciliation against the source order totals."
+    },
+    {
+      "id": "modeling-018",
+      "module": "modeling",
+      "lessonIds": [
+        "scd"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "How do facts find the correct historical dimension version?",
+      "answer": "Match the business identity and require the fact's event timestamp to fall within a dimension version's validity interval. A half-open interval avoids two matches at a boundary. Validate that versions do not overlap and define how unknown or late dimension records are resolved; joining only to the current flag loses historical context."
+    },
+    {
+      "id": "spark-021",
+      "module": "spark",
+      "lessonIds": [
+        "performance",
+        "partitioning"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Why might one Spark task lag far behind its peers?",
+      "answer": "Inspect per-task records, shuffle bytes, spill and executor conditions. A hot key can produce skew, but slow storage or an unhealthy executor can also cause a straggler. Address the measured cause with suitable join strategies, key handling or adaptive execution. Increasing every executor's memory without evidence may leave the underlying imbalance intact."
+    },
+    {
+      "id": "spark-022",
+      "module": "spark",
+      "lessonIds": [
+        "partitioning",
+        "performance"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "How do you prevent a Spark write from generating tiny files?",
+      "answer": "Inspect writer partition count, partition-key cardinality and micro-batch size. Adjust distribution before writing, avoid excessively fine directory partitions, and schedule compaction where supported. Choose file sizes from measured read/write behavior; reducing to one writer can create a bottleneck and is not a scalable general fix."
+    },
+    {
+      "id": "airflow-022",
+      "module": "airflow",
+      "lessonIds": [
+        "scheduling",
+        "catchup-backfill"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why is wall-clock time unsafe for a backfillable DAG?",
+      "answer": "A task using the current date can load today's records when retrying an older interval. Read the scheduled data interval and pass its start and end explicitly to extraction and loading. Keep the interval fixed during retries and ensure the sink handles reruns safely, so a historical backfill reproduces its intended period."
+    },
+    {
+      "id": "airflow-023",
+      "module": "airflow",
+      "lessonIds": [
+        "production",
+        "etl-review"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "When might an asset-oriented orchestrator fit better than Airflow?",
+      "answer": "Compare whether the team primarily manages data assets and their freshness or heterogeneous task workflows. Evaluate partitioned backfills, lineage, available integrations and existing operational skills. An alternative may improve asset visibility, but migration cost and reliability must be assessed. Airflow also supports asset scheduling, so avoid an absolute feature-based distinction."
+    },
+    {
+      "id": "kafka-023",
+      "module": "kafka",
+      "lessonIds": [
+        "kafka-connect",
+        "production-patterns"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "What can go wrong with a database CDC connector during an outage?",
+      "answer": "A log-based connector can fall behind while the database retains change logs needed for recovery. For PostgreSQL, an inactive replication slot can retain WAL and exhaust storage. Monitor connector lag and retained logs, document restart positions and coordinate snapshot recovery. Do not delete a slot casually if it is the only remaining recovery position."
+    },
+    {
+      "id": "kafka-024",
+      "module": "kafka",
+      "lessonIds": [
+        "serialization-schema",
+        "production-patterns"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How do data contracts protect Kafka consumers from a renamed field?",
+      "answer": "Agree on schema ownership, compatibility rules and a deprecation period before publishing breaking changes. Validate schemas at production boundaries and test real consumers, since a registry rule cannot guarantee semantic compatibility. Introduce a compatible new field or version and migrate consumers before removing the old field."
+    },
+    {
+      "id": "dbt-018",
+      "module": "dbt",
+      "lessonIds": [
+        "incremental"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Why can a strict high-water mark miss late updates?",
+      "answer": "Filtering only above the maximum processed timestamp misses updates that arrive with older timestamps. Reprocess a bounded lookback window and merge on a stable unique_key using an adapter-supported strategy. Deduplicate the incoming batch, monitor lateness beyond the window and retain a repair/full-refresh procedure for older corrections."
+    },
+    {
+      "id": "dbt-019",
+      "module": "dbt",
+      "lessonIds": [
+        "tests",
+        "real-world-review"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "High",
+      "question": "Which data quality failures should block publication?",
+      "answer": "Block violations that invalidate the published dataset's contract, such as duplicate business keys or failed reconciliation. Treat exploratory distribution drift separately when it is not a correctness failure. Stage the result, run checks and publish only after critical checks pass. Assign an owner and an actionable alert to each blocking rule."
+    },
+    {
+      "id": "cloud-021",
+      "module": "cloud",
+      "lessonIds": [
+        "lakehouse",
+        "object-storage"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Role-specific",
+      "question": "What does hidden partitioning change for a lakehouse query?",
+      "answer": "In Iceberg, a table can partition using a transform of a source column while queries filter the original column. Compatible engines use metadata to prune matching partitions. Partition evolution can add a new specification without rewriting every old file, but readers must support the table metadata and transforms."
+    },
+    {
+      "id": "cloud-022",
+      "module": "cloud",
+      "lessonIds": [
+        "lakehouse",
+        "cost-architecture-review"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How do copy-on-write and merge-on-read trade read cost for write cost?",
+      "answer": "Copy-on-write rewrites affected data files during an update, making later reads simpler. Merge-on-read stores changes or delete information for readers to apply, reducing some write work while adding read and maintenance work. Exact behavior depends on the table format and engine. Choose from update frequency, read latency and compaction capacity."
+    },
+    {
+      "id": "cloud-023",
+      "module": "cloud",
+      "lessonIds": [
+        "cloud-warehouses",
+        "cost-architecture-review"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How would you investigate a sudden warehouse cost increase?",
+      "answer": "Attribute consumption by query, job, user and schedule. Compare scanned bytes, runtime, compute sizing and frequency with the previous baseline. Look for unnecessary full refreshes, repeated dashboard scans and idle capacity, then validate targeted changes against freshness requirements. Budget alerts alone do not explain or correct the source of the increase."
+    },
+    {
+      "id": "system-018",
+      "module": "system",
+      "lessonIds": [
+        "ingestion-design",
+        "case-study"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "Design ingestion from many transactional databases with a 15-minute freshness target.",
+      "answer": "Estimate change volume and source limits, capture changes with a managed or log-based CDC service, and retain durable raw events before applying them to serving tables. Plan initial snapshots, deletes, schema changes and replay. Monitor freshness per source and isolate failures so one stalled database does not halt unrelated ingestion."
+    },
+    {
+      "id": "system-019",
+      "module": "system",
+      "lessonIds": [
+        "storage-modeling",
+        "correctness-reliability"
+      ],
+      "sourceId": "ryz",
+      "evidence": "published",
+      "relevance": "Advanced",
+      "question": "How should concurrent lakehouse writers handle commit conflicts?",
+      "answer": "Writers prepare changes against a table snapshot and attempt an atomic metadata commit. Conflicting changes may fail validation or need a retry against newer metadata. Prefer disjoint write ownership where practical and coordinate compaction with ingestion. Retry only with an idempotent operation and verify that the resulting table preserves all intended updates."
+    }
+  ]
+}
