@@ -10,10 +10,10 @@ import { systemDesignLessons } from "@/lib/system-design-lessons";
 import bank from "@/lib/mock-question-bank.json";
 import type { TeachingModule } from "@/lib/study-tab-content";
 
-export type QuestionEvidence = "reported" | "topic" | "published";
+export type QuestionEvidence = "reported" | "topic" | "published" | "authored";
 export type InterviewRelevance = "High" | "Role-specific" | "Advanced";
 export interface InterviewSource {
-  title: string; url: string; kind: "candidate" | "published";
+  title: string; url: string; kind: "candidate" | "published" | "reference";
   note: string; checkedAt: string;
 }
 interface SourcedQuestion {

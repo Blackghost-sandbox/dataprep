@@ -41,9 +41,9 @@ for(const q of allMockQuestions){
  assert.ok(!prompts.has(q.question.toLowerCase()),q.question);prompts.add(q.question.toLowerCase());
  assert.ok(q.answer.length>100,q.id+" needs a substantive answer");
  assert.ok(["High","Role-specific","Advanced"].includes(q.relevance));
- assert.ok(["reported","topic","published"].includes(q.evidence));
+ assert.ok(["reported","topic","published","authored"].includes(q.evidence));
  assert.ok(new URL(q.source).protocol==="https:");
- assert.equal(interviewSources[q.sourceId].kind,q.evidence==="published"?"published":"candidate");
+ assert.equal(interviewSources[q.sourceId].kind,q.evidence==="authored"?"reference":q.evidence==="published"?"published":"candidate");
  assert.ok(q.lessons.length);
  for(const lesson of q.lessons){
   const track=mockTracks.find(t=>t.id===lesson.module);
@@ -57,7 +57,7 @@ for(const track of mockTracks){
  for(const lesson of track.lessons){
   lessonCount++;
   const result=filterMockQuestions(round.questions,{...blank,lesson:track.id+"/"+lesson.id});
-  assert.ok(result.length,track.id+"/"+lesson.id+" missing");
+  assert.ok(result.length>=5,track.id+"/"+lesson.id+" needs at least five questions");
   assert.ok(result.every(q=>q.lessonIds.includes(lesson.id)));
  }
  const html=renderToString(React.createElement(MockInterview,{round}));
@@ -70,8 +70,8 @@ for(const track of mockTracks){
 }
 assert.equal(filterMockQuestions(allMockQuestions,blank).length,allMockQuestions.length);
 for(const relevance of ["High","Role-specific","Advanced"]){const result=filterMockQuestions(allMockQuestions,{...blank,relevance});assert.ok(result.length);assert.ok(result.every(q=>q.relevance===relevance));}
-for(const evidence of ["reported","topic","published"]){const result=filterMockQuestions(allMockQuestions,{...blank,evidence});assert.ok(result.length);assert.ok(result.every(q=>q.evidence===evidence));}
-const reports=filterMockQuestions(allMockQuestions,{...blank,evidence:"candidate"});assert.ok(reports.length);assert.ok(reports.every(q=>q.evidence!=="published"));
+for(const evidence of ["reported","topic","published","authored"]){const result=filterMockQuestions(allMockQuestions,{...blank,evidence});assert.ok(result.length);assert.ok(result.every(q=>q.evidence===evidence));}
+const reports=filterMockQuestions(allMockQuestions,{...blank,evidence:"candidate"});assert.ok(reports.length);assert.ok(reports.every(q=>["reported","topic"].includes(q.evidence)));
 assert.ok(filterMockQuestions(allMockQuestions,{...blank,search:"second salary"}).some(q=>q.id==="sql-015"));
 assert.equal(filterMockQuestions(allMockQuestions,{...blank,search:"zzzz-no-such-question"}).length,0);
 const mixed=mockRounds.find(r=>r.id==="mixed-round");assert.deepEqual(mixed.questions.map(q=>q.id),allMockQuestions.map(q=>q.id));

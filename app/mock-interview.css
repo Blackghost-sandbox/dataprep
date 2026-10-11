@@ -31,3 +31,4 @@
 .qa-definition[data-slot="tooltip-content"]{width:320px;max-width:calc(100vw - 32px);background:#fff;color:#334155;border:1px solid #ded4f4;border-radius:14px;padding:16px;box-shadow:0 12px 36px #34265b26;line-height:1.6;font-size:14px;text-align:left;text-wrap:pretty;z-index:100}
 .qa-definition>strong{display:block;font-size:16px;color:#5b3ea0;margin-bottom:6px}.qa-definition p{margin:0}.qa-definition>div{margin-top:12px;padding:10px;border-radius:9px;background:#f6f2ff}.qa-definition>div>span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;color:#7653a6;margin-bottom:4px}.qa-definition svg{display:none}
 @media(prefers-reduced-motion:reduce){.qa-definition{animation:none!important}}
+.mock-evidence-authored{background:#e6f6fa;color:#17647b}
